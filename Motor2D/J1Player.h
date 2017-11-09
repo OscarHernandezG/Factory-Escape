@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "Animation.h"
+//#include "p2Point.h"
 
 struct SDL_Texture;
 struct SDL_Rect;
@@ -58,6 +59,12 @@ public:
 	bool Save(pugi::xml_node& data) const;
 
 	void LoadTexture();
+
+	void CheckPlayerState();
+
+	void LoadAnimations();
+
+	void FindSpawn();
 	
 	int x, y;
 
@@ -89,14 +96,16 @@ private:
 
 	int size=0;
 	
-	int* ax = nullptr;
-	int* ay = nullptr;
-	int* aw = nullptr;
-	int* ah = nullptr;
+	int* animation_x = nullptr;
+	int* animation_y = nullptr;
+	int* animation_w = nullptr;
+	int* animation_h = nullptr;
 
 	p2List<SDL_Rect> animations_list;
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
+
+	p2Point<int> spawn;
 };
 
 
