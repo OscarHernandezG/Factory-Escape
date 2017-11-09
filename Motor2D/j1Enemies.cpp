@@ -10,6 +10,7 @@
 #include "j1Player.h"
 #include "j1Scene.h"
 #include "j1Enemies.h"
+#include "Enemy_Down_S.h"
 
 
 
@@ -46,13 +47,13 @@ bool j1Enemies::PreUpdate()
 	{
 		if (queue[i].type != ENEMY_TYPES::NO_TYPE)
 		{
-			/*if (-queue[i].y < (App->render->camera.y/SCREEN_SIZE) + SPAWN_MARGIN / 2)
+			if (-queue[i].y < (App->render->camera.y) + SPAWN_MARGIN / 2)
 			{
 				SpawnEnemy(queue[i]);
 				queue[i].type = ENEMY_TYPES::NO_TYPE;
-				LOG("Spawning enemy at %d", queue[i].x * SCREEN_SIZE);
+				LOG("Spawning enemy at %d", queue[i].x);
 
-			}*/
+			}
 
 		}
 	}
@@ -66,62 +67,12 @@ bool j1Enemies::PreUpdate()
 bool j1Enemies::Update()
 {
 
-	/*for (uint i = 0; i < 10; ++i)
-		if (enemies[i] != nullptr) { enemies[i]->Draw(sprites); }
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+		if (enemies[i] != nullptr) enemies[i]->Move();
 
-	for (uint i = 0; i < 10; ++i)
-		if (enemies[i] != nullptr) { enemies[i]->Move(); }
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+		if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
 
-	
-
-
-	if (App->player->homing_shot) {
-
-		int target = 0;
-		if (need_target) {
-			for (uint i = 0; i < MAX_ENEMIES - 1; ++i) {
-
-				if (enemies[target] != nullptr && enemies[i + 1] != nullptr) {
-
-
-					int enemy1_x = (App->particles->homing_missile.position.x - enemies[target]->position.x);
-					int enemy1_y = (App->particles->homing_missile.position.y - enemies[target]->position.y);
-
-					int enemy2_x = (App->particles->homing_missile.position.x - enemies[i]->position.x);
-					int enemy2_y = (App->particles->homing_missile.position.y - enemies[i]->position.y);
-
-					int enemy_1 = pow(enemy1_x, 2) + pow(enemy1_y, 2);
-					int enemy_2 = pow(enemy2_x, 2) + pow(enemy2_y, 2);
-
-
-					if (enemy_1 <= enemy_2) {
-						target = i;
-					}
-
-				}
-			}
-		}
-
-		if (!need_target && enemies[target] != nullptr) {
-			speed_x_mult = (enemies[target]->position.x - App->particles->homing_missile.position.x);
-			speed_y_mult = (enemies[target]->position.y - App->particles->homing_missile.position.y);
-
-			a_mult = sqrt((pow(speed_x_mult, 2) + pow(speed_y_mult, 2)));
-
-			common_mult = (proj_speed / a_mult);
-
-			App->particles->movement_x = common_mult * speed_x_mult;
-			App->particles->movement_y = common_mult * speed_y_mult;
-
-			if (enemies[target] == nullptr) {
-				need_target = true;
-			}
-
-			//		App->player->homing_shot = false;
-		}
-	}
-
-	*/
 	return true;
 }
 
@@ -132,12 +83,12 @@ bool j1Enemies::PostUpdate()
 	{
 		if(enemies[i] != nullptr)
 		{
-			/*if (-enemies[i]->position.y *SCREEN_SIZE < (App->render->camera.y) - SPAWN_MARGIN * 16)
+			if (-enemies[i]->position.y/*screen_Size*/ < (App->render->camera.y) - SPAWN_MARGIN * 16)
 			{
-				LOG("DeSpawning enemy at %d", enemies[i]->position.x * SCREEN_SIZE);
+				LOG("DeSpawning enemy at %d", enemies[i]->position.x /* * screen_Size*/);
 				delete enemies[i];
 				enemies[i] = nullptr;
-			}*/
+			}
 		}
 	}
 
@@ -208,15 +159,12 @@ void j1Enemies::SpawnEnemy(const EnemyInfo& info)
 
 	if (i != MAX_ENEMIES)
 	{
-		/*switch (info.type)
+		switch (info.type)
 		{
-		case ENEMY_TYPES::BASICENEMY:
-			enemies[i] = new BasicEnemy(info.x, info.y);
+		case ENEMY_TYPES::ENEMY_DONW_S:
+			enemies[i] = new Enemy_Down_S(info.x, info.y);
 			break;
-		case ENEMY_TYPES::GREENSHIP:
-			enemies[i] = new GreenShip(info.x, info.y);
-			break;
-		}	*/		
+		}			
 	}
 }
 
