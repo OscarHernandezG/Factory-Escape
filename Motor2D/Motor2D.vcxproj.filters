@@ -37,6 +37,9 @@
     <ClCompile Include="J1Player.cpp">
       <Filter>Desenvolupament  ========\Player</Filter>
     </ClCompile>
+    <ClCompile Include="j1Enemies.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -96,6 +99,9 @@
     <ClInclude Include="Animation.h">
       <Filter>Desenvolupament  ========\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="j1Enemies.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -118,6 +124,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Player">
       <UniqueIdentifier>{dab9c1f1-ce12-4647-b0a7-0ff72a40c622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Enemies">
+      <UniqueIdentifier>{d8a94cae-916a-4d68-9513-3eadd0a740a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

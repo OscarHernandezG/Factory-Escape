@@ -1,52 +1,37 @@
-#include "Application.h"
-#include "ModuleInput.h"
-#include "ModuleRender.h"
-#include "ModuleEnemies.h"
-#include "ModuleParticles.h"
-#include "ModuleTextures.h"
-#include "Enemy_BasicEnemy.h"
-#include "Enemy_BasicEnemy2.h"
-#include "Enemy_Turret.h"
-#include "Enemy_GreenShip.h"
-#include "Enemy_PowerUpShip.h"
-#include "PowerUp.h"
-#include "Enemy_Bee.h"
-#include "Enemy_BrownTank_Base1.h"
-#include "Enemy_Boss.h"
-#include "Enemy_GreyTank_Base.h"
-#include "Enemy_Boat.h"
-#include "Enemy_BigBoat.h"
-#include "Enemy_Big_GreyTank.h"
-#include "Enemy_Big_BrownTank.h"
-#include "Enemy_Train.h"
-#include"Bomb.h"
-#include "Box.h"
-#include "DarkBox.h"
-#include "ModuleCollision.h"
-#include "ModulePlayer.h"
-#include "ModulePlayer2.h"
-#include "Missile.h"
+#include "p2Defs.h"
+#include "p2Log.h"
+#include "j1App.h"
+#include "j1Input.h"
+#include "j1Textures.h"
+#include "j1Audio.h"
+#include "j1Render.h"
+#include "j1Window.h"
+#include "j1Map.h"
+#include "j1Player.h"
+#include "j1Scene.h"
+#include "j1Enemies.h"
+
 
 
 #define SPAWN_MARGIN 50
 
-ModuleEnemies::ModuleEnemies()
+j1Enemies::j1Enemies()
 {
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
 		enemies[i] = nullptr;
 }
 
 // Destructor
-ModuleEnemies::~ModuleEnemies()
+j1Enemies::~j1Enemies()
 {
 }
 
-bool ModuleEnemies::Start()
+bool j1Enemies::Start()
 {
 	if (sprites == nullptr) {
 		LOG("No cargado");
 	}
-	sprites = App->textures->Load("assets/textures/enemieslvl2.png");
+	sprites = App->tex->Load("assets/textures/enemieslvl2.png");
 	if (sprites != nullptr) {
 		LOG("Cargado");
 	}
@@ -54,38 +39,38 @@ bool ModuleEnemies::Start()
 	return true;
 }
 
-update_status ModuleEnemies::PreUpdate()
+bool j1Enemies::PreUpdate()
 {
 	// check camera position to decide what to spawn
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (queue[i].type != ENEMY_TYPES::NO_TYPE)
 		{
-			if (-queue[i].y < (App->render->camera.y/SCREEN_SIZE) + SPAWN_MARGIN / 2)
+			/*if (-queue[i].y < (App->render->camera.y/SCREEN_SIZE) + SPAWN_MARGIN / 2)
 			{
 				SpawnEnemy(queue[i]);
 				queue[i].type = ENEMY_TYPES::NO_TYPE;
 				LOG("Spawning enemy at %d", queue[i].x * SCREEN_SIZE);
 
-			}
+			}*/
 
 		}
 	}
 
 
 
-	return UPDATE_CONTINUE;
+	return true;
 }
 
 // Called before render is available
-update_status ModuleEnemies::Update()
+bool j1Enemies::Update()
 {
 
-	for (uint i = 0; i < MAX_ENEMIES; ++i)
-		if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
+	/*for (uint i = 0; i < 10; ++i)
+		if (enemies[i] != nullptr) { enemies[i]->Draw(sprites); }
 
-	for (uint i = 0; i < MAX_ENEMIES; ++i)
-		if (enemies[i] != nullptr) enemies[i]->Move();
+	for (uint i = 0; i < 10; ++i)
+		if (enemies[i] != nullptr) { enemies[i]->Move(); }
 
 	
 
@@ -136,35 +121,35 @@ update_status ModuleEnemies::Update()
 		}
 	}
 
-
-	return UPDATE_CONTINUE;
+	*/
+	return true;
 }
 
-update_status ModuleEnemies::PostUpdate()
+bool j1Enemies::PostUpdate()
 {
 	// check camera position to decide what to spawn
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if(enemies[i] != nullptr)
 		{
-			if (-enemies[i]->position.y *SCREEN_SIZE < (App->render->camera.y) - SPAWN_MARGIN * 16)
+			/*if (-enemies[i]->position.y *SCREEN_SIZE < (App->render->camera.y) - SPAWN_MARGIN * 16)
 			{
 				LOG("DeSpawning enemy at %d", enemies[i]->position.x * SCREEN_SIZE);
 				delete enemies[i];
 				enemies[i] = nullptr;
-			}
+			}*/
 		}
 	}
 
-	return UPDATE_CONTINUE;
+	return true;
 }
 
 // Called before quitting
-bool ModuleEnemies::CleanUp()
+bool j1Enemies::CleanUp()
 {
 	LOG("Freeing all enemies");
 
-	App->textures->Unload(sprites);
+	App->tex->UnLoad(sprites);
 
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
 	{
@@ -179,7 +164,7 @@ bool ModuleEnemies::CleanUp()
 	return true;
 }
 
-bool ModuleEnemies::FreeEnemies()
+bool j1Enemies::FreeEnemies()
 {
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
@@ -195,7 +180,7 @@ bool ModuleEnemies::FreeEnemies()
 	return true;
 }
 
-bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, int path)
+bool j1Enemies::AddEnemy(ENEMY_TYPES type, int x, int y, int path)
 {
 	bool ret = false;
 
@@ -215,7 +200,7 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, int path)
 	return ret;
 }
 
-void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
+void j1Enemies::SpawnEnemy(const EnemyInfo& info)
 {
 	// find room for the new enemy
 	uint i = 0;
@@ -223,7 +208,7 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 
 	if (i != MAX_ENEMIES)
 	{
-		switch (info.type)
+		/*switch (info.type)
 		{
 		case ENEMY_TYPES::BASICENEMY:
 			enemies[i] = new BasicEnemy(info.x, info.y);
@@ -231,59 +216,11 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		case ENEMY_TYPES::GREENSHIP:
 			enemies[i] = new GreenShip(info.x, info.y);
 			break;
-		case ENEMY_TYPES::POWERUP_SHIP:
-			enemies[i] = new PowerUpShip(info.x, info.y);
-			break;
-		case ENEMY_TYPES::POWERUP:
-			enemies[i] = new PowerUp(info.x, info.y);
-			break;
-		case ENEMY_TYPES::BASICENEMY2:
-			enemies[i] = new BasicEnemy2(info.x, info.y, info.path);
-			break;
-		case ENEMY_TYPES::BROWN_TANK:
-			enemies[i] = new BrownTank_Base(info.x, info.y, info.path);
-			break;
-		case ENEMY_TYPES::BEE:
-			enemies[i] = new Bee(info.x, info.y);
-			break;
-		case ENEMY_TYPES::BOSS:
-			enemies[i] = new Boss(info.x, info.y);
-			break;
-		case ENEMY_TYPES::BOAT:
-			enemies[i] = new Boat(info.x, info.y);
-			break;
-		case ENEMY_TYPES::BIG_BOAT:
-			enemies[i] = new BigBoat(info.x, info.y);
-			break;
-		case ENEMY_TYPES::GREY_TANK:
-			enemies[i] = new GreyTank_Base(info.x, info.y, info.path);
-			break;
-		case ENEMY_TYPES::BIGGREYTANK:
-			enemies[i] = new Big_GreyTank(info.x, info.y, info.path);
-			break;
-		case ENEMY_TYPES::BIGBROWNTANK:
-			enemies[i] = new Big_BrownTank(info.x, info.y, info.path);
-			break;
-		case ENEMY_TYPES::BOX:
-			enemies[i] = new Box(info.x, info.y);
-			break;
-		case ENEMY_TYPES::DARKBOX:
-			enemies[i] = new DarkBox(info.x, info.y);
-			break;
-		case ENEMY_TYPES::WAGON:
-			enemies[i] = new Train(info.x, info.y);
-			break;
-		case ENEMY_TYPES::BOMB:
-			enemies[i] = new Bomb(info.x, info.y);
-			break;
-		case ENEMY_TYPES::MISSILE:
-			enemies[i] = new Missile(info.x, info.y);
-			break;
-		}			
+		}	*/		
 	}
 }
 
-void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
+/*void j1Enemies::OnCollision(Collider* c1, Collider* c2)
 {
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
@@ -371,3 +308,4 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 }
+*/

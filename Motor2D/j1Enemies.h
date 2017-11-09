@@ -1,8 +1,9 @@
 #ifndef __ModuleEnemies_H__
 #define __ModuleEnemies_H__
 
-#include "Module.h"
-#include "Enemy_BasicEnemy.h"
+#include "j1Module.h"
+#include "Animation.h"
+//#include "Enemy_BasicEnemy.h"
 
 #define MAX_ENEMIES 1000
 
@@ -40,20 +41,20 @@ struct EnemyInfo
 	int x, y, path;
 };
 
-class ModuleEnemies : public Module
+class j1Enemies : public j1Module
 {
 public:
 
-	ModuleEnemies();
-	~ModuleEnemies();
+	j1Enemies();
+	~j1Enemies();
 
 	bool Start();
-	update_status PreUpdate();
-	update_status Update();
-	update_status PostUpdate();
+	bool PreUpdate();
+	bool Update();
+	bool PostUpdate();
 	bool CleanUp();
 	bool FreeEnemies();
-	void OnCollision(Collider* c1, Collider* c2);
+//	void OnCollision(Collider* c1, Collider* c2);
 
 	bool AddEnemy(ENEMY_TYPES type, int x, int y, int path = 0);
 
