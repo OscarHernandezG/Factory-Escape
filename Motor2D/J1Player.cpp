@@ -434,3 +434,15 @@ void j1Player::LoadAnimations()
 
 }
 
+void j1Player::FindSpawn()
+{
+	p2List_item<MapLayer*>* layer = App->map->data.layers.end;
+	for (int i = 0; i < App->map->data.layers.start->data->size_data; i++)
+	{
+		if (layer->data->data[i] == 32)
+		{
+			spawn = App->map->GidToWorld(i);
+		}
+	}
+
+}
