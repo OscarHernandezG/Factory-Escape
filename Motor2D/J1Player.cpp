@@ -35,7 +35,7 @@ bool j1Player::Start()
 {
 	//Load player texture
 
-		texture = App->tex->Load("textures/robot_animation.png");
+	LoadTexture();
 
 	pugi::xml_document	animation_file;
 	pugi::xml_parse_result animations = animation_file.load_file("textures/animations.xml");
@@ -407,8 +407,8 @@ bool j1Player::CleanUp()
 
 
 // Load
-bool j1Player::Load(pugi::xml_node&  data) {
-
+bool j1Player::Load(pugi::xml_node&  data) 
+{
 	x = data.child("position").attribute("x").as_int();
 	y = data.child("position").attribute("y").as_int();
 	return true;
@@ -424,4 +424,11 @@ bool j1Player::Save(pugi::xml_node& data) const
 	cam.append_attribute("y") = y;
 
 	return true;
+}
+
+void j1Player::LoadTexture() 
+{
+	//Load player texture
+
+	texture = App->tex->Load("textures/robot_animation.png");
 }

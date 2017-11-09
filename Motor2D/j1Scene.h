@@ -46,7 +46,7 @@ public:
 private:
 
 
-	p2List<const char*> MapsList;
+	p2List<const char*>  MapsList;
 	p2List_item<const char*>* CurrentMap = nullptr;
 };
 

@@ -57,7 +57,7 @@ public:
 	//Save
 	bool Save(pugi::xml_node& data) const;
 
-	
+	void LoadTexture();
 	
 	int x, y;
 
