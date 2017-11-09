@@ -121,6 +121,8 @@ public:
 
 	ColisionType CheckColision(int gid);
 
+	iPoint GidToWorld(int Gid);
+
 private:
 
 	bool LoadMap();

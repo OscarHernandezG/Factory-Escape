@@ -35,6 +35,8 @@ bool j1Scene::Awake(pugi::xml_node& config)
 
 	CurrentMap = MapsList.start;
 
+
+
 	return ret;
 }
 
@@ -152,19 +154,14 @@ bool j1Scene::LoadScene(int map) {
 	App->map->CleanUp();
 	App->audio->FreeMusic();
 	App->tex->FreeTextures();
-//	App->player->CleanUp();
 	App->player->LoadTexture();
 
-	//if (map == 1) {
-	//	App->map->Load("Map1.tmx");
-	//	currmap = 1;
-	//}
-	//else {
-	//	App->map->Load("Map2.tmx");
-	//	currmap = 2;
-	//}
+	App->map->Load(maps[map-1]);
 
-	App->map->Load(MapsList.start->data);
+	App->player->FindSpawn();
+
+	currmap = map;
+
 	return true;
 }
 

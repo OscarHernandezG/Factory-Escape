@@ -411,7 +411,6 @@ ColisionType j1Map::CheckColision(int gid) {
 		colision = layer->data->data[gid];
 	
 			switch (colision) {
-
 			case 29:
 				ret = DEATH;
 				break;
@@ -423,4 +422,20 @@ ColisionType j1Map::CheckColision(int gid) {
 			}
 			
 		return ret;
+}
+
+iPoint j1Map::GidToWorld(int Gid)
+{
+	iPoint pos;
+	float x;
+	p2List_item<MapLayer*>* layer = this->data.layers.start;
+
+	x = (float)Gid / layer->data->width;
+	pos.y = x;
+	pos.x = (x - pos.y) * layer->data->width;
+
+	pos.x *= data.tilesets.start->data->tile_width;
+	pos.y *= data.tilesets.start->data->tile_height;
+
+	return pos;
 }

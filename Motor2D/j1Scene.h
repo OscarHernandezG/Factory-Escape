@@ -48,6 +48,8 @@ private:
 
 	p2List<const char*>  MapsList;
 	p2List_item<const char*>* CurrentMap = nullptr;
+
+	 char* maps[2]{ "Map1.tmx","Map2.tmx" };
 };
 
 #endif // __j1SCENE_H__
