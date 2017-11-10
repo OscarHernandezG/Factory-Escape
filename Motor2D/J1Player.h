@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "Animation.h"
+#include "j1Render.h"
 //#include "p2Point.h"
 
 struct SDL_Texture;

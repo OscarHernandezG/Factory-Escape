@@ -45,9 +45,9 @@ public:
 	int currmap = 1;
 private:
 
-
+	p2List<p2SString>  MapsList_String;
 	p2List<const char*>  MapsList;
-	p2List_item<const char*>* CurrentMap = nullptr;
+	p2List_item<p2SString>* CurrentMap = nullptr;
 
 	 char* maps[2]{ "Map1.tmx","Map2.tmx" };
 };

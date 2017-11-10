@@ -28,12 +28,14 @@ bool j1Scene::Awake(pugi::xml_node& config)
 
 	for (pugi::xml_node map_node = config.child("maps"); map_node != nullptr; map_node = map_node.next_sibling("maps")) {
 
-		const char* aux = map_node.attribute("map").as_string();
+		p2SString aux = map_node.attribute("map").as_string();
 
-		MapsList.add(aux);
+		MapsList_String.add(aux);
 	}
 
-	CurrentMap = MapsList.start;
+
+	CurrentMap = MapsList_String.start;
+
 
 
 

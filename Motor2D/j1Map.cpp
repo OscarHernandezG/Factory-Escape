@@ -120,7 +120,7 @@ bool j1Map::CleanUp()
 }
 
 // Load new map
-bool j1Map::Load(const char* file_name)
+bool j1Map::Load(p2SString file_name)
 {
 
 //	App->audio->PlayMusic(music_path);
@@ -128,7 +128,7 @@ bool j1Map::Load(const char* file_name)
 	App->audio->PlayMusic("audio/music/Urban-Jungle-2061_Looping.ogg");
 
 	bool ret = true;
-	p2SString tmp("%s%s", folder.GetString(), file_name);
+	p2SString tmp("%s%s", folder.GetString(), &file_name);
 
 	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
 
