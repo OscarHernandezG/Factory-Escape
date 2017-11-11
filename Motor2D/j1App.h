@@ -15,6 +15,7 @@ class j1Scene;
 class j1Map;
 class j1Player;
 class j1Enemies;
+class j1PathFinding;
 
 class j1App
 {
@@ -87,6 +88,7 @@ public:
 	j1Map*				map;
 	j1Player*			player;
 	j1Enemies*			enemies;
+	j1PathFinding*		pathfinding;
 
 private:
 
