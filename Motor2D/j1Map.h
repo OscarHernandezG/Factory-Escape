@@ -75,6 +75,16 @@ enum ColisionType
 
 	DEATH
 };
+
+enum Tile_Type
+{
+	OBSTACLES = 29,
+	WALL,
+	LEVEL_END,
+	PLAYER_SPAWN,
+	BAT_SPAWN,
+
+};
 // ----------------------------------------------------
 struct MapData
 {

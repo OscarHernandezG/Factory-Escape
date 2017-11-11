@@ -11,7 +11,7 @@
 enum ENEMY_TYPES
 {
 	NO_TYPE,
-	ENEMY_DONW_S,
+	BAT,
 };
 
 class Enemy;
@@ -37,11 +37,13 @@ public:
 	bool FreeEnemies();
 //	void OnCollision(Collider* c1, Collider* c2);
 
-	bool AddEnemy(ENEMY_TYPES type, int x, int y, int path = 0);
+	bool AddEnemy(ENEMY_TYPES type, int x, int y);
 
 private:
 
 	void SpawnEnemy(const EnemyInfo& info);
+	void FindEnemies();
+	p2Point<int> spawn;
 
 private:
 

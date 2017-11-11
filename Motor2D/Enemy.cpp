@@ -15,11 +15,6 @@ Enemy::~Enemy()
 
 }
 
-const Collider* Enemy::GetCollider() const
-{
-	return collider;
-}
-
 void Enemy::Draw(SDL_Texture* sprites)
 {
 
@@ -27,7 +22,3 @@ void Enemy::Draw(SDL_Texture* sprites)
 		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()));
 }
 
-void Enemy::OnCollision(Collider* c1, Collider* c2)
-{
-
-}

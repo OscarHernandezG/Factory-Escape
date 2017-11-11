@@ -43,9 +43,6 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Desenvolupament  ========\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy_Down_S.cpp">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="j1PerfTimer.cpp">
       <Filter>Desenvolupament  ========\Tools</Filter>
     </ClCompile>
@@ -54,6 +51,9 @@
     </ClCompile>
     <ClCompile Include="j1Pathfinding.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Bat.cpp">
+      <Filter>Desenvolupament  ========\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -120,9 +120,6 @@
     <ClInclude Include="Enemy.h">
       <Filter>Desenvolupament  ========\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy_Down_S.h">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="j1PerfTimer.h">
       <Filter>Desenvolupament  ========\Tools</Filter>
     </ClInclude>
@@ -131,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="j1Pathfinding.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Bat.h">
+      <Filter>Desenvolupament  ========\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

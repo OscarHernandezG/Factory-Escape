@@ -167,10 +167,70 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
+	//if origin or destination are not walkable, return -1
 	int ret = -1;
+	if (IsWalkable(origin) && IsWalkable(destination))
+	{
+		ret = 0;
+		// Create two lists: open, close.
+		PathList open, close;
 
-	// Nice try :)
+		// Add the origin tile to open
+		PathNode Origin(1, origin.DistanceTo(destination), origin, nullptr);
+		open.list.add(Origin);
 
+		// Iterate while we have tile in the open list
+		while (open.list.count() > 0) {
+
+			//  Move the lowest score cell from open list to the closed list
+
+			close.list.add(open.GetNodeLowestScore()->data);
+			open.list.del(open.GetNodeLowestScore());
+
+			++ret;
+
+			// If we just added the destination, we are done!
+			// Backtrack to create the final path
+			// Use the Pathnode::parent and Flip() the path when you are finish
+
+			if (close.list.end->data.pos == destination) {
+				last_path.Clear();
+				for (p2List_item<PathNode>* iterator = close.list.end; iterator->data.pos != origin; iterator = close.Find(iterator->data.parent->pos)) {
+
+					last_path.PushBack(iterator->data.pos);
+				}
+				last_path.PushBack(origin);
+				last_path.Flip();
+				break;
+			}
+
+			// Fill a list of all adjancent nodes
+
+			PathList Neighbours;
+			close.list.end->data.FindWalkableAdjacents(Neighbours);
+
+			// Iterate adjancent nodes:
+			for (p2List_item<PathNode>* iterator = Neighbours.list.start; iterator != nullptr; iterator = iterator->next) {
+				// ignore nodes in the closed list
+				if (close.Find(iterator->data.pos) != NULL)
+					continue;
+
+				iterator->data.CalculateF(destination);
+				// If it is NOT found, calculate its F and add it to the open list
+				p2List_item<PathNode>* old_node = open.Find(iterator->data.pos);
+				if (old_node != NULL) {
+					// If it is already in the open list, check if it is a better path (compare G)
+					if (old_node->data.g > iterator->data.g) {
+						// If it is a better path, Update the parent
+						old_node->data.g = iterator->data.g;
+						old_node->data.parent = iterator->data.parent;
+					}
+				}
+				else {
+					open.list.add(iterator->data);
+				}
+			}
+		}
+	}
 	return ret;
 }
-

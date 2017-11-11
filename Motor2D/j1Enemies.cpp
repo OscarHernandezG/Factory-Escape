@@ -10,7 +10,7 @@
 #include "j1Player.h"
 #include "j1Scene.h"
 #include "j1Enemies.h"
-#include "Enemy_Down_S.h"
+#include "Bat.h"
 
 
 
@@ -131,7 +131,7 @@ bool j1Enemies::FreeEnemies()
 	return true;
 }
 
-bool j1Enemies::AddEnemy(ENEMY_TYPES type, int x, int y, int path)
+bool j1Enemies::AddEnemy(ENEMY_TYPES type, int x, int y)
 {
 	bool ret = false;
 
@@ -142,7 +142,6 @@ bool j1Enemies::AddEnemy(ENEMY_TYPES type, int x, int y, int path)
 			queue[i].type = type;
 			queue[i].x = x;
 			queue[i].y = y;
-			queue[i].path = path;
 			ret = true;
 			break;
 		}
@@ -161,11 +160,25 @@ void j1Enemies::SpawnEnemy(const EnemyInfo& info)
 	{
 		switch (info.type)
 		{
-		case ENEMY_TYPES::ENEMY_DONW_S:
-			enemies[i] = new Enemy_Down_S(info.x, info.y);
+		case ENEMY_TYPES::BAT:
+			enemies[i] = new Bat(info.x, info.y);
 			break;
 		}			
 	}
+}
+
+void j1Enemies::FindEnemies()
+{
+	p2List_item<MapLayer*>* layer = App->map->data.layers.end;
+	for (int i = 0; i < layer->data->size_data; i++)
+	{
+		if (layer->data->data[i] == Tile_Type::BAT_SPAWN)
+		{
+			iPoint spawn = App->map->GidToWorld(i);
+			AddEnemy(ENEMY_TYPES::BAT, spawn.x,spawn.y);
+		}
+	}
+
 }
 
 /*void j1Enemies::OnCollision(Collider* c1, Collider* c2)

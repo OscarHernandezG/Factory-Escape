@@ -411,13 +411,13 @@ ColisionType j1Map::CheckColision(int gid) {
 		colision = layer->data->data[gid];
 	
 			switch (colision) {
-			case 29:
+			case Tile_Type::OBSTACLES:
 				ret = DEATH;
 				break;
-			case 30:
+			case Tile_Type::WALL:
 				ret = GROUND;
 				break;
-			case 31:
+			case Tile_Type::LEVEL_END:
 				ret = WIN;
 			}
 			
