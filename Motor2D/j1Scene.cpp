@@ -46,7 +46,6 @@ bool j1Scene::Awake(pugi::xml_node& config)
 bool j1Scene::Start()
 {
 	App->map->Load(CurrentMap->data);
-	currmap = 1;
 	return true;
 }
 
@@ -80,25 +79,12 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x -= 3;*/
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
-		
-		currmap = 1;
-		LoadScene(currmap);
-		App->player->y = 395;
-	
+		LoadScene(1);	
 	}
 	
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
+		LoadScene();
 
-
-		LoadScene(currmap);
-		App->player->y = 196;
-// 		App->player->Start();
-
-		/*
-
-		App->map->Load(CurrentMap->data);		
-
-		*/
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
@@ -158,11 +144,28 @@ bool j1Scene::LoadScene(int map) {
 	App->tex->FreeTextures();
 	App->player->LoadTexture();
 
-	App->map->Load(maps[map-1]);
+	if (map == -1) {
+
+		if (CurrentMap->next != nullptr)
+			CurrentMap = CurrentMap->next;
+		else
+			CurrentMap = MapsList_String.start;		
+	}
+	else {
+		CurrentMap = MapsList_String.start;
+		for (int i = 1; i < map; i++) {
+			if (CurrentMap->next != nullptr) 
+				CurrentMap = CurrentMap->next;
+		
+			else 
+				break;
+			}
+	
+	}
+	App->map->Load(CurrentMap->data.GetString());
 
 	App->player->FindSpawn();
-
-	currmap = map;
+	App->player->SpawnPlayer();
 
 	return true;
 }

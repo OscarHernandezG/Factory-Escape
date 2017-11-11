@@ -67,6 +67,8 @@ public:
 
 	void FindSpawn();
 	
+	void SpawnPlayer();
+
 	int x, y;
 
 private:

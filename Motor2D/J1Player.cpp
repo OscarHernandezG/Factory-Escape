@@ -36,16 +36,13 @@ bool j1Player::Start()
 	LoadTexture();
 
 	LoadAnimations();
-
-	FindSpawn();
-
 	CurrentAnim = &Idle;
 
+	FindSpawn();
+	SpawnPlayer();
+	
 	speed.x = 0;
 	speed.y = 0;
-
-	x = spawn.x;
-	y = spawn.y;
 
 	return true;
 }
@@ -104,8 +101,7 @@ bool j1Player::Update(float dt)
 	case PLAYER_WIN:
 		App->scene->LoadScene(2);
 
-		x = spawn.x;
-		y = spawn.y;
+		SpawnPlayer();
 		break;
 	case DEAD:
 		CurrentAnim = &Die;
@@ -347,8 +343,7 @@ void j1Player::CheckPlayerState()
 			death = false;
 			PlayerState = IDLE;
 
-			x = spawn.x;
-			y = spawn.y;
+			SpawnPlayer();
 		}
 	}
 }
@@ -445,4 +440,10 @@ void j1Player::FindSpawn()
 		}
 	}
 
+}
+
+void j1Player::SpawnPlayer() {
+
+	x = spawn.x;
+	y = spawn.y;
 }
