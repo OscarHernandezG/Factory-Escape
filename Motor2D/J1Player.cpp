@@ -56,7 +56,7 @@ bool j1Player::PreUpdate()
 // Called each loop iteration
 bool j1Player::Update(float dt)
 {
-	CheckPlayerState();
+	CheckPlayerState(dt);
 	
 	switch (PlayerState)
 	{
@@ -67,40 +67,39 @@ bool j1Player::Update(float dt)
 	case RUNNING_RIGHT:
 		if (CanJump)
 		CurrentAnim = &Run;
-		x+=2;
+		x+= 200 * dt;
 		flip = SDL_FLIP_NONE;
 		break;
 	case RUNNING_LEFT:
 		if (CanJump)
 		CurrentAnim = &Run;
-		x-=2;
+		x-= 200 * dt;
 		flip = SDL_FLIP_HORIZONTAL;
 		break;
 	case JUMPING_RIGHT:
 		CurrentAnim = &Jump;
 		flip = SDL_FLIP_NONE;
-		speed.y = -20;
+		speed.y = -800 * dt;
 		jump = true;
 		break;
 	case JUMPING_LEFT:
 		CurrentAnim = &Jump;
 		flip = SDL_FLIP_HORIZONTAL;
-		speed.y = -20;
+		speed.y = -800 * dt;
 		jump = true;
 		break;
 	case SHIFT_RIGHT:
 		CurrentAnim = &Slide;
 		flip = SDL_FLIP_NONE;
-		x += 6;
+		x += 600 * dt;
 		break;
 	case SHIFT_LEFT:
 		CurrentAnim = &Slide;
 		flip = SDL_FLIP_HORIZONTAL;
-		x -= 6;
+		x -= 600 * dt;
 		break;
 	case PLAYER_WIN:
-		App->scene->LoadScene(2);
-
+		App->scene->LoadScene();
 		SpawnPlayer();
 		break;
 	case DEAD:
@@ -170,25 +169,55 @@ void j1Player::LoadTexture()
 	texture = App->tex->Load("textures/robot_animation.png");
 }
 
-void j1Player::CheckPlayerState() 
+void j1Player::CheckPlayerState(float dt) 
 {
+
+
+
+	if (jump) {
+
+		speed.y += dt;
+		CanJump = false;
+		pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y);
+		ColisionType colision1 = App->map->CheckColision(pos);
+		ColisionType colision2 = App->map->CheckColision(pos + 1);
+
+		if (speed.y == 0 || (colision1 != NONE || colision2 != NONE)) {
+			jump = false;
+		}
+
+		if ((colision1 == DEATH || colision2 == DEATH))
+			PlayerState = DEAD;
+
+		y += speed.y;
+
+		if (PlayerState == RUNNING_LEFT) {
+			PlayerState == JUMPING_LEFT;
+		}
+		else if (PlayerState == RUNNING_RIGHT) {
+			PlayerState == JUMPING_RIGHT;
+		}
+	}
+
+
 
 	// "Gravity"
 
-	pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y + 118);
+	pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y + 120);
 
 	ColisionType colision1 = App->map->CheckColision(pos);
 	ColisionType colision2 = App->map->CheckColision(pos + 1);
 
 
 	if (colision1 != GROUND && colision2 != GROUND) {
-		y += 2;
+		y += 200 * dt;
 	}
 	if (colision1 == DEATH && colision2 == DEATH) {
 		PlayerState = DEAD;
 	}
 	else if (colision1 == GROUND || colision2 == GROUND) {
 		CanJump = true;
+		jump = false;
 		Jump.Reset();
 
 	}
@@ -213,9 +242,6 @@ void j1Player::CheckPlayerState()
 			else if (colision1 == DEATH && colision2 == DEATH) {
 				PlayerState = DEAD;
 			}
-
-
-
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
@@ -291,31 +317,6 @@ void j1Player::CheckPlayerState()
 				PlayerState = DEAD;
 		}
 
-		if (jump) {
-
-			speed.y++;
-			CanJump = false;
-			pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y);
-			ColisionType colision1 = App->map->CheckColision(pos);
-			ColisionType colision2 = App->map->CheckColision(pos + 1);
-			//ColisionType colision3 = App->map->CheckColision(pos + 2 * (App->map->data.layers.start->data->width));
-			if (speed.y == 0 || (colision1 != NONE || colision2 != NONE)) {
-				jump = false;
-			}
-
-			if ((colision1 == DEATH || colision2 == DEATH))
-				PlayerState = DEAD;
-
-			y += speed.y;
-
-			if (PlayerState == RUNNING_LEFT) {
-				PlayerState == JUMPING_LEFT;
-			}
-			else if (PlayerState == RUNNING_RIGHT) {
-				PlayerState == JUMPING_RIGHT;
-			}
-
-		}
 
 		if (slide) {
 			currentTime = SDL_GetTicks();

@@ -89,6 +89,7 @@ bool j1App::Awake()
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
 		save_game = load_game = app_config.child("save_game").child_value();
+		framerate_cap = app_config.attribute("framerate_cap").as_uint(0);
 	}
 
 	if(ret == true)
@@ -163,6 +164,14 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
+	dt = dttimer.ReadMs() / 1000;
+	dttimer.Start();
+
+	LOG("%f", dt);
+	frame_count++;
+	last_sec_frame_count++;
+
+	frame_time.Start();
 }
 
 // ---------------------------------------------
@@ -173,6 +182,39 @@ void j1App::FinishUpdate()
 
 	if(want_to_load == true)
 		LoadGameNow();
+
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		prev_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
+
+	float avg_fps = float(frame_count) / startup_time.ReadSec();
+	float seconds_since_startup = startup_time.ReadSec();
+	uint32 last_frame_ms = frame_time.Read();
+	uint32 frames_on_last_update = prev_last_sec_frame_count;
+
+	static char title[256];
+	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
+		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
+	App->win->SetTitle(title);
+
+
+	if (framerate_cap > 0) {
+		j1PerfTimer delay;
+		int delay_time = WaitToFrame(last_frame_ms);
+		delay.Start();
+
+		if (delay_time > 0)
+		{
+			int delay_time = WaitToFrame(last_frame_ms);
+			SDL_Delay(delay_time);
+			LOG("We waited for %i milliseconds and got back in %f", delay_time, delay.ReadMs());
+		}
+
+	}
+
 }
 
 // Call modules before each loop iteration
@@ -377,4 +419,9 @@ bool j1App::SavegameNow() const
 	data.reset();
 	want_to_save = false;
 	return ret;
+}
+
+int j1App::WaitToFrame(uint32 last_frame_ms)
+{
+	return ((float)(1000 / framerate_cap) - last_frame_ms);
 }

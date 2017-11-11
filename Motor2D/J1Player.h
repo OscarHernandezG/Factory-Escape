@@ -61,7 +61,7 @@ public:
 
 	void LoadTexture();
 
-	void CheckPlayerState();
+	void CheckPlayerState(float dt);
 
 	void LoadAnimations();
 
@@ -69,7 +69,7 @@ public:
 	
 	void SpawnPlayer();
 
-	int x, y;
+	float x, y;
 
 private:
 

@@ -1,14 +1,14 @@
 <!-- Config file for the game -->
 
 <config>
-  <app>
+  <app framerate_cap="00">
     <title>Factory Escape</title>
     <organization>UPC</organization>
     <save_game>save_game.xml</save_game>
   </app>
 	
   <renderer>
-    <vsync value="true"/>
+    <vsync value="false"/>
   </renderer>
 
   <window>
