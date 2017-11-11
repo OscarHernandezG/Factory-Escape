@@ -13,22 +13,6 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="36" name="MapaTileset" tilewidth="64" tileheight="64" spacing="1" margin="1" tilecount="35" columns="7">
-  <image source="MapaTileset.png" width="456" height="326"/>
- </tileset>
- <tileset firstgid="71" name="MapaTileset" tilewidth="64" tileheight="64" spacing="1" margin="1" tilecount="35" columns="7">
-  <image source="../../../GameDevelopment/png/MapaTileset.png" width="456" height="326"/>
-  <tile id="28">
-   <properties>
-    <property name="Death" type="bool" value="true"/>
-   </properties>
-  </tile>
-  <tile id="29">
-   <properties>
-    <property name="Wall" type="bool" value="true"/>
-   </properties>
-  </tile>
- </tileset>
  <layer name="Background" width="30" height="12">
   <properties>
    <property name="speed" type="float" value="0.5"/>
@@ -479,7 +463,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="48"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -846,7 +830,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="11"/>
-   <tile gid="48"/>
+   <tile gid="13"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1181,7 +1165,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="33"/>
    <tile gid="30"/>
    <tile gid="30"/>
    <tile gid="0"/>
@@ -1241,7 +1225,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="32"/>
+   <tile gid="0"/>
    <tile gid="30"/>
    <tile gid="30"/>
    <tile gid="0"/>
@@ -1315,7 +1299,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="31"/>
-   <tile gid="0"/>
+   <tile gid="32"/>
    <tile gid="0"/>
    <tile gid="30"/>
    <tile gid="0"/>
