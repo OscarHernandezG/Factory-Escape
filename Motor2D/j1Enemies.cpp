@@ -32,7 +32,7 @@ bool j1Enemies::Start()
 	if (sprites == nullptr) {
 		LOG("No cargado");
 	}
-	sprites = App->tex->Load("assets/textures/enemieslvl2.png");
+	sprites = App->tex->Load("textures/pinkbat.png");
 	if (sprites != nullptr) {
 		LOG("Cargado");
 	}
@@ -66,7 +66,7 @@ bool j1Enemies::PreUpdate()
 }
 
 // Called before render is available
-bool j1Enemies::Update()
+bool j1Enemies::Update(float dt)
 {
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)

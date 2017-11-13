@@ -18,7 +18,6 @@ private:
 	iPoint originalpos;
 	int size = 0;
 
-	void LoadTexture();
 	void LoadAnimation();
 
 	int* animation_x = nullptr;
@@ -29,14 +28,13 @@ private:
 	p2List<SDL_Rect> animations_list;
 
 public:
-
-	SDL_Texture* texture;
 	Bat(int x, int y);
-	int pos_X, pos_Y;
 
-	void OnCollision(Collider* c1, Collider* c2);
+
+//	void OnCollision(Collider* c1, Collider* c2);
 
 	void Move();
+	void Draw(SDL_Texture* texture);
 };
 
 #endif

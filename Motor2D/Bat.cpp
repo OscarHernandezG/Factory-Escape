@@ -9,27 +9,21 @@
 
 Bat::Bat(int x, int y) : Enemy(x, y)
 {
-	LoadTexture();
 	LoadAnimation();
 	
-	pos_X = x;
-	pos_Y = y;
 }
 
 void Bat::Move()
 {
 	CurrentAnim = &Idle;
 
-	App->render->Blit(texture, pos_X, pos_Y, &CurrentAnim->GetCurrentFrame(), 1/*, flip*/);
 
 }
 
-
-void Bat::OnCollision(Collider* c1, Collider* c2) {
-
+void Bat::Draw(SDL_Texture* texture) {
+	App->render->Blit(texture, position.x, position.y, &CurrentAnim->GetCurrentFrame(), 1);
 }
 
-void Bat::LoadTexture(){	texture = App->tex->Load("textures/bat_animation.png");		}
 
 void Bat::LoadAnimation() {
 
@@ -76,18 +70,18 @@ void Bat::LoadAnimation() {
 		Idle.PushBack({ animation_x[i],animation_y[i],animation_w[i],animation_h[i] });
 	}
 	Idle.loop = true;
-	Idle.speed = 0.1f;
+	Idle.speed = 1.5f;
 
 	for (int i = 4; i < 8; i++) {
 		Left.PushBack({ animation_x[i],animation_y[i],animation_w[i],animation_h[i] });
 	}
 	Left.loop = true;
-	Left.speed = 0.1f;
+	Left.speed = 1.5f;
 
 	for (int i = 8; i < 12; i++) {
 		Right.PushBack({ animation_x[i],animation_y[i],animation_w[i],animation_h[i] });
 	}
 	Right.loop = true;
-	Right.speed = 0.1f;
+	Right.speed = 1.5f;
 }
 
