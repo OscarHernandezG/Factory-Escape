@@ -3,6 +3,8 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Render.h"
+#include "j1Pathfinding.h"
+#include "J1Player.h"
 
 
 
@@ -10,18 +12,22 @@
 Bat::Bat(int x, int y) : Enemy(x, y)
 {
 	LoadAnimation();
-	
 }
 
 void Bat::Move()
 {
+
+	iPoint player_pos;
+	player_pos.x = App->player->x;
+	player_pos.y = App->player->y;
+	App->pathfinding->CreatePath(position, player_pos);
+
+	/*position.x--;*/
 	CurrentAnim = &Idle;
-
-
 }
 
 void Bat::Draw(SDL_Texture* texture) {
-	App->render->Blit(texture, position.x, position.y, &CurrentAnim->GetCurrentFrame(), 1);
+	App->render->Blit(texture, position.x + 20, position.y + 20, &CurrentAnim->GetCurrentFrame(), 1);
 }
 
 

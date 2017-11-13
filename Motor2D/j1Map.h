@@ -7,7 +7,34 @@
 #include "j1Module.h"
 
 // TODO 1: Create a struct for the map layer
- 
+struct Properties
+{
+	struct Property
+	{
+		p2SString name;
+		int value;
+	};
+
+	~Properties()
+	{
+		p2List_item<Property*>* item;
+		item = list.start;
+
+		while (item != NULL)
+		{
+			RELEASE(item->data);
+			item = item->next;
+		}
+
+		list.clear();
+	}
+
+	int Get(const char* name, int default_value = 0) const;
+
+	p2List<Property*>	list;
+};
+
+
 struct MapLayer {
 
 	const char* name = nullptr;
@@ -16,9 +43,15 @@ struct MapLayer {
 	uint size_data = 0;
 	int property = 0;
 	float speed = 1;
+	Properties	properties;
 
 	~MapLayer() {
 		RELEASE(data);
+	}
+
+	inline uint Get(int x, int y) const
+	{
+		return data[(y*width) + x];
 	}
 };
 
@@ -132,6 +165,10 @@ public:
 	ColisionType CheckColision(int gid);
 
 	iPoint TileToWorld(int Gid);
+
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+
+	TileSet* GetTilesetFromTileId(int id) const;
 
 private:
 

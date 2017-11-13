@@ -9,7 +9,9 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "J1Player.h"
-#include "J1Player.h"
+#include "j1Enemies.h"
+#include "j1Pathfinding.h"
+
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -46,6 +48,12 @@ bool j1Scene::Awake(pugi::xml_node& config)
 bool j1Scene::Start()
 {
 	App->map->Load(CurrentMap->data);
+
+	int w, h;
+	uchar* data = NULL;
+	if (App->map->CreateWalkabilityMap(w, h, &data))
+		App->pathfinding->SetMap(w, h, data);
+
 	return true;
 }
 
@@ -70,9 +78,9 @@ bool j1Scene::Update(float dt)
 		App->render->camera.y -= 3;
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y += 3;*/
+		App->render->camera.y += 3;
 
-	/*if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		App->render->camera.x += 3;
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
@@ -136,8 +144,9 @@ bool j1Scene::LoadScene(int map) {
 
 	App->map->CleanUp();
 	App->audio->FreeMusic();
-	App->tex->FreeTextures();
+	//App->tex->FreeTextures();
 	App->player->LoadTexture();
+	
 
 	if (map == -1) {
 
