@@ -2,6 +2,8 @@
 #include "Bat.h"
 #include "j1Textures.h"
 #include "j1Map.h"
+#include "j1Render.h"
+
 
 
 
@@ -10,11 +12,15 @@ Bat::Bat(int x, int y) : Enemy(x, y)
 	LoadTexture();
 	LoadAnimation();
 	
-
+	pos_X = x;
+	pos_Y = y;
 }
 
 void Bat::Move()
 {
+	CurrentAnim = &Idle;
+
+	App->render->Blit(texture, pos_X, pos_Y, &CurrentAnim->GetCurrentFrame(), 1/*, flip*/);
 
 }
 

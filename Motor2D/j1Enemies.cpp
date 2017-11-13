@@ -37,6 +37,8 @@ bool j1Enemies::Start()
 		LOG("Cargado");
 	}
 
+	FindEnemies();
+
 	return true;
 }
 
