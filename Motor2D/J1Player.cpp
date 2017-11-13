@@ -79,13 +79,13 @@ bool j1Player::Update(float dt)
 	case JUMPING_RIGHT:
 		CurrentAnim = &Jump;
 		flip = SDL_FLIP_NONE;
-		speed.y = -800 * dt;
+		speed.y = -jump_force;
 		jump = true;
 		break;
 	case JUMPING_LEFT:
 		CurrentAnim = &Jump;
 		flip = SDL_FLIP_HORIZONTAL;
-		speed.y = -800 * dt;
+		speed.y = -jump_force;
 		jump = true;
 		break;
 	case SHIFT_RIGHT:
@@ -176,7 +176,7 @@ void j1Player::CheckPlayerState(float dt)
 
 	if (jump) {
 
-		speed.y += dt;
+		speed.y += down_force * dt;
 		CanJump = false;
 		pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y);
 		ColisionType colision1 = App->map->CheckColision(pos);
@@ -189,7 +189,7 @@ void j1Player::CheckPlayerState(float dt)
 		if ((colision1 == DEATH || colision2 == DEATH))
 			PlayerState = DEAD;
 
-		y += speed.y;
+		y += speed.y  * dt;
 
 		if (PlayerState == RUNNING_LEFT) {
 			PlayerState == JUMPING_LEFT;
@@ -210,7 +210,7 @@ void j1Player::CheckPlayerState(float dt)
 
 
 	if (colision1 != GROUND && colision2 != GROUND) {
-		y += 200 * dt;
+		y += down_force * dt;
 	}
 	if (colision1 == DEATH && colision2 == DEATH) {
 		PlayerState = DEAD;
@@ -394,7 +394,7 @@ void j1Player::LoadAnimations()
 		Idle.PushBack({ animation_x[i],animation_y[i],animation_w[i],animation_h[i] });
 	}
 	Idle.loop = true;
-	Idle.speed = 0.1f;
+	Idle.speed = 1;
 
 	// Jump Animation
 
@@ -402,7 +402,7 @@ void j1Player::LoadAnimations()
 		Jump.PushBack({ animation_x[i],animation_y[i],animation_w[i],animation_h[i] });
 	}
 	Jump.loop = false;
-	Jump.speed = 0.2f;
+	Jump.speed = 2;
 
 	// Run Animation
 
@@ -410,7 +410,7 @@ void j1Player::LoadAnimations()
 		Run.PushBack({ animation_x[i],animation_y[i],animation_w[i],animation_h[i] });
 	}
 	Run.loop = true;
-	Run.speed = 0.2f;
+	Run.speed = 2;
 
 	// Slide Animation
 
@@ -418,7 +418,7 @@ void j1Player::LoadAnimations()
 		Slide.PushBack({ animation_x[i],animation_y[i],animation_w[i],animation_h[i] });
 	}
 	Slide.loop = false;
-	Slide.speed = 0.1f;
+	Slide.speed = 1;
 
 	//Die Animation
 
@@ -426,7 +426,7 @@ void j1Player::LoadAnimations()
 		Die.PushBack({ animation_x[i],animation_y[i],animation_w[i],animation_h[i] });
 	}
 	Die.loop = false;
-	Die.speed = 0.2f;
+	Die.speed = 2;
 
 }
 

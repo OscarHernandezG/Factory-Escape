@@ -96,11 +96,13 @@ public:
 
 	uint32				framerate_cap;
 
+	float				dt;
+
 private:
 
 	p2List<j1Module*>	modules;
 	uint				frames;
-	float				dt;
+	
 	int					argc;
 	char**				args;
 
