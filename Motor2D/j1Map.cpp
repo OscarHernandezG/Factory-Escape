@@ -72,6 +72,32 @@ iPoint j1Map::MapToWorld(int x, int y) const
 	return ret;
 }
 
+iPoint j1Map::WorldToMap(int x, int y) const
+{
+	iPoint ret(0, 0);
+
+	if (data.type == MAPTYPE_ORTHOGONAL)
+	{
+		ret.x = x / data.tile_width;
+		ret.y = y / data.tile_height;
+	}
+	else if (data.type == MAPTYPE_ISOMETRIC)
+	{
+
+		float half_width = data.tile_width * 0.5f;
+		float half_height = data.tile_height * 0.5f;
+		ret.x = int((x / half_width + y / half_height) / 2) - 1;
+		ret.y = int((y / half_height - (x / half_width)) / 2);
+	}
+	else
+	{
+		LOG("Unknown map type");
+		ret.x = x; ret.y = y;
+	}
+
+	return ret;
+}
+
 SDL_Rect TileSet::GetTileRect(int id) const
 {
 	int relative_id = id - firstgid;
@@ -348,7 +374,8 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
-	
+	LoadProperties(node, layer->properties);
+
 
 	const char* aux = node.child("properties").child("property").attribute("name").as_string();
 	
@@ -374,6 +401,31 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	}
 
 
+
+	return ret;
+}
+
+// Load a group of properties from a node and fill a list with it
+bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
+{
+	bool ret = false;
+
+	pugi::xml_node data = node.child("properties");
+
+	if (data != NULL)
+	{
+		pugi::xml_node prop;
+
+		for (prop = data.child("property"); prop; prop = prop.next_sibling("property"))
+		{
+			Properties::Property* p = new Properties::Property();
+
+			p->name = prop.attribute("name").as_string();
+			p->value = prop.attribute("value").as_int();
+
+			properties.list.add(p);
+		}
+	}
 
 	return ret;
 }
@@ -450,7 +502,7 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	{
 		MapLayer* layer = item->data;
 
-		if (layer->properties.Get("Navigation", 0) == 0)
+		if (layer->properties.Get("Background", 0) == 0)
 			continue;
 
 		uchar* map = new uchar[layer->width*layer->height];
