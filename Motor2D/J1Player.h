@@ -89,8 +89,8 @@ private:
 	bool death = false;
 	State PlayerState = IDLE;
 
-	int down_force = 1000;
-	int jump_force = 1500;
+	int down_force = 0;
+	int jump_force = 2000;
 
 
 	Animation Idle;

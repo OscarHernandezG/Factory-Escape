@@ -202,6 +202,7 @@ void j1Player::CheckPlayerState(float dt)
 			PlayerState = DEAD;
 
 		y += speed.y  * dt;
+		y += down_force * dt;
 
 		if (PlayerState == RUNNING_LEFT) {
 			PlayerState == JUMPING_LEFT;
@@ -222,7 +223,7 @@ void j1Player::CheckPlayerState(float dt)
 
 
 		if (colision1 != GROUND && colision2 != GROUND) {
-			y += down_force * dt;
+			y += down_force * (float)dt/9;
 		}
 		if (colision1 == DEATH && colision2 == DEATH) {
 			PlayerState = DEAD;
@@ -357,6 +358,7 @@ void j1Player::CheckPlayerState(float dt)
 			SpawnPlayer();
 		}
 	}
+	down_force = 1250;
 }
 
 void j1Player::LoadAnimations()
