@@ -424,7 +424,7 @@ ColisionType j1Map::CheckColision(int gid) {
 		return ret;
 }
 
-iPoint j1Map::GidToWorld(int Gid)
+iPoint j1Map::TileToWorld(int Gid)
 {
 	iPoint pos;
 	float x;

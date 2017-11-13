@@ -131,7 +131,7 @@ public:
 
 	ColisionType CheckColision(int gid);
 
-	iPoint GidToWorld(int Gid);
+	iPoint TileToWorld(int Gid);
 
 private:
 

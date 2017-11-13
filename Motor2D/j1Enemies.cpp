@@ -174,7 +174,7 @@ void j1Enemies::FindEnemies()
 	{
 		if (layer->data->data[i] == Tile_Type::BAT_SPAWN)
 		{
-			iPoint spawn = App->map->GidToWorld(i);
+			iPoint spawn = App->map->TileToWorld(i);
 			AddEnemy(ENEMY_TYPES::BAT, spawn.x,spawn.y);
 		}
 	}

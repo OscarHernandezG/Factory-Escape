@@ -79,6 +79,8 @@ bool j1Input::PreUpdate()
 			mouse_buttons[i] = KEY_IDLE;
 	}
 
+	scroll = 0;
+	
 	while(SDL_PollEvent(&event) != 0)
 	{
 		switch(event.type)
@@ -116,15 +118,18 @@ bool j1Input::PreUpdate()
 				mouse_buttons[event.button.button - 1] = KEY_UP;
 				//LOG("Mouse button %d up", event.button.button-1);
 			break;
-
+			case SDL_MOUSEWHEEL:
+				scroll = event.wheel.y;
+				break;
 			case SDL_MOUSEMOTION:
-				int scale = App->win->GetScale();
+				float scale = App->win->GetScale();
 				mouse_motion_x = event.motion.xrel / scale;
 				mouse_motion_y = event.motion.yrel / scale;
 				mouse_x = event.motion.x / scale;
 				mouse_y = event.motion.y / scale;
 				//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
 			break;
+
 		}
 	}
 
@@ -155,4 +160,9 @@ void j1Input::GetMouseMotion(int& x, int& y)
 {
 	x = mouse_motion_x;
 	y = mouse_motion_y;
+}
+
+int j1Input::GetScroll()
+{
+	return scroll;
 }

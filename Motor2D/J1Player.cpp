@@ -56,6 +56,18 @@ bool j1Player::PreUpdate()
 // Called each loop iteration
 bool j1Player::Update(float dt)
 {
+
+	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_REPEAT) {
+		App->win->scale += 0.1f * dt;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT) {
+		App->win->scale -= 0.1f * dt;
+	}
+
+	App->win->scale += App->input->GetScroll() * dt;
+
+
 	CheckPlayerState(dt);
 	
 	switch (PlayerState)
@@ -203,25 +215,23 @@ void j1Player::CheckPlayerState(float dt)
 
 	// "Gravity"
 
-	pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y + 120);
+		pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y + 118);
 
-	ColisionType colision1 = App->map->CheckColision(pos);
-	ColisionType colision2 = App->map->CheckColision(pos + 1);
+		ColisionType colision1 = App->map->CheckColision(pos);
+		ColisionType colision2 = App->map->CheckColision(pos + 1);
 
 
-	if (colision1 != GROUND && colision2 != GROUND) {
-		y += down_force * dt;
-	}
-	if (colision1 == DEATH && colision2 == DEATH) {
-		PlayerState = DEAD;
-	}
-	else if (colision1 == GROUND || colision2 == GROUND) {
-		CanJump = true;
-		jump = false;
-		Jump.Reset();
-
-	}
-
+		if (colision1 != GROUND && colision2 != GROUND) {
+			y += down_force * dt;
+		}
+		if (colision1 == DEATH && colision2 == DEATH) {
+			PlayerState = DEAD;
+		}
+		else if (colision1 == GROUND || colision2 == GROUND) {
+			CanJump = true;
+			jump = false;
+			Jump.Reset();
+		}
 	//
 
 	if (death == false) {
@@ -437,7 +447,7 @@ void j1Player::FindSpawn()
 	{
 		if (layer->data->data[i] == Tile_Type::PLAYER_SPAWN)
 		{
-			spawn = App->map->GidToWorld(i);
+			spawn = App->map->TileToWorld(i);
 		}
 	}
 
