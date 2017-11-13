@@ -1,6 +1,7 @@
 <!-- Config file for the game -->
 
 <config>
+  <app framerate_cap =" 60">
     <title>Factory Escape</title>
     <organization>UPC</organization>
     <save_game>save_game.xml</save_game>
