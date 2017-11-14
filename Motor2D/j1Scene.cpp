@@ -149,12 +149,13 @@ bool j1Scene::LoadScene(int map) {
 	App->audio->FreeMusic();
 	App->tex->FreeTextures();
 	App->player->LoadTexture();
+	App->enemies->LoadEnemyText();
 	
 
 	if (map == -1) {
 
 		if (CurrentMap->next != nullptr)
-			CurrentMap = CurrentMap->next;
+			 CurrentMap = CurrentMap->next;
 		else
 			CurrentMap = MapsList_String.start;		
 	}

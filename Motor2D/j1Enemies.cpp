@@ -32,16 +32,17 @@ bool j1Enemies::Start()
 	if (sprites == nullptr) {
 		LOG("No cargado");
 	}
-	sprites = App->tex->Load("textures/pinkbat.png");
+	LoadEnemyText();
 	if (sprites != nullptr) {
 		LOG("Cargado");
 	}
-
 	FindEnemies();
-
 	return true;
 }
 
+void j1Enemies::LoadEnemyText() {
+	sprites = App->tex->Load("textures/pinkbat.png");
+}
 bool j1Enemies::PreUpdate()
 {
 	// check camera position to decide what to spawn

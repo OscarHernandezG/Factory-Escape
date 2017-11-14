@@ -10,9 +10,11 @@
 	<scene>
 		<Map CurrentMap="1" />
 	</scene>
+	<pathfinding />
 	<player>
-		<position x="108" y="267" />
+		<position x="0" y="203.839478" />
 	</player>
+	<:anonymous />
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>
