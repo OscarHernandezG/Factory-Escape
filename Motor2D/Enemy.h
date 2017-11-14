@@ -24,7 +24,7 @@ public:
 
 
 
-	virtual void Move() {};
+	virtual void Move(float dt) {};
 	virtual void Draw(SDL_Texture* sprites);
 
 };
