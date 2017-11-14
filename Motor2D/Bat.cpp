@@ -17,17 +17,17 @@ Bat::Bat(int x, int y) : Enemy(x, y)
 void Bat::Move(float dt)
 {
 
-	iPoint player_pos;
-	player_pos.x = App->player->x;
-	player_pos.y = App->player->y;
-	App->pathfinding->CreatePath(position, player_pos);
+	iPoint player_pos =	App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y);
+	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
 
+	App->pathfinding->CreatePath(enemy_pos, player_pos);
+	 
 	/*position.x--;*/
 	CurrentAnim = &Idle;
 }
 
 void Bat::Draw(SDL_Texture* texture) {
-	App->render->Blit(texture, position.x + 20, position.y + 20, &CurrentAnim->GetCurrentFrame(), 1);
+	App->render->Blit(texture, position.x, position.y, &CurrentAnim->GetCurrentFrame(), 1);
 }
 
 

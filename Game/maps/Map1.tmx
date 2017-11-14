@@ -1116,7 +1116,7 @@
  </layer>
  <layer name="Navigation" width="30" height="12" opacity="0.45">
   <properties>
-   <property name="Navigation" type="bool" value="true"/>
+   <property name="Navigation" type="int" value="1"/>
   </properties>
   <data>
    <tile gid="34"/>

@@ -43,7 +43,7 @@ struct MapLayer {
 	uint size_data = 0;
 	int property = 0;
 	float speed = 1;
-	bool navigation = false;
+	bool Navigation = false;
 	Properties	properties;
 
 	~MapLayer() {
