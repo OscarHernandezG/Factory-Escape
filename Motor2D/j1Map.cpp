@@ -32,21 +32,19 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 void j1Map::Draw()
 {
-	if(map_loaded == false)
+	if (map_loaded == false)
 		return;
 
 	SDL_Rect* rect;
 	int x, y, h, w;
-	int layerss = 0;
 	for (p2List_item<TileSet*>* blit_tilesets = data.tilesets.start; blit_tilesets != nullptr; blit_tilesets = blit_tilesets->next) {
 		for (p2List_item<MapLayer*>* layer = this->data.layers.start; layer->next != nullptr; layer = layer->next) {
-			layerss++;
 			x = y = h = w = 0;
 
 			for (int id = 0; id < layer->data->size_data; id++) {
 				rect = &blit_tilesets->data->GetTileRect(layer->data->data[id]);
 
-				App->render->Blit(blit_tilesets->data->texture, x, y, rect,layer->data->speed);
+				App->render->Blit(blit_tilesets->data->texture, x, y, rect, layer->data->speed);
 
 				w++;
 				if (w == layer->data->width) {
@@ -58,7 +56,25 @@ void j1Map::Draw()
 				y = h * blit_tilesets->data->tile_height;
 			}
 		}
-	} 
+		if (debug_draw) {
+			p2List_item<MapLayer*>* layer = this->data.layers.end;
+			x = y = h = w = 0;
+
+			for (int id = 0; id < layer->data->size_data; id++) {
+				rect = &blit_tilesets->data->GetTileRect(layer->data->data[id]);
+
+
+				w++;
+				if (w == layer->data->width) {
+					w = 0;
+					h++;
+				}
+
+				x = w * blit_tilesets->data->tile_width;
+				y = h * blit_tilesets->data->tile_height;
+			}
+		}
+	}
 }
 
 

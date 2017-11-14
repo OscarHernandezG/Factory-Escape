@@ -4,6 +4,7 @@
 #include "p2Point.h"
 #include "Animation.h"
 
+
 struct SDL_Texture;
 struct Collider;
 

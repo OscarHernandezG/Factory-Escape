@@ -102,6 +102,9 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		App->LoadGame();
 	}
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
+		App->map->debug_draw = !App->map->debug_draw;
+	}
 
 		
 
@@ -144,7 +147,7 @@ bool j1Scene::LoadScene(int map) {
 
 	App->map->CleanUp();
 	App->audio->FreeMusic();
-	//App->tex->FreeTextures();
+	App->tex->FreeTextures();
 	App->player->LoadTexture();
 	
 

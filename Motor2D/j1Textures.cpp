@@ -58,7 +58,8 @@ bool j1Textures::CleanUp()
 	return true;
 }
 
-void j1Textures::FreeTextures() {
+void j1Textures::FreeTextures() 
+{
 	p2List_item<SDL_Texture*>* item;
 	for (item = textures.start; item != NULL; item = item->next)
 	{

@@ -122,7 +122,7 @@ bool j1Player::Update(float dt)
 		break;
 	}
 
-	App->render->Blit(texture, x, y, &CurrentAnim->GetCurrentFrame(),1, flip);
+	App->render->Blit(texture, x, y, &CurrentAnim->GetCurrentFrame(),1, flip,0,255);
 	PlayerState = IDLE;
 
 	return true;

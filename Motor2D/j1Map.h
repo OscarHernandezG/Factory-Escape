@@ -187,6 +187,8 @@ public:
 
 	const char* music_path;
 
+	bool debug_draw = false;
+
 private:
 
 	pugi::xml_document	map_file;
