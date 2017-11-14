@@ -38,7 +38,7 @@ void j1Map::Draw()
 	SDL_Rect* rect;
 	int x, y, h, w;
 	for (p2List_item<TileSet*>* blit_tilesets = data.tilesets.start; blit_tilesets != nullptr; blit_tilesets = blit_tilesets->next) {
-		for (p2List_item<MapLayer*>* layer = this->data.layers.start; layer->next != nullptr; layer = layer->next) {
+		for (p2List_item<MapLayer*>* layer = this->data.layers.start; layer->next->next != nullptr; layer = layer->next) {
 			x = y = h = w = 0;
 
 			for (int id = 0; id < layer->data->size_data; id++) {
@@ -63,6 +63,7 @@ void j1Map::Draw()
 			for (int id = 0; id < layer->data->size_data; id++) {
 				rect = &blit_tilesets->data->GetTileRect(layer->data->data[id]);
 
+				App->render->Blit(blit_tilesets->data->texture, x, y, rect, layer->data->speed,SDL_FLIP_NONE,0,100);
 
 				w++;
 				if (w == layer->data->width) {
@@ -390,14 +391,17 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
-	LoadProperties(node, layer->properties);
-
-
+	
 	const char* aux = node.child("properties").child("property").attribute("name").as_string();
 	
-	if (strcmp(aux,"speed") == 0)
+	if (strcmp(aux, "speed") == 0)
 		layer->speed = node.child("properties").child("property").attribute("value").as_float(1);
+
+	else if (strcmp(aux, "Navigation") == 0)
+		layer->navigation = node.child("properties").child("property").attribute("value").as_bool(false);
 	
+	LoadProperties(node, layer->properties);
+
 
 	for (pugi::xml_node iterator = node.child("data").child("tile"); iterator != nullptr; iterator = iterator.next_sibling())
 	{
@@ -518,7 +522,7 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	{
 		MapLayer* layer = item->data;
 
-		if (layer->properties.Get("Background", 0) == 0)
+		if (layer->properties.Get("Navigation", 0) == 0)
 			continue;
 
 		uchar* map = new uchar[layer->width*layer->height];
