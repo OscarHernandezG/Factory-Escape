@@ -33,7 +33,7 @@ public:
 
 //	void OnCollision(Collider* c1, Collider* c2);
 
-	void Move();
+	void Move(float dt);
 	void Draw(SDL_Texture* texture);
 };
 

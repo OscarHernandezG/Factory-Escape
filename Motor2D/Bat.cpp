@@ -14,7 +14,7 @@ Bat::Bat(int x, int y) : Enemy(x, y)
 	LoadAnimation();
 }
 
-void Bat::Move()
+void Bat::Move(float dt)
 {
 
 	iPoint player_pos;
