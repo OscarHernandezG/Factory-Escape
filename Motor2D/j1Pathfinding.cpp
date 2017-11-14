@@ -162,6 +162,7 @@ int PathNode::CalculateF(const iPoint& destination)
 	return g + h;
 }
 
+
 // ----------------------------------------------------------------------------------
 // Actual A* algorithm: return number of steps in the creation of the path or -1 ----
 // ----------------------------------------------------------------------------------
