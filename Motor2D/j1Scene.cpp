@@ -115,6 +115,8 @@ bool j1Scene::Update(float dt)
 		else
 			App->framerate_cap = 0;
 	}
+	if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN){}
+
 
 		
 

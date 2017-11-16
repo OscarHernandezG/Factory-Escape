@@ -2,6 +2,8 @@
 #define __ENEMY_DOWN_S_H__
 
 #include "Enemy.h"
+#include "p2Point.h"
+#include "p2DynArray.h"
 
 class Bat : public Enemy
 {
@@ -30,6 +32,7 @@ private:
 public:
 	Bat(int x, int y);
 
+	p2DynArray<iPoint>* path;
 
 //	void OnCollision(Collider* c1, Collider* c2);
 
