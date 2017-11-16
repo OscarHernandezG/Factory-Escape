@@ -21,6 +21,7 @@ void Bat::Move(float dt)
 	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
 
 	App->pathfinding->CreatePath(enemy_pos, player_pos);
+//	iPoApp->pathfinding->GetLastPath();
 	 
 	/*position.x--;*/
 	CurrentAnim = &Idle;

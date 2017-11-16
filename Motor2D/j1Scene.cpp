@@ -92,7 +92,6 @@ bool j1Scene::Update(float dt)
 	
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
 		LoadScene();
-
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
@@ -104,6 +103,17 @@ bool j1Scene::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 		App->map->debug_draw = !App->map->debug_draw;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
+		if (App->framerate_cap != 30)
+			App->framerate_cap = 30;
+		else
+			App->framerate_cap = 0;
 	}
 
 		

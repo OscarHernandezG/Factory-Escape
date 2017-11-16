@@ -206,7 +206,7 @@ bool j1Map::Load(p2SString file_name)
 		data.tilesets.add(set);
 	}
 
-	// TODO 4: Iterate all layers and load each of them
+	// Iterate all layers and load each of them
 	// Load layer info ----------------------------------------------
 
 	pugi::xml_node layers;
