@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "p2Point.h"
 #include "p2DynArray.h"
+#include "j1Timer.h"
 
 class Bat : public Enemy
 {
@@ -26,7 +27,7 @@ public:
 	p2DynArray<iPoint>* path;
 
 //	void OnCollision(Collider* c1, Collider* c2);
-
+	j1Timer pf;
 	void Move(float dt);
 	void Draw(SDL_Texture* texture);
 };

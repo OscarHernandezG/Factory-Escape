@@ -19,17 +19,20 @@ Bat::Bat(int x, int y) : Enemy(x, y)
 
 void Bat::Move(float dt)
 {
+	if (pf.ReadSec() > 0.3) {
+		iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y);
+		iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
 
-	iPoint player_pos =	App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y);
-	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
+		App->pathfinding->CreatePath(enemy_pos, player_pos);
+		path = App->pathfinding->GetLastPath();
+		path->Flip();
+		path->Pop(enemy_pos);
+		path->Pop(enemy_pos);
 
-	App->pathfinding->CreatePath(enemy_pos, player_pos);
-	path = App->pathfinding->GetLastPath();
+		position = App->map->MapToWorld(enemy_pos.x, enemy_pos.y);
+		pf.Start();
+	}
 
-	path->Pop(enemy_pos);
-
-	position = App->map->MapToWorld(enemy_pos.x, enemy_pos.y);
-	
 	 
 	/*position.x--;*/
 	CurrentAnim = &Right;

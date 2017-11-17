@@ -252,6 +252,14 @@ bool j1Map::Load(p2SString file_name)
 
 
 
+	// Load Gid propierties
+
+	pugi::xml_node gid;
+	for (gid = map_file.child("map").child("tileset").child("tile"); gid && ret; gid = gid.next_sibling("tile"))
+	{
+		LoadGidProperties(gid);
+	}
+
 	App->render->camera.x = 0;
 	map_loaded = ret;
 
@@ -397,8 +405,8 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	if (strcmp(aux, "speed") == 0)
 		layer->speed = node.child("properties").child("property").attribute("value").as_float(1);
 
-	else if (strcmp(aux, "Navigation") == 0)
-		layer->Navigation = node.child("properties").child("property").attribute("value").as_bool(false);
+	else if (strcmp(aux, "navigation") == 0)
+		layer->Navigation = node.child("properties").child("property").attribute("value").as_int(0);
 	
 	LoadProperties(node, layer->properties);
 
@@ -417,12 +425,22 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	for (pugi::xml_node iterator = node.child("data").child("tile"); iterator != nullptr; iterator = iterator.next_sibling())
 	{
 		layer->data[i] = iterator.attribute("gid").as_uint();
+
 			i++;
 	}
 
 
 
 	return ret;
+}
+
+bool j1Map::LoadGidProperties(pugi::xml_node& node)
+{
+	Properties gidprop;
+
+	LoadProperties(node, gidprop);
+
+	return true;
 }
 
 // Load a group of properties from a node and fill a list with it
@@ -512,6 +530,46 @@ iPoint j1Map::TileToWorld(int Gid)
 	return pos;
 }
 
+//bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
+//{
+//	bool ret = false;
+//	p2List_item<MapLayer*>* item;
+//	item = data.layers.start;
+//
+//	for (item = data.layers.start; item != NULL; item = item->next)
+//	{
+//		MapLayer* layer = item->data;
+//
+//		if (layer->properties.Get("Navigation", 0) == 0)
+//			continue;
+//
+//		uchar* map = new uchar[layer->width*layer->height];
+//		memset(map, 1, layer->width*layer->height);
+//
+//		for (int y = 0; y < data.height; ++y)
+//		{
+//			for (int x = 0; x < data.width; ++x)
+//			{
+//				int i = (y*layer->width) + x;
+//
+//				int tile_id = layer->Get(x, y);
+//				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
+//
+//				if (tileset != NULL)
+//				{
+//					map[i] = (tile_id - tileset->firstgid) > 0 ? 1 : 0;
+//					/*TileType* ts = tileset->GetTileType(tile_id);
+//					if(ts != NULL)
+//					{
+//					map[i] = ts->properties.Get("walkable", 1);
+//					}*/
+//				}
+//			}
+//		}
+//	}
+//}
+
+
 bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 {
 	bool ret = false;
@@ -522,33 +580,40 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	{
 		MapLayer* layer = item->data;
 
-		if (layer->properties.Get("Navigation", 0) == 0)
+		if (item->data->properties.Get("navigation", 0) == 0)
 			continue;
 
 		uchar* map = new uchar[layer->width*layer->height];
 		memset(map, 1, layer->width*layer->height);
-
-		for (int y = 0; y < data.height; ++y)
+		int k;
+		for (int y = 0; y < data.height; y++)
 		{
-			for (int x = 0; x < data.width; ++x)
+			for (int x = 0; x < data.width; x++)
 			{
 				int i = (y*layer->width) + x;
-
+				k = i;
 				int tile_id = layer->Get(x, y);
-				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
+			//	TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
 
-				if (tileset != NULL)
+			//	if (tileset != NULL)
 				{
-					map[i] = (tile_id - tileset->firstgid) > 0 ? 1 : 0;
-					/*TileType* ts = tileset->GetTileType(tile_id);
-					if(ts != NULL)
-					{
-					map[i] = ts->properties.Get("walkable", 1);
-					}*/
+					//map[i] = (tile_id - tileset->firstgid) > 0 ? 1 : 0;
+					if (tile_id == 34)
+					{	map[i] = 1;
+					LOG("1");
 				}
+					else
+						map[i] = 0;
+
+				//	map[i] = item->data->properties.Get("navigation", 0);
+
+				}
+
 			}
 		}
-
+		for (int j = 0; j < k; j++) {
+			LOG("%i", map[j]);
+		}
 		*buffer = map;
 		width = data.width;
 		height = data.height;
