@@ -1,18 +1,16 @@
-#ifndef __BAT_H__
-#define __BAT_H__
+#ifndef __BLOP_H__
+#define __BLOP_H__
 
 #include "Enemy.h"
 #include "p2Point.h"
 #include "p2DynArray.h"
 
-class Bat : public Enemy
+class Blop : public Enemy
 {
 private:
 
-
 	Animation Idle;
-	Animation Right;
-	Animation Left;
+	Animation Walk;
 	Animation* CurrentAnim = nullptr;
 
 	//SDL_RendererFlip flip = SDL_FLIP_NONE;
@@ -20,12 +18,13 @@ private:
 	iPoint originalpos;
 
 	void LoadAnimation();
+
 public:
-	Bat(int x, int y);
+	Blop(int x, int y);
 
 	p2DynArray<iPoint>* path;
 
-//	void OnCollision(Collider* c1, Collider* c2);
+	//	void OnCollision(Collider* c1, Collider* c2);
 
 	void Move(float dt);
 	void Draw(SDL_Texture* texture);

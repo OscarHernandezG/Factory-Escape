@@ -113,6 +113,8 @@ enum Tile_Type
 	LEVEL_END,
 	PLAYER_SPAWN,
 	BAT_SPAWN,
+	PATHFINDING,
+	BLOP_SPAWN,
 
 };
 // ----------------------------------------------------

@@ -5,13 +5,14 @@
 #include "Animation.h"
 //#include "Enemy_BasicEnemy.h"
 
-#define MAX_ENEMIES 1000
+#define MAX_ENEMIES 20
 
 
 enum ENEMY_TYPES
 {
 	NO_TYPE,
 	BAT,
+	BLOP,
 };
 
 class Enemy;
@@ -36,10 +37,19 @@ public:
 	bool CleanUp();
 	bool FreeEnemies();
 	void LoadEnemyText();
+	void LoadEnemyAnim();
 //	void OnCollision(Collider* c1, Collider* c2);
 
 	bool AddEnemy(ENEMY_TYPES type, int x, int y);
 
+	//Animations cords
+	int size = 0;
+	int* animation_x = nullptr;
+	int* animation_y = nullptr;
+	int* animation_w = nullptr;
+	int* animation_h = nullptr;
+
+	p2List<SDL_Rect> animations_list;
 private:
 
 	void SpawnEnemy(const EnemyInfo& info);

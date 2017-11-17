@@ -76,6 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Blop.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Bat.cpp" />
     <ClCompile Include="j1Main.cpp" />
@@ -97,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Blop.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Bat.h" />
     <ClInclude Include="j1Map.h" />

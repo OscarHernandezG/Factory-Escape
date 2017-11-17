@@ -1,5 +1,5 @@
 #include "j1App.h"
-#include "Bat.h"
+#include "Blop.h"
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Render.h"
@@ -10,17 +10,18 @@
 
 
 
-Bat::Bat(int x, int y) : Enemy(x, y)
+
+Blop::Blop(int x, int y) : Enemy(x, y)
 {
 	position.x = x;
 	position.y = y;
 	LoadAnimation();
 }
 
-void Bat::Move(float dt)
+void Blop::Move(float dt)
 {
 
-	iPoint player_pos =	App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y);
+	iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y);
 	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
 
 	App->pathfinding->CreatePath(enemy_pos, player_pos);
@@ -29,35 +30,29 @@ void Bat::Move(float dt)
 	path->Pop(enemy_pos);
 
 	position = App->map->MapToWorld(enemy_pos.x, enemy_pos.y);
-	
-	 
+
+
 	/*position.x--;*/
-	CurrentAnim = &Right;
+	CurrentAnim = &Idle;
 }
 
-void Bat::Draw(SDL_Texture* texture) {
+void Blop::Draw(SDL_Texture* texture) {
 	App->render->Blit(texture, position.x, position.y, &CurrentAnim->GetCurrentFrame(), 1);
 }
 
 
-void Bat::LoadAnimation() {
+void Blop::LoadAnimation() {
 
-	for (int i = 14; i < 18; i++) {
+	for (int i = 8; i < 14; i++) {
 		Idle.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });
 	}
 	Idle.loop = true;
 	Idle.speed = 1.5f;
 
-	for (int i = 18; i < 22; i++) {
-		Left.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });
+	for (int i = 0; i < 8; i++) {
+		Walk.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });
 	}
-	Left.loop = true;
-	Left.speed = 1.5f;
-
-	for (int i = 22; i < 26; i++) {
-		Right.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });
-	}
-	Right.loop = true;
-	Right.speed = 1.5f;
+	Walk.loop = true;
+	Walk.speed = 1.5f;
 }
 
