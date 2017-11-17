@@ -129,7 +129,7 @@ bool j1Scene::Update(float dt)
 		if (App->render->camera.x < 0)
 			App->render->camera.x += 2;
 	}
-
+	
 
 	App->map->Draw();
 

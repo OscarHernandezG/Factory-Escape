@@ -66,6 +66,8 @@ bool j1Player::Update(float dt)
 	}
 
 	App->win->scale += App->input->GetScroll() * dt;
+	App->render->camera.x -= App->input->GetScroll() / dt ;
+	App->render->camera.y -= App->input->GetScroll() / dt;
 
 
 	CheckPlayerState(dt);

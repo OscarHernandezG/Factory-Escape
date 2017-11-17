@@ -10,7 +10,7 @@ class Bat : public Enemy
 {
 private:
 
-
+	int x, y;
 	Animation Idle;
 	Animation Right;
 	Animation Left;

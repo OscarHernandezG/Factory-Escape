@@ -113,9 +113,9 @@ enum Tile_Type
 	LEVEL_END,
 	PLAYER_SPAWN,
 	BAT_SPAWN,
-	PATHFINDING,
+	PATHFINDING_BAT,
 	BLOP_SPAWN,
-
+	PATHFINDING_BLOP,
 };
 // ----------------------------------------------------
 struct MapData

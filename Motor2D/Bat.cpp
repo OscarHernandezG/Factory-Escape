@@ -15,10 +15,12 @@ Bat::Bat(int x, int y) : Enemy(x, y)
 	position.x = x;
 	position.y = y;
 	LoadAnimation();
+	CurrentAnim = &Idle;
 }
 
 void Bat::Move(float dt)
 {
+	x = position.x;
 	if (pf.ReadSec() > 0.3) {
 		iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y);
 		iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
@@ -31,11 +33,15 @@ void Bat::Move(float dt)
 
 		position = App->map->MapToWorld(enemy_pos.x, enemy_pos.y);
 		pf.Start();
-	}
 
-	 
-	/*position.x--;*/
-	CurrentAnim = &Right;
+
+		if (x == position.x)
+			CurrentAnim = &Idle;
+		else if (x >= position.x)
+			CurrentAnim = &Left;
+		else if (x <= position.x)
+			CurrentAnim = &Right;
+	}
 }
 
 void Bat::Draw(SDL_Texture* texture) {
@@ -55,7 +61,7 @@ void Bat::LoadAnimation() {
 		Left.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });
 	}
 	Left.loop = true;
-	Left.speed = 1.5f;
+	Left.speed = 0.5f;
 
 	for (int i = 22; i < 26; i++) {
 		Right.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });

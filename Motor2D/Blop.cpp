@@ -16,28 +16,41 @@ Blop::Blop(int x, int y) : Enemy(x, y)
 	position.x = x;
 	position.y = y;
 	LoadAnimation();
+	CurrentAnim = &Idle;
 }
 
 void Blop::Move(float dt)
 {
 
-	iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y);
-	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
+	x = position.x;
+	if (pf.ReadSec() > 0.3) {
+		iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y + Tile_h);
+		iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
 
-	App->pathfinding->CreatePath(enemy_pos, player_pos);
-	path = App->pathfinding->GetLastPath();
+		App->pathfinding->CreatePath(enemy_pos, player_pos);
+		path = App->pathfinding->GetLastPath();
+		path->Flip();
+		path->Pop(enemy_pos);
+		path->Pop(enemy_pos);
 
-	path->Pop(enemy_pos);
+		position = App->map->MapToWorld(enemy_pos.x, enemy_pos.y);
+		pf.Start();
 
-	position = App->map->MapToWorld(enemy_pos.x, enemy_pos.y);
 
-
-	/*position.x--;*/
-	CurrentAnim = &Idle;
+		flip = SDL_FLIP_NONE;
+		if (x == position.x)
+			CurrentAnim = &Idle;
+		else if (x >= position.x)
+			CurrentAnim = &Walk;
+		else if (x <= position.x) {
+			CurrentAnim = &Walk;
+			flip = SDL_FLIP_HORIZONTAL;
+		}
+	}
 }
 
 void Blop::Draw(SDL_Texture* texture) {
-	App->render->Blit(texture, position.x, position.y, &CurrentAnim->GetCurrentFrame(), 1);
+	App->render->Blit(texture, position.x, position.y, &CurrentAnim->GetCurrentFrame(), 1, flip);
 }
 
 
