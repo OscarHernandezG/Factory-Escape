@@ -22,19 +22,36 @@ Blop::Blop(int x, int y) : Enemy(x, y)
 void Blop::Move(float dt)
 {
 	x = position.x;
-	if (pf.ReadSec() > 0.3) {
-		iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y + Tile_h);
-		iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
+	iPoint player_pos;
+	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
+	if (enemy_pos == PosTogo) {
+		player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y);
 
-		App->pathfinding->CreatePath(enemy_pos, player_pos);
+		App->pathfinding->CreatePath(enemy_pos, player_pos, BLOP);
 		path = App->pathfinding->GetLastPath();
 		path->Flip();
-		path->Pop(enemy_pos);
-		path->Pop(enemy_pos);
+		path->Pop(PosTogo);
+		path->Pop(PosTogo);
 
 		position = App->map->MapToWorld(enemy_pos.x, enemy_pos.y);
 		pf.Start();
+		if (PosTogo.x > 0 && PosTogo.y > 0) {
+			if (enemy_pos.x > PosTogo.x) {
+				fpos.x -= 200 * dt;
+			}
+			else if (enemy_pos.x < PosTogo.x) {
+				fpos.x += 200 * dt;
+			}
+			if (enemy_pos.y < PosTogo.y) {
+				fpos.y += 600 * dt;
+			}
+		}
+		//else if (enemy_pos.y > PosTogo.y) {
+		//	fpos.y -= 100 * dt;
+		//}
 
+		position.x = fpos.x;
+		position.y = fpos.y;
 
 		flip = SDL_FLIP_NONE;
 		if (x == position.x)
@@ -48,6 +65,56 @@ void Blop::Move(float dt)
 
 	}
 }
+
+/*void Blop::Move(float dt)
+{
+	x = position.x;
+	iPoint player_pos;
+	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
+	if (enemy_pos == PosTogo) {
+		player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y);
+
+
+		App->pathfinding->CreatePath(enemy_pos, player_pos, BLOP);
+		path = App->pathfinding->GetLastPath();
+		path->Flip();
+		path->Pop(PosTogo);
+		path->Pop(PosTogo);
+
+		//position = App->map->MapToWorld(enemy_pos.x, enemy_pos.y);
+
+		pf.Start();
+	}
+
+	if (enemy_pos.x > PosTogo.x) {
+		fpos.x -= 100 * dt;
+	}
+	else if (enemy_pos.x < PosTogo.x) {
+		fpos.x += 100 * dt;
+	}
+	if (enemy_pos.y < PosTogo.y) {
+		fpos.y += 100 * dt;
+	}
+	//else if (enemy_pos.y > PosTogo.y) {
+	//	fpos.y -= 100 * dt;
+	//}
+
+	position.x = fpos.x;
+	position.y = fpos.y;
+
+
+
+	flip = SDL_FLIP_NONE;
+	if (x == position.x)
+		CurrentAnim = &Idle;
+	else if (x >= position.x)
+		CurrentAnim = &Walk;
+	else if (x <= position.x) {
+		CurrentAnim = &Walk;
+		flip = SDL_FLIP_HORIZONTAL;
+	}
+
+}*/
 
 void Blop::Draw(SDL_Texture* texture) {
 	App->render->Blit(texture, position.x, position.y, &CurrentAnim->GetCurrentFrame(), 1, flip);

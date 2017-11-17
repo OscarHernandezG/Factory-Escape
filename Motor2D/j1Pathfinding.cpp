@@ -44,10 +44,23 @@ bool j1PathFinding::CheckBoundaries(const iPoint& pos) const
 }
 
 // Utility: returns true is the tile is walkable
-bool j1PathFinding::IsWalkable(const iPoint& pos) const
+bool j1PathFinding::IsWalkable(const iPoint& pos, ENEMY_TYPES type) const
 {
 	uchar t = GetTileAt(pos);
-	return t != INVALID_WALK_CODE && t > 0;
+	switch (type)
+	{
+	case BAT:		
+		return t != INVALID_WALK_CODE && t > 0;
+		break;
+	case BLOP:
+		return t != INVALID_WALK_CODE && t > 1;
+		break;
+	default:
+		return false;
+		break;
+	}
+
+
 }
 
 // Utility: return the walkability value of a tile
@@ -116,29 +129,29 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), 
 // PathNode -------------------------------------------------------------------------
 // Fills a list (PathList) of all valid adjacent pathnodes
 // ----------------------------------------------------------------------------------
-uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
+uint PathNode::FindWalkableAdjacents(PathList& list_to_fill, ENEMY_TYPES type) const
 {
 	iPoint cell;
 	uint before = list_to_fill.list.count();
 
 	// north
 	cell.create(pos.x, pos.y + 1);
-	if(App->pathfinding->IsWalkable(cell))
+	if(App->pathfinding->IsWalkable(cell, type))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
 	// south
 	cell.create(pos.x, pos.y - 1);
-	if(App->pathfinding->IsWalkable(cell))
+	if(App->pathfinding->IsWalkable(cell, type))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
 	// east
 	cell.create(pos.x + 1, pos.y);
-	if(App->pathfinding->IsWalkable(cell))
+	if(App->pathfinding->IsWalkable(cell, type))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
 	// west
 	cell.create(pos.x - 1, pos.y);
-	if(App->pathfinding->IsWalkable(cell))
+	if(App->pathfinding->IsWalkable(cell, type))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
 	return list_to_fill.list.count();
@@ -167,11 +180,11 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 // Actual A* algorithm: return number of steps in the creation of the path or -1 ----
 // ----------------------------------------------------------------------------------
-int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
+int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, ENEMY_TYPES type)
 {
 	//if origin or destination are not walkable, return -1
 	int ret = -1;
-	if (IsWalkable(origin) && IsWalkable(destination))
+	if (IsWalkable(origin, type) && IsWalkable(destination, type))
 	{
 		ret = 0;
 		// Create two lists: open, close.
@@ -209,7 +222,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			// Fill a list of all adjancent nodes
 
 			PathList Neighbours;
-			close.list.end->data.FindWalkableAdjacents(Neighbours);
+			close.list.end->data.FindWalkableAdjacents(Neighbours, type);
 
 			// Iterate adjancent nodes:
 			for (p2List_item<PathNode>* iterator = Neighbours.list.start; iterator != nullptr; iterator = iterator->next) {

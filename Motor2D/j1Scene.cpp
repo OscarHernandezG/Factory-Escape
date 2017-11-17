@@ -38,9 +38,6 @@ bool j1Scene::Awake(pugi::xml_node& config)
 
 	CurrentMap = MapsList_String.start;
 
-
-
-
 	return ret;
 }
 

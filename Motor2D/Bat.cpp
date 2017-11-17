@@ -27,7 +27,7 @@ void Bat::Move(float dt)
 		player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y);
 		
 
-		App->pathfinding->CreatePath(enemy_pos, player_pos);
+		App->pathfinding->CreatePath(enemy_pos, player_pos, BAT);
 		path = App->pathfinding->GetLastPath();
 		path->Flip();
 		path->Pop(PosTogo);
