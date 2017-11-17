@@ -13,15 +13,14 @@
 
 Blop::Blop(int x, int y) : Enemy(x, y)
 {
-	position.x = x;
-	position.y = y;
+	position.x = fpos.x = x;
+	position.y = fpos.y = y;
 	LoadAnimation();
 	CurrentAnim = &Idle;
 }
 
 void Blop::Move(float dt)
 {
-
 	x = position.x;
 	if (pf.ReadSec() > 0.3) {
 		iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y + Tile_h);
@@ -46,6 +45,7 @@ void Blop::Move(float dt)
 			CurrentAnim = &Walk;
 			flip = SDL_FLIP_HORIZONTAL;
 		}
+
 	}
 }
 

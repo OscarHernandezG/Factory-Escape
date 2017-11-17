@@ -10,7 +10,7 @@ class Bat : public Enemy
 {
 private:
 
-	int x, y;
+	int x;
 	Animation Idle;
 	Animation Right;
 	Animation Left;
@@ -18,7 +18,7 @@ private:
 
 	//SDL_RendererFlip flip = SDL_FLIP_NONE;
 
-	iPoint originalpos;
+	iPoint PosTogo;
 
 	void LoadAnimation();
 public:

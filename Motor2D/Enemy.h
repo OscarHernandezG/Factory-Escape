@@ -15,6 +15,7 @@ protected:
 	
 
 public:
+	fPoint fpos;
 	iPoint position;
 	SDL_Texture* textureGhost;
 	uint hitpoints = 2;
