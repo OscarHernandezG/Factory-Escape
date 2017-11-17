@@ -12,30 +12,54 @@
 
 Bat::Bat(int x, int y) : Enemy(x, y)
 {
-	position.x = x;
-	position.y = y;
+	position.x = fpos.x = x;
+	position.y = fpos.y = y;
 	LoadAnimation();
+
 }
 
 void Bat::Move(float dt)
-{
-	if (pf.ReadSec() > 0.3) {
-		iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y);
-		iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
+{/*
+	iPoint player_pos;
+	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
+	if (enemy_pos == PosTogo) {
+		player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y);
+		
 
 		App->pathfinding->CreatePath(enemy_pos, player_pos);
 		path = App->pathfinding->GetLastPath();
 		path->Flip();
-		path->Pop(enemy_pos);
-		path->Pop(enemy_pos);
+		path->Pop(PosTogo);
+		path->Pop(PosTogo);
+		
 
-		position = App->map->MapToWorld(enemy_pos.x, enemy_pos.y);
+		//position = App->map->MapToWorld(enemy_pos.x, enemy_pos.y);
+		
+		
 		pf.Start();
 	}
 
-	 
+	{
+
+		if (enemy_pos.x > PosTogo.x) {
+			fpos.x -= 100 * dt;
+		}
+		else if (enemy_pos.x < PosTogo.x) {
+			fpos.x += 100 * dt;
+		}
+		if (enemy_pos.y < PosTogo.y) {
+			fpos.y += 100 * dt;
+		}
+		else if (enemy_pos.y > PosTogo.y) {
+			fpos.y -= 100 * dt;
+		}
+
+		position.x = fpos.x;
+		position.y = fpos.y;
+
+	}*/
 	/*position.x--;*/
-	CurrentAnim = &Right;
+	CurrentAnim = &Left;
 }
 
 void Bat::Draw(SDL_Texture* texture) {

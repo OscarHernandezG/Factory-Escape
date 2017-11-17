@@ -18,7 +18,7 @@ private:
 
 	//SDL_RendererFlip flip = SDL_FLIP_NONE;
 
-	iPoint originalpos;
+	iPoint PosTogo;
 
 	void LoadAnimation();
 public:
