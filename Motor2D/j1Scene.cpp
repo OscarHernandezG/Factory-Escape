@@ -38,6 +38,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 
 	CurrentMap = MapsList_String.start;
 
+	
 	return ret;
 }
 
@@ -51,6 +52,10 @@ bool j1Scene::Start()
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
 
+	p2List_item<MapLayer*>* layer = App->map->data.layers.start;
+	iPoint size_map;
+	size_map = App->map->MapToWorld(layer->data->width, layer->data->height);
+	width_map = size_map.x;
 	return true;
 }
 
@@ -77,7 +82,7 @@ bool j1Scene::Update(float dt)
 				App->render->camera.y += 5;
 
 		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-//			if (704 < App->render->camera.h + App->render->camera.y)
+			if (-(App->render->camera.y/App->win->scale) + (App->render->camera.h /App->win->scale) < App->render->camera.h)
 			App->render->camera.y -= 5;
 
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
@@ -85,6 +90,7 @@ bool j1Scene::Update(float dt)
 			App->render->camera.x += 5;
 
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			if (-(App->render->camera.x / App->win->scale) + (App->render->camera.w / App->win->scale) < width_map)
 			App->render->camera.x -= 5;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {

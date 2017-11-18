@@ -65,6 +65,7 @@ bool j1Player::Update(float dt)
 		App->win->scale -= 0.1f * dt;
 	}
 
+
 	if (App->win->scale > 1 || App->input->GetScroll() == 1) {
 		App->win->scale += App->input->GetScroll() * dt;
 		App->render->camera.x -= App->input->GetScroll() / dt;
