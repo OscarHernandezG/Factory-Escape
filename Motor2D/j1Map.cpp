@@ -34,7 +34,7 @@ void j1Map::Draw()
 {
 	if (map_loaded == false)
 		return;
-
+	
 	SDL_Rect* rect;
 	int x, y, h, w;
 	for (p2List_item<TileSet*>* blit_tilesets = data.tilesets.start; blit_tilesets != nullptr; blit_tilesets = blit_tilesets->next) {

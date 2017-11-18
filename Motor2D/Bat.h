@@ -18,8 +18,6 @@ private:
 
 	//SDL_RendererFlip flip = SDL_FLIP_NONE;
 
-	iPoint PosTogo;
-
 	void LoadAnimation();
 public:
 	Bat(int x, int y);

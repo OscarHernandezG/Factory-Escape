@@ -13,6 +13,20 @@
 #include "j1Pathfinding.h"
 
 
+
+#include <time.h>
+#include <chrono>
+#include <ctime>
+#include <iostream>
+
+using namespace std;
+
+typedef std::chrono::system_clock Clock;
+
+
+
+
+
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
@@ -69,6 +83,26 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 
+
+	auto now = Clock::now();
+	std::time_t now_c = Clock::to_time_t(now);
+	tm time;
+	localtime_s(&time, &now_c);
+	int  sec, min, hour, day, month, year;
+
+	sec = time.tm_sec;
+	min = time.tm_min;
+	hour = time.tm_hour;
+	day = time.tm_mday;
+	month = time.tm_mon + 1;
+	year = time.tm_year + 1900;
+
+
+	static char photo_name[60];
+	sprintf_s(photo_name, 60, "FactoryEscape ScreenShot on %02i/%02i/%i at %02i:%02i:%02i.png",
+		day, month, year, hour, min, sec);
+
+	LOG("%s", photo_name);
 
 	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
 		App->audio->VolumeUp();

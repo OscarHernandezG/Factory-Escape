@@ -20,6 +20,10 @@ public:
 	SDL_Texture* textureGhost;
 	uint hitpoints = 2;
 	Collider* collider = nullptr;
+
+	bool firstpath = true;
+	iPoint PosToGo;
+
 public:
 	Enemy(int x, int y);
 	virtual ~Enemy();

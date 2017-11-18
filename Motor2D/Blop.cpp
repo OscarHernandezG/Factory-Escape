@@ -22,16 +22,18 @@ Blop::Blop(int x, int y) : Enemy(x, y)
 void Blop::Move(float dt)
 {
 	x = position.x;
-	if (pf.ReadSec() > 0.3) {
+	iPoint player_pos;
+	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
+
+	if (enemy_pos == PosToGo || firstpath) {
 		iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y + Tile_h);
-		iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
 
 		App->pathfinding->CreatePath(enemy_pos, player_pos, BLOP);
 		path = App->pathfinding->GetLastPath();
 		path->Flip();
 		path->Pop(PosTogo);
 		path->Pop(PosTogo);
-		App->pathfinding->last_path.Clear();
+		App->pathfinding->ClearLastPath();
 
 		position = App->map->MapToWorld(enemy_pos.x, enemy_pos.y);
 		pf.Start();

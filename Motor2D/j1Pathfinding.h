@@ -45,8 +45,9 @@ public:
 	// Utility: return the walkability value of a tile
 	uchar GetTileAt(const iPoint& pos) const;
 
-	// we store the created path here
-	p2DynArray<iPoint> last_path;
+	inline void ClearLastPath() { last_path.Clear(); }
+
+
 
 private:
 
@@ -56,6 +57,8 @@ private:
 	// all map walkability values [0..255]
 	uchar* map;
 
+	// we store the created path here
+	p2DynArray<iPoint> last_path;
 };
 
 // forward declaration
