@@ -33,6 +33,8 @@ void Bat::Move(float dt)
 		path->Pop(PosTogo);
 		path->Pop(PosTogo);
 		
+		App->pathfinding->last_path.Clear();
+
 		//position = App->map->MapToWorld(enemy_pos.x, enemy_pos.y);
 				
 		pf.Start();
@@ -79,7 +81,7 @@ void Bat::LoadAnimation() {
 		Left.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });
 	}
 	Left.loop = true;
-	Left.speed = 0.5f;
+	Left.speed = 1.5f;
 
 	for (int i = 22; i < 26; i++) {
 		Right.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });
