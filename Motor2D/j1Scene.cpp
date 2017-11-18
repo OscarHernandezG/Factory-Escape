@@ -124,8 +124,10 @@ bool j1Scene::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN){}
 
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
-		App->render->camera.x = App->render->camera.y = 0;
+
+		
+	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
+		/*App->render->camera.x = */App->render->camera.y = 0;
 		App->win->scale = 1;
 	}
 
@@ -160,6 +162,23 @@ bool j1Scene::PostUpdate()
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
+
+		SDL_RenderReadPixels(App->render->renderer, NULL, SDL_PIXELFORMAT_ARGB8888, App->win->screen_surface->pixels, App->win->screen_surface->pitch);
+
+		/*Screenshoot_name->add(("SHOT %i", cont_screenshots));
+
+		p2List_item<char>* Screen = Screenshoot_name->start;
+		while (Screen->data != NULL)
+		{
+			Screen = Screen->next;
+			cont_screenshots++;
+		}
+		Screen->data = ("SHOT %i", cont_screenshots);*/
+		SDL_SaveBMP(App->win->screen_surface, "SHOT.png");
+		
+	}
 
 	return ret;
 }

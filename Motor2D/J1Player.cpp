@@ -57,11 +57,11 @@ bool j1Player::PreUpdate()
 bool j1Player::Update(float dt)
 {
 
-	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT) {
 		App->win->scale += 0.1f * dt;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) {
 		App->win->scale -= 0.1f * dt;
 	}
 
