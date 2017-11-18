@@ -38,6 +38,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 
 	CurrentMap = MapsList_String.start;
 
+	
 	return ret;
 }
 
@@ -51,6 +52,10 @@ bool j1Scene::Start()
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
 
+	p2List_item<MapLayer*>* layer = App->map->data.layers.start;
+	iPoint size_map;
+	size_map = App->map->MapToWorld(layer->data->width, layer->data->height);
+	width_map = size_map.x;
 	return true;
 }
 
@@ -70,19 +75,24 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_REPEAT) 
 		App->audio->VolumeDown();
+	if (App->win->scale != 1) {
 
-	/*if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y -= 3;
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+			if (App->render->camera.y < 0)
+				App->render->camera.y += 5;
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y += 3;
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+			if (-(App->render->camera.y/App->win->scale) + (App->render->camera.h /App->win->scale) < App->render->camera.h)
+			App->render->camera.y -= 5;
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 3;
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			if (App->render->camera.x < 0)
+			App->render->camera.x += 5;
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 3;*/
-
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			if (-(App->render->camera.x / App->win->scale) + (App->render->camera.w / App->win->scale) < width_map)
+			App->render->camera.x -= 5;
+	}
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		LoadScene(1);	
 	}
@@ -114,20 +124,30 @@ bool j1Scene::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN){}
 
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+		App->render->camera.x = App->render->camera.y = 0;
+		App->win->scale = 1;
+	}
 
 		
 
-	if (App->player->x - (-App->render->camera.x +(1 *App->render->camera.w / 3)) >= 0) {
+	if ((App->player->x - (-App->render->camera.x +(1 *App->render->camera.w / 3)) >= 0) && App->win->scale == 1) {
 		if (App->render->camera.x - App->render->camera.w > -(App->map->data.width*App->map->data.tile_width))
 			App->render->camera.x -= 2;
 	}
 
-	if (App->player->x - (-App->render->camera.x + (1 * App->render->camera.w / 4)) <= 0) {
+	if ((App->player->x - (-App->render->camera.x + (1 * App->render->camera.w / 4)) <= 0) && App->win->scale == 1) {
 		if (App->render->camera.x < 0)
 			App->render->camera.x += 2;
 	}
 	
+/*	if ((App->player->y - (-App->render->camera.y + (1 * App->render->camera.h/3)) >= 0) && App->win->scale != 1) {
+			App->render->camera.y -= 2;
+	}
 
+	if ((App->player->y - (App->render->camera.y + (1 * App->render->camera.h / 2)) <= 0) && App->win->scale != 1) {
+			App->render->camera.y += 2;
+	}*/
 	App->map->Draw();
 
 	return true;

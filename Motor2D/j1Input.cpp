@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Window.h"
+#include "j1Render.h"
 #include "SDL/include/SDL.h"
 
 #define MAX_KEYS 300
@@ -120,6 +121,7 @@ bool j1Input::PreUpdate()
 			break;
 			case SDL_MOUSEWHEEL:
 				scroll = event.wheel.y;
+				//App->render->camera.h = 704 / App->win->scale;
 				break;
 			case SDL_MOUSEMOTION:
 				float scale = App->win->GetScale();
