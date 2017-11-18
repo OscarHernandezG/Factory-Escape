@@ -84,31 +84,12 @@ bool j1Scene::Update(float dt)
 {
 
 
-	auto now = Clock::now();
-	std::time_t now_c = Clock::to_time_t(now);
-	tm time;
-	localtime_s(&time, &now_c);
-	int  sec, min, hour, day, month, year;
-
-	sec = time.tm_sec;
-	min = time.tm_min;
-	hour = time.tm_hour;
-	day = time.tm_mday;
-	month = time.tm_mon + 1;
-	year = time.tm_year + 1900;
-
-
-	static char photo_name[60];
-	sprintf_s(photo_name, 60, "FactoryEscape ScreenShot on %02i/%02i/%i at %02i:%02i:%02i.png",
-		day, month, year, hour, min, sec);
-
-	LOG("%s", photo_name);
-
 	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
 		App->audio->VolumeUp();
 
 	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_REPEAT) 
 		App->audio->VolumeDown();
+
 	if (App->win->scale != 1) {
 
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -210,7 +191,40 @@ bool j1Scene::PostUpdate()
 			cont_screenshots++;
 		}
 		Screen->data = ("SHOT %i", cont_screenshots);*/
-		SDL_SaveBMP(App->win->screen_surface, "SHOT.png");
+
+
+		auto now = Clock::now();
+		std::time_t now_c = Clock::to_time_t(now);
+		tm time;
+		localtime_s(&time, &now_c);
+
+		sec = time.tm_sec;
+		mins = time.tm_min;
+		hour = time.tm_hour;
+		day = time.tm_mday;
+		month = time.tm_mon + 1;
+		year = time.tm_year + 1900;
+
+		static char photo_name[60];
+
+		if (sec == last_frame_sec) {
+			photos_this_sec++;
+
+			sprintf_s(photo_name, 60, "screenshots/Factory Escape on %02i-%02i-%i at %02i.%02i.%02i(%i).png",
+				day, month, year, hour, mins, sec, photos_this_sec);
+		}
+		else {
+			photos_this_sec = 0;
+
+			sprintf_s(photo_name, 60, "screenshots/Factory Escape on %02i-%02i-%i at %02i.%02i.%02i.png",
+				day, month, year, hour, mins, sec);
+		}
+
+		last_frame_sec = sec;
+
+		LOG("Saving photo %s", photo_name);
+
+		SDL_SaveBMP(App->win->screen_surface, photo_name);
 		
 	}
 

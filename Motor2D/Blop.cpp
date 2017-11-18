@@ -69,55 +69,6 @@ void Blop::Move(float dt)
 	}
 }
 
-/*void Blop::Move(float dt)
-{
-	x = position.x;
-	iPoint player_pos;
-	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
-	if (enemy_pos == PosTogo) {
-		player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y);
-
-
-		App->pathfinding->CreatePath(enemy_pos, player_pos, BLOP);
-		path = App->pathfinding->GetLastPath();
-		path->Flip();
-		path->Pop(PosTogo);
-		path->Pop(PosTogo);
-
-		//position = App->map->MapToWorld(enemy_pos.x, enemy_pos.y);
-
-		pf.Start();
-	}
-
-	if (enemy_pos.x > PosTogo.x) {
-		fpos.x -= 100 * dt;
-	}
-	else if (enemy_pos.x < PosTogo.x) {
-		fpos.x += 100 * dt;
-	}
-	if (enemy_pos.y < PosTogo.y) {
-		fpos.y += 100 * dt;
-	}
-	//else if (enemy_pos.y > PosTogo.y) {
-	//	fpos.y -= 100 * dt;
-	//}
-
-	position.x = fpos.x;
-	position.y = fpos.y;
-
-
-
-	flip = SDL_FLIP_NONE;
-	if (x == position.x)
-		CurrentAnim = &Idle;
-	else if (x >= position.x)
-		CurrentAnim = &Walk;
-	else if (x <= position.x) {
-		CurrentAnim = &Walk;
-		flip = SDL_FLIP_HORIZONTAL;
-	}
-
-}*/
 
 void Blop::Draw(SDL_Texture* texture) {
 	App->render->Blit(texture, position.x, position.y, &CurrentAnim->GetCurrentFrame(), 1, flip);

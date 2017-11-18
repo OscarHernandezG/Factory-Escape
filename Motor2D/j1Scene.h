@@ -48,6 +48,10 @@ private:
 
 	uint width_map;
 
+	int  sec, mins, hour, day, month, year;
+	int last_frame_sec = -1;
+	int photos_this_sec = 0;
+
 	/*p2List<char>* Screenshoot_name;
 	uint cont_screenshots = 1;*/
 	p2List<p2SString>  MapsList_String;
