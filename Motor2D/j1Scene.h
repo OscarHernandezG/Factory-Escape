@@ -45,6 +45,7 @@ public:
 	int currmap = 1;
 private:
 
+	uint width_map;
 
 	p2List<p2SString>  MapsList_String;
 	p2List_item<p2SString>* CurrentMap = nullptr;
