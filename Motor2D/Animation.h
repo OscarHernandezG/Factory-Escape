@@ -58,6 +58,10 @@ public:
 	{
 		current_frame = 0;
 	}
+	void Stop()
+	{
+		speed = 0;
+	}
 };
 
 #endif

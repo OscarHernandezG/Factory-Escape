@@ -142,7 +142,7 @@ bool j1Scene::Update(float dt)
 
 		
 	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
-		/*App->render->camera.x = */App->render->camera.y = 0;
+		App->render->camera.y = 0;
 		App->win->scale = 1;
 	}
 

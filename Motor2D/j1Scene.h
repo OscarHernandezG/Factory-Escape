@@ -43,7 +43,7 @@ public:
 	bool Save(pugi::xml_node& data) const;
 	
 	int currmap = 1;
-	//char* Screenshoot_name = ("Screen %i.png");
+
 private:
 
 	uint width_map;
