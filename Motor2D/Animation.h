@@ -50,8 +50,8 @@ public:
 		return loops > 0;
 	}
 	bool ResetLoops() {
-		loops = true;
-		return loops;
+		loops = 0;
+		return true;
 	}
 
 	void Reset()

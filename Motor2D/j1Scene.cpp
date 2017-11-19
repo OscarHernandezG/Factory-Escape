@@ -210,14 +210,14 @@ bool j1Scene::PostUpdate()
 		if (sec == last_frame_sec) {
 			photos_this_sec++;
 
-			sprintf_s(photo_name, 60, "screenshots/Factory Escape on %02i-%02i-%i at %02i.%02i.%02i(%i).png",
-				day, month, year, hour, mins, sec, photos_this_sec);
+			sprintf_s(photo_name, 60, "screenshots/Factory Escape on %i-%02i-%02i at %02i.%02i.%02i(%i).png",
+				year, month, day, hour, mins, sec, photos_this_sec);
 		}
 		else {
 			photos_this_sec = 0;
 
-			sprintf_s(photo_name, 60, "screenshots/Factory Escape on %02i-%02i-%i at %02i.%02i.%02i.png",
-				day, month, year, hour, mins, sec);
+			sprintf_s(photo_name, 60, "screenshots/Factory Escape on %i-%02i-%02i at %02i.%02i.%02i.png",
+				year, month, day, hour, mins, sec);
 		}
 
 		last_frame_sec = sec;

@@ -9,6 +9,8 @@
 #include "j1Map.h"
 #include "j1Player.h"
 #include "j1Scene.h"
+#include "j1Enemies.h"
+#include "Enemy.h"
 
 j1Player::j1Player() : j1Module()
 {
@@ -113,6 +115,38 @@ bool j1Player::Update(float dt)
 		CurrentAnim = &Slide;
 		flip = SDL_FLIP_HORIZONTAL;
 		x -= 600 * dt;
+		break;
+	case MELEE:
+		CurrentAnim = &Melee;
+		KillEnemies();
+		break;
+	case MELEE_RIGHT:
+		CurrentAnim = &Melee;
+
+		x += 200 * dt;
+		flip = SDL_FLIP_NONE;
+		break;
+	case MELEE_LEFT:
+		CurrentAnim = &Melee;
+
+		x -= 200 * dt;
+		flip = SDL_FLIP_HORIZONTAL;
+		break;
+	case MELEE_JUMP_RIGHT:
+	//	CurrentAnim = &MeleeJump;
+
+		break;
+	case MELEE_JUMP_LEFT:
+	//	CurrentAnim = &MeleeJump;
+
+		break;
+	case SHOOT_RIGHT:
+		CurrentAnim = &Shoot;
+
+		break;
+	case SHOOT_LEFT:
+		CurrentAnim = &Shoot;
+
 		break;
 	case PLAYER_WIN:
 		App->scene->LoadScene();
@@ -305,6 +339,11 @@ void j1Player::CheckPlayerState(float dt)
 
 		}
 
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && !melee) {
+			
+			melee = true;
+		}
+
 		if ((App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN) && slide == false && CanJump == true) {
 
 
@@ -347,8 +386,34 @@ void j1Player::CheckPlayerState(float dt)
 			}
 		}
 
+		else if (melee) {
+
+			if (PlayerState == RUNNING_LEFT)
+				PlayerState = MELEE_LEFT;
+
+			else if (PlayerState == RUNNING_RIGHT)
+				PlayerState = MELEE_RIGHT;
+
+			else if (PlayerState == JUMPING_LEFT)
+				PlayerState = MELEE_JUMP_LEFT;
+
+			else if (PlayerState == JUMPING_RIGHT)
+				PlayerState = MELEE_JUMP_RIGHT;
+
+			else 
+				PlayerState = MELEE;
+
+			if (Melee.Finished()) {
+				melee = false;
+				Melee.Reset();
+				Melee.ResetLoops();
+				MeleeJump.Reset();
+				MeleeJump.ResetLoops();
+			}
+		}
 	}
 
+	
 	else if (death) {
 		currentTime = SDL_GetTicks();
 		PlayerState = DEAD;
@@ -360,6 +425,9 @@ void j1Player::CheckPlayerState(float dt)
 			SpawnPlayer();
 		}
 	}
+	if (!death)
+	death = CheckPlayerDeath();
+
 	down_force = 1250;
 }
 
@@ -442,6 +510,24 @@ void j1Player::LoadAnimations()
 	Die.loop = false;
 	Die.speed = 2;
 
+	//Melee Animation
+
+	for (int i = 48; i < 57; i++) {
+		Melee.PushBack({ animation_x[i],animation_y[i],animation_w[i],animation_h[i] });
+	}
+	Melee.loop = false;
+	Melee.speed = 2;
+
+	//Shoot Animation
+
+	for (int i = 58; i < 68; i++) {
+		Shoot.PushBack({ animation_x[i],animation_y[i],animation_w[i],animation_h[i] });
+	}
+	Shoot.loop = false;
+	Shoot.speed = 2;
+
+	MeleeJump = Melee;
+
 }
 
 void j1Player::FindSpawn()
@@ -461,4 +547,36 @@ void j1Player::SpawnPlayer() {
 
 	x = spawn.x;
 	y = spawn.y;
+}
+
+void j1Player::KillEnemies() {
+
+	for (uint i = 0; i < MAX_ENEMIES; ++i) {
+		if (App->enemies->enemies[i] != nullptr) {
+
+			if (x < App->enemies->enemies[i]->position.x && x + 64 > App->enemies->enemies[i]->position.x) {
+				if (y < App->enemies->enemies[i]->position.y && y + 120 > App->enemies->enemies[i]->position.y) {
+					delete App->enemies->enemies[i];
+					App->enemies->enemies[i] = nullptr;
+				}
+			}
+		}
+	}
+}
+
+bool j1Player::CheckPlayerDeath() {
+
+	bool ret = false;
+	for (uint i = 0; i < MAX_ENEMIES; ++i) {
+		if (App->enemies->enemies[i] != nullptr) {
+			if (x < App->enemies->enemies[i]->position.x && x + 48 > App->enemies->enemies[i]->position.x) {
+				if (y < App->enemies->enemies[i]->position.y && y + 120 > App->enemies->enemies[i]->position.y) {
+					ret = true;
+					break;
+
+				}
+			}
+		}
+	}
+	return ret;
 }

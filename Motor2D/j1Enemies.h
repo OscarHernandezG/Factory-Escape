@@ -51,6 +51,9 @@ public:
 	int* animation_h = nullptr;
 
 	p2List<SDL_Rect> animations_list;
+
+	Enemy* enemies[MAX_ENEMIES];
+
 private:
 
 	void SpawnEnemy(const EnemyInfo& info);
@@ -60,7 +63,7 @@ private:
 private:
 
 	EnemyInfo queue[MAX_ENEMIES];
-	Enemy* enemies[MAX_ENEMIES];
+	
 	SDL_Texture* sprites;
 
 	float proj_speed = 5.0f;

@@ -19,6 +19,14 @@ enum State {
 	SHIFT_RIGHT,
 	SHIFT_LEFT,
 
+	MELEE,
+	MELEE_RIGHT,
+	MELEE_LEFT,
+	MELEE_JUMP_RIGHT,
+	MELEE_JUMP_LEFT,
+	SHOOT_RIGHT,
+	SHOOT_LEFT,
+
 	PLAYER_WIN,
 
 	DEAD
@@ -69,6 +77,10 @@ public:
 	
 	void SpawnPlayer();
 
+	void KillEnemies();
+
+	bool CheckPlayerDeath();
+
 	float x, y;
 
 private:
@@ -80,6 +92,7 @@ private:
 	p2Point<float> speed;
 	p2Point<float> movement = { 0,0 };
 	float a = 0.002;
+
 	bool run_left = false;
 	bool run_right = false;
 	bool jump = false;
@@ -87,6 +100,8 @@ private:
 	bool slide = false;
 	bool ground = false;
 	bool death = false;
+	bool melee = false;
+
 	State PlayerState = IDLE;
 
 	int down_force = 0;
@@ -98,6 +113,9 @@ private:
 	Animation Run;
 	Animation Slide;
 	Animation Die;
+	Animation Melee;
+	Animation MeleeJump;
+	Animation Shoot;
 	Animation* CurrentAnim = nullptr;
 	uint pos = 0, lastTime = 0, currentTime = 0, dieTime = 0;
 
