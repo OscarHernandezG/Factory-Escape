@@ -418,7 +418,10 @@ void j1Player::CheckPlayerState(float dt)
 	else if (death) {
 		currentTime = SDL_GetTicks();
 		PlayerState = DEAD;
+		y += (down_force * dt)/10;
 		if (currentTime > dieTime + 1000) {
+			App->enemies->FreeEnemies();
+			App->enemies->FindEnemies();
 			Die.Reset();
 			death = false;
 			App->render->camera.x = 0;
