@@ -26,8 +26,8 @@ void Bat::Move(float dt)
 	iPoint player_pos;
 	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
 	if (enemy_pos == PosToGo || firstpath) {
-		player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y);
-		
+		player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y + 60);
+
 
 		if (App->pathfinding->CreatePath(enemy_pos, player_pos, BAT) > 0) {
 			firstpath = false;
@@ -36,42 +36,49 @@ void Bat::Move(float dt)
 		path->Flip();
 		path->Pop(PosToGo);
 		path->Pop(PosToGo);
-		
+
 		App->pathfinding->ClearLastPath();
 
-		//position = App->map->MapToWorld(enemy_pos.x, enemy_pos.y);
-				
+
 		pf.Start();
 	}
 
-		if (enemy_pos.x > PosToGo.x) {
-			fpos.x -= 150 * dt;
-		}
-		else if (enemy_pos.x < PosToGo.x) {
-			fpos.x += 150 * dt;
-		}
-		if (enemy_pos.y < PosToGo.y) {
-			fpos.y += 150 * dt;
-		}
-		else if (enemy_pos.y > PosToGo.y) {
-			fpos.y -= 150 * dt;
-		}
+	iPoint next_pos = App->map->MapToWorld(PosToGo.x, PosToGo.y);
+	next_pos.x += 30;
+	next_pos.y += 30;
+	
 
-		position.x = fpos.x;
-		position.y = fpos.y;
+	if (position.x > next_pos.x ) {
+		fpos.x -= 150 * dt;
+	}
+	else if (position.x < next_pos.x) {
+		fpos.x += 150 * dt;
+	}
+	 if (position.y < next_pos.y) {
+		fpos.y += 150 * dt;
+	}
+	else if (position.y > next_pos.y) {
+		fpos.y -= 150 * dt;
+	}
 
-		if (x == position.x)
-			CurrentAnim = &Idle;
-		else if (x >= position.x)
-			CurrentAnim = &Left;
-		else if (x <= position.x)
-			CurrentAnim = &Right;
+	position.x = fpos.x;
+	position.y = fpos.y;
+
+	if (x == position.x)
+		CurrentAnim = &Idle;
+	else if (x >= position.x)
+		CurrentAnim = &Left;
+	else if (x <= position.x)
+		CurrentAnim = &Right;
+
+
+
 }
 
 void Bat::Draw(SDL_Texture* texture) {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
-
-	App->render->Blit(texture, position.x - 64, position.y, &CurrentAnim->GetCurrentFrame(), 1);
+	
+	App->render->Blit(texture, position.x, position.y, &CurrentAnim->GetCurrentFrame(), 1);
 }
 
 
@@ -81,18 +88,18 @@ void Bat::LoadAnimation() {
 		Idle.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });
 	}
 	Idle.loop = true;
-	Idle.speed = 1.5f;
+	Idle.speed = 0.05f;
 
 	for (int i = 18; i < 22; i++) {
 		Left.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });
 	}
 	Left.loop = true;
-	Left.speed = 1.5f;
+	Left.speed = 0.05f;
 
 	for (int i = 22; i < 26; i++) {
 		Right.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });
 	}
 	Right.loop = true;
-	Right.speed = 1.5f;
+	Right.speed = 0.05f;
 }
 
