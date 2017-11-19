@@ -22,9 +22,6 @@
 
 
 
-
-
-
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
@@ -178,18 +175,6 @@ bool j1Scene::PostUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && Photo_mode) {
 
 		SDL_RenderReadPixels(App->render->renderer, NULL, SDL_PIXELFORMAT_ARGB8888, App->win->screen_surface->pixels, App->win->screen_surface->pitch);
-
-		/*Screenshoot_name->add(("SHOT %i", cont_screenshots));
-
-
-		p2List_item<char>* Screen = Screenshoot_name->start;
-		while (Screen->data != NULL)
-		{
-			Screen = Screen->next;
-			cont_screenshots++;
-		}
-		Screen->data = ("SHOT %i", cont_screenshots);*/
-
 
 		auto now = std::chrono::system_clock::now();
 		std::time_t now_c = std::chrono::system_clock::to_time_t(now);

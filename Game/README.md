@@ -4,7 +4,6 @@ In this game you are a robot that should escape from the factory he's been reclu
 but beware of acid waste and other dangers.
 
 
-
 Good luck and have fun!
 
 
@@ -14,6 +13,31 @@ Controls:
 	- D: Move right
 	- SPACE: Jump
 	- LSHIFT: Slide
+	- E: Melee
+
+	- KP -: Volume down
+	- KP +: Volume up
+	
+	- O: Enter photo mode
+		- Arrow Up: Move the camera up
+		- Arrow Down: Move the camera down
+		- Arrow Right: Move the camera to the right
+		- Arrow Left: Move the camera to the left
+		- P: Take a screenshot, will be saved in the screenshot folder with the date it was taken 
+		- O: Exit the photo mode
+
+	- Escape: Exit the game
+	
+	
+Debug Controls:
+	
+	- F1: Start from the very first level
+	- F2: Start from the beginnin of the current level
+	- F5: Save the current state
+	- F6: Load previous state
+	- F9: Show/Hide logic layer
+	- F10: Activade/Deactivate player God Mode
+	- F11: Enable/Disable framerate cap to 30
 
 
 GitHub:
