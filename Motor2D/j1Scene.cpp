@@ -142,6 +142,7 @@ bool j1Scene::Update(float dt)
 
 		
 	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
+		Photo_mode = !Photo_mode;
 		App->render->camera.y = 0;
 		App->win->scale = 1;
 	}
@@ -150,12 +151,12 @@ bool j1Scene::Update(float dt)
 
 	if ((App->player->x - (-App->render->camera.x +(1 *App->render->camera.w / 3)) >= 0) && App->win->scale == 1) {
 		if (App->render->camera.x - App->render->camera.w > -(App->map->data.width*App->map->data.tile_width))
-			App->render->camera.x -= 2;
+			App->render->camera.x -= 4;
 	}
 
 	if ((App->player->x - (-App->render->camera.x + (1 * App->render->camera.w / 4)) <= 0) && App->win->scale == 1) {
 		if (App->render->camera.x < 0)
-			App->render->camera.x += 2;
+			App->render->camera.x += 4;
 	}
 	
 /*	if ((App->player->y - (-App->render->camera.y + (1 * App->render->camera.h/3)) >= 0) && App->win->scale != 1) {
@@ -178,7 +179,7 @@ bool j1Scene::PostUpdate()
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && Photo_mode) {
 
 		SDL_RenderReadPixels(App->render->renderer, NULL, SDL_PIXELFORMAT_ARGB8888, App->win->screen_surface->pixels, App->win->screen_surface->pitch);
 

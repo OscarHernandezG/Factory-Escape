@@ -44,12 +44,10 @@ void Blop::Move(float dt)
 			else if (enemy_pos.x < PosTogo.x) {
 				fpos.x += 200 * dt;
 			}
+			
 			if (enemy_pos.y < PosTogo.y) {
 				fpos.y += 600 * dt;
 			}
-			else if (enemy_pos.y > PosTogo.y) {
-			fpos.y -= 600 * dt;
-		}
 		}
 
 

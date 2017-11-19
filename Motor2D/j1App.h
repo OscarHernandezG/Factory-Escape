@@ -96,7 +96,7 @@ public:
 
 	uint32				framerate_cap;
 
-	float				dt;
+	float				dt, zoom_dt;
 
 private:
 

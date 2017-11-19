@@ -59,22 +59,21 @@ bool j1Player::PreUpdate()
 bool j1Player::Update(float dt)
 {
 
-	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT) {
-		App->win->scale += 0.1f * dt;
+	if (App->scene->Photo_mode){
+		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
+			App->win->scale += 0.1f * App->zoom_dt;
+
+		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) 
+			App->win->scale -= 0.1f * App->zoom_dt;
+
+			App->win->scale += App->input->GetScroll() * App->zoom_dt;
+
+		if (App->win->scale < 1)
+			App->win->scale = 1;
 	}
-
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) {
-		App->win->scale -= 0.1f * dt;
-	}
-
-	if (App->win->scale > 1 || App->input->GetScroll() == 1) 
-		App->win->scale += App->input->GetScroll() * dt;		
-
-
-	if(App->win->scale == 1)
+		
+	else 
 		CheckPlayerState(dt);
-	else //Mode Photo
-		App->dt = 0;
 
 	switch (PlayerState)
 	{
@@ -349,7 +348,7 @@ void j1Player::CheckPlayerState(float dt)
 
 			pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y + 118 / 2);
 
-			ColisionType colision = App->map->CheckColision(pos + 3);
+			ColisionType colision = App->map->CheckColision(pos + 5/*5 Tileds*/);
 
 			if (colision == NONE) {
 				slide = true;
@@ -420,6 +419,7 @@ void j1Player::CheckPlayerState(float dt)
 		if (currentTime > dieTime + 1000) {
 			Die.Reset();
 			death = false;
+			App->render->camera.x = 0;
 			PlayerState = IDLE;
 
 			SpawnPlayer();

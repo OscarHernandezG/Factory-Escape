@@ -82,7 +82,7 @@ public:
 	bool CheckPlayerDeath();
 
 	float x, y;
-
+	
 private:
 
 	

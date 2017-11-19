@@ -44,6 +44,7 @@ public:
 	
 	int currmap = 1;
 
+	bool Photo_mode = false;
 private:
 
 	uint width_map;

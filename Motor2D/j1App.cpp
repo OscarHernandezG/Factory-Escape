@@ -165,6 +165,10 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 void j1App::PrepareUpdate()
 {
 	dt = dttimer.ReadMs() / 1000;
+	if (App->scene->Photo_mode) {
+		zoom_dt = dt;
+		dt = 0;
+	}
 	dttimer.Start();
 
 	LOG("%f", dt);
