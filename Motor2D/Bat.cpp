@@ -42,35 +42,36 @@ void Bat::Move(float dt)
 
 		pf.Start();
 	}
+	if (PosToGo.x > 0 && PosToGo.y > 0) {
+		iPoint next_pos = App->map->MapToWorld(PosToGo.x, PosToGo.y);
+		next_pos.x += 30;
+		next_pos.y += 30;
 
-	iPoint next_pos = App->map->MapToWorld(PosToGo.x, PosToGo.y);
-	next_pos.x += 30;
-	next_pos.y += 30;
-	
 
-	if (position.x > next_pos.x) {
-		if (position.x - next_pos.x <= speed*dt)
-			position.x = next_pos.x;
-		else
-		fpos.x -= speed * dt;
-	}
-	else if (position.x < next_pos.x) {
-		if (next_pos.x - position.x <= speed*dt)
-			position.x = next_pos.x;
-		else
-		fpos.x += speed * dt;
-	}
-	 if (position.y < next_pos.y) {
-		 if (next_pos.y - position.y <= speed*dt)
-			 position.y = next_pos.y;
-		 else
-		fpos.y += speed * dt;
-	}
-	else if (position.y > next_pos.y) {
-		if (position.y - next_pos.y <= speed*dt)
-			position.y = next_pos.y;
-		else
-		fpos.y -= speed * dt;
+		if (position.x > next_pos.x) {
+			if (position.x - next_pos.x <= speed*dt)
+				position.x = next_pos.x;
+			else
+				fpos.x -= speed * dt;
+		}
+		else if (position.x < next_pos.x) {
+			if (next_pos.x - position.x <= speed*dt)
+				position.x = next_pos.x;
+			else
+				fpos.x += speed * dt;
+		}
+		if (position.y < next_pos.y) {
+			if (next_pos.y - position.y <= speed*dt)
+				position.y = next_pos.y;
+			else
+				fpos.y += speed * dt;
+		}
+		else if (position.y > next_pos.y) {
+			if (position.y - next_pos.y <= speed*dt)
+				position.y = next_pos.y;
+			else
+				fpos.y -= speed * dt;
+		}
 	}
 
 	position.x = fpos.x;

@@ -22,6 +22,9 @@ public:
 	Collider* collider = nullptr;
 
 	bool firstpath = true;
+
+	bool needpath = true;
+
 	iPoint PosToGo;
 
 public:

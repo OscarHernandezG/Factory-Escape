@@ -18,14 +18,13 @@ private:
 
 	//SDL_RendererFlip flip = SDL_FLIP_NONE;
 
-	iPoint PosTogo;
-
 	void LoadAnimation();
 
 public:
 	Blop(int x, int y);
 
 	p2DynArray<iPoint>* path;
+	int speed = 200;
 	j1Timer pf;
 	SDL_RendererFlip flip;
 	//	void OnCollision(Collider* c1, Collider* c2);
