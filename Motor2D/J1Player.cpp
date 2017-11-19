@@ -59,6 +59,8 @@ bool j1Player::PreUpdate()
 bool j1Player::Update(float dt)
 {
 
+	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
+
 	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT) {
 		App->win->scale += 0.1f * dt;
 	}
@@ -425,7 +427,7 @@ void j1Player::CheckPlayerState(float dt)
 			SpawnPlayer();
 		}
 	}
-	if (!death)
+	if (!death && !god_mode)
 	death = CheckPlayerDeath();
 
 	down_force = 1250;

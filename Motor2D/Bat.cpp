@@ -20,6 +20,8 @@ Bat::Bat(int x, int y) : Enemy(x, y)
 
 void Bat::Move(float dt)
 {
+	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
+
 	x = position.x;
 	iPoint player_pos;
 	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
@@ -67,7 +69,9 @@ void Bat::Move(float dt)
 }
 
 void Bat::Draw(SDL_Texture* texture) {
-	App->render->Blit(texture, position.x, position.y, &CurrentAnim->GetCurrentFrame(), 1);
+	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
+
+	App->render->Blit(texture, position.x - 64, position.y, &CurrentAnim->GetCurrentFrame(), 1);
 }
 
 

@@ -41,6 +41,10 @@ public:
 
 	//Save
 	bool Save(pugi::xml_node& data) const;
+
+	void LoadWalkabilityMap();
+
+		
 	
 	int currmap = 1;
 

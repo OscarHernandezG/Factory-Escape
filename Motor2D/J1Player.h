@@ -100,6 +100,7 @@ private:
 	bool slide = false;
 	bool ground = false;
 	bool death = false;
+	bool god_mode = true;
 	bool melee = false;
 
 	State PlayerState = IDLE;

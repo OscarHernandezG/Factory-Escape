@@ -79,12 +79,6 @@ int main(int argc, char* args[])
 			}
 			break;
 
-			// Loop all modules until we are asked to leave ---------------------
-			case LOOP:
-				//BROFILER_CATEGORY("LOOP", Profiler::Color::Orchid)
-				if (App->Update() == false)
-					state = CLEAN;
-			break;
 
 			// Cleanup allocated memory -----------------------------------------
 			case CLEAN:
@@ -106,6 +100,13 @@ int main(int argc, char* args[])
 			result = EXIT_FAILURE;
 			state = EXIT;
 			break;
+
+			// Loop all modules until we are asked to leave ---------------------
+			case LOOP:
+				BROFILER_CATEGORY("LOOP", Profiler::Color::Orchid)
+					if (App->Update() == false)
+						state = CLEAN;
+				break;
 		}
 	}
 

@@ -110,7 +110,7 @@ bool j1Enemies::PreUpdate()
 // Called before render is available
 bool j1Enemies::Update(float dt)
 {
-
+	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 	if (App->win->scale == 1)
 		for (uint i = 0; i < MAX_ENEMIES; ++i)
 			if (enemies[i] != nullptr) enemies[i]->Move(dt);
