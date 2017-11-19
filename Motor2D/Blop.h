@@ -11,7 +11,7 @@ class Blop : public Enemy
 private:
 
 	int x;
-	int Tile_h = 62;
+	int Tile_h = 60;
 	Animation Idle;
 	Animation Walk;
 	Animation* CurrentAnim = nullptr;
@@ -26,7 +26,7 @@ public:
 	p2DynArray<iPoint>* path;
 	int speed = 200;
 	j1Timer pf;
-	SDL_RendererFlip flip;
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	//	void OnCollision(Collider* c1, Collider* c2);
 
 	void Move(float dt);

@@ -172,7 +172,6 @@ void j1App::PrepareUpdate()
 	}
 	dttimer.Start();
 
-	LOG("%f", dt);
 	frame_count++;
 	last_sec_frame_count++;
 

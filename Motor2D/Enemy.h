@@ -23,9 +23,9 @@ public:
 
 	bool firstpath = true;
 
-	bool needpath = true;
+	bool havepath = false;
 
-	iPoint PosToGo;
+	iPoint PosToGo = {0,0};
 
 public:
 	Enemy(int x, int y);

@@ -420,6 +420,8 @@ void j1Player::CheckPlayerState(float dt)
 		PlayerState = DEAD;
 		y += (down_force * dt)/10;
 		if (currentTime > dieTime + 1000) {
+			CurrentAnim = &Idle;
+			melee = false;
 			App->enemies->FreeEnemies();
 			App->enemies->FindEnemies();
 			Die.Reset();
@@ -557,15 +559,19 @@ void j1Player::SpawnPlayer() {
 void j1Player::KillEnemies() {
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
+
 		if (App->enemies->enemies[i] != nullptr) {
-			if (x < App->enemies->enemies[i]->position.x && x + 64 > App->enemies->enemies[i]->position.x && flip == SDL_FLIP_NONE) {
-				if (y < App->enemies->enemies[i]->position.y && y + 120 > App->enemies->enemies[i]->position.y) {
-					delete App->enemies->enemies[i];
-					App->enemies->enemies[i] = nullptr;
+			if (flip == SDL_FLIP_NONE) {
+				if (x < App->enemies->enemies[i]->position.x && x + 128 > App->enemies->enemies[i]->position.x) {
+					if (y < App->enemies->enemies[i]->position.y && y + 120 > App->enemies->enemies[i]->position.y) {
+						delete App->enemies->enemies[i];
+						App->enemies->enemies[i] = nullptr;
+					}
 				}
 			}
+
 			else {
-				if (x < App->enemies->enemies[i]->position.x && x - 64 > App->enemies->enemies[i]->position.x)
+				if (x - 128 < App->enemies->enemies[i]->position.x && x > App->enemies->enemies[i]->position.x)
 					if (y < App->enemies->enemies[i]->position.y && y + 120 > App->enemies->enemies[i]->position.y) {
 						delete App->enemies->enemies[i];
 						App->enemies->enemies[i] = nullptr;

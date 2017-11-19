@@ -30,14 +30,9 @@ j1Enemies::~j1Enemies()
 
 bool j1Enemies::Start()
 {
-	if (sprites == nullptr) {
-		LOG("No cargado");
-	}
 	LoadEnemyText();
 	LoadEnemyAnim();
-	if (sprites != nullptr) {
-		LOG("Cargado");
-	}
+
 	FindEnemies();
 	return true;
 }

@@ -1518,7 +1518,7 @@
    <tile gid="30"/>
    <tile gid="30"/>
    <tile gid="30"/>
-   <tile gid="33"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1611,7 +1611,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="35"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1648,7 +1648,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="35"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
