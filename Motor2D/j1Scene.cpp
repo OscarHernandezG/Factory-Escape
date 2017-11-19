@@ -84,7 +84,7 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_REPEAT) 
 		App->audio->VolumeDown();
 
-	if (App->win->scale != 1) {
+	if (Photo_mode) {
 
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 			if (App->render->camera.y < 0)
@@ -122,7 +122,7 @@ bool j1Scene::Update(float dt)
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
-
+		App->player->god_mode = !App->player->god_mode;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
@@ -141,14 +141,15 @@ bool j1Scene::Update(float dt)
 		App->win->scale = 1;
 	}
 
+
 		
 
-	if ((App->player->x - (-App->render->camera.x +(1 *App->render->camera.w / 3)) >= 0) && App->win->scale == 1) {
+	if ((App->player->x - (-App->render->camera.x +(1 *App->render->camera.w / 3)) >= 0) && !Photo_mode) {
 		if (App->render->camera.x - App->render->camera.w > -(App->map->data.width*App->map->data.tile_width))
 			App->render->camera.x -= 4;
 	}
 
-	if ((App->player->x - (-App->render->camera.x + (1 * App->render->camera.w / 4)) <= 0) && App->win->scale == 1) {
+	if ((App->player->x - (-App->render->camera.x + (1 * App->render->camera.w / 4)) <= 0) && !Photo_mode) {
 		if (App->render->camera.x < 0)
 			App->render->camera.x += 4;
 	}

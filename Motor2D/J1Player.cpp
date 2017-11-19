@@ -558,12 +558,18 @@ void j1Player::KillEnemies() {
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 		if (App->enemies->enemies[i] != nullptr) {
-
-			if (x < App->enemies->enemies[i]->position.x && x + 64 > App->enemies->enemies[i]->position.x) {
+			if (x < App->enemies->enemies[i]->position.x && x + 64 > App->enemies->enemies[i]->position.x && flip == SDL_FLIP_NONE) {
 				if (y < App->enemies->enemies[i]->position.y && y + 120 > App->enemies->enemies[i]->position.y) {
 					delete App->enemies->enemies[i];
 					App->enemies->enemies[i] = nullptr;
 				}
+			}
+			else {
+				if (x < App->enemies->enemies[i]->position.x && x - 64 > App->enemies->enemies[i]->position.x)
+					if (y < App->enemies->enemies[i]->position.y && y + 120 > App->enemies->enemies[i]->position.y) {
+						delete App->enemies->enemies[i];
+						App->enemies->enemies[i] = nullptr;
+					}
 			}
 		}
 	}

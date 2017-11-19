@@ -23,10 +23,9 @@ void Bat::Move(float dt)
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
 	x = position.x;
-	iPoint player_pos;
+	iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y + 60);
 	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
 	if (enemy_pos == PosToGo || firstpath) {
-		player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->player->x, App->player->y + 60);
 
 
 		if (App->pathfinding->CreatePath(enemy_pos, player_pos, BAT) > 0) {
@@ -48,31 +47,32 @@ void Bat::Move(float dt)
 	next_pos.y += 30;
 	
 
-	if (position.x > next_pos.x) {
-		if (position.x - next_pos.x <= speed*dt)
-			position.x = next_pos.x;
-		else
-		fpos.x -= speed * dt;
+	if (abs(player_pos.x - enemy_pos.x) < 4) {
+		if (position.x > next_pos.x) {
+			if (position.x - next_pos.x <= speed*dt)
+				position.x = next_pos.x;
+			else
+				fpos.x -= speed * dt;
+		}
+		else if (position.x < next_pos.x) {
+			if (next_pos.x - position.x <= speed*dt)
+				position.x = next_pos.x;
+			else
+				fpos.x += speed * dt;
+		}
+		if (position.y < next_pos.y) {
+			if (next_pos.y - position.y <= speed*dt)
+				position.y = next_pos.y;
+			else
+				fpos.y += speed * dt;
+		}
+		else if (position.y > next_pos.y) {
+			if (position.y - next_pos.y <= speed*dt)
+				position.y = next_pos.y;
+			else
+				fpos.y -= speed * dt;
+		}
 	}
-	else if (position.x < next_pos.x) {
-		if (next_pos.x - position.x <= speed*dt)
-			position.x = next_pos.x;
-		else
-		fpos.x += speed * dt;
-	}
-	 if (position.y < next_pos.y) {
-		 if (next_pos.y - position.y <= speed*dt)
-			 position.y = next_pos.y;
-		 else
-		fpos.y += speed * dt;
-	}
-	else if (position.y > next_pos.y) {
-		if (position.y - next_pos.y <= speed*dt)
-			position.y = next_pos.y;
-		else
-		fpos.y -= speed * dt;
-	}
-
 	position.x = fpos.x;
 	position.y = fpos.y;
 
