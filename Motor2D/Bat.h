@@ -23,6 +23,7 @@ public:
 	Bat(int x, int y);
 
 	p2DynArray<iPoint>* path;
+	int speed = 150;
 
 //	void OnCollision(Collider* c1, Collider* c2);
 	j1Timer pf;

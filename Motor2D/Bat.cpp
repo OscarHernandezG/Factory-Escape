@@ -48,17 +48,29 @@ void Bat::Move(float dt)
 	next_pos.y += 30;
 	
 
-	if (position.x > next_pos.x ) {
-		fpos.x -= 150 * dt;
+	if (position.x > next_pos.x) {
+		if (position.x - next_pos.x <= speed*dt)
+			position.x = next_pos.x;
+		else
+		fpos.x -= speed * dt;
 	}
 	else if (position.x < next_pos.x) {
-		fpos.x += 150 * dt;
+		if (next_pos.x - position.x <= speed*dt)
+			position.x = next_pos.x;
+		else
+		fpos.x += speed * dt;
 	}
 	 if (position.y < next_pos.y) {
-		fpos.y += 150 * dt;
+		 if (next_pos.y - position.y <= speed*dt)
+			 position.y = next_pos.y;
+		 else
+		fpos.y += speed * dt;
 	}
 	else if (position.y > next_pos.y) {
-		fpos.y -= 150 * dt;
+		if (position.y - next_pos.y <= speed*dt)
+			position.y = next_pos.y;
+		else
+		fpos.y -= speed * dt;
 	}
 
 	position.x = fpos.x;
