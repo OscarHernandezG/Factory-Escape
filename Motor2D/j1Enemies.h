@@ -39,9 +39,35 @@ public:
 	bool FreeEnemies();
 	void LoadEnemyText();
 	void LoadEnemyAnim();
-//	void OnCollision(Collider* c1, Collider* c2);
 
 	bool AddEnemy(ENEMY_TYPES type, int x, int y);
+
+	void SpawnEnemy(const EnemyInfo& info);
+	void FindEnemies();
+
+	// Load
+	//bool Load(pugi::xml_node&  data);
+	//{
+	//	x = data.child("position").attribute("x").as_int();
+	//	y = data.child("position").attribute("y").as_int();
+
+	//	return true;
+	//}
+
+	//bool Save(pugi::xml_node& data) const;
+	//{
+	//	pugi::xml_node player = data.append_child("position");
+
+	//	player.append_attribute("x") = x;
+	//	player.append_attribute("y") = y;
+
+	//	return true;
+	//}
+
+
+public:
+
+	p2Point<int> spawn;
 
 	//Animations cords
 	int size = 0;
@@ -53,12 +79,6 @@ public:
 	p2List<SDL_Rect> animations_list;
 
 	Enemy* enemies[MAX_ENEMIES];
-
-private:
-
-	void SpawnEnemy(const EnemyInfo& info);
-	void FindEnemies();
-	p2Point<int> spawn;
 
 private:
 

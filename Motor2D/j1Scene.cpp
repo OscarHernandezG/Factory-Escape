@@ -19,9 +19,7 @@
 #include <ctime>
 #include <iostream>
 
-using namespace std;
 
-typedef std::chrono::system_clock Clock;
 
 
 
@@ -49,7 +47,6 @@ bool j1Scene::Awake(pugi::xml_node& config)
 		MapsList_String.add(aux);
 	}
 
-
 	CurrentMap = MapsList_String.start;
 
 	
@@ -61,10 +58,7 @@ bool j1Scene::Start()
 {
 	App->map->Load(CurrentMap->data);
 
-	int w, h;
-	uchar* data = NULL;
-	if (App->map->CreateWalkabilityMap(w, h, &data))
-		App->pathfinding->SetMap(w, h, data);
+	LoadWalkabilityMap();
 
 	p2List_item<MapLayer*>* layer = App->map->data.layers.start;
 	iPoint size_map;
@@ -82,7 +76,7 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-
+	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
 	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
 		App->audio->VolumeUp();
@@ -174,6 +168,7 @@ bool j1Scene::Update(float dt)
 // Called each loop iteration
 bool j1Scene::PostUpdate()
 {
+	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 	bool ret = true;
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
@@ -185,6 +180,7 @@ bool j1Scene::PostUpdate()
 
 		/*Screenshoot_name->add(("SHOT %i", cont_screenshots));
 
+
 		p2List_item<char>* Screen = Screenshoot_name->start;
 		while (Screen->data != NULL)
 		{
@@ -194,8 +190,8 @@ bool j1Scene::PostUpdate()
 		Screen->data = ("SHOT %i", cont_screenshots);*/
 
 
-		auto now = Clock::now();
-		std::time_t now_c = Clock::to_time_t(now);
+		auto now = std::chrono::system_clock::now();
+		std::time_t now_c = std::chrono::system_clock::to_time_t(now);
 		tm time;
 		localtime_s(&time, &now_c);
 
@@ -247,27 +243,36 @@ bool j1Scene::LoadScene(int map) {
 	App->tex->FreeTextures();
 	App->player->LoadTexture();
 	App->enemies->LoadEnemyText();
-	
+	App->enemies->FreeEnemies();
 
 	if (map == -1) {
 
-		if (CurrentMap->next != nullptr)
-			 CurrentMap = CurrentMap->next;
-		else
-			CurrentMap = MapsList_String.start;		
+		if (CurrentMap->next != nullptr) {
+			CurrentMap = CurrentMap->next;
+			currmap++;
+		}
+		else {
+			CurrentMap = MapsList_String.start;
+			currmap = 1;
+		}
 	}
 	else {
 		CurrentMap = MapsList_String.start;
 		for (int i = 1; i < map; i++) {
-			if (CurrentMap->next != nullptr) 
+			if (CurrentMap->next != nullptr) {
 				CurrentMap = CurrentMap->next;
-		
+				currmap = map;
+			}
 			else 
 				break;
 			}
 	
 	}
+
 	App->map->Load(CurrentMap->data.GetString());
+
+	LoadWalkabilityMap();
+	App->enemies->FindEnemies();
 
 	App->player->FindSpawn();
 	App->player->SpawnPlayer();
@@ -280,19 +285,8 @@ bool j1Scene::LoadScene(int map) {
 bool j1Scene::Load(pugi::xml_node&  savegame) {
 	currmap = savegame.child("Map").attribute("CurrentMap").as_int();
 
-	App->map->CleanUp();
+	LoadScene(currmap);
 
-	switch (currmap)
-	{
-	case 1:
-		App->map->Load("Map1.tmx");
-		break;
-	case 2:
-		App->map->Load("Map2.tmx");
-		break;
-	default:
-		break;
-	}
 	return true;
 }
 
@@ -303,4 +297,12 @@ bool j1Scene::Save(pugi::xml_node& data) const {
 
 	cam.append_attribute("CurrentMap") = currmap;
 	return true;
+}
+
+void j1Scene::LoadWalkabilityMap() {
+	int w, h;
+	uchar* data = NULL;
+
+	if (App->map->CreateWalkabilityMap(w, h, &data))
+		App->pathfinding->SetMap(w, h, data);
 }

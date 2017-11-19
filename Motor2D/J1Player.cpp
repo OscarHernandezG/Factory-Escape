@@ -59,6 +59,8 @@ bool j1Player::PreUpdate()
 bool j1Player::Update(float dt)
 {
 
+	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
+
 	if (App->scene->Photo_mode){
 		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
 			App->win->scale += 0.1f * App->zoom_dt;
@@ -205,10 +207,10 @@ bool j1Player::Load(pugi::xml_node&  data)
 //Save
 bool j1Player::Save(pugi::xml_node& data) const
 {
-	pugi::xml_node cam = data.append_child("position");
+	pugi::xml_node player = data.append_child("position");
 
-	cam.append_attribute("x") = x;
-	cam.append_attribute("y") = y;
+	player.append_attribute("x") = x;
+	player.append_attribute("y") = y;
 
 	return true;
 }
@@ -425,7 +427,7 @@ void j1Player::CheckPlayerState(float dt)
 			SpawnPlayer();
 		}
 	}
-	if (!death)
+	if (!death && !god_mode)
 	death = CheckPlayerDeath();
 
 	down_force = 1250;

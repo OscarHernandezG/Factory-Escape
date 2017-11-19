@@ -555,22 +555,17 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 				int i = (y*layer->width) + x;
 				k = i;
 				int tile_id = layer->Get(x, y);
-			//	TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
 
-			//	if (tileset != NULL)
-				
-					//map[i] = (tile_id - tileset->firstgid) > 0 ? 1 : 0;
-					if (tile_id == PATHFINDING_BAT)
-						map[i] = 1;
-					else if (tile_id == PATHFINDING_BLOP)
-						map[i] = 2;
-					else
-						map[i] = 0;
-
-				//	map[i] = item->data->properties.Get("navigation", 0);
-
+				if (tile_id == PATHFINDING_BAT)
+					map[i] = 1;
+				else if (tile_id == PATHFINDING_BLOP)
+					map[i] = 2;
+				else
+					map[i] = 0;
 			}
 		}
+
+
 		for (int j = 0; j < k; j++) {
 			LOG("%i", map[j]);
 		}

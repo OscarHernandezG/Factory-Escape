@@ -8,14 +8,13 @@
 	</audio>
 	<map />
 	<scene>
-		<Map CurrentMap="1" />
+		<Map CurrentMap="2" />
 	</scene>
 	<pathfinding />
 	<player>
-		<position x="1243.99805" y="206.252151" />
+		<position x="0" y="207.730164" />
 	</player>
-	<:anonymous />
 	<renderer>
-		<camera x="-670" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>
