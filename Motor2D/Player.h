@@ -73,7 +73,7 @@ public:
 	//Save
 	bool Save(pugi::xml_node& data) const;
 
-	void LoadTexture();
+	//void LoadTexture();
 
 	void CheckPlayerState(float dt);
 

@@ -38,13 +38,13 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 	bool FreeEnemies();
-	void LoadEnemyText();
-	void LoadEnemyAnim();
+	void LoadEntityText();
+	void LoadEntityAnim();
 
 	bool AddEnemy(ENTITY_TYPES type, int x, int y);
 
 	void SpawnEnemy(const EntityInfo& info);
-	void FindEnemies();
+	void FindEntities();
 
 	// Load
 	//bool Load(pugi::xml_node&  data);
@@ -86,6 +86,7 @@ private:
 	EntityInfo queue[MAX_ENEMIES];
 	
 	SDL_Texture* sprites;
+	SDL_Texture* Player_Sprites;
 
 	float proj_speed = 5.0f;
 	float speed_x_mult, speed_y_mult, common_mult, a_mult;

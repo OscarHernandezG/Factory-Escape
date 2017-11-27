@@ -39,7 +39,7 @@ bool Player::Start()
 {
 	//Load player texture
 
-	LoadTexture();
+	//LoadTexture();
 
 	LoadAnimations();
 	CurrentAnim = &Idle;
@@ -219,11 +219,11 @@ bool Player::Save(pugi::xml_node& data) const
 	return true;
 }
 
-void Player::LoadTexture()
+/*void Player::LoadTexture()
 {
-	texture = App->tex->Load("textures/robot_animation.png");
+	
 }
-
+*/
 void Player::CheckPlayerState(float dt)
 {
 
@@ -427,7 +427,7 @@ void Player::CheckPlayerState(float dt)
 			CurrentAnim = &Idle;
 			melee = false;
 			App->entities->FreeEnemies();
-			App->entities->FindEnemies();
+			App->entities->FindEntities();
 			Die.Reset();
 			death = false;
 			App->render->camera.x = 0;
@@ -444,7 +444,7 @@ void Player::CheckPlayerState(float dt)
 
 void Player::LoadAnimations()
 {
-	pugi::xml_document	animation_file;
+/*	pugi::xml_document	animation_file;
 	pugi::xml_parse_result animations = animation_file.load_file("textures/animations.xml");
 	pugi::xml_node SpriteMapping = animation_file.child("SpriteMapping");
 
@@ -481,7 +481,7 @@ void Player::LoadAnimations()
 
 	}
 
-	// Idle Animation
+*/	// Idle Animation
 
 	for (int i = 0; i < 10; i++) {
 		Idle.PushBack({ animation_x[i],animation_y[i],animation_w[i],animation_h[i] });

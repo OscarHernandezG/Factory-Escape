@@ -228,7 +228,7 @@ bool j1Scene::LoadScene(int map) {
 	App->audio->FreeMusic();
 	App->tex->FreeTextures();
 	App->player->LoadTexture();
-	App->entities->LoadEnemyText();
+	App->entities->LoadEntityText();
 	App->entities->FreeEnemies();
 
 	if (map == -1) {
@@ -258,7 +258,7 @@ bool j1Scene::LoadScene(int map) {
 	App->map->Load(CurrentMap->data.GetString());
 
 	LoadWalkabilityMap();
-	App->entities->FindEnemies();
+	App->entities->FindEntities();
 
 	App->player->FindSpawn();
 	App->player->SpawnPlayer();

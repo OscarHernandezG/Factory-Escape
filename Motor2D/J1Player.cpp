@@ -424,7 +424,7 @@ void j1Player::CheckPlayerState(float dt)
 			CurrentAnim = &Idle;
 			melee = false;
 			App->entities->FreeEnemies();
-			App->entities->FindEnemies();
+			App->entities->FindEntities();
 			Die.Reset();
 			death = false;
 			App->render->camera.x = 0;

@@ -47,19 +47,19 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Bat.cpp">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Blop.cpp">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
     <ClCompile Include="j1Entities.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,19 +130,19 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Bat.h">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Blop.h">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
     <ClInclude Include="j1Entities.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -167,7 +167,7 @@
     <Filter Include="Desenvolupament  ========\Player">
       <UniqueIdentifier>{dab9c1f1-ce12-4647-b0a7-0ff72a40c622}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Desenvolupament  ========\Enemies">
+    <Filter Include="Desenvolupament  ========\Entities">
       <UniqueIdentifier>{d8a94cae-916a-4d68-9513-3eadd0a740a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

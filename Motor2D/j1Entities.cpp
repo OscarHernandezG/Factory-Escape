@@ -31,20 +31,20 @@ j1Entities::~j1Entities()
 
 bool j1Entities::Start()
 {
-	LoadEnemyText();
-	LoadEnemyAnim();
+	LoadEntityText();
+	LoadEntityAnim();
 
-	FindEnemies();
+	FindEntities();
 	return true;
 }
 
-void j1Entities::LoadEnemyText() {
-	sprites = App->tex->Load("textures/enemies.png");
+void j1Entities::LoadEntityText() {
+	sprites = App->tex->Load("textures/Entities.png");
 }
 
-void j1Entities::LoadEnemyAnim() {
+void j1Entities::LoadEntityAnim() {
 	pugi::xml_document	animation_file;
-	pugi::xml_parse_result animations = animation_file.load_file("textures/enemies_animation.xml");
+	pugi::xml_parse_result animations = animation_file.load_file("textures/entities_animation.xml");
 	pugi::xml_node SpriteMapping = animation_file.child("SpriteMapping");
 
 	for (pugi::xml_node iterator = SpriteMapping.child("Sprites").child("Sprite"); iterator != nullptr; iterator = iterator.next_sibling("Sprite"))
@@ -216,7 +216,7 @@ void j1Entities::SpawnEnemy(const EntityInfo& info)
 }
 
 
-void j1Entities::FindEnemies()
+void j1Entities::FindEntities()
 {
 	p2List_item<MapLayer*>* layer = App->map->data.layers.end;
 	for (int i = 0; i < layer->data->size_data; i++)

@@ -97,13 +97,13 @@ void Blop::Draw(SDL_Texture* texture) {
 
 void Blop::LoadAnimation() {
 
-	for (int i = 8; i < 14; i++) {
+	for (int i = 90; i < 96; i++) {
 		Idle.PushBack({ App->entities->animation_x[i],App->entities->animation_y[i],App->entities->animation_w[i],App->entities->animation_h[i] });
 	}
 	Idle.loop = true;
 	Idle.speed = 1.5f;
 
-	for (int i = 0; i < 8; i++) {
+	for (int i = 82; i < 90; i++) {
 		Walk.PushBack({ App->entities->animation_x[i],App->entities->animation_y[i],App->entities->animation_w[i],App->entities->animation_h[i] });
 	}
 	Walk.loop = true;

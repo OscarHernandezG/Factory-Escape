@@ -99,19 +99,19 @@ void Bat::Draw(SDL_Texture* texture) {
 
 void Bat::LoadAnimation() {
 
-	for (int i = 14; i < 18; i++) {
+	for (int i = 96; i < 100; i++) {
 		Idle.PushBack({ App->entities->animation_x[i],App->entities->animation_y[i],App->entities->animation_w[i],App->entities->animation_h[i] });
 	}
 	Idle.loop = true;
 	Idle.speed = 1.5f;
 
-	for (int i = 18; i < 22; i++) {
+	for (int i = 100; i < 104; i++) {
 		Left.PushBack({ App->entities->animation_x[i],App->entities->animation_y[i],App->entities->animation_w[i],App->entities->animation_h[i] });
 	}
 	Left.loop = true;
 	Left.speed = 1.5f;
 
-	for (int i = 22; i < 26; i++) {
+	for (int i = 104; i < 108; i++) {
 		Right.PushBack({ App->entities->animation_x[i],App->entities->animation_y[i],App->entities->animation_w[i],App->entities->animation_h[i] });
 	}
 	Right.loop = true;
