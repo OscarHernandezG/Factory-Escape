@@ -1,3 +1,4 @@
+#include "j1App.h"
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
@@ -7,23 +8,25 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Map.h"
-#include "j1Player.h"
+#include "Player.h"
 #include "j1Scene.h"
 #include "j1Enemies.h"
+#include "Animation.h"
 #include "Enemy.h"
-#include "Player.h"
+#include "j1Timer.h"
 
-j1Player::j1Player() : j1Module()
+
+Player::Player(int x, int y) : Enemy(x, y)
 {
-	name.create("player");
+	//name.create("player");
 }
 
 // Destructor
-j1Player::~j1Player()
+Player::~Player()
 {}
 
 // Called before render is available
-bool j1Player::Awake()
+bool Player::Awake()
 {
 	LOG("Loading Player");
 	bool ret = true;
@@ -32,7 +35,7 @@ bool j1Player::Awake()
 }
 
 // Called before the first frame
-bool j1Player::Start()
+bool Player::Start()
 {
 	//Load player texture
 
@@ -43,7 +46,7 @@ bool j1Player::Start()
 
 	FindSpawn();
 	SpawnPlayer();
-	
+
 	speed.x = 0;
 	speed.y = 0;
 
@@ -51,49 +54,49 @@ bool j1Player::Start()
 }
 
 // Called each loop iteration
-bool j1Player::PreUpdate()
+bool Player::PreUpdate()
 {
 	return true;
 }
 
 // Called each loop iteration
-bool j1Player::Update(float dt)
+bool Player::Update(float dt)
 {
 
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
-	if (App->scene->Photo_mode){
+	if (App->scene->Photo_mode) {
 		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
 			App->win->scale += 0.1f * App->zoom_dt;
 
-		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) 
+		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
 			App->win->scale -= 0.1f * App->zoom_dt;
 
-			App->win->scale += App->input->GetScroll() * App->zoom_dt;
+		App->win->scale += App->input->GetScroll() * App->zoom_dt;
 
 		if (App->win->scale < 1)
 			App->win->scale = 1;
 	}
-		
-	else 
+
+	else
 		CheckPlayerState(dt);
 
 	switch (PlayerState)
 	{
 	case IDLE:
-		if(CanJump)
-		CurrentAnim = &Idle;
+		if (CanJump)
+			CurrentAnim = &Idle;
 		break;
 	case RUNNING_RIGHT:
 		if (CanJump)
-		CurrentAnim = &Run;
-		x+= 200 * dt;
+			CurrentAnim = &Run;
+		x += 200 * dt;
 		flip = SDL_FLIP_NONE;
 		break;
 	case RUNNING_LEFT:
 		if (CanJump)
-		CurrentAnim = &Run;
-		x-= 200 * dt;
+			CurrentAnim = &Run;
+		x -= 200 * dt;
 		flip = SDL_FLIP_HORIZONTAL;
 		break;
 	case JUMPING_RIGHT:
@@ -135,11 +138,11 @@ bool j1Player::Update(float dt)
 		flip = SDL_FLIP_HORIZONTAL;
 		break;
 	case MELEE_JUMP_RIGHT:
-	//	CurrentAnim = &MeleeJump;
+		//	CurrentAnim = &MeleeJump;
 
 		break;
 	case MELEE_JUMP_LEFT:
-	//	CurrentAnim = &MeleeJump;
+		//	CurrentAnim = &MeleeJump;
 
 		break;
 	case SHOOT_RIGHT:
@@ -162,14 +165,14 @@ bool j1Player::Update(float dt)
 		break;
 	}
 
-	App->render->Blit(texture, x, y, &CurrentAnim->GetCurrentFrame(),1, flip,0,255);
+	App->render->Blit(texture, x, y, &CurrentAnim->GetCurrentFrame(), 1, flip, 0, 255);
 	PlayerState = IDLE;
 
 	return true;
 }
 
 // Called each loop iteration
-bool j1Player::PostUpdate()
+bool Player::PostUpdate()
 {
 	bool ret = true;
 
@@ -180,7 +183,7 @@ bool j1Player::PostUpdate()
 }
 
 // Called before quitting
-bool j1Player::CleanUp()
+bool Player::CleanUp()
 {
 	LOG("Freeing player");
 
@@ -196,7 +199,7 @@ bool j1Player::CleanUp()
 
 
 // Load
-bool j1Player::Load(pugi::xml_node&  data) 
+bool Player::Load(pugi::xml_node&  data)
 {
 	x = data.child("position").attribute("x").as_int();
 	y = data.child("position").attribute("y").as_int();
@@ -206,7 +209,7 @@ bool j1Player::Load(pugi::xml_node&  data)
 
 
 //Save
-bool j1Player::Save(pugi::xml_node& data) const
+bool Player::Save(pugi::xml_node& data) const
 {
 	pugi::xml_node player = data.append_child("position");
 
@@ -216,14 +219,14 @@ bool j1Player::Save(pugi::xml_node& data) const
 	return true;
 }
 
-void j1Player::LoadTexture() 
+void Player::LoadTexture()
 {
 	texture = App->tex->Load("textures/robot_animation.png");
 }
 
-void j1Player::CheckPlayerState(float dt) 
+void Player::CheckPlayerState(float dt)
 {
-	
+
 	if (jump) {
 
 		speed.y += down_force * dt;
@@ -254,23 +257,23 @@ void j1Player::CheckPlayerState(float dt)
 
 	// "Gravity"
 
-		pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y + 118);
+	pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y + 118);
 
-		ColisionType colision1 = App->map->CheckColision(pos);
-		ColisionType colision2 = App->map->CheckColision(pos + 1);
+	ColisionType colision1 = App->map->CheckColision(pos);
+	ColisionType colision2 = App->map->CheckColision(pos + 1);
 
 
-		if (colision1 != GROUND && colision2 != GROUND) {
-			y += down_force * (float)dt/9;
-		}
-		if (colision1 == DEATH && colision2 == DEATH) {
-			PlayerState = DEAD;
-		}
-		else if (colision1 == GROUND || colision2 == GROUND) {
-			CanJump = true;
-			jump = false;
-			Jump.Reset();
-		}
+	if (colision1 != GROUND && colision2 != GROUND) {
+		y += down_force * (float)dt / 9;
+	}
+	if (colision1 == DEATH && colision2 == DEATH) {
+		PlayerState = DEAD;
+	}
+	else if (colision1 == GROUND || colision2 == GROUND) {
+		CanJump = true;
+		jump = false;
+		Jump.Reset();
+	}
 	//
 
 	if (death == false) {
@@ -342,7 +345,7 @@ void j1Player::CheckPlayerState(float dt)
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && !melee) {
-			
+
 			melee = true;
 		}
 
@@ -402,7 +405,7 @@ void j1Player::CheckPlayerState(float dt)
 			else if (PlayerState == JUMPING_RIGHT)
 				PlayerState = MELEE_JUMP_RIGHT;
 
-			else 
+			else
 				PlayerState = MELEE;
 
 			if (Melee.Finished()) {
@@ -415,11 +418,11 @@ void j1Player::CheckPlayerState(float dt)
 		}
 	}
 
-	
+
 	else if (death) {
 		currentTime = SDL_GetTicks();
 		PlayerState = DEAD;
-		y += (down_force * dt)/10;
+		y += (down_force * dt) / 10;
 		if (currentTime > dieTime + 1000) {
 			CurrentAnim = &Idle;
 			melee = false;
@@ -434,12 +437,12 @@ void j1Player::CheckPlayerState(float dt)
 		}
 	}
 	if (!death && !god_mode)
-	death = CheckPlayerDeath();
+		death = CheckPlayerDeath();
 
 	down_force = 1250;
 }
 
-void j1Player::LoadAnimations()
+void Player::LoadAnimations()
 {
 	pugi::xml_document	animation_file;
 	pugi::xml_parse_result animations = animation_file.load_file("textures/animations.xml");
@@ -538,7 +541,7 @@ void j1Player::LoadAnimations()
 
 }
 
-void j1Player::FindSpawn()
+void Player::FindSpawn()
 {
 	p2List_item<MapLayer*>* layer = App->map->data.layers.end;
 	for (int i = 0; i < layer->data->size_data; i++)
@@ -551,13 +554,13 @@ void j1Player::FindSpawn()
 
 }
 
-void j1Player::SpawnPlayer() {
+void Player::SpawnPlayer() {
 
 	x = spawn.x;
 	y = spawn.y;
 }
 
-void j1Player::KillEnemies() {
+void Player::KillEnemies() {
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 
@@ -582,7 +585,7 @@ void j1Player::KillEnemies() {
 	}
 }
 
-bool j1Player::CheckPlayerDeath() {
+bool Player::CheckPlayerDeath() {
 
 	bool ret = false;
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {

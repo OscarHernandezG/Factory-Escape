@@ -12,6 +12,7 @@
 #include "j1Enemies.h"
 #include "Bat.h"
 #include "Blop.h"
+#include "Player.h"
 
 
 
@@ -205,6 +206,9 @@ void j1Enemies::SpawnEnemy(const EnemyInfo& info)
 			break;
 		case ENEMY_TYPES::BLOP:
 			enemies[i] = new Blop(info.x, info.y);
+			break;
+		case ENEMY_TYPES::PLAYER:
+			enemies[i] = new Player(info.x, info.y);
 			break;
 		}
 	}

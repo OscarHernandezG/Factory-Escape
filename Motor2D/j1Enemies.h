@@ -14,6 +14,7 @@ enum ENEMY_TYPES
 	NO_TYPE,
 	BAT,
 	BLOP,
+	PLAYER,
 };
 
 class Enemy;

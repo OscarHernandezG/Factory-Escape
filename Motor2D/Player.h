@@ -1,17 +1,18 @@
-#ifndef __J1PLAYER_H__
-#define __J1PLAYER_H__
+#ifndef __PLAYER_H__
+#define __PLAYER_H__
 
-#include "j1Module.h"
 #include "Animation.h"
 #include "j1Render.h"
-#include "Player.h"
-//#include "p2Point.h"
+#include "Enemy.h"
+#include "p2Point.h"
+#include "p2DynArray.h"
+
 
 struct SDL_Texture;
 struct SDL_Rect;
 
 
-/*enum State {
+enum State {
 	IDLE = 0,
 	RUNNING_RIGHT,
 	RUNNING_LEFT,
@@ -33,16 +34,20 @@ struct SDL_Rect;
 	DEAD
 
 };
-*/
 
-class j1Player : public j1Module
+
+class Player : public Enemy
 {
 public:
+	Player(int x, int y);
 
-	j1Player();
+	void Move(float dt) {}
+	void Draw(SDL_Texture* texture) {}
+
+
 
 	// Destructor
-	virtual ~j1Player();
+	virtual ~Player();
 
 	// Called before render is available
 	bool Awake();
@@ -75,7 +80,7 @@ public:
 	void LoadAnimations();
 
 	void FindSpawn();
-	
+
 	void SpawnPlayer();
 
 	void KillEnemies();
@@ -84,13 +89,13 @@ public:
 
 	float x, y;
 	bool god_mode = false;
-	
+
 private:
 
-	
+
 	SDL_Texture* texture = nullptr;
 	SDL_Rect rect;
-	float angle=0;
+	float angle = 0;
 	p2Point<float> speed;
 	p2Point<float> movement = { 0,0 };
 	float a = 0.002;
@@ -121,8 +126,8 @@ private:
 	Animation* CurrentAnim = nullptr;
 	uint pos = 0, lastTime = 0, currentTime = 0, dieTime = 0;
 
-	int size=0;
-	
+	int size = 0;
+
 	int* animation_x = nullptr;
 	int* animation_y = nullptr;
 	int* animation_w = nullptr;
@@ -137,5 +142,6 @@ private:
 
 
 
-#endif // !__J1PLAYER_H__
+#endif // !__PLAYER_H__
+
 
