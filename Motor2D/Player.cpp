@@ -19,6 +19,14 @@
 Player::Player(int x, int y) : Entity(x, y)
 {
 	//name.create("player");
+	LoadAnimations();
+	CurrentAnim = &Idle;
+
+	FindSpawn();
+	SpawnPlayer();
+
+	speed.x = 0;
+	speed.y = 0;
 }
 
 // Destructor
@@ -37,10 +45,7 @@ bool Player::Awake()
 // Called before the first frame
 bool Player::Start()
 {
-	//Load player texture
-
-	//LoadTexture();
-
+	/*LoadTexture();
 	LoadAnimations();
 	CurrentAnim = &Idle;
 
@@ -50,6 +55,7 @@ bool Player::Start()
 	speed.x = 0;
 	speed.y = 0;
 
+	*/
 	return true;
 }
 

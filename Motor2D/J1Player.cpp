@@ -1,4 +1,4 @@
-#include "p2Defs.h"
+/*#include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Input.h"
@@ -351,7 +351,7 @@ void j1Player::CheckPlayerState(float dt)
 
 			pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y + 118 / 2);
 
-			ColisionType colision = App->map->CheckColision(pos + 5/*5 Tileds*/);
+			ColisionType colision = App->map->CheckColision(pos + 5/*5 Tileds*//*);
 
 			if (colision == NONE) {
 				slide = true;
@@ -598,3 +598,4 @@ bool j1Player::CheckPlayerDeath() {
 	}
 	return ret;
 }
+*/

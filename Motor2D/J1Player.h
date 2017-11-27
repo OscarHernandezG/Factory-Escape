@@ -1,4 +1,4 @@
-#ifndef __J1PLAYER_H__
+/*#ifndef __J1PLAYER_H__
 #define __J1PLAYER_H__
 
 #include "j1Module.h"
@@ -34,7 +34,7 @@ struct SDL_Rect;
 
 };
 */
-
+/*
 class j1Player : public j1Module
 {
 public:
@@ -139,3 +139,4 @@ private:
 
 #endif // !__J1PLAYER_H__
 
+*/

@@ -119,7 +119,7 @@ bool j1Scene::Update(float dt)
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
-		App->player->god_mode = !App->player->god_mode;
+		App->entities->player->god_mode = !App->entities->player->god_mode;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
@@ -141,16 +141,17 @@ bool j1Scene::Update(float dt)
 
 		
 
-	if ((App->player->x - (-App->render->camera.x +(1 *App->render->camera.w / 3)) >= 0) && !Photo_mode) {
-		if (App->render->camera.x - App->render->camera.w > -(App->map->data.width*App->map->data.tile_width))
-			App->render->camera.x -= 4;
-	}
+	if (App->entities->player != NULL) {
+		if ((App->entities->player->x - (-App->render->camera.x + (1 * App->render->camera.w / 3)) >= 0) && !Photo_mode) {
+			if (App->render->camera.x - App->render->camera.w > -(App->map->data.width*App->map->data.tile_width))
+				App->render->camera.x -= 4;
+		}
 
-	if ((App->player->x - (-App->render->camera.x + (1 * App->render->camera.w / 4)) <= 0) && !Photo_mode) {
-		if (App->render->camera.x < 0)
-			App->render->camera.x += 4;
+		if ((App->entities->player->x - (-App->render->camera.x + (1 * App->render->camera.w / 4)) <= 0) && !Photo_mode) {
+			if (App->render->camera.x < 0)
+				App->render->camera.x += 4;
+		}
 	}
-	
 /*	if ((App->player->y - (-App->render->camera.y + (1 * App->render->camera.h/3)) >= 0) && App->win->scale != 1) {
 			App->render->camera.y -= 2;
 	}
@@ -227,7 +228,7 @@ bool j1Scene::LoadScene(int map) {
 	App->map->CleanUp();
 	App->audio->FreeMusic();
 	App->tex->FreeTextures();
-	App->player->LoadTexture();
+	//App->entities->player->LoadTexture();
 	App->entities->LoadEntityText();
 	App->entities->FreeEnemies();
 
@@ -260,8 +261,8 @@ bool j1Scene::LoadScene(int map) {
 	LoadWalkabilityMap();
 	App->entities->FindEntities();
 
-	App->player->FindSpawn();
-	App->player->SpawnPlayer();
+	App->entities->player->FindSpawn();
+	App->entities->player->SpawnPlayer();
 
 	return true;
 }

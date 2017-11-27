@@ -80,6 +80,7 @@ void j1Entities::LoadEntityAnim() {
 
 	}
 }
+
 bool j1Entities::PreUpdate()
 {
 	// check camera position to decide what to spawn
@@ -219,18 +220,19 @@ void j1Entities::SpawnEnemy(const EntityInfo& info)
 void j1Entities::FindEntities()
 {
 	p2List_item<MapLayer*>* layer = App->map->data.layers.end;
-	for (int i = 0; i < layer->data->size_data; i++)
-	{
-		if (layer->data->data[i] == Tile_Type::BAT_SPAWN)
+	if (layer != nullptr) {
+		for (int i = 0; i < layer->data->size_data; i++)
 		{
-			iPoint spawn = App->map->TileToWorld(i);
-			AddEnemy(ENTITY_TYPES::BAT, spawn.x,spawn.y);
-		}
-		if (layer->data->data[i] == Tile_Type::BLOP_SPAWN)
-		{
-			iPoint spawn = App->map->TileToWorld(i);
-			AddEnemy(ENTITY_TYPES::BLOP, spawn.x, spawn.y);
+			if (layer->data->data[i] == Tile_Type::BAT_SPAWN)
+			{
+				iPoint spawn = App->map->TileToWorld(i);
+				AddEnemy(ENTITY_TYPES::BAT, spawn.x, spawn.y);
+			}
+			if (layer->data->data[i] == Tile_Type::BLOP_SPAWN)
+			{
+				iPoint spawn = App->map->TileToWorld(i);
+				AddEnemy(ENTITY_TYPES::BLOP, spawn.x, spawn.y);
+			}
 		}
 	}
-
 }

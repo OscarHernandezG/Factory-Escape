@@ -41,7 +41,9 @@ class Player : public Entity
 public:
 	Player(int x, int y);
 
-	void Move(float dt) {}
+	void Move(float dt) {
+	
+	}
 	void Draw(SDL_Texture* texture) {}
 
 
@@ -87,7 +89,8 @@ public:
 
 	bool CheckPlayerDeath();
 
-	float x, y;
+
+	float x = 0.0f, y = 0.0f;
 	bool god_mode = false;
 
 private:

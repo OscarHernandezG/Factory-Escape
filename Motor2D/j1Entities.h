@@ -4,6 +4,7 @@
 #include "j1Module.h"
 #include "Animation.h"
 #include "j1Textures.h"
+#include "Player.h"
 //#include "Enemy_BasicEnemy.h"
 
 #define MAX_ENEMIES 20
@@ -80,7 +81,7 @@ public:
 	p2List<SDL_Rect> animations_list;
 
 	Entity* entities[MAX_ENEMIES];
-
+	Player* player;
 private:
 
 	EntityInfo queue[MAX_ENEMIES];

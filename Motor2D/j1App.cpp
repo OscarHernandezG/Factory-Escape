@@ -28,21 +28,23 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	scene = new j1Scene();
 	map = new j1Map();
-	player = new j1Player();
+	//player = new j1Player();
 	entities = new j1Entities();
 	pathfinding = new j1PathFinding();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
+
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
+	AddModule(entities);
 	AddModule(scene);
 	AddModule(pathfinding);
-	AddModule(player);
-	AddModule(entities);
+	//AddModule(player);
+
 
 	// render last to swap buffer
 	AddModule(render);
