@@ -12,7 +12,7 @@
 #include "j1Map.h"
 #include "j1App.h"
 #include "J1Player.h"
-#include "j1Enemies.h"
+#include "j1Entities.h"
 #include "j1Pathfinding.h"
 
 // Constructor
@@ -29,7 +29,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new j1Scene();
 	map = new j1Map();
 	player = new j1Player();
-	enemies = new j1Enemies();
+	entities = new j1Entities();
 	pathfinding = new j1PathFinding();
 
 	// Ordered for awake / Start / Update
@@ -42,7 +42,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(pathfinding);
 	AddModule(player);
-	AddModule(enemies);
+	AddModule(entities);
 
 	// render last to swap buffer
 	AddModule(render);

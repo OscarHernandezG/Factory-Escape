@@ -77,7 +77,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Blop.cpp" />
-    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Bat.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -88,7 +88,7 @@
     <ClCompile Include="j1PerfTimer.cpp" />
     <ClCompile Include="J1Player.cpp" />
     <ClCompile Include="j1Scene.cpp" />
-    <ClCompile Include="j1Enemies.cpp" />
+    <ClCompile Include="j1Entities.cpp" />
     <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
@@ -100,14 +100,14 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Blop.h" />
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="Bat.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Pathfinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="J1Player.h" />
     <ClInclude Include="j1Scene.h" />
-    <ClInclude Include="j1Enemies.h" />
+    <ClInclude Include="j1Entities.h" />
     <ClInclude Include="j1Timer.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="j1Audio.h" />

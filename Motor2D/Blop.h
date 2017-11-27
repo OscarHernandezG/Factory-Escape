@@ -1,12 +1,12 @@
 #ifndef __BLOP_H__
 #define __BLOP_H__
 
-#include "Enemy.h"
+#include "Entity.h"
 #include "p2Point.h"
 #include "p2DynArray.h"
 #include "j1Render.h"
 
-class Blop : public Enemy
+class Blop : public Entity
 {
 private:
 

@@ -1,5 +1,5 @@
-#ifndef __ModuleEnemies_H__
-#define __ModuleEnemies_H__
+#ifndef __ModuleEntities_H__
+#define __ModuleEntities_H__
 
 #include "j1Module.h"
 #include "Animation.h"
@@ -9,7 +9,7 @@
 #define MAX_ENEMIES 20
 
 
-enum ENEMY_TYPES
+enum ENTITY_TYPES
 {
 	NO_TYPE,
 	BAT,
@@ -17,20 +17,20 @@ enum ENEMY_TYPES
 	PLAYER,
 };
 
-class Enemy;
+class Entity;
 
-struct EnemyInfo
+struct EntityInfo
 {
-	ENEMY_TYPES type = ENEMY_TYPES::NO_TYPE;
+	ENTITY_TYPES type = ENTITY_TYPES::NO_TYPE;
 	int x, y, path;
 };
 
-class j1Enemies : public j1Module
+class j1Entities : public j1Module
 {
 public:
 
-	j1Enemies();
-	~j1Enemies();
+	j1Entities();
+	~j1Entities();
 
 	bool Start();
 	bool PreUpdate();
@@ -41,9 +41,9 @@ public:
 	void LoadEnemyText();
 	void LoadEnemyAnim();
 
-	bool AddEnemy(ENEMY_TYPES type, int x, int y);
+	bool AddEnemy(ENTITY_TYPES type, int x, int y);
 
-	void SpawnEnemy(const EnemyInfo& info);
+	void SpawnEnemy(const EntityInfo& info);
 	void FindEnemies();
 
 	// Load
@@ -79,11 +79,11 @@ public:
 
 	p2List<SDL_Rect> animations_list;
 
-	Enemy* enemies[MAX_ENEMIES];
+	Entity* entities[MAX_ENEMIES];
 
 private:
 
-	EnemyInfo queue[MAX_ENEMIES];
+	EntityInfo queue[MAX_ENEMIES];
 	
 	SDL_Texture* sprites;
 

@@ -10,13 +10,13 @@
 #include "j1Map.h"
 #include "Player.h"
 #include "j1Scene.h"
-#include "j1Enemies.h"
+#include "j1Entities.h"
 #include "Animation.h"
-#include "Enemy.h"
+#include "Entity.h"
 #include "j1Timer.h"
 
 
-Player::Player(int x, int y) : Enemy(x, y)
+Player::Player(int x, int y) : Entity(x, y)
 {
 	//name.create("player");
 }
@@ -426,8 +426,8 @@ void Player::CheckPlayerState(float dt)
 		if (currentTime > dieTime + 1000) {
 			CurrentAnim = &Idle;
 			melee = false;
-			App->enemies->FreeEnemies();
-			App->enemies->FindEnemies();
+			App->entities->FreeEnemies();
+			App->entities->FindEnemies();
 			Die.Reset();
 			death = false;
 			App->render->camera.x = 0;
@@ -564,21 +564,21 @@ void Player::KillEnemies() {
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 
-		if (App->enemies->enemies[i] != nullptr) {
+		if (App->entities->entities[i] != nullptr) {
 			if (flip == SDL_FLIP_NONE) {
-				if (x < App->enemies->enemies[i]->position.x && x + 128 > App->enemies->enemies[i]->position.x) {
-					if (y < App->enemies->enemies[i]->position.y && y + 120 > App->enemies->enemies[i]->position.y) {
-						delete App->enemies->enemies[i];
-						App->enemies->enemies[i] = nullptr;
+				if (x < App->entities->entities[i]->position.x && x + 128 > App->entities->entities[i]->position.x) {
+					if (y < App->entities->entities[i]->position.y && y + 120 > App->entities->entities[i]->position.y) {
+						delete App->entities->entities[i];
+						App->entities->entities[i] = nullptr;
 					}
 				}
 			}
 
 			else {
-				if (x - 128 < App->enemies->enemies[i]->position.x && x > App->enemies->enemies[i]->position.x)
-					if (y < App->enemies->enemies[i]->position.y && y + 120 > App->enemies->enemies[i]->position.y) {
-						delete App->enemies->enemies[i];
-						App->enemies->enemies[i] = nullptr;
+				if (x - 128 < App->entities->entities[i]->position.x && x > App->entities->entities[i]->position.x)
+					if (y < App->entities->entities[i]->position.y && y + 120 > App->entities->entities[i]->position.y) {
+						delete App->entities->entities[i];
+						App->entities->entities[i] = nullptr;
 					}
 			}
 		}
@@ -589,9 +589,9 @@ bool Player::CheckPlayerDeath() {
 
 	bool ret = false;
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
-		if (App->enemies->enemies[i] != nullptr) {
-			if (x < App->enemies->enemies[i]->position.x && x + 48 > App->enemies->enemies[i]->position.x) {
-				if (y < App->enemies->enemies[i]->position.y && y + 120 > App->enemies->enemies[i]->position.y) {
+		if (App->entities->entities[i] != nullptr) {
+			if (x < App->entities->entities[i]->position.x && x + 48 > App->entities->entities[i]->position.x) {
+				if (y < App->entities->entities[i]->position.y && y + 120 > App->entities->entities[i]->position.y) {
 					ret = true;
 					break;
 

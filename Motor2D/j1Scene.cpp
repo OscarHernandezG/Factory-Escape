@@ -9,7 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "J1Player.h"
-#include "j1Enemies.h"
+#include "j1Entities.h"
 #include "j1Pathfinding.h"
 
 
@@ -228,8 +228,8 @@ bool j1Scene::LoadScene(int map) {
 	App->audio->FreeMusic();
 	App->tex->FreeTextures();
 	App->player->LoadTexture();
-	App->enemies->LoadEnemyText();
-	App->enemies->FreeEnemies();
+	App->entities->LoadEnemyText();
+	App->entities->FreeEnemies();
 
 	if (map == -1) {
 
@@ -258,7 +258,7 @@ bool j1Scene::LoadScene(int map) {
 	App->map->Load(CurrentMap->data.GetString());
 
 	LoadWalkabilityMap();
-	App->enemies->FindEnemies();
+	App->entities->FindEnemies();
 
 	App->player->FindSpawn();
 	App->player->SpawnPlayer();

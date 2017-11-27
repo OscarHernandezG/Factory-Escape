@@ -1,12 +1,12 @@
 #ifndef __BAT_H__
 #define __BAT_H__
 
-#include "Enemy.h"
+#include "Entity.h"
 #include "p2Point.h"
 #include "p2DynArray.h"
 #include "j1Timer.h"
 
-class Bat : public Enemy
+class Bat : public Entity
 {
 private:
 

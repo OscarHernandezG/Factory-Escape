@@ -9,7 +9,7 @@
 #include "j1Map.h"
 #include "j1Player.h"
 #include "j1Scene.h"
-#include "j1Enemies.h"
+#include "j1Entities.h"
 #include "Bat.h"
 #include "Blop.h"
 #include "Player.h"
@@ -18,18 +18,18 @@
 
 #define SPAWN_MARGIN 50
 
-j1Enemies::j1Enemies()
+j1Entities::j1Entities()
 {
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
-		enemies[i] = nullptr;
+		entities[i] = nullptr;
 }
 
 // Destructor
-j1Enemies::~j1Enemies()
+j1Entities::~j1Entities()
 {
 }
 
-bool j1Enemies::Start()
+bool j1Entities::Start()
 {
 	LoadEnemyText();
 	LoadEnemyAnim();
@@ -38,11 +38,11 @@ bool j1Enemies::Start()
 	return true;
 }
 
-void j1Enemies::LoadEnemyText() {
+void j1Entities::LoadEnemyText() {
 	sprites = App->tex->Load("textures/enemies.png");
 }
 
-void j1Enemies::LoadEnemyAnim() {
+void j1Entities::LoadEnemyAnim() {
 	pugi::xml_document	animation_file;
 	pugi::xml_parse_result animations = animation_file.load_file("textures/enemies_animation.xml");
 	pugi::xml_node SpriteMapping = animation_file.child("SpriteMapping");
@@ -80,17 +80,17 @@ void j1Enemies::LoadEnemyAnim() {
 
 	}
 }
-bool j1Enemies::PreUpdate()
+bool j1Entities::PreUpdate()
 {
 	// check camera position to decide what to spawn
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
-		if (queue[i].type != ENEMY_TYPES::NO_TYPE)
+		if (queue[i].type != ENTITY_TYPES::NO_TYPE)
 		{
 			if (-queue[i].y < (App->render->camera.y) + SPAWN_MARGIN / 2)
 			{
 				SpawnEnemy(queue[i]);
-				queue[i].type = ENEMY_TYPES::NO_TYPE;
+				queue[i].type = ENTITY_TYPES::NO_TYPE;
 				LOG("Spawning enemy at %d", queue[i].x);
 
 			}
@@ -104,31 +104,31 @@ bool j1Enemies::PreUpdate()
 }
 
 // Called before render is available
-bool j1Enemies::Update(float dt)
+bool j1Entities::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 	if (!App->scene->Photo_mode)
 		for (uint i = 0; i < MAX_ENEMIES; ++i)
-			if (enemies[i] != nullptr) enemies[i]->Move(dt);
+			if (entities[i] != nullptr) entities[i]->Move(dt);
 
 		for (uint i = 0; i < MAX_ENEMIES; ++i)
-			if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
+			if (entities[i] != nullptr) entities[i]->Draw(sprites);
 
 	return true;
 }
 
-bool j1Enemies::PostUpdate()
+bool j1Entities::PostUpdate()
 {
 	// check camera position to decide what to spawn
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
 	{
-		if(enemies[i] != nullptr)
+		if(entities[i] != nullptr)
 		{
-			if (-enemies[i]->position.y/*screen_Size*/ < (App->render->camera.y) - SPAWN_MARGIN * 16)
+			if (-entities[i]->position.y/*screen_Size*/ < (App->render->camera.y) - SPAWN_MARGIN * 16)
 			{
-				LOG("DeSpawning enemy at %d", enemies[i]->position.x /* * screen_Size*/);
-				delete enemies[i];
-				enemies[i] = nullptr;
+				LOG("DeSpawning enemy at %d", entities[i]->position.x /* * screen_Size*/);
+				delete entities[i];
+				entities[i] = nullptr;
 			}
 		}
 	}
@@ -137,7 +137,7 @@ bool j1Enemies::PostUpdate()
 }
 
 // Called before quitting
-bool j1Enemies::CleanUp()
+bool j1Entities::CleanUp()
 {
 	LOG("Freeing all enemies");
 
@@ -145,10 +145,10 @@ bool j1Enemies::CleanUp()
 
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
 	{
-		if(enemies[i] != nullptr)
+		if(entities[i] != nullptr)
 		{
-			delete enemies[i];
-			enemies[i] = nullptr;
+			delete entities[i];
+			entities[i] = nullptr;
 		}
 		queue[i].type = NO_TYPE;
 	}
@@ -156,15 +156,15 @@ bool j1Enemies::CleanUp()
 	return true;
 }
 
-bool j1Enemies::FreeEnemies()
+bool j1Entities::FreeEnemies()
 {
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
-		if (enemies[i] != nullptr)
+		if (entities[i] != nullptr)
 		{
-			delete enemies[i];
-			enemies[i] = nullptr;
+			delete entities[i];
+			entities[i] = nullptr;
 		}
 		queue[i].type = NO_TYPE;
 	}
@@ -172,13 +172,13 @@ bool j1Enemies::FreeEnemies()
 	return true;
 }
 
-bool j1Enemies::AddEnemy(ENEMY_TYPES type, int x, int y)
+bool j1Entities::AddEnemy(ENTITY_TYPES type, int x, int y)
 {
 	bool ret = false;
 
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
 	{
-		if(queue[i].type == ENEMY_TYPES::NO_TYPE)
+		if(queue[i].type == ENTITY_TYPES::NO_TYPE)
 		{
 			queue[i].type = type;
 			queue[i].x = x;
@@ -191,24 +191,24 @@ bool j1Enemies::AddEnemy(ENEMY_TYPES type, int x, int y)
 	return ret;
 }
 
-void j1Enemies::SpawnEnemy(const EnemyInfo& info)
+void j1Entities::SpawnEnemy(const EntityInfo& info)
 {
 	// find room for the new enemy
 	uint i = 0;
-	for (; enemies[i] != nullptr && i < MAX_ENEMIES; ++i);
+	for (; entities[i] != nullptr && i < MAX_ENEMIES; ++i);
 
 	if (i != MAX_ENEMIES)
 	{
 		switch (info.type)
 		{
-		case ENEMY_TYPES::BAT:
-			enemies[i] = new Bat(info.x, info.y);
+		case ENTITY_TYPES::BAT:
+			entities[i] = new Bat(info.x, info.y);
 			break;
-		case ENEMY_TYPES::BLOP:
-			enemies[i] = new Blop(info.x, info.y);
+		case ENTITY_TYPES::BLOP:
+			entities[i] = new Blop(info.x, info.y);
 			break;
-		case ENEMY_TYPES::PLAYER:
-			enemies[i] = new Player(info.x, info.y);
+		case ENTITY_TYPES::PLAYER:
+			entities[i] = new Player(info.x, info.y);
 			break;
 		}
 	}
@@ -216,7 +216,7 @@ void j1Enemies::SpawnEnemy(const EnemyInfo& info)
 }
 
 
-void j1Enemies::FindEnemies()
+void j1Entities::FindEnemies()
 {
 	p2List_item<MapLayer*>* layer = App->map->data.layers.end;
 	for (int i = 0; i < layer->data->size_data; i++)
@@ -224,12 +224,12 @@ void j1Enemies::FindEnemies()
 		if (layer->data->data[i] == Tile_Type::BAT_SPAWN)
 		{
 			iPoint spawn = App->map->TileToWorld(i);
-			AddEnemy(ENEMY_TYPES::BAT, spawn.x,spawn.y);
+			AddEnemy(ENTITY_TYPES::BAT, spawn.x,spawn.y);
 		}
 		if (layer->data->data[i] == Tile_Type::BLOP_SPAWN)
 		{
 			iPoint spawn = App->map->TileToWorld(i);
-			AddEnemy(ENEMY_TYPES::BLOP, spawn.x, spawn.y);
+			AddEnemy(ENTITY_TYPES::BLOP, spawn.x, spawn.y);
 		}
 	}
 

@@ -5,13 +5,13 @@
 #include "j1Render.h"
 #include "j1Pathfinding.h"
 #include "J1Player.h"
-#include "j1Enemies.h"
+#include "j1Entities.h"
 
 
 
 
 
-Blop::Blop(int x, int y) : Enemy(x, y)
+Blop::Blop(int x, int y) : Entity(x, y)
 {
 	position.x = fpos.x = x;
 	position.y = fpos.y = y;
@@ -98,13 +98,13 @@ void Blop::Draw(SDL_Texture* texture) {
 void Blop::LoadAnimation() {
 
 	for (int i = 8; i < 14; i++) {
-		Idle.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });
+		Idle.PushBack({ App->entities->animation_x[i],App->entities->animation_y[i],App->entities->animation_w[i],App->entities->animation_h[i] });
 	}
 	Idle.loop = true;
 	Idle.speed = 1.5f;
 
 	for (int i = 0; i < 8; i++) {
-		Walk.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });
+		Walk.PushBack({ App->entities->animation_x[i],App->entities->animation_y[i],App->entities->animation_w[i],App->entities->animation_h[i] });
 	}
 	Walk.loop = true;
 	Walk.speed = 1.5f;

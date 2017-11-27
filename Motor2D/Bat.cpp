@@ -5,12 +5,12 @@
 #include "j1Render.h"
 #include "j1Pathfinding.h"
 #include "J1Player.h"
-#include "j1Enemies.h"
+#include "j1Entities.h"
 
 
 
 
-Bat::Bat(int x, int y) : Enemy(x, y)
+Bat::Bat(int x, int y) : Entity(x, y)
 {
 	position.x = fpos.x = x;
 	position.y = fpos.y = y;
@@ -100,19 +100,19 @@ void Bat::Draw(SDL_Texture* texture) {
 void Bat::LoadAnimation() {
 
 	for (int i = 14; i < 18; i++) {
-		Idle.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });
+		Idle.PushBack({ App->entities->animation_x[i],App->entities->animation_y[i],App->entities->animation_w[i],App->entities->animation_h[i] });
 	}
 	Idle.loop = true;
 	Idle.speed = 1.5f;
 
 	for (int i = 18; i < 22; i++) {
-		Left.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });
+		Left.PushBack({ App->entities->animation_x[i],App->entities->animation_y[i],App->entities->animation_w[i],App->entities->animation_h[i] });
 	}
 	Left.loop = true;
 	Left.speed = 1.5f;
 
 	for (int i = 22; i < 26; i++) {
-		Right.PushBack({ App->enemies->animation_x[i],App->enemies->animation_y[i],App->enemies->animation_w[i],App->enemies->animation_h[i] });
+		Right.PushBack({ App->entities->animation_x[i],App->entities->animation_y[i],App->entities->animation_w[i],App->entities->animation_h[i] });
 	}
 	Right.loop = true;
 	Right.speed = 1.5f;

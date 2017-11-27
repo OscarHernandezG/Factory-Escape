@@ -44,7 +44,7 @@ bool j1PathFinding::CheckBoundaries(const iPoint& pos) const
 }
 
 // Utility: returns true is the tile is walkable
-bool j1PathFinding::IsWalkable(const iPoint& pos, ENEMY_TYPES type) const
+bool j1PathFinding::IsWalkable(const iPoint& pos, ENTITY_TYPES type) const
 {
 	uchar t = GetTileAt(pos);
 	switch (type)
@@ -129,7 +129,7 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), 
 // PathNode -------------------------------------------------------------------------
 // Fills a list (PathList) of all valid adjacent pathnodes
 // ----------------------------------------------------------------------------------
-uint PathNode::FindWalkableAdjacents(PathList& list_to_fill, ENEMY_TYPES type) const
+uint PathNode::FindWalkableAdjacents(PathList& list_to_fill, ENTITY_TYPES type) const
 {
 	iPoint cell;
 	uint before = list_to_fill.list.count();
@@ -180,7 +180,7 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 // Actual A* algorithm: return number of steps in the creation of the path or -1 ----
 // ----------------------------------------------------------------------------------
-int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, ENEMY_TYPES type)
+int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, ENTITY_TYPES type)
 {
 	//if origin or destination are not walkable, return -1
 	int ret = -1;

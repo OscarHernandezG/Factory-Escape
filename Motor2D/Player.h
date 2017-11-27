@@ -3,7 +3,7 @@
 
 #include "Animation.h"
 #include "j1Render.h"
-#include "Enemy.h"
+#include "Entity.h"
 #include "p2Point.h"
 #include "p2DynArray.h"
 
@@ -36,7 +36,7 @@ enum State {
 };
 
 
-class Player : public Enemy
+class Player : public Entity
 {
 public:
 	Player(int x, int y);

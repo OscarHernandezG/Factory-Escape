@@ -18,7 +18,7 @@ class j1Audio;
 class j1Scene;
 class j1Map;
 class j1Player;
-class j1Enemies;
+class j1Entities;
 class j1PathFinding;
 
 class j1App
@@ -93,7 +93,7 @@ public:
 	j1Scene*			scene;
 	j1Map*				map;
 	j1Player*			player;
-	j1Enemies*			enemies;
+	j1Entities*			entities;
 	j1PathFinding*		pathfinding;
 
 	uint32				framerate_cap;

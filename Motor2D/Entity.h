@@ -8,7 +8,7 @@
 struct SDL_Texture;
 struct Collider;
 
-class Enemy
+class Entity
 {
 protected:
 	Animation* animation = nullptr;
@@ -28,8 +28,8 @@ public:
 	iPoint PosToGo = {0,0};
 
 public:
-	Enemy(int x, int y);
-	virtual ~Enemy();
+	Entity(int x, int y);
+	virtual ~Entity();
 
 
 
