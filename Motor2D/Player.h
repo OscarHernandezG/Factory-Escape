@@ -52,27 +52,6 @@ public:
 	// Called before render is available
 	bool Awake();
 
-	// Called before the first frame
-	bool Start();
-
-	// Called before all Updates
-	bool PreUpdate();
-
-	// Called each loop iteration
-	bool Update(float dt);
-
-	// Called before all Updates
-	bool PostUpdate();
-
-	// Called before quitting
-	bool CleanUp();
-
-	// Load
-	bool Load(pugi::xml_node&  savegame);
-
-	//Save
-	bool Save(pugi::xml_node& data) const;
-
 	//void LoadTexture();
 
 	void CheckPlayerState(float dt);
@@ -128,8 +107,6 @@ private:
 	uint pos = 0, lastTime = 0, currentTime = 0, dieTime = 0;
 
 	int size = 0;
-
-	p2List<SDL_Rect> animations_list;
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 

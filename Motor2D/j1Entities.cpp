@@ -31,6 +31,7 @@ j1Entities::~j1Entities()
 
 bool j1Entities::Start()
 {
+	name.create("entities");
 	LoadEntityText();
 	LoadEntityAnim();
 
@@ -153,6 +154,7 @@ bool j1Entities::CleanUp()
 	delete[] animation_w;
 	delete[] animation_h;
 
+	animations_list.clear();
 	return true;
 }
 
@@ -216,4 +218,22 @@ void j1Entities::SpawnEnemy(const EntityInfo& info)
 
 }
 
+bool j1Entities::Load(pugi::xml_node&  data)
+{
+	player->x = data.child("position").attribute("x").as_int();
+	player->y = data.child("position").attribute("y").as_int();
 
+	return true;
+}
+
+
+//Save
+bool j1Entities::Save(pugi::xml_node& data) const
+{
+	pugi::xml_node Player = data.append_child("position");
+
+	Player.append_attribute("x") = player->x;
+	Player.append_attribute("y") = player->y;
+
+	return true;
+}

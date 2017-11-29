@@ -10,12 +10,11 @@
 	<scene>
 		<Map CurrentMap="1" />
 	</scene>
+	<entities>
+		<position x="485.681" y="459.258209" />
+	</entities>
 	<pathfinding />
-	<player>
-		<position x="0" y="397.933319" />
-	</player>
-	<:anonymous />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-72" y="0" />
 	</renderer>
 </game_state>

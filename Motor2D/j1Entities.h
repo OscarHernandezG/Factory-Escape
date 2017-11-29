@@ -38,6 +38,8 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
+	bool Load(pugi::xml_node&  savegame);
+	bool Save(pugi::xml_node& data) const;
 	bool FreeEnemies();
 	void LoadEntityText();
 	void LoadEntityAnim();
@@ -45,25 +47,6 @@ public:
 	bool AddEntity(ENTITY_TYPES type, int x, int y);
 
 	void SpawnEnemy(const EntityInfo& info);
-
-	// Load
-	//bool Load(pugi::xml_node&  data);
-	//{
-	//	x = data.child("position").attribute("x").as_int();
-	//	y = data.child("position").attribute("y").as_int();
-
-	//	return true;
-	//}
-
-	//bool Save(pugi::xml_node& data) const;
-	//{
-	//	pugi::xml_node player = data.append_child("position");
-
-	//	player.append_attribute("x") = x;
-	//	player.append_attribute("y") = y;
-
-	//	return true;
-	//}
 
 
 public:
