@@ -61,6 +61,7 @@ bool j1Scene::Start()
 	iPoint size_map;
 	size_map = App->map->MapToWorld(layer->data->width, layer->data->height);
 	width_map = size_map.x;
+	FindEntities();
 	return true;
 }
 
@@ -141,7 +142,7 @@ bool j1Scene::Update(float dt)
 
 		
 
-	if (App->entities->player != NULL) {
+
 		if ((App->entities->player->x - (-App->render->camera.x + (1 * App->render->camera.w / 3)) >= 0) && !Photo_mode) {
 			if (App->render->camera.x - App->render->camera.w > -(App->map->data.width*App->map->data.tile_width))
 				App->render->camera.x -= 4;
@@ -151,7 +152,6 @@ bool j1Scene::Update(float dt)
 			if (App->render->camera.x < 0)
 				App->render->camera.x += 4;
 		}
-	}
 /*	if ((App->player->y - (-App->render->camera.y + (1 * App->render->camera.h/3)) >= 0) && App->win->scale != 1) {
 			App->render->camera.y -= 2;
 	}
@@ -259,7 +259,7 @@ bool j1Scene::LoadScene(int map) {
 	App->map->Load(CurrentMap->data.GetString());
 
 	LoadWalkabilityMap();
-	App->entities->FindEntities();
+	App->scene->FindEntities();
 
 	App->entities->player->FindSpawn();
 	App->entities->player->SpawnPlayer();
@@ -292,4 +292,30 @@ void j1Scene::LoadWalkabilityMap() {
 
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
+}
+
+
+void j1Scene::FindEntities()
+{
+	p2List_item<MapLayer*>* layer = App->map->data.layers.end;
+	if (layer != nullptr) {
+		for (int i = 0; i < layer->data->size_data; i++)
+		{
+			if (layer->data->data[i] == Tile_Type::BAT_SPAWN)
+			{
+				iPoint spawn = App->map->TileToWorld(i);
+				App->entities->AddEntity(ENTITY_TYPES::BAT, spawn.x, spawn.y);
+			}
+			if (layer->data->data[i] == Tile_Type::BLOP_SPAWN)
+			{
+				iPoint spawn = App->map->TileToWorld(i);
+				App->entities->AddEntity(ENTITY_TYPES::BLOP, spawn.x, spawn.y);
+			}
+			if (layer->data->data[i] == Tile_Type::PLAYER_SPAWN)
+			{
+				iPoint spawn = App->map->TileToWorld(i);
+				App->entities->AddEntity(ENTITY_TYPES::PLAYER, spawn.x, spawn.y);
+			}
+		}
+	}
 }

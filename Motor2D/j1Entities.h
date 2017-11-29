@@ -42,10 +42,9 @@ public:
 	void LoadEntityText();
 	void LoadEntityAnim();
 
-	bool AddEnemy(ENTITY_TYPES type, int x, int y);
+	bool AddEntity(ENTITY_TYPES type, int x, int y);
 
 	void SpawnEnemy(const EntityInfo& info);
-	void FindEntities();
 
 	// Load
 	//bool Load(pugi::xml_node&  data);
@@ -81,18 +80,16 @@ public:
 	p2List<SDL_Rect> animations_list;
 
 	Entity* entities[MAX_ENEMIES];
-	Player* player;
+	Player* player = nullptr;
 private:
 
 	EntityInfo queue[MAX_ENEMIES];
 	
-	SDL_Texture* sprites;
-	SDL_Texture* Player_Sprites;
+	SDL_Texture* sprites = nullptr;
+	SDL_Texture* Player_Sprites = nullptr;
 
 	float proj_speed = 5.0f;
-	float speed_x_mult, speed_y_mult, common_mult, a_mult;
-
-	bool need_target;
+	float speed_x_mult, speed_y_mult, common_mult, a_mult = 0.0f;
 
 };
 

@@ -40,8 +40,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
-	AddModule(entities);
 	AddModule(scene);
+	AddModule(entities);
 	AddModule(pathfinding);
 	//AddModule(player);
 

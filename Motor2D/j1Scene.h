@@ -44,7 +44,7 @@ public:
 
 	void LoadWalkabilityMap();
 
-		
+	void FindEntities();
 	
 	int currmap = 1;
 

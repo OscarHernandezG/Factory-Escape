@@ -34,7 +34,6 @@ bool j1Entities::Start()
 	LoadEntityText();
 	LoadEntityAnim();
 
-	FindEntities();
 	return true;
 }
 
@@ -92,15 +91,11 @@ bool j1Entities::PreUpdate()
 			{
 				SpawnEnemy(queue[i]);
 				queue[i].type = ENTITY_TYPES::NO_TYPE;
-				LOG("Spawning enemy at %d", queue[i].x);
+				LOG("Spawning entity at %d", queue[i].x);
 
 			}
-
 		}
 	}
-
-
-
 	return true;
 }
 
@@ -153,6 +148,10 @@ bool j1Entities::CleanUp()
 		}
 		queue[i].type = NO_TYPE;
 	}
+	delete[] animation_x;
+	delete[] animation_y;
+	delete[] animation_w;
+	delete[] animation_h;
 
 	return true;
 }
@@ -173,7 +172,7 @@ bool j1Entities::FreeEnemies()
 	return true;
 }
 
-bool j1Entities::AddEnemy(ENTITY_TYPES type, int x, int y)
+bool j1Entities::AddEntity(ENTITY_TYPES type, int x, int y)
 {
 	bool ret = false;
 
@@ -210,6 +209,7 @@ void j1Entities::SpawnEnemy(const EntityInfo& info)
 			break;
 		case ENTITY_TYPES::PLAYER:
 			entities[i] = new Player(info.x, info.y);
+			player = (Player*)entities[i];
 			break;
 		}
 	}
@@ -217,22 +217,3 @@ void j1Entities::SpawnEnemy(const EntityInfo& info)
 }
 
 
-void j1Entities::FindEntities()
-{
-	p2List_item<MapLayer*>* layer = App->map->data.layers.end;
-	if (layer != nullptr) {
-		for (int i = 0; i < layer->data->size_data; i++)
-		{
-			if (layer->data->data[i] == Tile_Type::BAT_SPAWN)
-			{
-				iPoint spawn = App->map->TileToWorld(i);
-				AddEnemy(ENTITY_TYPES::BAT, spawn.x, spawn.y);
-			}
-			if (layer->data->data[i] == Tile_Type::BLOP_SPAWN)
-			{
-				iPoint spawn = App->map->TileToWorld(i);
-				AddEnemy(ENTITY_TYPES::BLOP, spawn.x, spawn.y);
-			}
-		}
-	}
-}

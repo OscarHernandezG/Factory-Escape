@@ -41,10 +41,8 @@ class Player : public Entity
 public:
 	Player(int x, int y);
 
-	void Move(float dt) {
-	
-	}
-	void Draw(SDL_Texture* texture) {}
+	void Move(float dt);
+	void Draw(SDL_Texture* texture);
 
 
 
@@ -130,11 +128,6 @@ private:
 	uint pos = 0, lastTime = 0, currentTime = 0, dieTime = 0;
 
 	int size = 0;
-
-	int* animation_x = nullptr;
-	int* animation_y = nullptr;
-	int* animation_w = nullptr;
-	int* animation_h = nullptr;
 
 	p2List<SDL_Rect> animations_list;
 
