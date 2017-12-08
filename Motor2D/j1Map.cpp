@@ -493,7 +493,7 @@ int j1Map::MapPosition(TileSet* tile, int x, int y) {
 
 ColisionType j1Map::CheckColision(int gid) {
 
-	ColisionType ret = NONE;
+	ColisionType ret = NONE_COL;
 	int colision;
 
 	p2List_item<MapLayer*>* layer = this->data.layers.end;

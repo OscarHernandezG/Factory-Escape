@@ -99,7 +99,7 @@ enum MapTypes
 
 enum ColisionType
 {
-	NONE = 0,
+	NONE_COL = 0,
 	GROUND,
 	WIN,
 

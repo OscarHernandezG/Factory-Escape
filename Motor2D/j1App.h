@@ -20,6 +20,8 @@ class j1Map;
 class j1Player;
 class j1Entities;
 class j1PathFinding;
+class j1Gui;
+class j1Fonts;
 
 class j1App
 {
@@ -95,6 +97,8 @@ public:
 	j1Player*			player;
 	j1Entities*			entities;
 	j1PathFinding*		pathfinding;
+	j1Gui*				gui;
+	j1Fonts*			font;
 
 	uint32				framerate_cap;
 

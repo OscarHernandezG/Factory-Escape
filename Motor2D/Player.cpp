@@ -193,7 +193,7 @@ void Player::CheckPlayerState(float dt)
 		ColisionType colision1 = App->map->CheckColision(pos);
 		ColisionType colision2 = App->map->CheckColision(pos + 1);
 
-		if (speed.y == 0 || (colision1 != NONE || colision2 != NONE)) {
+		if (speed.y == 0 || (colision1 != NONE_COL || colision2 != NONE_COL)) {
 			jump = false;
 		}
 
@@ -244,9 +244,9 @@ void Player::CheckPlayerState(float dt)
 			ColisionType colision2 = App->map->CheckColision(pos + App->map->data.layers.start->data->width);
 			ColisionType colision3 = App->map->CheckColision(pos + 2 * (App->map->data.layers.start->data->width));
 
-			colision3 = NONE;
+			colision3 = NONE_COL;
 
-			if (colision1 == NONE && colision2 == NONE && colision3 == NONE) {
+			if (colision1 == NONE_COL && colision2 == NONE_COL && colision3 == NONE_COL) {
 				PlayerState = RUNNING_LEFT;
 			}
 			else if (colision1 == DEATH && colision2 == DEATH) {
@@ -261,9 +261,9 @@ void Player::CheckPlayerState(float dt)
 			ColisionType colision2 = App->map->CheckColision(pos + App->map->data.layers.start->data->width);
 			ColisionType colision3 = App->map->CheckColision(pos + 2 * (App->map->data.layers.start->data->width));
 
-			colision3 = NONE;
+			colision3 = NONE_COL;
 
-			if (colision1 == NONE && colision2 == NONE && colision3 == NONE) {
+			if (colision1 == NONE_COL && colision2 == NONE_COL && colision3 == NONE_COL) {
 				PlayerState = RUNNING_RIGHT;
 			}
 			else if (colision1 == GROUND || colision2 == GROUND) {
@@ -286,7 +286,7 @@ void Player::CheckPlayerState(float dt)
 			ColisionType colision = App->map->CheckColision(pos);
 
 
-			if (colision == NONE) {
+			if (colision == NONE_COL) {
 				if (PlayerState == RUNNING_LEFT) {
 					PlayerState = JUMPING_LEFT;
 				}
@@ -314,7 +314,7 @@ void Player::CheckPlayerState(float dt)
 
 			ColisionType colision = App->map->CheckColision(pos + 5/*5 Tileds*/);
 
-			if (colision == NONE) {
+			if (colision == NONE_COL) {
 				slide = true;
 				lastTime = SDL_GetTicks();
 				y = y + App->map->data.tile_width / 2;

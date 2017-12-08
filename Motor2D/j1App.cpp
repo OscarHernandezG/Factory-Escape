@@ -14,6 +14,8 @@
 #include "J1Player.h"
 #include "j1Entities.h"
 #include "j1Pathfinding.h"
+#include "j1Gui.h"
+#include "j1Fonts.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -31,6 +33,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	//player = new j1Player();
 	entities = new j1Entities();
 	pathfinding = new j1PathFinding();
+	gui = new j1Gui();
+	//font = new j1Fonts();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -40,12 +44,13 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
-	AddModule(scene);
-	AddModule(entities);
 	AddModule(pathfinding);
+//	AddModule(font);
+	AddModule(scene);
+	AddModule(gui);
+	AddModule(entities);
+
 	//AddModule(player);
-
-
 	// render last to swap buffer
 	AddModule(render);
 }

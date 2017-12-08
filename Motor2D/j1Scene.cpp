@@ -11,6 +11,12 @@
 #include "J1Player.h"
 #include "j1Entities.h"
 #include "j1Pathfinding.h"
+#include "j1Gui.h"
+#include "UI.h"
+#include "UI_Image.h"
+#include "UI_Button.h"
+#include "UI_Label.h"
+
 
 
 
@@ -53,6 +59,104 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
+
+
+
+	ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
+	ui_image->LoadImageA("Homework/wow_ui/login_background.png");
+
+	Image* wow_logo = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
+	wow_logo->LoadImageA("Homework/wow_ui/COMMON/Glues-Logo-Left.png", 0.33f);
+	wow_logo = (Image*)App->gui->AdUIElement(85, 0, IMAGE);
+	wow_logo->LoadImageA("Homework/wow_ui/COMMON/Glues-Logo-Right.png", 0.33f);
+
+	Image* ESRB_notice = (Image*)App->gui->AdUIElement(21, 415, IMAGE);
+	ESRB_notice->LoadImageA("Homework/wow_ui/LOGIN/Glues-ESRBRating.png");
+
+	Image* Blizzard_logo = (Image*)App->gui->AdUIElement(470, 475, IMAGE);
+	Blizzard_logo->LoadImageA("Homework/wow_ui/MainMenu/Glues-BlizzardLogo.png", 0.66f);
+
+
+	Button* Manage_Account = (Button*)App->gui->AdUIElement(17, 400, BUTTON);
+	Manage_Account->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Manage Account", "Cuenta", INTERACTABLE);
+	Manage_Account->TAB = 1;
+
+	Button* Community_Site = (Button*)App->gui->AdUIElement(17, 439, BUTTON);
+	Community_Site->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Community Site", "Pagina web", INTERACTABLE);
+	Community_Site->TAB = 2;
+
+	Button* Login = (Button*)App->gui->AdUIElement(444, 380, BUTTON);
+	Login->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Login", "Iniciar sesion", INTERACTABLE);
+	int pos = 350;
+	Login->TAB = 5;
+
+	Button* Cinematics = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
+	Cinematics->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Cinematics", "Cinematicas", INTERACTABLE);
+	pos += 39;
+	Cinematics->TAB = 6;
+
+	Button* Credits = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
+	Credits->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Credits", "Creditos", INTERACTABLE);
+	pos += 39;
+	Credits->TAB = 7;
+
+	Button* Terms_Of_Use = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
+	Terms_Of_Use->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Terms Of Use", "Terminos de servicio", INTERACTABLE);
+	pos = 538 - 20;
+	Terms_Of_Use->TAB = 8;
+
+	Button* Quit = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
+	Quit->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Quit", "Salir", INTERACTABLE);
+	Quit->TAB = 9;
+
+	//ui_image->rect.add({ 0, 0, 1920, 1080 });
+
+	/*ui_image->LoadImageA("gui/atlas.png");
+
+	ui_image->rect.add({ 642, 169, 229, 69 });
+	ui_image->rect.add({ 0,113,229,69 });*/
+
+	text = (Label*)App->gui->AdUIElement(0, 546, LABEL);
+	text->SetText("Version 2.0.12 (6546) (Release)");
+
+	text = (Label*)App->gui->AdUIElement(0, 558, LABEL);
+	text->SetText("Mar 30 2007");
+
+	text = (Label*)App->gui->AdUIElement(306, 558, LABEL);
+	text->SetText("Copyright 2004-2007  Blizzard Entretainment. All Rights Reserved.");
+
+	text = (Label*)App->gui->AdUIElement(464, 264, LABEL);
+	text->SetText("Account Name", "Nombre");
+
+	text = (Label*)App->gui->AdUIElement(458, 319, LABEL);
+	text->SetText("Account Password", "Contraseña");
+
+
+	Button* Name = (Button*)App->gui->AdUIElement(450, 282, BUTTON);
+	Name->DefineButton("Homework/wow_ui/COMMON1/Common-Input-Border.png", "");
+	pos = 538 - 20;
+	Name->TAB = 3;
+	Button* Password = (Button*)App->gui->AdUIElement(450, 335, BUTTON);
+	Password->DefineButton("Homework/wow_ui/COMMON1/Common-Input-Border.png", "");
+	Name->TAB = 4;
+
+	/*
+	if(App->map->Load("iso_walk.tmx") == true)
+	{
+	int w, h;
+	uchar* data = NULL;
+	if(App->map->CreateWalkabilityMap(w, h, &data))
+	App->pathfinding->SetMap(w, h, data);
+
+	RELEASE_ARRAY(data);
+	}
+
+	debug_tex = App->tex->Load("maps/path2.png");
+
+	*/
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/*
 	App->map->Load(CurrentMap->data);
 
 	LoadWalkabilityMap();
@@ -62,6 +166,7 @@ bool j1Scene::Start()
 	size_map = App->map->MapToWorld(layer->data->width, layer->data->height);
 	width_map = size_map.x;
 	FindEntities();
+	*/
 	return true;
 }
 
