@@ -144,7 +144,7 @@ void Player::Move(float dt) {
 void Player::Draw(SDL_Texture* texture) {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
-	App->render->Blit(texture, x, y, &CurrentAnim->GetCurrentFrame(), 1);
+	App->render->Blit(texture, x, y, &CurrentAnim->GetCurrentFrame(), 1, flip);
 }
 // Destructor
 Player::~Player()

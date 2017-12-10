@@ -1,4 +1,4 @@
-/*#include "p2Defs.h"
+#include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Textures.h"
@@ -102,4 +102,4 @@ bool j1Fonts::CalcSize(const char* text, int& width, int& height, _TTF_Font* fon
 		ret = true;
 
 	return ret;
-}*/
+}

@@ -64,12 +64,15 @@ public:
 
 	Entity* entities[MAX_ENEMIES];
 	Player* player = nullptr;
+
+	SDL_Texture* sprites = nullptr;
+	SDL_Texture* Player_Sprites = nullptr;
 private:
 
 	EntityInfo queue[MAX_ENEMIES];
 	
-	SDL_Texture* sprites = nullptr;
-	SDL_Texture* Player_Sprites = nullptr;
+	//SDL_Texture* sprites = nullptr;
+	//SDL_Texture* Player_Sprites = nullptr;
 
 	float proj_speed = 5.0f;
 	float speed_x_mult, speed_y_mult, common_mult, a_mult = 0.0f;

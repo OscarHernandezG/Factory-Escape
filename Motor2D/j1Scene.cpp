@@ -52,6 +52,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 
 	CurrentMap = MapsList_String.start;
 
+
 	
 	return ret;
 }
@@ -60,6 +61,16 @@ bool j1Scene::Awake(pugi::xml_node& config)
 bool j1Scene::Start()
 {
 
+	App->map->Load(CurrentMap->data);
+
+	LoadWalkabilityMap();
+
+	p2List_item<MapLayer*>* layer = App->map->data.layers.start;
+	iPoint size_map;
+	size_map = App->map->MapToWorld(layer->data->width, layer->data->height);
+	width_map = size_map.x;
+
+	FindEntities();
 
 
 	ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);

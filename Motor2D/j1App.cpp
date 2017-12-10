@@ -34,7 +34,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	entities = new j1Entities();
 	pathfinding = new j1PathFinding();
 	gui = new j1Gui();
-	//font = new j1Fonts();
+	font = new j1Fonts();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -43,13 +43,14 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(map);
+	
 	AddModule(pathfinding);
-//	AddModule(font);
+
 	AddModule(scene);
+	AddModule(map);
 	AddModule(gui);
 	AddModule(entities);
-
+	AddModule(font);
 	//AddModule(player);
 	// render last to swap buffer
 	AddModule(render);

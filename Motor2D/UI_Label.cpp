@@ -30,7 +30,7 @@ bool Label::Update(float dt) {
 		hovering = false;
 
 
-
+	if (text_to_blit->data.tex != nullptr)
 	App->render->Blit(text_to_blit->data.tex, position.x, position.y, &text_to_blit->data.rect, 0);
 
 	return true;
@@ -43,27 +43,27 @@ bool Label::SetText(char* text, char* textesp) {
 	
 	p2SString aux_text;
 	aux_text.create(text);
-//	SDL_Texture* tex = App->font->Print(aux_text.GetString(), { 255, 255, 255, 255 }, App->font->fonts.start->data);
+	SDL_Texture* tex = App->font->Print(aux_text.GetString(), { 255, 255, 255, 255 }, App->font->fonts.start->data);
 	uint w = 0, h = 0;
-	//App->tex->GetSize(tex, w, h);
+	App->tex->GetSize(tex, w, h);
 	int rect_w = w;
 	int rect_h = h;
 	SDL_Rect rect = { 0,0,rect_w,rect_h };
 
-	//text_info.add({ tex, rect, aux_text });
+	text_info.add({ tex, rect, aux_text });
 
 	if (textesp != nullptr)
 	{
 		aux_text;
 		aux_text.create(textesp);
-		//tex = App->font->Print(aux_text.GetString(), { 255, 255, 255, 255 }, App->font->fonts.start->data);
+		tex = App->font->Print(aux_text.GetString(), { 255, 255, 255, 255 }, App->font->fonts.start->data);
 		w = 0, h = 0;
-		//App->tex->GetSize(tex, w, h);
+		App->tex->GetSize(tex, w, h);
 		rect_w = w;
 		rect_h = h;
 		rect = { 0,0,rect_w,rect_h };
 
-		//text_info.add({ tex, rect, aux_text });
+		text_info.add({ tex, rect, aux_text });
 	}
 
 	return true;
