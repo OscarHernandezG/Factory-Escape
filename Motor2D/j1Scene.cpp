@@ -61,7 +61,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
-	//if (App->menu->Started) {
+	if (App->menu->Started) {
 		App->map->Load(CurrentMap->data);
 
 		LoadWalkabilityMap();
@@ -73,7 +73,7 @@ bool j1Scene::Start()
 
 		FindEntities();
 		
-	//}
+	}
 
 	/*
 	if(App->map->Load("iso_walk.tmx") == true)
@@ -116,7 +116,7 @@ bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
-	if (App->menu->Started) {
+	if (App->menu->Started && !App->fade->IsFading()) {
 		if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
 			App->audio->VolumeUp();
 
@@ -198,8 +198,9 @@ bool j1Scene::Update(float dt)
 			if ((App->player->y - (App->render->camera.y + (1 * App->render->camera.h / 2)) <= 0) && App->win->scale != 1) {
 					App->render->camera.y += 2;
 			}*/
-		App->map->Draw();
+
 	}
+	App->map->Draw();
 	return true;
 }
 

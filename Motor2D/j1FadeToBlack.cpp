@@ -51,13 +51,14 @@ bool j1FadeToBlack::Update(float dt)
 
 		if (now >= total_time)
 		{
+			//App->menu->Started = true;
 			off->CleanUp();
 			on->Start();
 
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;
-			App->menu->Started = true;
+			
 		}
 	} break;
 

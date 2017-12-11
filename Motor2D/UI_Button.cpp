@@ -29,12 +29,14 @@ bool Button::Update(float dt)
 	if (Button_type == INTERACTABLE) {
 		if (MouseOnRect()) {
 			if (App->input->GetMouseButtonDown(1) == KEY_REPEAT) {
-				App->render->Blit(MouseClick, position.x + 5, position.y + 8);
+				App->render->Blit(MouseClick, position.x + 20, position.y + 8);
 				if (TAB == 5 && !App->fade->IsFading())
 					App->menu->StartGame = true;
 			}
-			else
+			else {
 				App->render->Blit(MouseHovering, position.x - 3, position.y + 1);
+				//App->render->Blit(MouseClick, position.x + 20, position.y + 8);
+			}
 		}
 
 		if (TAB == App->menu->tab_button) {

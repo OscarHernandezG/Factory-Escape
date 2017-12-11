@@ -105,14 +105,14 @@ bool j1Entities::PreUpdate()
 bool j1Entities::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
-	if (App->menu->Started) {
-		if (!App->scene->Photo_mode)
-			for (uint i = 0; i < MAX_ENEMIES; ++i)
-				if (entities[i] != nullptr) entities[i]->Move(dt);
-
+	
+	if (!App->scene->Photo_mode)
 		for (uint i = 0; i < MAX_ENEMIES; ++i)
-			if (entities[i] != nullptr) entities[i]->Draw(sprites);
-	}
+			if (entities[i] != nullptr) entities[i]->Move(dt);
+
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+		if (entities[i] != nullptr) entities[i]->Draw(sprites);
+	
 	return true;
 }
 

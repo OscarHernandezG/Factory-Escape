@@ -172,6 +172,7 @@ bool j1Menu::PostUpdate()
 	if (StartGame) {
 		App->fade->FadeToBlack(this, App->scene, 1.0f);
 		StartGame = false;
+		Started = true;
 	}
 
 	return ret;
