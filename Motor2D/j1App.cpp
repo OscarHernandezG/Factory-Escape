@@ -16,6 +16,7 @@
 #include "j1Pathfinding.h"
 #include "j1Gui.h"
 #include "j1Fonts.h"
+#include "j1FadeToBlack.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -35,6 +36,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new j1PathFinding();
 	gui = new j1Gui();
 	font = new j1Fonts();
+	fade = new j1FadeToBlack();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -48,9 +50,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(scene);
 	AddModule(map);
-	AddModule(gui);
 	AddModule(entities);
+	AddModule(gui);
 	AddModule(font);
+	AddModule(fade);
 	//AddModule(player);
 	// render last to swap buffer
 	AddModule(render);
@@ -123,10 +126,12 @@ bool j1App::Start()
 
 	while(item != NULL && ret == true)
 	{
+
 		ret = item->data->Start();
 		item = item->next;
 	}
 
+	fade->CleanUp();
 	return ret;
 }
 
