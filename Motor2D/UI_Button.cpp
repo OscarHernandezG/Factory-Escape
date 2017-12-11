@@ -4,7 +4,7 @@
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Gui.h"
-#include "j1Scene.h"
+#include "j1Menu.h"
 #include "j1FadeToBlack.h"
 
 
@@ -26,14 +26,14 @@ Button::Button(int x, int y) : UI_Element(x, y) {
 bool Button::Update(float dt) 
 {
 	if (Button_type == INTERACTABLE) {
-		if (MouseOnRect()||TAB == App->scene->tab_button)
+		if (MouseOnRect()||TAB == App->menu->tab_button)
 			if(App->input->GetMouseButtonDown(1) == KEY_REPEAT)
 				App->render->Blit(MouseClick, position.x+5, position.y+8);
 			else
 				App->render->Blit(MouseHovering, position.x - 3, position.y + 1);
 	}
 	if (App->input->GetMouseButtonDown(1) == KEY_DOWN && TAB == 5 && !App->fade->IsFading())
-		App->scene->StartGame = true;
+		App->menu->StartGame = true;
 
 	if (label->hovering) {
 		iPoint label_offset = label->original_pos;

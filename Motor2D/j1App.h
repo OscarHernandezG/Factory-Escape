@@ -23,6 +23,7 @@ class j1PathFinding;
 class j1Gui;
 class j1Fonts;
 class j1FadeToBlack;
+class j1Menu;
 
 class j1App
 {
@@ -101,6 +102,7 @@ public:
 	j1Gui*				gui;
 	j1Fonts*			font;
 	j1FadeToBlack*		fade;
+	j1Menu*				menu;
 
 	uint32				framerate_cap;
 

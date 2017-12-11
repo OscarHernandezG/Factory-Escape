@@ -5,10 +5,10 @@
 #include "p2List.h"
 
 struct SDL_Texture;
-class GuiImage;
+/*class GuiImage;
 class GuiText;
 class Image;
-class Label;
+class Label;*/
 
 
 class j1Scene : public j1Module
@@ -66,16 +66,16 @@ private:
 	p2List<p2SString>  MapsList_String;
 	p2List_item<p2SString>* CurrentMap = nullptr;
 
-	SDL_Texture* debug_tex;
+	/*SDL_Texture* debug_tex;
 	GuiImage* banner;
 	//	GuiText* text;
 	Image* ui_image = nullptr;
-	Label* text = nullptr;
+	Label* text = nullptr;*/
 
 
 public:
-	uint tab_button = 0;
-	bool StartGame = false;
+	/*uint tab_button = 0;
+	bool StartGame = false;*/
 };
 
 #endif // __j1SCENE_H__
