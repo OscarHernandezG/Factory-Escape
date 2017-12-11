@@ -36,6 +36,7 @@ public:
 	void DefineButton(char* path, char* text, char* textesp = nullptr, BUTTON_TYPE type = NONE_BUT);
 
 public:
+	Image* MouseClick = nullptr;
 
 	Label* label = nullptr;
 	Image* image = nullptr;
@@ -44,8 +45,8 @@ public:
 	SDL_Rect rect;
 	uint TAB = 0u;
 
-	SDL_Texture* MouseHovering = nullptr;
-	SDL_Texture* MouseClick = nullptr;
+	Image* MouseHovering = nullptr;
+
 
 	/*Animation on_click;
 	Aniamtion mouse_on_rect;*/

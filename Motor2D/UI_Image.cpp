@@ -16,7 +16,8 @@ Image::~Image() {
 
 bool Image::Update(float dt) {
 
-	App->render->Blit(image.start->data, position.x, position.y, &rect, 0);
+	if (draw)
+		App->render->Blit(image.start->data, position.x, position.y, &rect, 0);
 
 	return true;
 }

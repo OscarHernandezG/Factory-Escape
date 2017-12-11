@@ -37,7 +37,7 @@ public:
 
 	float scale = 1;
 
-
+	bool draw = true;
 };
 
 
