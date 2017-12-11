@@ -155,6 +155,12 @@ bool j1Menu::Update(float dt)
 		StartGame = false;
 	}
 
+	if(App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN){
+		tab_button++;
+		if (tab_button > 9)
+			tab_button = 1;
+		}
+
 	return true;
 }
 
@@ -163,49 +169,10 @@ bool j1Menu::PostUpdate()
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 	bool ret = true;
-	/*
+	
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && Photo_mode) {
-
-		SDL_RenderReadPixels(App->render->renderer, NULL, SDL_PIXELFORMAT_ARGB8888, App->win->screen_surface->pixels, App->win->screen_surface->pitch);
-
-		auto now = std::chrono::system_clock::now();
-		std::time_t now_c = std::chrono::system_clock::to_time_t(now);
-		tm time;
-		localtime_s(&time, &now_c);
-
-		sec = time.tm_sec;
-		mins = time.tm_min;
-		hour = time.tm_hour;
-		day = time.tm_mday;
-		month = time.tm_mon + 1;
-		year = time.tm_year + 1900;
-
-		static char photo_name[60];
-
-		if (sec == last_frame_sec) {
-			photos_this_sec++;
-
-			sprintf_s(photo_name, 60, "screenshots/Factory Escape on %i-%02i-%02i at %02i.%02i.%02i(%i).png",
-				year, month, day, hour, mins, sec, photos_this_sec);
-		}
-		else {
-			photos_this_sec = 0;
-
-			sprintf_s(photo_name, 60, "screenshots/Factory Escape on %i-%02i-%02i at %02i.%02i.%02i.png",
-				year, month, day, hour, mins, sec);
-		}
-
-		last_frame_sec = sec;
-
-		LOG("Saving photo %s", photo_name);
-
-		SDL_SaveBMP(App->win->screen_surface, photo_name);
-
-	}
-	*/
 	return ret;
 }
 
@@ -213,6 +180,7 @@ bool j1Menu::PostUpdate()
 bool j1Menu::CleanUp()
 {
 	LOG("Freeing Menu");
+
 
 	return true;
 }

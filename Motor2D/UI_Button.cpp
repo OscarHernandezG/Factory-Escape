@@ -25,15 +25,29 @@ Button::Button(int x, int y) : UI_Element(x, y) {
 
 bool Button::Update(float dt) 
 {
+
 	if (Button_type == INTERACTABLE) {
-		if (MouseOnRect()||TAB == App->menu->tab_button)
-			if(App->input->GetMouseButtonDown(1) == KEY_REPEAT)
-				App->render->Blit(MouseClick, position.x+5, position.y+8);
+		if (MouseOnRect()) {
+			if (App->input->GetMouseButtonDown(1) == KEY_REPEAT) {
+				App->render->Blit(MouseClick, position.x + 5, position.y + 8);
+				if (TAB == 5 && !App->fade->IsFading())
+					App->menu->StartGame = true;
+			}
 			else
 				App->render->Blit(MouseHovering, position.x - 3, position.y + 1);
+		}
+
+		if (TAB == App->menu->tab_button) {
+			if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) {
+				App->render->Blit(MouseClick, position.x + 5, position.y + 8);
+				if (TAB == 5 && !App->fade->IsFading())
+					App->menu->StartGame = true;
+			}
+			else
+				App->render->Blit(MouseHovering, position.x - 3, position.y + 1);
+		}
 	}
-	if (App->input->GetMouseButtonDown(1) == KEY_DOWN && TAB == 5 && !App->fade->IsFading())
-		App->menu->StartGame = true;
+
 
 	if (label->hovering) {
 		iPoint label_offset = label->original_pos;
@@ -77,6 +91,9 @@ bool Button::MouseOnRect() {
 }
 
 bool Button::CleanUp() {
+	App->tex->UnLoad(MouseClick);
+	App->tex->UnLoad(MouseHovering);
+
 	return true;
 }
 
