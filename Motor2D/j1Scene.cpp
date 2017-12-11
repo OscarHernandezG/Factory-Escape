@@ -16,7 +16,7 @@
 #include "UI_Image.h"
 #include "UI_Button.h"
 #include "UI_Label.h"
-
+#include "j1FadeToBlack.h"
 
 
 
@@ -71,7 +71,7 @@ bool j1Scene::Start()
 	width_map = size_map.x;
 
 	FindEntities();
-
+	
 
 	ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
 	ui_image->LoadImageA("Homework/wow_ui/login_background.png");
@@ -255,6 +255,10 @@ bool j1Scene::Update(float dt)
 		App->win->scale = 1;
 	}
 
+	if (StartGame) {
+		App->fade->FadeToBlack(this, this, 1.0f);
+		StartGame = false;
+	}
 
 		
 

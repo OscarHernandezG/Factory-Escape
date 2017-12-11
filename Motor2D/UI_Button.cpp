@@ -5,6 +5,7 @@
 #include "j1Input.h"
 #include "j1Gui.h"
 #include "j1Scene.h"
+#include "j1FadeToBlack.h"
 
 
 Button::Button(int x, int y) : UI_Element(x, y) {
@@ -31,6 +32,8 @@ bool Button::Update(float dt)
 			else
 				App->render->Blit(MouseHovering, position.x - 3, position.y + 1);
 	}
+	if (App->input->GetMouseButtonDown(1) == KEY_DOWN && TAB == 5 && !App->fade->IsFading())
+		App->scene->StartGame = true;
 
 	if (label->hovering) {
 		iPoint label_offset = label->original_pos;
@@ -47,7 +50,7 @@ bool Button::Update(float dt)
 
 		label->position = label_offset;
 	}
-//	App->render->Blit(image->image.start->data, position.x, position.y/*,CurrAnim->GetCurrentFrame()*/);
+	App->render->Blit(image->image.start->data, position.x, position.y/*,CurrAnim->GetCurrentFrame()*/);
 	//CurrAnim = Idle;
 	return true;
 }
