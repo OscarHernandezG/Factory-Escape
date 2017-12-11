@@ -143,24 +143,20 @@ bool j1Menu::PreUpdate()
 bool j1Menu::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
+	if (!Started) {
+		if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
+			App->audio->VolumeUp();
 
-	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
-		App->audio->VolumeUp();
+		if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_REPEAT)
+			App->audio->VolumeDown();
 
-	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_REPEAT)
-		App->audio->VolumeDown();
 
-	if (StartGame) {
-		App->fade->FadeToBlack(this, App->scene, 1.0f);
-		StartGame = false;
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN){
-		tab_button++;
-		if (tab_button > 9)
-			tab_button = 1;
+		if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN) {
+			tab_button++;
+			if (tab_button > 9)
+				tab_button = 1;
 		}
-
+	}
 	return true;
 }
 
@@ -172,6 +168,11 @@ bool j1Menu::PostUpdate()
 	
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+
+	if (StartGame) {
+		App->fade->FadeToBlack(this, App->scene, 1.0f);
+		StartGame = false;
+	}
 
 	return ret;
 }

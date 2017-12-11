@@ -7,6 +7,7 @@
 #include "J1Player.h"
 #include "j1Audio.h"
 #include "j1Window.h"
+#include "j1Menu.h"
 
 #include "p2Defs.h"
 #include "p2Log.h"
@@ -56,6 +57,7 @@ bool j1FadeToBlack::Update(float dt)
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;
+			App->menu->Started = true;
 		}
 	} break;
 
@@ -63,8 +65,9 @@ bool j1FadeToBlack::Update(float dt)
 	{
 		normalized = 1.0f - normalized;
 
-		if (now >= total_time)
+		if (now >= total_time) 
 			current_step = fade_step::none;
+		
 
 	} break;
 	}

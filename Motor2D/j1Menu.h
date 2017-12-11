@@ -53,6 +53,7 @@ private:
 public:
 	uint tab_button = 0;
 	bool StartGame = false;
+	bool Started = false;
 };
 
 #endif // __j1SCENE_H__

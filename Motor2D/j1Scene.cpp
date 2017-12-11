@@ -17,6 +17,7 @@
 #include "UI_Button.h"
 #include "UI_Label.h"
 #include "j1FadeToBlack.h"
+#include "j1Menu.h"
 
 
 
@@ -60,19 +61,19 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
+	//if (App->menu->Started) {
+		App->map->Load(CurrentMap->data);
 
-	App->map->Load(CurrentMap->data);
+		LoadWalkabilityMap();
 
-	LoadWalkabilityMap();
+		p2List_item<MapLayer*>* layer = App->map->data.layers.start;
+		iPoint size_map;
+		size_map = App->map->MapToWorld(layer->data->width, layer->data->height);
+		width_map = size_map.x;
 
-	p2List_item<MapLayer*>* layer = App->map->data.layers.start;
-	iPoint size_map;
-	size_map = App->map->MapToWorld(layer->data->width, layer->data->height);
-	width_map = size_map.x;
-
-	FindEntities();
-	
-
+		FindEntities();
+		
+	//}
 
 	/*
 	if(App->map->Load("iso_walk.tmx") == true)
@@ -115,68 +116,69 @@ bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
-	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
-		App->audio->VolumeUp();
+	if (App->menu->Started) {
+		if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
+			App->audio->VolumeUp();
 
-	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_REPEAT) 
-		App->audio->VolumeDown();
+		if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_REPEAT)
+			App->audio->VolumeDown();
 
-	if (Photo_mode) {
+		if (Photo_mode) {
 
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-			if (App->render->camera.y < 0)
-				App->render->camera.y += 5;
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+				if (App->render->camera.y < 0)
+					App->render->camera.y += 5;
 
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-			if (-(App->render->camera.y/App->win->scale) + (App->render->camera.h /App->win->scale) < App->render->camera.h)
-			App->render->camera.y -= 5;
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+				if (-(App->render->camera.y / App->win->scale) + (App->render->camera.h / App->win->scale) < App->render->camera.h)
+					App->render->camera.y -= 5;
 
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-			if (App->render->camera.x < 0)
-			App->render->camera.x += 5;
+			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+				if (App->render->camera.x < 0)
+					App->render->camera.x += 5;
 
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-			if (-(App->render->camera.x / App->win->scale) + (App->render->camera.w / App->win->scale) < width_map)
-			App->render->camera.x -= 5;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
-		LoadScene(1);	
-	}
-	
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
-		LoadScene();
-	}
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+				if (-(App->render->camera.x / App->win->scale) + (App->render->camera.w / App->win->scale) < width_map)
+					App->render->camera.x -= 5;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+			LoadScene(1);
+		}
 
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
-		App->SaveGame();
-	}
+		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
+			LoadScene();
+		}
 
-	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
-		App->LoadGame();
-	}
-	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
-		App->map->debug_draw = !App->map->debug_draw;
-	}
+		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+			App->SaveGame();
+		}
 
-	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
-		App->entities->player->god_mode = !App->entities->player->god_mode;
-	}
+		if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+			App->LoadGame();
+		}
+		if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
+			App->map->debug_draw = !App->map->debug_draw;
+		}
 
-	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
-		if (App->framerate_cap != 30)
-			App->framerate_cap = 30;
-		else
-			App->framerate_cap = 0;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN){}
+		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+			App->entities->player->god_mode = !App->entities->player->god_mode;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
+			if (App->framerate_cap != 30)
+				App->framerate_cap = 30;
+			else
+				App->framerate_cap = 0;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN) {}
 
 
-		
-	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
-		Photo_mode = !Photo_mode;
-		App->render->camera.y = 0;
-		App->win->scale = 1;
-	}
+
+		if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
+			Photo_mode = !Photo_mode;
+			App->render->camera.y = 0;
+			App->win->scale = 1;
+		}
 
 
 
@@ -189,15 +191,15 @@ bool j1Scene::Update(float dt)
 			if (App->render->camera.x < 0)
 				App->render->camera.x += 4;
 		}
-/*	if ((App->player->y - (-App->render->camera.y + (1 * App->render->camera.h/3)) >= 0) && App->win->scale != 1) {
-			App->render->camera.y -= 2;
+		/*	if ((App->player->y - (-App->render->camera.y + (1 * App->render->camera.h/3)) >= 0) && App->win->scale != 1) {
+					App->render->camera.y -= 2;
+			}
+
+			if ((App->player->y - (App->render->camera.y + (1 * App->render->camera.h / 2)) <= 0) && App->win->scale != 1) {
+					App->render->camera.y += 2;
+			}*/
+		App->map->Draw();
 	}
-
-	if ((App->player->y - (App->render->camera.y + (1 * App->render->camera.h / 2)) <= 0) && App->win->scale != 1) {
-			App->render->camera.y += 2;
-	}*/
-	App->map->Draw();
-
 	return true;
 }
 
