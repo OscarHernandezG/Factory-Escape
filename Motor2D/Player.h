@@ -75,10 +75,7 @@ private:
 
 	SDL_Texture* texture = nullptr;
 	SDL_Rect rect;
-	float angle = 0;
-	p2Point<float> speed;
-	p2Point<float> movement = { 0,0 };
-	float a = 0.002;
+	fPoint speed = { 0.0f,0.0f };
 
 	bool run_left = false;
 	bool run_right = false;
@@ -110,7 +107,7 @@ private:
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 
-	p2Point<int> spawn;
+	iPoint spawn;
 };
 
 
