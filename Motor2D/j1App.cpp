@@ -31,7 +31,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	scene = new j1Scene();
 	map = new j1Map();
-	//player = new j1Player();
 	entities = new j1Entities();
 	pathfinding = new j1PathFinding();
 	gui = new j1Gui();
@@ -57,7 +56,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fade);
 	AddModule(font);
 	AddModule(menu);
-	//AddModule(player);
 	// render last to swap buffer
 	AddModule(render);
 }
@@ -132,7 +130,7 @@ bool j1App::Start()
 		if (item->data == scene || item->data == entities || item->data == map)
 			item->data->active = false;
 		else
-		ret = item->data->Start();
+			ret = item->data->Start();
 		item = item->next;
 	}
 

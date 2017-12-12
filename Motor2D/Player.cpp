@@ -150,14 +150,7 @@ void Player::Draw(SDL_Texture* texture) {
 Player::~Player()
 {}
 
-// Called before render is available
-bool Player::Awake()
-{
-	LOG("Loading Player");
-	bool ret = true;
 
-	return ret;
-}
 
 
 // Load
