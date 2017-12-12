@@ -6,6 +6,7 @@
 #include "j1Gui.h"
 #include "j1Menu.h"
 #include "j1FadeToBlack.h"
+#include "j1Scene.h"
 
 
 Button::Button(int x, int y) : UI_Element(x, y) {
@@ -37,7 +38,7 @@ bool Button::Update(float dt)
 				if (TAB == LOGIN && !App->fade->IsFading())
 					App->menu->StartGame = true;
 				else if (TAB == QUIT)
-					ret = false;
+					App->scene->Quit = true;
 			}
 			
 				MouseHovering->draw = true;
@@ -51,7 +52,7 @@ bool Button::Update(float dt)
 				if (TAB == LOGIN && !App->fade->IsFading())
 					App->menu->StartGame = true;
 				else if (TAB == QUIT)
-					ret = false;
+					App->scene->Quit = true;
 			}
 			else
 				MouseHovering->draw = true;
@@ -79,7 +80,7 @@ bool Button::Update(float dt)
 
 //	MouseClick->Update(dt);
 
-	return ret;
+	return true;
 }
 bool Button::Clicked() {
 	/*

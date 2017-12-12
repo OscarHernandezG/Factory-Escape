@@ -210,7 +210,7 @@ bool j1Scene::PostUpdate()
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || Quit)
 		ret = false;
 
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && Photo_mode) {
