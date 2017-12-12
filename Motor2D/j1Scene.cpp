@@ -141,6 +141,7 @@ bool j1Scene::Update(float dt)
 				if (-(App->render->camera.x / App->win->scale) + (App->render->camera.w / App->win->scale) < width_map)
 					App->render->camera.x -= 5;
 		}
+
 		if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 			LoadScene(1);
 		}

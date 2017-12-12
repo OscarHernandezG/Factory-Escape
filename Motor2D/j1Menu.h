@@ -9,7 +9,7 @@ class GuiImage;
 class GuiText;
 class Image;
 class Label;
-
+class Button;
 
 class j1Menu : public j1Module
 {
@@ -38,6 +38,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void GUICallback(UI_Element* element);
 
 	int currmap = 1;
 
@@ -49,6 +50,10 @@ private:
 	Image* ui_image = nullptr;
 	Label* text = nullptr;
 
+	Button* Login = nullptr;
+	Button* Quit = nullptr;
+
+	bool quit = false;
 
 public:
 	uint tab_button = 0;

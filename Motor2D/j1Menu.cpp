@@ -77,9 +77,10 @@ bool j1Menu::Start()
 	Community_Site->TAB = COMMUNITY_SITE;
 
 
-	Button* Login = (Button*)App->gui->AdUIElement(444, 380, BUTTON);
+	Login = (Button*)App->gui->AdUIElement(444, 380, BUTTON);
 	Login->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Login", "Iniciar sesion", INTERACTABLE);
 	int pos = 350;
+	Login->AddListener(this);
 	Login->TAB = LOGIN;
 
 
@@ -101,10 +102,10 @@ bool j1Menu::Start()
 	Terms_Of_Use->TAB = TERMS_OF_USE;
 
 
-	Button* Quit = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
+	Quit = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
 	Quit->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Quit", "Salir", INTERACTABLE);
 	Quit->TAB = QUIT;
-
+	Quit->AddListener(this);
 	//ui_image->rect.add({ 0, 0, 1920, 1080 });
 
 	/*ui_image->LoadImageA("gui/atlas.png");
@@ -173,7 +174,7 @@ bool j1Menu::PostUpdate()
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 	bool ret = true;
 	
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || quit)
 		ret = false;
 
 	if (StartGame) {
@@ -194,3 +195,15 @@ bool j1Menu::CleanUp()
 	return true;
 }
 
+void j1Menu::GUICallback(UI_Element* element) {
+
+
+	if (Login == element) {
+		StartGame = true;
+	}
+
+	else if (Quit == element) {
+		quit = true;
+	}
+
+}

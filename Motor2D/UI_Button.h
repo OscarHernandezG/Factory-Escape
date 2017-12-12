@@ -50,6 +50,9 @@ public:
 
 	void DefineButton(char* path, char* text, char* textesp = nullptr, BUTTON_TYPE type = NONE_TYPE_BUT);
 
+	void AddListener(j1Module* listener);
+	void AddListener(p2List<j1Module*> listener);
+
 public:
 	Image* MouseClick = nullptr;
 
@@ -63,9 +66,8 @@ public:
 
 	Image* MouseHovering = nullptr;
 
+	p2List<j1Module*> listeners;
 
-	/*Animation on_click;
-	Aniamtion mouse_on_rect;*/
 
 };
 

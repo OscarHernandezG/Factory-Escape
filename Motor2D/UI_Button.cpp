@@ -35,8 +35,11 @@ bool Button::Update(float dt)
 		if (MouseOnRect()) {
 			if (App->input->GetMouseButtonDown(1) == KEY_REPEAT) {
 				MouseClick->draw = true;
-				if (TAB == LOGIN && !App->fade->IsFading())
-					App->menu->StartGame = true;
+				if (!App->fade->IsFading())
+					for (p2List_item<j1Module*>* iterator = listeners.start; iterator != nullptr; iterator = iterator->next) {
+						iterator->data->GUICallback(this);
+					}
+					//App->menu->StartGame = true;
 				else if (TAB == QUIT)
 					App->scene->Quit = true;
 			}
@@ -129,4 +132,14 @@ void Button::DefineButton(char* path, char* text, char* textesp, BUTTON_TYPE typ
 	//label->position += label_offset;
 
 	this->Button_type = type;
+}
+
+void Button::AddListener(j1Module* listener) {
+	listeners.add(listener);
+}
+
+void Button::AddListener(p2List<j1Module*> listener) {
+	for (p2List_item<j1Module*>* iterator = listener.start; iterator != nullptr; iterator = iterator->next) {
+		listeners.add(iterator->data);
+	}
 }
