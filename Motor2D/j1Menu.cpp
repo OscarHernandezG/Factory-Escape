@@ -53,7 +53,7 @@ bool j1Menu::Start()
 {
 
 	ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
-	ui_image->LoadImageA("Homework/wow_ui/login_background.png");
+	ui_image->LoadImageA("textures/Background_UI.png");
 
 	Image* wow_logo = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
 	wow_logo->LoadImageA("Homework/wow_ui/COMMON/Glues-Logo-Left.png", 0.33f);
@@ -69,35 +69,41 @@ bool j1Menu::Start()
 
 	Button* Manage_Account = (Button*)App->gui->AdUIElement(17, 400, BUTTON);
 	Manage_Account->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Manage Account", "Cuenta", INTERACTABLE);
-	Manage_Account->TAB = 1;
+	Manage_Account->TAB = MANAGE_ACCOUNT;
+	
 
 	Button* Community_Site = (Button*)App->gui->AdUIElement(17, 439, BUTTON);
 	Community_Site->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Community Site", "Pagina web", INTERACTABLE);
-	Community_Site->TAB = 2;
+	Community_Site->TAB = COMMUNITY_SITE;
+
 
 	Button* Login = (Button*)App->gui->AdUIElement(444, 380, BUTTON);
 	Login->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Login", "Iniciar sesion", INTERACTABLE);
 	int pos = 350;
-	Login->TAB = 5;
+	Login->TAB = LOGIN;
+
 
 	Button* Cinematics = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
 	Cinematics->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Cinematics", "Cinematicas", INTERACTABLE);
 	pos += 39;
-	Cinematics->TAB = 6;
+	Cinematics->TAB = CINEMATICS;
+
 
 	Button* Credits = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
 	Credits->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Credits", "Creditos", INTERACTABLE);
 	pos += 39;
-	Credits->TAB = 7;
+	Credits->TAB = CREDITS;
+
 
 	Button* Terms_Of_Use = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
 	Terms_Of_Use->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Terms Of Use", "Terminos de servicio", INTERACTABLE);
 	pos = 538 - 20;
-	Terms_Of_Use->TAB = 8;
+	Terms_Of_Use->TAB = TERMS_OF_USE;
+
 
 	Button* Quit = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
 	Quit->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Quit", "Salir", INTERACTABLE);
-	Quit->TAB = 9;
+	Quit->TAB = QUIT;
 
 	//ui_image->rect.add({ 0, 0, 1920, 1080 });
 
@@ -125,10 +131,11 @@ bool j1Menu::Start()
 	Button* Name = (Button*)App->gui->AdUIElement(450, 282, BUTTON);
 	Name->DefineButton("Homework/wow_ui/COMMON1/Common-Input-Border.png", "");
 	pos = 538 - 20;
-	Name->TAB = 3;
+	Name->TAB = NAME;
+
 	Button* Password = (Button*)App->gui->AdUIElement(450, 335, BUTTON);
 	Password->DefineButton("Homework/wow_ui/COMMON1/Common-Input-Border.png", "");
-	Name->TAB = 4;
+	Name->TAB = PASWORD;
 
 	return true;
 }
@@ -153,8 +160,8 @@ bool j1Menu::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN) {
 			tab_button++;
-			if (tab_button > 9)
-				tab_button = 1;
+			if (tab_button > QUIT)
+				tab_button = MANAGE_ACCOUNT;
 		}
 	}
 	return true;

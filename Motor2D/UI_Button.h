@@ -8,10 +8,25 @@
 struct SDL_Texture;
 
 enum BUTTON_TYPE {
-	NONE_BUT,
+	NONE_TYPE_BUT,
 	
 	INTERACTABLE,
 	INPUT_BOX
+};
+
+enum BUTTON_NAME {
+
+	NONE_NAME_BUT,
+	MANAGE_ACCOUNT,
+	COMMUNITY_SITE,
+	NAME,
+	PASWORD,
+	LOGIN,
+	CINEMATICS,
+	CREDITS,
+	TERMS_OF_USE,
+	QUIT,
+
 };
 
 
@@ -33,14 +48,15 @@ public:
 
 	bool CleanUp();
 
-	void DefineButton(char* path, char* text, char* textesp = nullptr, BUTTON_TYPE type = NONE_BUT);
+	void DefineButton(char* path, char* text, char* textesp = nullptr, BUTTON_TYPE type = NONE_TYPE_BUT);
 
 public:
 	Image* MouseClick = nullptr;
 
 	Label* label = nullptr;
 	Image* image = nullptr;
-	BUTTON_TYPE Button_type = NONE_BUT;
+	BUTTON_TYPE Button_type = NONE_TYPE_BUT;
+	BUTTON_NAME button_name = NONE_NAME_BUT;
 	bool clicked = false;
 	SDL_Rect rect;
 	uint TAB = 0u;

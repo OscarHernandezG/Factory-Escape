@@ -28,13 +28,16 @@ Button::Button(int x, int y) : UI_Element(x, y) {
 
 bool Button::Update(float dt) 
 {
+	bool ret = true;
 	MouseHovering->draw = MouseClick->draw = false;
 	if (Button_type == INTERACTABLE) {
 		if (MouseOnRect()) {
 			if (App->input->GetMouseButtonDown(1) == KEY_REPEAT) {
 				MouseClick->draw = true;
-				if (TAB == 5 && !App->fade->IsFading())
+				if (TAB == LOGIN && !App->fade->IsFading())
 					App->menu->StartGame = true;
+				else if (TAB == QUIT)
+					ret = false;
 			}
 			
 				MouseHovering->draw = true;
@@ -45,8 +48,10 @@ bool Button::Update(float dt)
 		if (TAB == App->menu->tab_button) {
 			if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) {
 				MouseClick->draw = true;
-				if (TAB == 5 && !App->fade->IsFading())
+				if (TAB == LOGIN && !App->fade->IsFading())
 					App->menu->StartGame = true;
+				else if (TAB == QUIT)
+					ret = false;
 			}
 			else
 				MouseHovering->draw = true;
@@ -74,7 +79,7 @@ bool Button::Update(float dt)
 
 //	MouseClick->Update(dt);
 
-	return true;
+	return ret;
 }
 bool Button::Clicked() {
 	/*
