@@ -52,58 +52,54 @@ bool j1Menu::Awake(pugi::xml_node& config)
 bool j1Menu::Start()
 {
 
-	ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
-	ui_image->LoadImageA("textures/Background_UI.png");
+	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
+	Bg_ui_image->LoadImageA("textures/Background_UI2.png");
 
-	Image* wow_logo = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
-	wow_logo->LoadImageA("Homework/wow_ui/COMMON/Glues-Logo-Left.png", 0.33f);
-	wow_logo = (Image*)App->gui->AdUIElement(85, 0, IMAGE);
-	wow_logo->LoadImageA("Homework/wow_ui/COMMON/Glues-Logo-Right.png", 0.33f);
+	Image* Title_ui = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
+	Title_ui->LoadImageA("textures/Title.png", 0.33f);
 
-	Image* ESRB_notice = (Image*)App->gui->AdUIElement(21, 415, IMAGE);
+
+	Image* ESRB_notice = (Image*)App->gui->AdUIElement(21, 550, IMAGE);
 	ESRB_notice->LoadImageA("Homework/wow_ui/LOGIN/Glues-ESRBRating.png");
-
-	Image* Blizzard_logo = (Image*)App->gui->AdUIElement(470, 475, IMAGE);
-	Blizzard_logo->LoadImageA("Homework/wow_ui/MainMenu/Glues-BlizzardLogo.png", 0.66f);
 
 
 	Button* Manage_Account = (Button*)App->gui->AdUIElement(17, 400, BUTTON);
-	Manage_Account->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Manage Account", "Cuenta", INTERACTABLE);
+	Manage_Account->DefineButton("textures/Normal_But.png", "Manage Account", "Cuenta", INTERACTABLE);
 	Manage_Account->TAB = MANAGE_ACCOUNT;
 	
 
-	Button* Community_Site = (Button*)App->gui->AdUIElement(17, 439, BUTTON);
-	Community_Site->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Community Site", "Pagina web", INTERACTABLE);
+	Button* Community_Site = (Button*)App->gui->AdUIElement(17, 500, BUTTON);
+	Community_Site->DefineButton("textures/Normal_But.png", "Community Site", "Pagina web", INTERACTABLE);
 	Community_Site->TAB = COMMUNITY_SITE;
 
 
 	Login = (Button*)App->gui->AdUIElement(444, 380, BUTTON);
-	Login->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Login", "Iniciar sesion", INTERACTABLE);
-	int pos = 350;
+	Login->DefineButton("textures/Normal_But.png", "PLAY", "JUGAR", INTERACTABLE);
+	int pos = 400;
 	Login->AddListener(this);
 	Login->TAB = LOGIN;
 
 
-	Button* Cinematics = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
-	Cinematics->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Cinematics", "Cinematicas", INTERACTABLE);
+	/*Button* Cinematics = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
+	Cinematics->DefineButton("textures/Normal_But.png", "Cinematics", "Cinematicas", INTERACTABLE);
 	pos += 39;
-	Cinematics->TAB = CINEMATICS;
+	Cinematics->TAB = CINEMATICS;*/
 
 
 	Button* Credits = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
-	Credits->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Credits", "Creditos", INTERACTABLE);
-	pos += 39;
+	Credits->DefineButton("textures/Normal_But.png", "Credits", "Creditos", INTERACTABLE);
+	pos += 100;
 	Credits->TAB = CREDITS;
 
 
-	Button* Terms_Of_Use = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
-	Terms_Of_Use->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Terms Of Use", "Terminos de servicio", INTERACTABLE);
+	/*Button* Terms_Of_Use = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
+	Terms_Of_Use->DefineButton("textures/Normal_But.png", "Terms Of Use", "Terminos de servicio", INTERACTABLE);
 	pos = 538 - 20;
-	Terms_Of_Use->TAB = TERMS_OF_USE;
+	Terms_Of_Use->TAB = TERMS_OF_USE;*/
 
 
 	Quit = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
-	Quit->DefineButton("Homework/wow_ui/COMMON/Glue-Panel-Button-Up.png", "Quit", "Salir", INTERACTABLE);
+	Quit->DefineButton("textures/Normal_But.png", "Quit", "Salir", INTERACTABLE);
 	Quit->TAB = QUIT;
 	Quit->AddListener(this);
 	//ui_image->rect.add({ 0, 0, 1920, 1080 });
@@ -113,30 +109,14 @@ bool j1Menu::Start()
 	ui_image->rect.add({ 642, 169, 229, 69 });
 	ui_image->rect.add({ 0,113,229,69 });*/
 
-	text = (Label*)App->gui->AdUIElement(0, 546, LABEL);
+	text = (Label*)App->gui->AdUIElement(0, 600, LABEL);
 	text->SetText("Version 2.0.12 (6546) (Release)");
 
-	text = (Label*)App->gui->AdUIElement(0, 558, LABEL);
+	text = (Label*)App->gui->AdUIElement(0, 610, LABEL);
 	text->SetText("Mar 30 2007");
 
-	text = (Label*)App->gui->AdUIElement(306, 558, LABEL);
+	text = (Label*)App->gui->AdUIElement(485, 650, LABEL);
 	text->SetText("Copyright 2004-2007  Blizzard Entretainment. All Rights Reserved.");
-
-	text = (Label*)App->gui->AdUIElement(464, 264, LABEL);
-	text->SetText("Account Name", "Nombre");
-
-	text = (Label*)App->gui->AdUIElement(458, 319, LABEL);
-	text->SetText("Account Password", "Contraseña");
-
-
-	Button* Name = (Button*)App->gui->AdUIElement(450, 282, BUTTON);
-	Name->DefineButton("Homework/wow_ui/COMMON1/Common-Input-Border.png", "");
-	pos = 538 - 20;
-	Name->TAB = NAME;
-
-	Button* Password = (Button*)App->gui->AdUIElement(450, 335, BUTTON);
-	Password->DefineButton("Homework/wow_ui/COMMON1/Common-Input-Border.png", "");
-	Name->TAB = PASWORD;
 
 	return true;
 }

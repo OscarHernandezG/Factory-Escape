@@ -47,7 +47,7 @@ private:
 	SDL_Texture* debug_tex;
 	GuiImage* banner;
 	//	GuiText* text;
-	Image* ui_image = nullptr;
+	Image* Bg_ui_image = nullptr;
 	Label* text = nullptr;
 
 	Button* Login = nullptr;

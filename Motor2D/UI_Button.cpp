@@ -116,8 +116,8 @@ bool Button::CleanUp() {
 void Button::DefineButton(char* path, char* text, char* textesp, BUTTON_TYPE type)
 {
 	
-	MouseHovering->LoadImageA("Homework/wow_ui/COMMON/Glue-Panel-Button-Glow.png",1);
-	MouseClick->LoadImageA("Homework/wow_ui/BUTTONS/UI-DialogBox-Button-Down.png",1);
+	MouseHovering->LoadImageA("textures/Hover_But.png",1);
+	MouseClick->LoadImageA("textures/Click_But.png",1);
 
 	image->LoadImageA(path, 1);
 
