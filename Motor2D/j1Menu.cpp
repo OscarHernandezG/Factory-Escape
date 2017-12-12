@@ -55,22 +55,22 @@ bool j1Menu::Start()
 	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
 	Bg_ui_image->LoadImageA("textures/Background_UI2.png");
 
-	Image* Title_ui = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
+	Title_ui = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
 	Title_ui->LoadImageA("textures/Title.png", 0.33f);
 
 
-	Image* ESRB_notice = (Image*)App->gui->AdUIElement(21, 550, IMAGE);
-	ESRB_notice->LoadImageA("Homework/wow_ui/LOGIN/Glues-ESRBRating.png");
+	//Image* ESRB_notice = (Image*)App->gui->AdUIElement(21, 550, IMAGE);
+	//ESRB_notice->LoadImageA("Homework/wow_ui/LOGIN/Glues-ESRBRating.png");
 
 
-	Button* Manage_Account = (Button*)App->gui->AdUIElement(17, 400, BUTTON);
-	Manage_Account->DefineButton("textures/Normal_But.png", "Manage Account", "Cuenta", INTERACTABLE);
-	Manage_Account->TAB = MANAGE_ACCOUNT;
-	
+	//Button* Manage_Account = (Button*)App->gui->AdUIElement(17, 400, BUTTON);
+	//Manage_Account->DefineButton("textures/Normal_But.png", "Manage Account", "Cuenta", INTERACTABLE);
+	//Manage_Account->TAB = MANAGE_ACCOUNT;
+	//
 
-	Button* Community_Site = (Button*)App->gui->AdUIElement(17, 500, BUTTON);
-	Community_Site->DefineButton("textures/Normal_But.png", "Community Site", "Pagina web", INTERACTABLE);
-	Community_Site->TAB = COMMUNITY_SITE;
+	//Button* Community_Site = (Button*)App->gui->AdUIElement(17, 500, BUTTON);
+	//Community_Site->DefineButton("textures/Normal_But.png", "Community Site", "Pagina web", INTERACTABLE);
+	//Community_Site->TAB = COMMUNITY_SITE;
 
 
 	Login = (Button*)App->gui->AdUIElement(444, 380, BUTTON);
@@ -86,10 +86,10 @@ bool j1Menu::Start()
 	Cinematics->TAB = CINEMATICS;*/
 
 
-	Button* Credits = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
-	Credits->DefineButton("textures/Normal_But.png", "Credits", "Creditos", INTERACTABLE);
-	pos += 100;
-	Credits->TAB = CREDITS;
+	//Button* Credits = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
+	//Credits->DefineButton("textures/Normal_But.png", "Credits", "Creditos", INTERACTABLE);
+	//pos += 100;
+	//Credits->TAB = CREDITS;
 
 
 	/*Button* Terms_Of_Use = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
@@ -109,14 +109,14 @@ bool j1Menu::Start()
 	ui_image->rect.add({ 642, 169, 229, 69 });
 	ui_image->rect.add({ 0,113,229,69 });*/
 
-	text = (Label*)App->gui->AdUIElement(0, 600, LABEL);
-	text->SetText("Version 2.0.12 (6546) (Release)");
+	//text = (Label*)App->gui->AdUIElement(0, 600, LABEL);
+	//text->SetText("Version 2.0.12 (6546) (Release)");
 
-	text = (Label*)App->gui->AdUIElement(0, 610, LABEL);
-	text->SetText("Mar 30 2007");
+	//text = (Label*)App->gui->AdUIElement(0, 610, LABEL);
+	//text->SetText("Mar 30 2007");
 
-	text = (Label*)App->gui->AdUIElement(485, 650, LABEL);
-	text->SetText("Copyright 2004-2007  Blizzard Entretainment. All Rights Reserved.");
+	//text = (Label*)App->gui->AdUIElement(485, 650, LABEL);
+	//text->SetText("Copyright 2004-2007  Blizzard Entretainment. All Rights Reserved.");
 
 	return true;
 }
@@ -170,7 +170,11 @@ bool j1Menu::PostUpdate()
 bool j1Menu::CleanUp()
 {
 	LOG("Freeing Menu");
+	Login->CleanUp();
+	Quit->CleanUp();
+	Title_ui->CleanUp();
 
+	App->gui->ui_elements.clear();
 
 	return true;
 }

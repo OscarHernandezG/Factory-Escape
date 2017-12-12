@@ -17,23 +17,25 @@ Image::~Image() {
 bool Image::Update(float dt) {
 
 	if (draw)
-		App->render->Blit(image.start->data, position.x, position.y, &rect, 0);
+		App->render->Blit(image, position.x, position.y, &rect, 0);
 
 	return true;
 }
 bool Image::CleanUp() {
 
+	App->tex->UnLoad(image);	
+	
 	return true;
 }
 bool Image::LoadImageA(char* path, float scale) {
 
-	image.add(App->tex->Load(path));
+	image=App->tex->Load(path);
 
 	position.x /= scale;
 	position.y /= scale;
 	imagen.create(path);
 	uint w = 0, h = 0;
-	App->tex->GetSize(image.end->data, w, h);
+	App->tex->GetSize(image, w, h);
 	int rect_w = w;
 	int rect_h = h;
 	rect = { 0,0,rect_w,rect_h };

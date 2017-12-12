@@ -49,6 +49,7 @@ private:
 	//	GuiText* text;
 	Image* Bg_ui_image = nullptr;
 	Label* text = nullptr;
+	Image* Title_ui = nullptr;
 
 	Button* Login = nullptr;
 	Button* Quit = nullptr;

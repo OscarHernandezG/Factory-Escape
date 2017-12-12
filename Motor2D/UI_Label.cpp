@@ -37,6 +37,10 @@ bool Label::Update(float dt) {
 }
 bool Label::CleanUp() {
 //	this->text.Clear();
+	//for (p2List_item<TextInfo>* iterator = text_info.start; iterator != nullptr; iterator = iterator->next) {
+	//	delete iterator;
+	//}
+	text_info.clear();
 	return true;
 }
 bool Label::SetText(char* text, char* textesp) {

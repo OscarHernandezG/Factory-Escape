@@ -29,9 +29,9 @@ public:
 
 public:
 
-	p2List<SDL_Texture*> image;
+	SDL_Texture* image = nullptr;
 	
-	SDL_Rect rect;
+	SDL_Rect rect{ 0,0,0,0 };
 
 	p2SString imagen;
 

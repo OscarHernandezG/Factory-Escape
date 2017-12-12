@@ -289,7 +289,6 @@ public:
 	{
 		p2List_item<tdata>* tmp = start;
 		int index = 0;
-
 		while(tmp != NULL)
 		{
 			if(tmp->data == data)

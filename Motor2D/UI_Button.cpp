@@ -7,6 +7,7 @@
 #include "j1Menu.h"
 #include "j1FadeToBlack.h"
 #include "j1Scene.h"
+#include "j1Gui.h"
 
 
 Button::Button(int x, int y) : UI_Element(x, y) {
@@ -85,6 +86,7 @@ bool Button::Update(float dt)
 
 	return true;
 }
+
 bool Button::Clicked() {
 	/*
 	CurrAnim = Clicked;
@@ -92,6 +94,7 @@ bool Button::Clicked() {
 	//clicked = true;
 	return true;
 }
+
 bool Button::MouseOnRect() {
 	bool ret = false;
 
@@ -108,6 +111,12 @@ bool Button::MouseOnRect() {
 }
 
 bool Button::CleanUp() {
+
+	MouseClick->CleanUp();
+	label->CleanUp();
+	image->CleanUp();
+	MouseHovering->CleanUp();
+	listeners.clear();
 
 	return true;
 }
