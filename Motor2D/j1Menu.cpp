@@ -8,7 +8,6 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
-#include "J1Player.h"
 #include "j1Entities.h"
 #include "j1Pathfinding.h"
 #include "j1Gui.h"
@@ -171,6 +170,13 @@ bool j1Menu::CleanUp()
 {
 	LOG("Freeing Menu");
 
+	active = false;
+	App->scene->Start();
+	App->map->Start();
+	App->entities->Start();
+	App->scene->active = true;
+	App->map->active = true;
+	App->entities->active = true;
 
 	return true;
 }

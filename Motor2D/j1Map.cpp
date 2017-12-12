@@ -6,7 +6,6 @@
 #include "j1Map.h"
 #include "j1Input.h"
 #include <math.h>
-#include "J1Player.h"
 #include "j1Audio.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
