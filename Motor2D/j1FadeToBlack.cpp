@@ -4,7 +4,6 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Input.h"
-#include "J1Player.h"
 #include "j1Audio.h"
 #include "j1Window.h"
 #include "j1Menu.h"

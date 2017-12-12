@@ -73,7 +73,7 @@ bool j1Gui::CleanUp()
 {
 	for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next)
 		iterator->data->CleanUp();
-	
+
 	LOG("Freeing GUI");
 
 	return true;

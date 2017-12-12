@@ -4,7 +4,6 @@
 #include "j1Map.h"
 #include "j1Render.h"
 #include "j1Pathfinding.h"
-#include "J1Player.h"
 #include "j1Entities.h"
 
 

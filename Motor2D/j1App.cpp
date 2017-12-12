@@ -11,7 +11,6 @@
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1App.h"
-#include "J1Player.h"
 #include "j1Entities.h"
 #include "j1Pathfinding.h"
 #include "j1Gui.h"
@@ -130,12 +129,13 @@ bool j1App::Start()
 
 	while(item != NULL && ret == true)
 	{
-
+		if (item->data == scene || item->data == entities || item->data == map)
+			item->data->active = false;
+		else
 		ret = item->data->Start();
 		item = item->next;
 	}
 
-	fade->CleanUp();
 	return ret;
 }
 
