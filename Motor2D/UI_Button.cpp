@@ -34,15 +34,11 @@ bool Button::Update(float dt)
 	MouseHovering->draw = MouseClick->draw = false;
 	if (Button_type == INTERACTABLE) {
 		if (MouseOnRect()) {
-			if (App->input->GetMouseButtonDown(1) == KEY_REPEAT) {
+			if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
 				MouseClick->draw = true;
-				if (!App->fade->IsFading())
-					for (p2List_item<j1Module*>* iterator = listeners.start; iterator != nullptr; iterator = iterator->next) {
-						iterator->data->GUICallback(this);
-					}
-					//App->menu->StartGame = true;
-				else if (TAB == QUIT)
-					App->scene->Quit = true;
+			else if (App->input->GetMouseButtonDown(1) == KEY_UP) {			
+				for (p2List_item<j1Module*>* iterator = listeners.start; iterator != nullptr; iterator = iterator->next) 
+					iterator->data->GUICallback(this);
 			}
 			
 				MouseHovering->draw = true;
@@ -51,12 +47,17 @@ bool Button::Update(float dt)
 		}
 
 		if (TAB == App->menu->tab_button) {
-			if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) {
+		/*	if (SDL_SCANCODE_RETURN == KEY_REPEAT)
 				MouseClick->draw = true;
-				if (TAB == LOGIN && !App->fade->IsFading())
-					App->menu->StartGame = true;
-				else if (TAB == QUIT)
-					App->scene->Quit = true;
+			else if (SDL_SCANCODE_RETURN == KEY_UP) {
+				for (p2List_item<j1Module*>* iterator = listeners.start; iterator != nullptr; iterator = iterator->next)
+					iterator->data->GUICallback(this);
+			}*/
+			if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) 
+				MouseClick->draw = true;
+			else if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP) {
+				for (p2List_item<j1Module*>* iterator = listeners.start; iterator != nullptr; iterator = iterator->next)
+					iterator->data->GUICallback(this);
 			}
 			else
 				MouseHovering->draw = true;
