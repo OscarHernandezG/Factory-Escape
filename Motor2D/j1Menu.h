@@ -53,6 +53,9 @@ private:
 
 	Button* Login = nullptr;
 	Button* Quit = nullptr;
+	Button* Settings = nullptr;
+	Button* Credits = nullptr;
+	Button* Load_But = nullptr;
 
 	bool quit = false;
 

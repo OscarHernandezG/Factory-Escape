@@ -58,17 +58,33 @@ bool j1Menu::Start()
 	Title_ui->LoadImageA("textures/Title.png", 0.33f);
 
 
-	Login = (Button*)App->gui->AdUIElement(444, 380, BUTTON);
+	Login = (Button*)App->gui->AdUIElement(500, 400, BUTTON);
 	Login->DefineButton("textures/Normal_But.png", "PLAY", INTERACTABLE);
-	int pos = 400;
 	Login->AddListener(this);
 	Login->TAB = LOGIN;
 
 
-	Quit = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
-	Quit->DefineButton("textures/Normal_But.png", "Quit", INTERACTABLE);
+	Quit = (Button*)App->gui->AdUIElement(1000, 600, BUTTON);
+	Quit->DefineButton("textures/Normal_But.png", "QUIT", INTERACTABLE);
 	Quit->TAB = QUIT;
 	Quit->AddListener(this);
+
+	Settings = (Button*)App->gui->AdUIElement(50, 600, BUTTON);
+	Settings->DefineButton("textures/Normal_But.png", "SETTINGS", INTERACTABLE);
+	Settings->TAB = SETTINGS;
+	Settings->AddListener(this);
+
+	Credits = (Button*)App->gui->AdUIElement(1000, 10, BUTTON);
+	Credits->DefineButton("textures/Normal_But.png", "CREDITS", INTERACTABLE);
+	Credits->TAB = CREDITS;
+	Credits->AddListener(this);
+
+	Load_But = (Button*)App->gui->AdUIElement(500, 600, BUTTON);
+	Load_But->DefineButton("textures/Normal_But.png", "LOAD", INTERACTABLE);
+	Load_But->TAB = LOAD;
+	Load_But->AddListener(this);
+
+
 
 	return true;
 }
