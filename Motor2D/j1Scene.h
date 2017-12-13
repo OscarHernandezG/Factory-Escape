@@ -50,9 +50,14 @@ public:
 
 	void FindEntities();
 	
+public:
+
 	int currmap = 1;
 
 	bool Photo_mode = false;
+	bool next_map = false;
+	bool reload_map = false;
+
 private:
 
 	uint width_map;

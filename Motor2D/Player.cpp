@@ -95,8 +95,8 @@ void Player::Move(float dt) {
 		flip = SDL_FLIP_HORIZONTAL;
 		break;
 	case PLAYER_WIN:
-		App->scene->LoadScene();
-		SpawnPlayer();
+		App->scene->next_map = true;
+//		SpawnPlayer();
 		break;
 	case DEAD:
 		CurrentAnim = &Die;
@@ -316,7 +316,7 @@ void Player::CheckPlayerState(float dt)
 		PlayerState = DEAD;
 		fpos.y += (down_force * dt) / 10;
 		if (currentTime > dieTime + 1000) {
-			CurrentAnim = &Idle;
+			/*CurrentAnim = &Idle;
 			melee = false;
 			App->entities->FreeEnemies();
 			App->scene->FindEntities();
@@ -325,7 +325,8 @@ void Player::CheckPlayerState(float dt)
 			App->render->camera.x = 0;
 			PlayerState = IDLE;
 
-			SpawnPlayer();
+			SpawnPlayer();*/
+			App->scene->reload_map = true;
 		}
 	}
 	if (!death && !god_mode)

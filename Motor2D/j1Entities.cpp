@@ -105,12 +105,11 @@ bool j1Entities::Update(float dt)
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
 	if (!App->scene->Photo_mode)
-		if (entities.count() > 0)
-			for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next)
-				iterator->data->Move(dt);
-	if (entities.count() > 0)
 		for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next)
-			iterator->data->Draw(sprites);
+			iterator->data->Move(dt);
+
+	for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next)
+		iterator->data->Draw(sprites);
 
 	return true;
 }
@@ -143,12 +142,13 @@ bool j1Entities::CleanUp()
 	for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next)
 	{
 		delete iterator->data;
-		entities.del(iterator);
 
 		if (i < MAX_ENEMIES)
 			queue[i].type = NO_TYPE;
 		i++;
 	}
+	entities.clear();
+
 	delete[] animation_x;
 	delete[] animation_y;
 	delete[] animation_w;

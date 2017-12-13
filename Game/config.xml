@@ -31,7 +31,6 @@
   <scene>
     <maps map ="Map1.tmx"></maps>
     <maps map ="Map2.tmx"></maps>
-   <maps map ="Map3.tmx"></maps>
   </scene>
 
   <audio>
