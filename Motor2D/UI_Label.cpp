@@ -20,18 +20,7 @@ Label::~Label() {
 
 bool Label::Update(float dt) {
 
-	p2List_item<TextInfo>* text_to_blit = text_info.start;
-
-	if (MouseOnRect() && text_to_blit->next != nullptr) {
-		text_to_blit = text_to_blit->next;
-		hovering = true;
-	}
-	else
-		hovering = false;
-
-
-	if (text_to_blit->data.tex != nullptr)
-	App->render->Blit(text_to_blit->data.tex, position.x, position.y, &text_to_blit->data.rect, 0);
+	App->render->Blit(text_info.tex, position.x, position.y, &text_info.rect, 0);
 
 	return true;
 }
@@ -40,7 +29,7 @@ bool Label::CleanUp() {
 	//for (p2List_item<TextInfo>* iterator = text_info.start; iterator != nullptr; iterator = iterator->next) {
 	//	delete iterator;
 	//}
-	text_info.clear();
+	//text_info.clear();
 	return true;
 }
 bool Label::SetText(char* text) {
@@ -54,7 +43,7 @@ bool Label::SetText(char* text) {
 	int rect_h = h;
 	SDL_Rect rect = { 0,0,rect_w,rect_h };
 
-	text_info.add({ tex, rect, aux_text });
+	text_info = { tex, rect, aux_text };
 
 	return true;
 }
@@ -65,8 +54,8 @@ bool Label::MouseOnRect() {
 	iPoint mouse{ 0,0 };
 	App->input->GetMousePosition(mouse.x, mouse.y);
 
-	if (mouse.x > position.x && mouse.x < position.x + text_info.start->data.rect.w) {
-		if (mouse.y > position.y && mouse.y < position.y + text_info.start->data.rect.h) {
+	if (mouse.x > position.x && mouse.x < position.x + text_info.rect.w) {
+		if (mouse.y > position.y && mouse.y < position.y + text_info.rect.h) {
 			ret = true;
 		}
 	}

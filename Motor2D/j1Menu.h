@@ -57,6 +57,8 @@ private:
 	Button* Credits = nullptr;
 	Button* Load_But = nullptr;
 
+	Button* Name = nullptr;
+
 	bool quit = false;
 
 public:

@@ -84,7 +84,10 @@ bool j1Menu::Start()
 	Load_But->TAB = LOAD;
 	Load_But->AddListener(this);
 
-
+	Name = (Button*)App->gui->AdUIElement(500, 500, BUTTON);
+	Name->DefineButton("textures/Normal_But.png", "Name", INTERACTABLE);
+	Name->TAB = LOAD;
+	Name->AddListener(this);
 
 	return true;
 }
@@ -109,7 +112,7 @@ bool j1Menu::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN) {
 			tab_button++;
-			if (tab_button > QUIT)
+			if (tab_button > LOAD)
 				tab_button = LOGIN;
 		}
 	}
@@ -166,6 +169,10 @@ void j1Menu::GUICallback(UI_Element* element) {
 
 	else if (Quit == element) {
 		quit = true;
+	}
+
+	else if (Name == element) {
+		
 	}
 
 }

@@ -29,7 +29,7 @@ public:
 	bool MouseOnRect();
 public:
 
-	p2List<TextInfo> text_info;	
+	TextInfo text_info;
 
 	bool hovering = false;
 
