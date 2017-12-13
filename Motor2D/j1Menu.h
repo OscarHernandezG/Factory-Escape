@@ -56,11 +56,16 @@ private:
 	Label* text = nullptr;
 	Image* Title_ui = nullptr;
 
+	Image* Slider_Volum = nullptr;
+	Image* Slider_Frames = nullptr;
+
 	Button* Login = nullptr;
 	Button* Quit = nullptr;
 	Button* Settings = nullptr;
 	Button* Credits = nullptr;
 	Button* Load_But = nullptr;
+
+	
 
 	Button* Name = nullptr;
 

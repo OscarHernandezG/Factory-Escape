@@ -17,6 +17,7 @@
 #include "UI_Label.h"
 #include "j1FadeToBlack.h"
 #include "j1Menu.h"
+#include "j1GuiAnimation.h"
 
 
 
@@ -206,37 +207,47 @@ void j1Menu::CreateMenu() {
 
 	Title_ui = (Image*)App->gui->AdUIElement(-200, 0, IMAGE);
 	Title_ui->LoadImageA("textures/Title.png", 0.33f);
-
+	App->gui_animation->MoveToOrigin(Title_ui);
 
 	Login = (Button*)App->gui->AdUIElement(500, 700, BUTTON);//y = 400
 	Login->DefineButton("textures/Normal_But.png", "PLAY", INTERACTABLE);
 	Login->AddListener(this);
 	Login->TAB = 1;
-
+	App->gui_animation->MoveToOrigin(Login);
 
 	Quit = (Button*)App->gui->AdUIElement(1000, 800, BUTTON); // y = 600
 	Quit->DefineButton("textures/Normal_But.png", "QUIT", INTERACTABLE);
 	Quit->TAB = 5;
 	Quit->AddListener(this);
+	App->gui_animation->MoveToOrigin(Quit);
 
 	Settings = (Button*)App->gui->AdUIElement(50, 800, BUTTON); //y = 600
 	Settings->DefineButton("textures/Normal_But.png", "SETTINGS", INTERACTABLE);
 	Settings->TAB = 2;
 	Settings->AddListener(this);
+	App->gui_animation->MoveToOrigin(Settings);
 
 	Credits = (Button*)App->gui->AdUIElement(1200, 10, BUTTON);//x = 1000
 	Credits->DefineButton("textures/Normal_But.png", "CREDITS", INTERACTABLE);
 	Credits->TAB = 4;
 	Credits->AddListener(this);
+	App->gui_animation->MoveToOrigin(Credits);
 
 	Load_But = (Button*)App->gui->AdUIElement(500, 800, BUTTON);//y = 600
 	Load_But->DefineButton("textures/Normal_But.png", "LOAD", INTERACTABLE);
 	Load_But->TAB = 3;
 	Load_But->AddListener(this);
+	App->gui_animation->MoveToOrigin(Load_But);
 
 }
 void j1Menu::CreateSettings() {
+	Slider_Volum = (Image*)App->gui->AdUIElement(400, 300, IMAGE);
+	Slider_Volum->LoadImageA("textures/slider.png");
+	App->gui_animation->MoveToOrigin(Slider_Volum);
 
+	Slider_Frames = (Image*)App->gui->AdUIElement(400, 500, IMAGE);
+	Slider_Frames->LoadImageA("textures/slider.png");
+	App->gui_animation->MoveToOrigin(Slider_Frames);
 }
 void j1Menu::CreateCredits() {
 

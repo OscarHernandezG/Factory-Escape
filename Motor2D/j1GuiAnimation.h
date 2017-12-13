@@ -4,6 +4,7 @@
 
 #include "j1Module.h"
 #include "SDL\include\SDL_rect.h"
+#include "UI.h"
 
 class UI_Element;
 
@@ -34,6 +35,7 @@ private:
 	} current_step = move_gui::none;
 
 	SDL_Rect screen;
+//	p2List<UI_Element*>* ui_elements_list = nullptr;
 
 };
 

@@ -7,6 +7,7 @@
 #include "j1Audio.h"
 #include "j1Window.h"
 #include "j1Menu.h"
+//#include "UI.h"
 
 #include "p2Defs.h"
 #include "p2Log.h"
@@ -55,15 +56,10 @@ bool j1GuiAnimation::Update(float dt)
 
 bool j1GuiAnimation::MoveToOrigin(UI_Element* element)
 {
-	bool ret = false;
+	bool ret = true;
 
-
-	if (current_step == move_gui::none)
-	{
-		current_step = move_gui::to_move;
-
-		ret = true;
-	}
+	//ui_elements_list->add(element);
+	
 
 	return ret;
 }
