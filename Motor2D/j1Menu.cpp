@@ -69,7 +69,7 @@ bool j1Menu::PreUpdate()
 bool j1Menu::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
-	if (!Started) {
+	if (!Started && !clean_menu) {
 		if (Quit->position.y > 600 || Settings->position.y > 600 || Load_But->position.y > 600) {
 			Quit->position.y -= dt * 200;
 			Settings->position.y -= dt * 200;
@@ -97,6 +97,22 @@ bool j1Menu::Update(float dt)
 				tab_button = 1;
 		}
 	}
+	if (clean_menu) {
+		if (Quit->position.y < 800 || Settings->position.y < 800 || Load_But->position.y < 800) {
+			Quit->position.y += dt * 200;
+			Settings->position.y += dt * 200;
+			Load_But->position.y += dt * 200;
+		}
+		if (Login->position.y < 800)
+			Login->position.y += dt * 200;
+
+		if (Credits->position.x < 1300)
+			Credits->position.x += dt * 200;
+
+		if (Title_ui->position.x > -4000)
+			Title_ui->position.x -= dt * 400;
+		//CleanMenu();
+	}
 	return true;
 }
 
@@ -106,8 +122,14 @@ bool j1Menu::PostUpdate()
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 	bool ret = true;
 	
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || quit_bool)
+	if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || quit_bool) && can_quit)
 		ret = false;
+
+	else if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !can_quit) {
+		CleanMenu();
+		CreateMenu();
+		can_quit = true;
+	}
 
 	if (StartGame) {
 		App->fade->FadeToBlack(this, App->scene, 1.0f);
@@ -116,12 +138,15 @@ bool j1Menu::PostUpdate()
 	}
 
 	if (settings_bool) {
+		can_quit = false;
 		settings_bool = false;
-		CleanMenu();
+		clean_menu = true;
+//		CleanMenu();
 		CreateSettings();
 	}
 
 	if (credits_bool) {
+		can_quit = false;
 		credits_bool = false;
 		CleanMenu();
 		CreateCredits();
@@ -212,6 +237,7 @@ void j1Menu::CreateCredits() {
 
 }
 void j1Menu::CleanMenu() {
+
 	for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
 		if (iterator->data != Bg_ui_image) {
 			iterator->data->CleanUp();

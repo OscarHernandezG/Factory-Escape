@@ -68,8 +68,9 @@ private:
 	bool settings_bool = false;
 	bool credits_bool = false;
 	bool load_But_bool = false;
+	bool clean_menu = false;
 
-	bool quit = false;
+	bool can_quit = true;
 
 public:
 	uint tab_button = 0;
