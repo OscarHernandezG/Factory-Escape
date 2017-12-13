@@ -5,6 +5,8 @@
 #include "j1Module.h"
 #include "SDL\include\SDL_rect.h"
 
+class UI_Element;
+
 class j1GuiAnimation: public j1Module
 {
 public:
@@ -13,7 +15,7 @@ public:
 
 	bool Start();
 	bool Update(float dt);
-	bool MoveToOrigin(j1Module* module_off, j1Module* module_on, float time = 2.0f);
+	bool MoveToOrigin(UI_Element* element);
 
 	bool IsMoving() const;
 

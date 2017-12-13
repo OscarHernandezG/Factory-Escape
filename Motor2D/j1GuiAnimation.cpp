@@ -53,10 +53,10 @@ bool j1GuiAnimation::Update(float dt)
 	return true;
 }
 
-// Fade to black. At mid point deactivate one module, then activate the other
-bool j1GuiAnimation::MoveToOrigin(j1Module* module_off, j1Module* module_on, float time)
+bool j1GuiAnimation::MoveToOrigin(UI_Element* element)
 {
 	bool ret = false;
+
 
 	if (current_step == move_gui::none)
 	{
