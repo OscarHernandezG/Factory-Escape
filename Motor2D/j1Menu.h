@@ -38,6 +38,11 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void CreateMenu();
+	void CreateSettings();
+	void CreateCredits();
+	void CleanMenu();
+
 	void GUICallback(UI_Element* element);
 
 	int currmap = 1;
@@ -57,7 +62,10 @@ private:
 	Button* Credits = nullptr;
 	Button* Load_But = nullptr;
 
-	bool quit = false;
+	bool quit_bool = false;
+	bool settings_bool = false;
+	bool credits_bool = false;
+	bool load_But_bool = false;
 
 public:
 	uint tab_button = 0;

@@ -15,21 +15,19 @@ Button::Button(int x, int y) : UI_Element(x, y) {
 
 	image = (Image*)App->gui->AdUIElement(x, y, IMAGE);
 	label = (Label*)App->gui->AdUIElement(x, y, LABEL);
-	type = BUTTON;
+	
 	MouseClick = (Image*)App->gui->AdUIElement(x, y, IMAGE);
 	MouseHovering = (Image*)App->gui->AdUIElement(x, y, IMAGE);
 	
 	MouseHovering->draw = MouseClick->draw = false;
-
-	// Idle.PushBack(); ...
-	// Clicked.PushBack(); ...
-	// MouseOnRect.PushBack(); ...
-	//CurrAnim = Idle;
+	type = BUTTON;
 }
 
 
 bool Button::Update(float dt) 
 {
+
+	image->position = label->original_pos = MouseClick->position = MouseHovering->position = this->position;
 	bool ret = true;
 	MouseHovering->draw = MouseClick->draw = false;
 	if (Button_type == INTERACTABLE) {

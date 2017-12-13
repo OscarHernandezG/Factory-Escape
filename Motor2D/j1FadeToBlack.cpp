@@ -50,7 +50,7 @@ bool j1FadeToBlack::Update(float dt)
 
 		if (now >= total_time)
 		{
-			//App->menu->Started = true;
+
 			off->CleanUp();
 			on->Start();
 

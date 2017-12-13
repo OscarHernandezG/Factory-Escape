@@ -14,18 +14,6 @@ enum BUTTON_TYPE {
 	INPUT_BOX
 };
 
-enum BUTTON_NAME {
-
-	NONE_NAME_BUT,
-	LOGIN,
-	QUIT,
-	SETTINGS,
-	CREDITS,
-	LOAD
-
-};
-
-
 
 class Button : public UI_Element
 {
@@ -55,7 +43,6 @@ public:
 	Label* label = nullptr;
 	Image* image = nullptr;
 	BUTTON_TYPE Button_type = NONE_TYPE_BUT;
-	BUTTON_NAME button_name = NONE_NAME_BUT;
 	bool clicked = false;
 	SDL_Rect rect;
 	uint TAB = 0u;
