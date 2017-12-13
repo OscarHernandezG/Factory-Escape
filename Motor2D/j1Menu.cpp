@@ -58,20 +58,6 @@ bool j1Menu::Start()
 	Title_ui->LoadImageA("textures/Title.png", 0.33f);
 
 
-	//Image* ESRB_notice = (Image*)App->gui->AdUIElement(21, 550, IMAGE);
-	//ESRB_notice->LoadImageA("Homework/wow_ui/LOGIN/Glues-ESRBRating.png");
-
-
-	//Button* Manage_Account = (Button*)App->gui->AdUIElement(17, 400, BUTTON);
-	//Manage_Account->DefineButton("textures/Normal_But.png", "Manage Account", "Cuenta", INTERACTABLE);
-	//Manage_Account->TAB = MANAGE_ACCOUNT;
-	//
-
-	//Button* Community_Site = (Button*)App->gui->AdUIElement(17, 500, BUTTON);
-	//Community_Site->DefineButton("textures/Normal_But.png", "Community Site", "Pagina web", INTERACTABLE);
-	//Community_Site->TAB = COMMUNITY_SITE;
-
-
 	Login = (Button*)App->gui->AdUIElement(444, 380, BUTTON);
 	Login->DefineButton("textures/Normal_But.png", "PLAY", INTERACTABLE);
 	int pos = 400;
@@ -79,43 +65,10 @@ bool j1Menu::Start()
 	Login->TAB = LOGIN;
 
 
-	/*Button* Cinematics = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
-	Cinematics->DefineButton("textures/Normal_But.png", "Cinematics", "Cinematicas", INTERACTABLE);
-	pos += 39;
-	Cinematics->TAB = CINEMATICS;*/
-
-
-	//Button* Credits = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
-	//Credits->DefineButton("textures/Normal_But.png", "Credits", "Creditos", INTERACTABLE);
-	//pos += 100;
-	//Credits->TAB = CREDITS;
-
-
-	/*Button* Terms_Of_Use = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
-	Terms_Of_Use->DefineButton("textures/Normal_But.png", "Terms Of Use", "Terminos de servicio", INTERACTABLE);
-	pos = 538 - 20;
-	Terms_Of_Use->TAB = TERMS_OF_USE;*/
-
-
 	Quit = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
 	Quit->DefineButton("textures/Normal_But.png", "Quit", INTERACTABLE);
 	Quit->TAB = QUIT;
 	Quit->AddListener(this);
-	//ui_image->rect.add({ 0, 0, 1920, 1080 });
-
-	/*ui_image->LoadImageA("gui/atlas.png");
-
-	ui_image->rect.add({ 642, 169, 229, 69 });
-	ui_image->rect.add({ 0,113,229,69 });*/
-
-	//text = (Label*)App->gui->AdUIElement(0, 600, LABEL);
-	//text->SetText("Version 2.0.12 (6546) (Release)");
-
-	//text = (Label*)App->gui->AdUIElement(0, 610, LABEL);
-	//text->SetText("Mar 30 2007");
-
-	//text = (Label*)App->gui->AdUIElement(485, 650, LABEL);
-	//text->SetText("Copyright 2004-2007  Blizzard Entretainment. All Rights Reserved.");
 
 	return true;
 }
