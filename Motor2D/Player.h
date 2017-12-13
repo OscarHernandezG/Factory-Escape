@@ -24,10 +24,6 @@ enum State {
 	MELEE,
 	MELEE_RIGHT,
 	MELEE_LEFT,
-	MELEE_JUMP_RIGHT,
-	MELEE_JUMP_LEFT,
-	SHOOT_RIGHT,
-	SHOOT_LEFT,
 
 	PLAYER_WIN,
 
@@ -58,7 +54,7 @@ public:
 
 	void LoadAnimations();
 
-	void FindSpawn();
+	bool FindSpawn();
 
 	void SpawnPlayer();
 
@@ -67,7 +63,8 @@ public:
 	bool CheckPlayerDeath();
 
 
-	float x = 0.0f, y = 0.0f;
+public:
+
 	bool god_mode = false;
 
 private:

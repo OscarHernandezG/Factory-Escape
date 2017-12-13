@@ -18,7 +18,6 @@ Entity::~Entity()
 
 void Entity::Draw(SDL_Texture* sprites)
 {
-//	if (animation != nullptr)
-//		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()),1,SDL_FLIP_NONE,0,255);
+
 }
 

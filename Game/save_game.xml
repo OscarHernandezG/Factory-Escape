@@ -12,22 +12,17 @@
 	</scene>
 	<map />
 	<entities>
-		<position x="448" y="64" type="1" />
-		<position x="384" y="256" type="2" />
-		<position x="960" y="256" type="2" />
-		<position x="1344" y="256" type="1" />
-		<position x="0" y="384" type="3" />
-		<position x="448" y="64" type="1" />
-		<position x="384" y="256" type="2" />
-		<position x="960" y="256" type="2" />
-		<position x="1344" y="256" type="1" />
-		<position x="0" y="384" type="3" />
+		<position x="418" y="194" type="1" />
+		<position x="450" y="512" type="2" />
+		<position x="799" y="577" type="2" />
+		<position x="1311.79907" y="391.841278" type="1" />
+		<position x="1335.26111" y="464" type="3" />
 	</entities>
 	<gui />
 	<:anonymous />
 	<fonts />
 	<menu />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-672" y="0" />
 	</renderer>
 </game_state>

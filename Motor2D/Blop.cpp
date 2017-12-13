@@ -22,7 +22,7 @@ void Blop::Move(float dt)
 	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
 
 	if (enemy_pos == PosToGo || firstpath) {
-		iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->entities->player->x, App->entities->player->y + Tile_h);
+		iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->entities->player->position.x, App->entities->player->position.y + Tile_h);
 
 		if (App->pathfinding->CreatePath(enemy_pos, player_pos, BLOP) > 0) {
 			havepath = true;

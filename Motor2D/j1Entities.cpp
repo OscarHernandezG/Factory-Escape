@@ -103,14 +103,15 @@ bool j1Entities::PreUpdate()
 bool j1Entities::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
-	
-	if (!App->scene->Photo_mode)
-		for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next)
-			iterator->data->Move(dt);
 
-	for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next)
-		iterator->data->Draw(sprites);
-	
+	if (!App->scene->Photo_mode)
+		if (entities.count() > 0)
+			for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next)
+				iterator->data->Move(dt);
+	if (entities.count() > 0)
+		for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next)
+			iterator->data->Draw(sprites);
+
 	return true;
 }
 
@@ -164,14 +165,14 @@ bool j1Entities::FreeEnemies()
 	for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next)
 	{
 		delete iterator->data;
-		entities.del(iterator);
 
 		if (i < MAX_ENEMIES)
 			queue[i].type = NO_TYPE;
 		i++;
 	}
+	entities.clear();
 
-	return true;
+	return !entities.count() > 0;
 }
 
 bool j1Entities::AddEntity(ENTITY_TYPES type, int x, int y)
@@ -247,8 +248,8 @@ bool j1Entities::Save(pugi::xml_node& data) const
 
 		pugi::xml_node entity = data.append_child("position");
 
-		entity.append_attribute("x") = iterator->data->position.x;
-		entity.append_attribute("y") = iterator->data->position.y;
+		entity.append_attribute("x") = iterator->data->fpos.x;
+		entity.append_attribute("y") = iterator->data->fpos.y;
 		entity.append_attribute("type") = iterator->data->type;
 	}
 	return true;
