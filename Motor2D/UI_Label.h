@@ -24,7 +24,7 @@ public:
 
 	bool Update(float dt);
 	bool CleanUp();
-	bool SetText(char* text, char* textesp = nullptr);
+	bool SetText(char* text);
 
 	bool MouseOnRect();
 public:

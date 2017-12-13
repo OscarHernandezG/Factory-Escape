@@ -16,7 +16,7 @@ Button::Button(int x, int y) : UI_Element(x, y) {
 	image = (Image*)App->gui->AdUIElement(x, y, IMAGE);
 	label = (Label*)App->gui->AdUIElement(x, y, LABEL);
 	type = BUTTON;
-	MouseClick = (Image*)App->gui->AdUIElement(x + 6, y + 8, IMAGE);
+	MouseClick = (Image*)App->gui->AdUIElement(x, y, IMAGE);
 	MouseHovering = (Image*)App->gui->AdUIElement(x, y, IMAGE);
 	
 	MouseHovering->draw = MouseClick->draw = false;
@@ -123,7 +123,7 @@ bool Button::CleanUp() {
 }
 
 
-void Button::DefineButton(char* path, char* text, char* textesp, BUTTON_TYPE type)
+void Button::DefineButton(char* path, char* text, BUTTON_TYPE type)
 {
 	
 	MouseHovering->LoadImageA("textures/Hover_But.png",1);
@@ -131,7 +131,7 @@ void Button::DefineButton(char* path, char* text, char* textesp, BUTTON_TYPE typ
 
 	image->LoadImageA(path, 1);
 
-	label->SetText(text, textesp);
+	label->SetText(text);
 	rect.w = image->rect.w;
 	rect.h = image->rect.h;
 

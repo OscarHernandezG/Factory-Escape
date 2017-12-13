@@ -73,7 +73,7 @@ bool j1Menu::Start()
 
 
 	Login = (Button*)App->gui->AdUIElement(444, 380, BUTTON);
-	Login->DefineButton("textures/Normal_But.png", "PLAY", "JUGAR", INTERACTABLE);
+	Login->DefineButton("textures/Normal_But.png", "PLAY", INTERACTABLE);
 	int pos = 400;
 	Login->AddListener(this);
 	Login->TAB = LOGIN;
@@ -98,7 +98,7 @@ bool j1Menu::Start()
 
 
 	Quit = (Button*)App->gui->AdUIElement(872, pos, BUTTON);
-	Quit->DefineButton("textures/Normal_But.png", "Quit", "Salir", INTERACTABLE);
+	Quit->DefineButton("textures/Normal_But.png", "Quit", INTERACTABLE);
 	Quit->TAB = QUIT;
 	Quit->AddListener(this);
 	//ui_image->rect.add({ 0, 0, 1920, 1080 });

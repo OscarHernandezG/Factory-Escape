@@ -43,7 +43,7 @@ bool Label::CleanUp() {
 	text_info.clear();
 	return true;
 }
-bool Label::SetText(char* text, char* textesp) {
+bool Label::SetText(char* text) {
 	
 	p2SString aux_text;
 	aux_text.create(text);
@@ -55,20 +55,6 @@ bool Label::SetText(char* text, char* textesp) {
 	SDL_Rect rect = { 0,0,rect_w,rect_h };
 
 	text_info.add({ tex, rect, aux_text });
-
-	if (textesp != nullptr)
-	{
-		aux_text;
-		aux_text.create(textesp);
-		tex = App->font->Print(aux_text.GetString(), { 255, 255, 255, 255 }, App->font->fonts.start->data);
-		w = 0, h = 0;
-		App->tex->GetSize(tex, w, h);
-		rect_w = w;
-		rect_h = h;
-		rect = { 0,0,rect_w,rect_h };
-
-		text_info.add({ tex, rect, aux_text });
-	}
 
 	return true;
 }

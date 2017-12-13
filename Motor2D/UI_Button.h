@@ -46,7 +46,7 @@ public:
 
 	bool CleanUp();
 
-	void DefineButton(char* path, char* text, char* textesp = nullptr, BUTTON_TYPE type = NONE_TYPE_BUT);
+	void DefineButton(char* path, char* text, BUTTON_TYPE type = NONE_TYPE_BUT);
 
 	void AddListener(j1Module* listener);
 	void AddListener(p2List<j1Module*> listener);
