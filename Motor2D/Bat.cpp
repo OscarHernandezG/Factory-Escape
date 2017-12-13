@@ -9,7 +9,7 @@
 
 
 
-Bat::Bat(int x, int y) : Entity(x, y)
+Bat::Bat(int x, int y, ENTITY_TYPES etype) : Entity(x, y, etype)
 {
 	position.x = fpos.x = x;
 	position.y = fpos.y = y;
@@ -22,7 +22,7 @@ void Bat::Move(float dt)
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
 	x = position.x;
-	iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->entities->player->x, App->entities->player->y + 60);
+	iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->entities->player->position.x, App->entities->player->position.y + 60);
 	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
 	if (enemy_pos == PosToGo || firstpath) {
 

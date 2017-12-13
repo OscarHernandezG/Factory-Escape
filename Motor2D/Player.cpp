@@ -17,15 +17,16 @@
 
 
 
-Player::Player(int x, int y) : Entity(x, y)
+Player::Player(int x, int y, ENTITY_TYPES etype) : Entity(x, y, etype)
 {
 	//name.create("player");
 	LoadAnimations();
 	CurrentAnim = &Idle;
+	fpos.x = position.x;
+	fpos.y = position.y;
 
-
-	FindSpawn();
-	SpawnPlayer();
+//	if (FindSpawn());
+//	SpawnPlayer();
 
 	speed.x = 0;
 	speed.y = 0;
@@ -46,13 +47,13 @@ void Player::Move(float dt) {
 	case RUNNING_RIGHT:
 		if (CanJump)
 			CurrentAnim = &Run;
-		x += 200 * dt;
+		fpos.x += 200 * dt;
 		flip = SDL_FLIP_NONE;
 		break;
 	case RUNNING_LEFT:
 		if (CanJump)
 			CurrentAnim = &Run;
-		x -= 200 * dt;
+		fpos.x -= 200 * dt;
 		flip = SDL_FLIP_HORIZONTAL;
 		break;
 	case JUMPING_RIGHT:
@@ -70,12 +71,12 @@ void Player::Move(float dt) {
 	case SHIFT_RIGHT:
 		CurrentAnim = &Slide;
 		flip = SDL_FLIP_NONE;
-		x += 600 * dt;
+		fpos.x += 600 * dt;
 		break;
 	case SHIFT_LEFT:
 		CurrentAnim = &Slide;
 		flip = SDL_FLIP_HORIZONTAL;
-		x -= 600 * dt;
+		fpos.x -= 600 * dt;
 		break;
 	case MELEE:
 		CurrentAnim = &Melee;
@@ -84,30 +85,14 @@ void Player::Move(float dt) {
 	case MELEE_RIGHT:
 		CurrentAnim = &Melee;
 
-		x += 200 * dt;
+		fpos.x += 200 * dt;
 		flip = SDL_FLIP_NONE;
 		break;
 	case MELEE_LEFT:
 		CurrentAnim = &Melee;
 
-		x -= 200 * dt;
+		fpos.x -= 200 * dt;
 		flip = SDL_FLIP_HORIZONTAL;
-		break;
-	case MELEE_JUMP_RIGHT:
-		//	CurrentAnim = &MeleeJump;
-
-		break;
-	case MELEE_JUMP_LEFT:
-		//	CurrentAnim = &MeleeJump;
-
-		break;
-	case SHOOT_RIGHT:
-		CurrentAnim = &Shoot;
-
-		break;
-	case SHOOT_LEFT:
-		CurrentAnim = &Shoot;
-
 		break;
 	case PLAYER_WIN:
 		App->scene->LoadScene();
@@ -121,45 +106,21 @@ void Player::Move(float dt) {
 		break;
 	}
 
-	//App->render->Blit(App->entities->sprites, x, y, &CurrentAnim->GetCurrentFrame(), 1, flip, 0, 255);
 	PlayerState = IDLE;
-
+	position.x = fpos.x; 
+	position.y = fpos.y;
 }
 
 
 void Player::Draw(SDL_Texture* texture) {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
-	App->render->Blit(texture, x, y, &CurrentAnim->GetCurrentFrame(), 1, flip);
+	App->render->Blit(texture, fpos.x, fpos.y, &CurrentAnim->GetCurrentFrame(), 1, flip);
 }
 // Destructor
 Player::~Player()
 {}
 
-
-
-
-// Load
-/*bool Player::Load(pugi::xml_node&  data)
-{
-	x = data.child("position").attribute("x").as_int();
-	y = data.child("position").attribute("y").as_int();
-
-	return true;
-}
-
-
-//Save
-bool Player::Save(pugi::xml_node& data) const
-{
-	pugi::xml_node player = data.append_child("position");
-
-	player.append_attribute("x") = x;
-	player.append_attribute("y") = y;
-
-	return true;
-}
-*/
 
 void Player::CheckPlayerState(float dt)
 {
@@ -168,7 +129,7 @@ void Player::CheckPlayerState(float dt)
 
 		speed.y += down_force * dt;
 		CanJump = false;
-		pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y);
+		pos = App->map->MapPosition(App->map->data.tilesets.start->data, fpos.x, fpos.y);
 		ColisionType colision1 = App->map->CheckColision(pos);
 		ColisionType colision2 = App->map->CheckColision(pos + 1);
 
@@ -179,8 +140,8 @@ void Player::CheckPlayerState(float dt)
 		if ((colision1 == DEATH || colision2 == DEATH))
 			PlayerState = DEAD;
 
-		y += speed.y  * dt;
-		y += down_force * dt;
+		fpos.y += speed.y  * dt;
+		fpos.y += down_force * dt;
 
 		if (PlayerState == RUNNING_LEFT) {
 			PlayerState == JUMPING_LEFT;
@@ -194,14 +155,14 @@ void Player::CheckPlayerState(float dt)
 
 	// "Gravity"
 
-	pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y + 118);
+	pos = App->map->MapPosition(App->map->data.tilesets.start->data, fpos.x, fpos.y + 118);
 
 	ColisionType colision1 = App->map->CheckColision(pos);
 	ColisionType colision2 = App->map->CheckColision(pos + 1);
 
 
 	if (colision1 != GROUND && colision2 != GROUND) {
-		y += down_force * (float)dt / 9;
+		fpos.y += down_force * (float)dt / 9;
 	}
 	if (colision1 == DEATH && colision2 == DEATH) {
 		PlayerState = DEAD;
@@ -217,7 +178,7 @@ void Player::CheckPlayerState(float dt)
 		dieTime = SDL_GetTicks();
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 
-			pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y);
+			pos = App->map->MapPosition(App->map->data.tilesets.start->data, fpos.x, fpos.y);
 
 			ColisionType colision1 = App->map->CheckColision(pos);
 			ColisionType colision2 = App->map->CheckColision(pos + App->map->data.layers.start->data->width);
@@ -234,7 +195,7 @@ void Player::CheckPlayerState(float dt)
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			pos = App->map->MapPosition(App->map->data.tilesets.start->data, x + 64, y);
+			pos = App->map->MapPosition(App->map->data.tilesets.start->data, fpos.x + 64, fpos.y);
 
 			ColisionType colision1 = App->map->CheckColision(pos);
 			ColisionType colision2 = App->map->CheckColision(pos + App->map->data.layers.start->data->width);
@@ -260,7 +221,7 @@ void Player::CheckPlayerState(float dt)
 
 		if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && CanJump) {
 
-			pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y);
+			pos = App->map->MapPosition(App->map->data.tilesets.start->data, fpos.x, fpos.y);
 
 			ColisionType colision = App->map->CheckColision(pos);
 
@@ -289,14 +250,14 @@ void Player::CheckPlayerState(float dt)
 		if ((App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN) && slide == false && CanJump == true) {
 
 
-			pos = App->map->MapPosition(App->map->data.tilesets.start->data, x, y + 118 / 2);
+			pos = App->map->MapPosition(App->map->data.tilesets.start->data, fpos.x, fpos.y + 118 / 2);
 
 			ColisionType colision = App->map->CheckColision(pos + 5/*5 Tileds*/);
 
 			if (colision == NONE_COL) {
 				slide = true;
 				lastTime = SDL_GetTicks();
-				y = y + App->map->data.tile_width / 2;
+				fpos.y = fpos.y + App->map->data.tile_width / 2;
 				if (PlayerState == RUNNING_LEFT) {
 					PlayerState = SHIFT_LEFT;
 				}
@@ -316,7 +277,7 @@ void Player::CheckPlayerState(float dt)
 			currentTime = SDL_GetTicks();
 			if (currentTime > lastTime + 500) {
 				slide = false;
-				y = y - App->map->data.tile_width / 2;
+				fpos.y = fpos.y - App->map->data.tile_width / 2;
 			}
 			else {
 				if (PlayerState == RUNNING_LEFT) {
@@ -336,12 +297,6 @@ void Player::CheckPlayerState(float dt)
 			else if (PlayerState == RUNNING_RIGHT)
 				PlayerState = MELEE_RIGHT;
 
-			else if (PlayerState == JUMPING_LEFT)
-				PlayerState = MELEE_JUMP_LEFT;
-
-			else if (PlayerState == JUMPING_RIGHT)
-				PlayerState = MELEE_JUMP_RIGHT;
-
 			else
 				PlayerState = MELEE;
 
@@ -359,7 +314,7 @@ void Player::CheckPlayerState(float dt)
 	else if (death) {
 		currentTime = SDL_GetTicks();
 		PlayerState = DEAD;
-		y += (down_force * dt) / 10;
+		fpos.y += (down_force * dt) / 10;
 		if (currentTime > dieTime + 1000) {
 			CurrentAnim = &Idle;
 			melee = false;
@@ -441,61 +396,62 @@ void Player::LoadAnimations()
 
 }
 
-void Player::FindSpawn()
+bool Player::FindSpawn()
 {
+	bool ret = false;
 	p2List_item<MapLayer*>* layer = App->map->data.layers.end;
+	if(layer!=nullptr)
 	for (int i = 0; i < layer->data->size_data; i++)
 	{
 		if (layer->data->data[i] == Tile_Type::PLAYER_SPAWN)
 		{
 			spawn = App->map->TileToWorld(i);
+			ret = true;
 		}
 	}
-
+	return ret;
 }
 
 void Player::SpawnPlayer() {
 
-	x = spawn.x;
-	y = spawn.y;
+	fpos.x = position.x = spawn.x;
+	fpos.y = position.y = spawn.y;
 }
 
 void Player::KillEnemies() {
 
-	for (uint i = 0; i < MAX_ENEMIES; ++i) {
+	for (p2List_item<Entity*>* iterator = App->entities->entities.start; iterator != nullptr; iterator = iterator->next) {
 
-		if (App->entities->entities[i] != nullptr) {
-			if (flip == SDL_FLIP_NONE) {
-				if (x < App->entities->entities[i]->position.x && x + 128 > App->entities->entities[i]->position.x) {
-					if (y < App->entities->entities[i]->position.y && y + 120 > App->entities->entities[i]->position.y) {
-						delete App->entities->entities[i];
-						App->entities->entities[i] = nullptr;
-					}
+		if (flip == SDL_FLIP_NONE) {
+			if (position.x < iterator->data->position.x && position.x + 128 > iterator->data->position.x) {
+				if (position.y < iterator->data->position.y && position.y + 120 > iterator->data->position.y) {
+					App->entities->entities.del(iterator);
 				}
 			}
-
-			else {
-				if (x - 128 < App->entities->entities[i]->position.x && x > App->entities->entities[i]->position.x)
-					if (y < App->entities->entities[i]->position.y && y + 120 > App->entities->entities[i]->position.y) {
-						delete App->entities->entities[i];
-						App->entities->entities[i] = nullptr;
-					}
-			}
 		}
+
+		else {
+			if (position.x - 128 < iterator->data->position.x && position.x > iterator->data->position.x)
+				if (position.y < iterator->data->position.y && position.y + 120 > iterator->data->position.y) {
+					App->entities->entities.del(iterator);
+				}
+		}
+
 	}
 }
 
 bool Player::CheckPlayerDeath() {
 
 	bool ret = false;
-	for (uint i = 0; i < MAX_ENEMIES; ++i) {
-		if (App->entities->entities[i] != nullptr) {
-			if (x < App->entities->entities[i]->position.x && x + 48 > App->entities->entities[i]->position.x) {
-				if (y < App->entities->entities[i]->position.y && y + 120 > App->entities->entities[i]->position.y) {
+	for (p2List_item<Entity*>* iterator = App->entities->entities.start; iterator != nullptr; iterator = iterator->next) {
+		if (iterator->data->type != PLAYER) {
+			if (position.x < iterator->data->position.x && position.x + 48 > iterator->data->position.x) {
+				if (position.y < iterator->data->position.y && position.y + 120 >iterator->data->position.y) {
+
 					ret = true;
 					break;
-
 				}
+
 			}
 		}
 	}

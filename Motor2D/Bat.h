@@ -5,6 +5,7 @@
 #include "p2Point.h"
 #include "p2DynArray.h"
 #include "j1Timer.h"
+#include "j1Entities.h"
 
 class Bat : public Entity
 {
@@ -20,7 +21,7 @@ private:
 
 	void LoadAnimation();
 public:
-	Bat(int x, int y);
+	Bat(int x, int y, ENTITY_TYPES etype);
 
 	p2DynArray<iPoint>* path;
 	int speed = 150;

@@ -38,7 +38,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	bool LoadScene(int map = -1);
+	bool LoadScene(int map = -1, bool is_load = false);
 
 	// Load
 	bool Load(pugi::xml_node&  savegame);
@@ -61,16 +61,11 @@ private:
 	int last_frame_sec = -1;
 	int photos_this_sec = 0;
 
-	/*p2List<char>* Screenshoot_name;
-	uint cont_screenshots = 1;*/
+
 	p2List<p2SString>  MapsList_String;
 	p2List_item<p2SString>* CurrentMap = nullptr;
 
-	/*SDL_Texture* debug_tex;
-	GuiImage* banner;
-	//	GuiText* text;
-	Image* ui_image = nullptr;
-	Label* text = nullptr;*/
+
 
 
 public:

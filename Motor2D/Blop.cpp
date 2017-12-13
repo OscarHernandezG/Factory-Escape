@@ -7,10 +7,7 @@
 #include "j1Entities.h"
 
 
-
-
-
-Blop::Blop(int x, int y) : Entity(x, y)
+Blop::Blop(int x, int y, ENTITY_TYPES etype) : Entity(x, y, etype)
 {
 	position.x = fpos.x = x;
 	position.y = fpos.y = y;
@@ -25,7 +22,7 @@ void Blop::Move(float dt)
 	iPoint enemy_pos = App->map->GetPosition(App->map->data.tilesets.start->data, position.x, position.y);
 
 	if (enemy_pos == PosToGo || firstpath) {
-		iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->entities->player->x, App->entities->player->y + Tile_h);
+		iPoint player_pos = App->map->GetPosition(App->map->data.tilesets.start->data, App->entities->player->position.x, App->entities->player->position.y + Tile_h);
 
 		if (App->pathfinding->CreatePath(enemy_pos, player_pos, BLOP) > 0) {
 			havepath = true;

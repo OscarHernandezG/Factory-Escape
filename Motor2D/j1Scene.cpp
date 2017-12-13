@@ -74,33 +74,6 @@ bool j1Scene::Start()
 		
 	}
 
-	/*
-	if(App->map->Load("iso_walk.tmx") == true)
-	{
-	int w, h;
-	uchar* data = NULL;
-	if(App->map->CreateWalkabilityMap(w, h, &data))
-	App->pathfinding->SetMap(w, h, data);
-
-	RELEASE_ARRAY(data);
-	}
-
-	debug_tex = App->tex->Load("maps/path2.png");
-
-	*/
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	/*
-	App->map->Load(CurrentMap->data);
-
-	LoadWalkabilityMap();
-
-	p2List_item<MapLayer*>* layer = App->map->data.layers.start;
-	iPoint size_map;
-	size_map = App->map->MapToWorld(layer->data->width, layer->data->height);
-	width_map = size_map.x;
-	FindEntities();
-	*/
 	return true;
 }
 
@@ -195,12 +168,12 @@ bool j1Scene::Update(float dt)
 
 
 
-		if ((App->entities->player->x - (-App->render->camera.x + (1 * App->render->camera.w / 3)) >= 0) && !Photo_mode) {
+		if ((App->entities->player->position.x - (-App->render->camera.x + (1 * App->render->camera.w / 3)) >= 0) && !Photo_mode) {
 			if (App->render->camera.x - App->render->camera.w > -(App->map->data.width*App->map->data.tile_width))
 				App->render->camera.x -= 4;
 		}
 
-		if ((App->entities->player->x - (-App->render->camera.x + (1 * App->render->camera.w / 4)) <= 0) && !Photo_mode) {
+		if ((App->entities->player->position.x - (-App->render->camera.x + (1 * App->render->camera.w / 4)) <= 0) && !Photo_mode) {
 			if (App->render->camera.x < 0)
 				App->render->camera.x += 4;
 		}
@@ -276,14 +249,14 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
-bool j1Scene::LoadScene(int map) {
+bool j1Scene::LoadScene(int map, bool is_load) {
 
+	bool ret = false;
 	App->map->CleanUp();
 	App->audio->FreeMusic();
 	App->tex->FreeTextures();
-	//App->entities->player->LoadTexture();
 	App->entities->LoadEntityText();
-	App->entities->FreeEnemies();
+	ret = App->entities->FreeEnemies();
 
 	if (map == -1) {
 
@@ -309,15 +282,20 @@ bool j1Scene::LoadScene(int map) {
 	
 	}
 
-	App->map->Load(CurrentMap->data.GetString());
+	ret = App->map->Load(CurrentMap->data.GetString());
 
-	LoadWalkabilityMap();
-	App->scene->FindEntities();
+	if (ret) {
+		LoadWalkabilityMap();
 
-	App->entities->player->FindSpawn();
-	App->entities->player->SpawnPlayer();
+		if (!is_load) {
+			App->scene->FindEntities();
 
-	return true;
+			App->entities->player->FindSpawn();
+			App->entities->player->SpawnPlayer();
+		}
+	}
+
+	return ret;
 }
 
 
@@ -325,17 +303,17 @@ bool j1Scene::LoadScene(int map) {
 bool j1Scene::Load(pugi::xml_node&  savegame) {
 	currmap = savegame.child("Map").attribute("CurrentMap").as_int();
 
-	LoadScene(currmap);
-
+	LoadScene(currmap, true);
+	////
 	return true;
 }
 
 //Save
 bool j1Scene::Save(pugi::xml_node& data) const {
 
-	pugi::xml_node cam = data.append_child("Map");
+	pugi::xml_node map = data.append_child("Map");
 
-	cam.append_attribute("CurrentMap") = currmap;
+	map.append_attribute("CurrentMap") = currmap;
 	return true;
 }
 

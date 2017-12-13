@@ -6,7 +6,7 @@
 #include "Entity.h"
 #include "p2Point.h"
 #include "p2DynArray.h"
-
+#include "j1Entities.h"
 
 struct SDL_Texture;
 struct SDL_Rect;
@@ -24,10 +24,6 @@ enum State {
 	MELEE,
 	MELEE_RIGHT,
 	MELEE_LEFT,
-	MELEE_JUMP_RIGHT,
-	MELEE_JUMP_LEFT,
-	SHOOT_RIGHT,
-	SHOOT_LEFT,
 
 	PLAYER_WIN,
 
@@ -39,7 +35,7 @@ enum State {
 class Player : public Entity
 {
 public:
-	Player(int x, int y);
+	Player(int x, int y, ENTITY_TYPES type);
 
 	void Move(float dt);
 	void Draw(SDL_Texture* texture);
@@ -58,7 +54,7 @@ public:
 
 	void LoadAnimations();
 
-	void FindSpawn();
+	bool FindSpawn();
 
 	void SpawnPlayer();
 
@@ -67,7 +63,8 @@ public:
 	bool CheckPlayerDeath();
 
 
-	float x = 0.0f, y = 0.0f;
+public:
+
 	bool god_mode = false;
 
 private:

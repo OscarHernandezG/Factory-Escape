@@ -6,15 +6,23 @@
 	<audio>
 		<volume music="0.00999999978" />
 	</audio>
-	<map />
+	<pathfinding />
 	<scene>
 		<Map CurrentMap="1" />
 	</scene>
+	<map />
 	<entities>
-		<position x="485.681" y="459.258209" />
+		<position x="418" y="194" type="1" />
+		<position x="450" y="512" type="2" />
+		<position x="799" y="577" type="2" />
+		<position x="1311.79907" y="391.841278" type="1" />
+		<position x="1335.26111" y="464" type="3" />
 	</entities>
-	<pathfinding />
+	<gui />
+	<:anonymous />
+	<fonts />
+	<menu />
 	<renderer>
-		<camera x="-72" y="0" />
+		<camera x="-672" y="0" />
 	</renderer>
 </game_state>
