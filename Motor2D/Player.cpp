@@ -35,21 +35,7 @@ void Player::Move(float dt) {
 
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
-	if (App->scene->Photo_mode) {
-		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
-			App->win->scale += 0.1f * App->zoom_dt;
-
-		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
-			App->win->scale -= 0.1f * App->zoom_dt;
-
-		App->win->scale += App->input->GetScroll() * App->zoom_dt;
-
-		if (App->win->scale < 1)
-			App->win->scale = 1;
-	}
-
-	else
-		CheckPlayerState(dt);
+	CheckPlayerState(dt);
 
 	switch (PlayerState)
 	{

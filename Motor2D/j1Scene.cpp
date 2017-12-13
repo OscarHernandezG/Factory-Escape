@@ -139,6 +139,19 @@ bool j1Scene::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 				if (-(App->render->camera.x / App->win->scale) + (App->render->camera.w / App->win->scale) < width_map)
 					App->render->camera.x -= 5;
+
+
+			if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
+				App->win->scale += 0.1f * App->zoom_dt;
+
+			if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
+				App->win->scale -= 0.1f * App->zoom_dt;
+
+			App->win->scale += App->input->GetScroll() * App->zoom_dt;
+
+			if (App->win->scale < 1)
+				App->win->scale = 1;
+
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
