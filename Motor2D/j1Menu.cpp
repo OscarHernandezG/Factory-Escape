@@ -69,7 +69,7 @@ bool j1Menu::PreUpdate()
 bool j1Menu::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
-	if (!Started && !clean_menu) {
+	if (!Started/* && !clean_menu*/) {
 		if (Quit->position.y > 600 || Settings->position.y > 600 || Load_But->position.y > 600) {
 			Quit->position.y -= dt * 200;
 			Settings->position.y -= dt * 200;
@@ -97,7 +97,7 @@ bool j1Menu::Update(float dt)
 				tab_button = 1;
 		}
 	}
-	if (clean_menu) {
+	/*if (clean_menu) {
 		if (Quit->position.y < 800 || Settings->position.y < 800 || Load_But->position.y < 800) {
 			Quit->position.y += dt * 200;
 			Settings->position.y += dt * 200;
@@ -112,7 +112,7 @@ bool j1Menu::Update(float dt)
 		if (Title_ui->position.x > -4000)
 			Title_ui->position.x -= dt * 400;
 		//CleanMenu();
-	}
+	}*/
 	return true;
 }
 
@@ -140,8 +140,8 @@ bool j1Menu::PostUpdate()
 	if (settings_bool) {
 		can_quit = false;
 		settings_bool = false;
-		clean_menu = true;
-//		CleanMenu();
+//		clean_menu = true;
+		CleanMenu();
 		CreateSettings();
 	}
 

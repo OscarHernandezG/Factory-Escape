@@ -82,6 +82,7 @@
     <ClCompile Include="j1FadeToBlack.cpp" />
     <ClCompile Include="j1Fonts.cpp" />
     <ClCompile Include="j1Gui.cpp" />
+    <ClCompile Include="j1GuiAnimation.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="j1FadeToBlack.h" />
     <ClInclude Include="j1Fonts.h" />
     <ClInclude Include="j1Gui.h" />
+    <ClInclude Include="j1GuiAnimation.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Menu.h" />
     <ClInclude Include="j1Pathfinding.h" />
