@@ -40,19 +40,12 @@ bool Button::Update(float dt)
 				for (p2List_item<j1Module*>* iterator = listeners.start; iterator != nullptr; iterator = iterator->next) 
 					iterator->data->GUICallback(this);
 			}
-			
-				MouseHovering->draw = true;
-				//App->render->Blit(MouseClick, position.x + 20, position.y + 8);
-			
+			else
+				MouseHovering->draw = true;			
 		}
 
 		if (TAB == App->menu->tab_button) {
-		/*	if (SDL_SCANCODE_RETURN == KEY_REPEAT)
-				MouseClick->draw = true;
-			else if (SDL_SCANCODE_RETURN == KEY_UP) {
-				for (p2List_item<j1Module*>* iterator = listeners.start; iterator != nullptr; iterator = iterator->next)
-					iterator->data->GUICallback(this);
-			}*/
+
 			if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) 
 				MouseClick->draw = true;
 			else if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP) {

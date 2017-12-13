@@ -141,7 +141,7 @@ bool j1Menu::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN) {
 			tab_button++;
 			if (tab_button > QUIT)
-				tab_button = MANAGE_ACCOUNT;
+				tab_button = LOGIN;
 		}
 	}
 	return true;
