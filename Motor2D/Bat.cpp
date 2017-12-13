@@ -9,7 +9,7 @@
 
 
 
-Bat::Bat(int x, int y) : Entity(x, y)
+Bat::Bat(int x, int y, ENTITY_TYPES etype) : Entity(x, y, etype)
 {
 	position.x = fpos.x = x;
 	position.y = fpos.y = y;

@@ -17,7 +17,7 @@
 
 
 
-Player::Player(int x, int y) : Entity(x, y)
+Player::Player(int x, int y, ENTITY_TYPES etype) : Entity(x, y, etype)
 {
 	//name.create("player");
 	LoadAnimations();
@@ -488,14 +488,12 @@ void Player::KillEnemies() {
 bool Player::CheckPlayerDeath() {
 
 	bool ret = false;
-	for (uint i = 0; i < MAX_ENEMIES; ++i) {
-		if (App->entities->entities[i] != nullptr) {
-			if (x < App->entities->entities[i]->position.x && x + 48 > App->entities->entities[i]->position.x) {
-				if (y < App->entities->entities[i]->position.y && y + 120 > App->entities->entities[i]->position.y) {
-					ret = true;
-					break;
+	for (p2List_item<Entity*>* iterator = App->entities->entities.start; iterator != nullptr; iterator = iterator->next) {
+		if (x < iterator->data->position.x && x + 48 > iterator->data->position.x) {
+			if (y < iterator->data->position.y && y + 120 >iterator->data->position.y) {
+				ret = true;
+				break;
 
-				}
 			}
 		}
 	}

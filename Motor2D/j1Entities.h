@@ -5,10 +5,11 @@
 #include "Animation.h"
 #include "j1Textures.h"
 #include "Player.h"
-//#include "Enemy_BasicEnemy.h"
+#include "Entity.h"
 
 #define MAX_ENEMIES 20
 
+class Player;
 
 enum ENTITY_TYPES
 {
@@ -62,7 +63,7 @@ public:
 
 	p2List<SDL_Rect> animations_list;
 
-	Entity* entities[MAX_ENEMIES];
+	p2List<Entity*> entities;
 	Player* player = nullptr;
 
 	SDL_Texture* sprites = nullptr;

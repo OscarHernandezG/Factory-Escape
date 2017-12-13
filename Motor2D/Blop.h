@@ -5,6 +5,7 @@
 #include "p2Point.h"
 #include "p2DynArray.h"
 #include "j1Render.h"
+#include "j1Entities.h"
 
 class Blop : public Entity
 {
@@ -21,7 +22,7 @@ private:
 	void LoadAnimation();
 
 public:
-	Blop(int x, int y);
+	Blop(int x, int y, ENTITY_TYPES etype);
 
 	p2DynArray<iPoint>* path;
 	int speed = 200;

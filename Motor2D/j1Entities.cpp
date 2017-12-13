@@ -20,8 +20,7 @@
 
 j1Entities::j1Entities()
 {
-	for(uint i = 0; i < MAX_ENEMIES; ++i)
-		entities[i] = nullptr;
+
 }
 
 // Destructor
@@ -106,11 +105,11 @@ bool j1Entities::Update(float dt)
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 	
 	if (!App->scene->Photo_mode)
-		for (uint i = 0; i < MAX_ENEMIES; ++i)
-			if (entities[i] != nullptr) entities[i]->Move(dt);
+		for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next)
+			iterator->data->Move(dt);
 
-	for (uint i = 0; i < MAX_ENEMIES; ++i)
-		if (entities[i] != nullptr) entities[i]->Draw(sprites);
+	for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next)
+		iterator->data->Draw(sprites);
 	
 	return true;
 }
@@ -118,17 +117,16 @@ bool j1Entities::Update(float dt)
 bool j1Entities::PostUpdate()
 {
 	// check camera position to decide what to spawn
-	for(uint i = 0; i < MAX_ENEMIES; ++i)
+	for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next)
 	{
-		if(entities[i] != nullptr)
+
+		if (-iterator->data->position.y/*screen_Size*/ < (App->render->camera.y) - SPAWN_MARGIN * 16)
 		{
-			if (-entities[i]->position.y/*screen_Size*/ < (App->render->camera.y) - SPAWN_MARGIN * 16)
-			{
-				LOG("DeSpawning enemy at %d", entities[i]->position.x /* * screen_Size*/);
-				delete entities[i];
-				entities[i] = nullptr;
-			}
+			LOG("DeSpawning enemy at %d", iterator->data->position.x /* * screen_Size*/);
+			delete iterator->data;
+			entities.del(iterator);
 		}
+
 	}
 
 	return true;
@@ -140,15 +138,15 @@ bool j1Entities::CleanUp()
 	LOG("Freeing all enemies");
 
 	App->tex->UnLoad(sprites);
-
-	for(uint i = 0; i < MAX_ENEMIES; ++i)
+	int i = 0;
+	for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next)
 	{
-		if(entities[i] != nullptr)
-		{
-			delete entities[i];
-			entities[i] = nullptr;
-		}
-		queue[i].type = NO_TYPE;
+		delete iterator->data;
+		entities.del(iterator);
+
+		if (i < MAX_ENEMIES)
+			queue[i].type = NO_TYPE;
+		i++;
 	}
 	delete[] animation_x;
 	delete[] animation_y;
@@ -162,14 +160,15 @@ bool j1Entities::CleanUp()
 bool j1Entities::FreeEnemies()
 {
 
-	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	int i = 0;
+	for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next)
 	{
-		if (entities[i] != nullptr)
-		{
-			delete entities[i];
-			entities[i] = nullptr;
-		}
-		queue[i].type = NO_TYPE;
+		delete iterator->data;
+		entities.del(iterator);
+
+		if (i < MAX_ENEMIES)
+			queue[i].type = NO_TYPE;
+		i++;
 	}
 
 	return true;
@@ -197,33 +196,46 @@ bool j1Entities::AddEntity(ENTITY_TYPES type, int x, int y)
 void j1Entities::SpawnEnemy(const EntityInfo& info)
 {
 	// find room for the new enemy
-	uint i = 0;
-	for (; entities[i] != nullptr && i < MAX_ENEMIES; ++i);
 
-	if (i != MAX_ENEMIES)
+	Entity* new_entity = nullptr;
+
+	switch (info.type)
 	{
-		switch (info.type)
-		{
-		case ENTITY_TYPES::BAT:
-			entities[i] = new Bat(info.x, info.y);
-			break;
-		case ENTITY_TYPES::BLOP:
-			entities[i] = new Blop(info.x, info.y);
-			break;
-		case ENTITY_TYPES::PLAYER:
-			entities[i] = new Player(info.x, info.y);
-			player = (Player*)entities[i];
-			break;
-		}
+	case ENTITY_TYPES::BAT:
+		new_entity = new Bat(info.x, info.y, info.type);
+		break;
+	case ENTITY_TYPES::BLOP:
+		new_entity = new Blop(info.x, info.y, info.type);
+		break;
+	case ENTITY_TYPES::PLAYER:
+		new_entity = new Player(info.x, info.y, info.type);
+		player = (Player*)new_entity;
+		break;
+	}
+
+	if (new_entity != nullptr) {
+		entities.add(new_entity);
 	}
 
 }
 
 bool j1Entities::Load(pugi::xml_node&  data)
 {
-	player->x = data.child("position").attribute("x").as_int();
-	player->y = data.child("position").attribute("y").as_int();
+	for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next) 
+		delete iterator->data;
 
+		entities.clear();
+		pugi::xml_node entity;
+		for (entity = data.child("position"); entity; entity = entity.next_sibling("position")) {
+
+			EntityInfo info;
+			info.x = entity.attribute("x").as_int();
+			info.y = entity.attribute("y").as_int();
+			info.type = (ENTITY_TYPES)entity.attribute("type").as_int();
+
+			SpawnEnemy(info);
+		}
+	
 	return true;
 }
 
@@ -231,10 +243,13 @@ bool j1Entities::Load(pugi::xml_node&  data)
 //Save
 bool j1Entities::Save(pugi::xml_node& data) const
 {
-	pugi::xml_node Player = data.append_child("position");
+	for (p2List_item<Entity*>* iterator = entities.start; iterator != nullptr; iterator = iterator->next) {
 
-	Player.append_attribute("x") = player->x;
-	Player.append_attribute("y") = player->y;
+		pugi::xml_node entity = data.append_child("position");
 
+		entity.append_attribute("x") = iterator->data->position.x;
+		entity.append_attribute("y") = iterator->data->position.y;
+		entity.append_attribute("type") = iterator->data->type;
+	}
 	return true;
 }

@@ -3,10 +3,12 @@
 
 #include "p2Point.h"
 #include "Animation.h"
-
+//#include "j1Entities.h"
 
 struct SDL_Texture;
 struct Collider;
+
+enum ENTITY_TYPES;
 
 class Entity
 {
@@ -20,7 +22,7 @@ public:
 	SDL_Texture* textureGhost;
 	uint hitpoints = 2;
 	Collider* collider = nullptr;
-
+	ENTITY_TYPES type;
 	bool firstpath = true;
 
 	bool havepath = false;
@@ -28,7 +30,7 @@ public:
 	iPoint PosToGo = {0,0};
 
 public:
-	Entity(int x, int y);
+	Entity(int x, int y, ENTITY_TYPES type);
 	virtual ~Entity();
 
 

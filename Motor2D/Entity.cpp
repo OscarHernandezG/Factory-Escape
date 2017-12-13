@@ -3,7 +3,7 @@
 #include "j1Render.h"
 #include "j1Entities.h"
 
-Entity::Entity(int x, int y) : position(x, y)
+Entity::Entity(int x, int y, ENTITY_TYPES etype) : position(x, y), type(etype)
 {
 	
 
