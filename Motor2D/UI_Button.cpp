@@ -55,7 +55,7 @@ bool Button::Update(float dt)
 		}
 	}
 
-	iPoint label_offset = label->original_pos;
+	fPoint label_offset = label->original_pos;
 	label_offset.x += (rect.w - label->text_info.rect.w) / 2;
 	label_offset.y += (rect.h - label->text_info.rect.h) / 2;
 
@@ -121,7 +121,7 @@ void Button::DefineButton(char* path, char* text, BUTTON_TYPE type)
 
 	//label->position += label_offset;
 
-	iPoint label_offset = label->original_pos;
+	fPoint label_offset = label->original_pos;
 	label_offset.x += (rect.w - label->text_info.rect.w) / 2;
 	label_offset.y += (rect.h - label->text_info.rect.h) / 2;
 

@@ -462,26 +462,23 @@ void Player::SpawnPlayer() {
 
 void Player::KillEnemies() {
 
-	for (uint i = 0; i < MAX_ENEMIES; ++i) {
+	for (p2List_item<Entity*>* iterator = App->entities->entities.start; iterator != nullptr; iterator = iterator->next) {
 
-		if (App->entities->entities[i] != nullptr) {
-			if (flip == SDL_FLIP_NONE) {
-				if (x < App->entities->entities[i]->position.x && x + 128 > App->entities->entities[i]->position.x) {
-					if (y < App->entities->entities[i]->position.y && y + 120 > App->entities->entities[i]->position.y) {
-						delete App->entities->entities[i];
-						App->entities->entities[i] = nullptr;
-					}
+		if (flip == SDL_FLIP_NONE) {
+			if (x < iterator->data->position.x && x + 128 > iterator->data->position.x) {
+				if (y < iterator->data->position.y && y + 120 > iterator->data->position.y) {
+					App->entities->entities.del(iterator);
 				}
 			}
-
-			else {
-				if (x - 128 < App->entities->entities[i]->position.x && x > App->entities->entities[i]->position.x)
-					if (y < App->entities->entities[i]->position.y && y + 120 > App->entities->entities[i]->position.y) {
-						delete App->entities->entities[i];
-						App->entities->entities[i] = nullptr;
-					}
-			}
 		}
+
+		else {
+			if (x - 128 < iterator->data->position.x && x > iterator->data->position.x)
+				if (y < iterator->data->position.y && y + 120 > iterator->data->position.y) {
+					App->entities->entities.del(iterator);
+				}
+		}
+
 	}
 }
 

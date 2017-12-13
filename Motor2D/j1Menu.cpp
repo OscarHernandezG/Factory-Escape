@@ -71,18 +71,18 @@ bool j1Menu::Update(float dt)
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 	if (!Started /*&& !clean_menu*/) {
 		if (Quit->position.y > 600 || Settings->position.y > 600 || Load_But->position.y > 600) {
-			Quit->position.y -= dt * 200;
-			Settings->position.y -= dt * 200;
-			Load_But->position.y -= dt * 200;
+			Quit->position.y -= dt * GUI_Speed;
+			Settings->position.y -= dt * GUI_Speed;
+			Load_But->position.y -= dt * GUI_Speed;
 		}
 		if (Login->position.y > 400)
-			Login->position.y -= dt * 200;
+			Login->position.y -= dt * GUI_Speed;
 
 		if (Credits->position.x > 1000)
-			Credits->position.x -= dt * 200;
+			Credits->position.x -= dt * GUI_Speed;
 
 		if (Title_ui->position.x < 0)
-			Title_ui->position.x += dt * 400;
+			Title_ui->position.x += 2 * dt * GUI_Speed;
 		
 		if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
 			App->audio->VolumeUp();

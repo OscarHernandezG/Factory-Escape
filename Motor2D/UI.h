@@ -19,8 +19,8 @@ protected:
 
 public:
 	GUI_TYPE type = NO_TYPE_GUI;
-	iPoint position;
-	iPoint original_pos;
+	fPoint position;
+	fPoint original_pos;
 public:
 
 	//Constructor
