@@ -52,7 +52,7 @@ bool j1Menu::Start()
 {
 
 	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
-	Bg_ui_image->LoadImageA("textures/Background_UI2.png");
+	Bg_ui_image->LoadImageA("textures/Background_UI.png");
 
 	CreateMenu();
 
@@ -69,7 +69,9 @@ bool j1Menu::PreUpdate()
 bool j1Menu::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
+
 	if (!Started /*&& !clean_menu*/) {
+
 		if (Quit->position.y > 600 || Settings->position.y > 600 || Load_But->position.y > 600) {
 			Quit->position.y -= dt * GUI_Speed;
 			Settings->position.y -= dt * GUI_Speed;
@@ -112,8 +114,10 @@ bool j1Menu::Update(float dt)
 		if (Title_ui->position.x > -4000)
 			Title_ui->position.x -= dt * 400;
 		//CleanMenu();
+    
 	}
 	*/
+
 	return true;
 }
 
