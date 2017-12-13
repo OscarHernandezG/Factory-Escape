@@ -54,7 +54,6 @@ bool j1Menu::Start()
 	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
 	Bg_ui_image->LoadImageA("textures/Background_UI2.png");
 
-
 	CreateMenu();
 
 	return true;
@@ -71,8 +70,20 @@ bool j1Menu::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 	if (!Started) {
-		if (Quit->position.y > 600)
-			Quit->position.y -= dt*100;
+		if (Quit->position.y > 600 || Settings->position.y > 600 || Load_But->position.y > 600) {
+			Quit->position.y -= dt * 200;
+			Settings->position.y -= dt * 200;
+			Load_But->position.y -= dt * 200;
+		}
+		if (Login->position.y > 400)
+			Login->position.y -= dt * 200;
+
+		if (Credits->position.x > 1000)
+			Credits->position.x -= dt * 200;
+
+		if (Title_ui->position.x < 0)
+			Title_ui->position.x += dt * 400;
+		
 		if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
 			App->audio->VolumeUp();
 
@@ -156,18 +167,18 @@ void j1Menu::GUICallback(UI_Element* element) {
 		load_But_bool = true;
 
 	else if (Credits == element)
-		credits_bool = false;
+		credits_bool = true;
 
 }
 
 
 void j1Menu::CreateMenu() {
 
-	Title_ui = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
+	Title_ui = (Image*)App->gui->AdUIElement(-200, 0, IMAGE);
 	Title_ui->LoadImageA("textures/Title.png", 0.33f);
 
 
-	Login = (Button*)App->gui->AdUIElement(500, 400, BUTTON);
+	Login = (Button*)App->gui->AdUIElement(500, 700, BUTTON);//y = 400
 	Login->DefineButton("textures/Normal_But.png", "PLAY", INTERACTABLE);
 	Login->AddListener(this);
 	Login->TAB = 1;
@@ -178,17 +189,17 @@ void j1Menu::CreateMenu() {
 	Quit->TAB = 5;
 	Quit->AddListener(this);
 
-	Settings = (Button*)App->gui->AdUIElement(50, 600, BUTTON);
+	Settings = (Button*)App->gui->AdUIElement(50, 800, BUTTON); //y = 600
 	Settings->DefineButton("textures/Normal_But.png", "SETTINGS", INTERACTABLE);
 	Settings->TAB = 2;
 	Settings->AddListener(this);
 
-	Credits = (Button*)App->gui->AdUIElement(1000, 10, BUTTON);
+	Credits = (Button*)App->gui->AdUIElement(1200, 10, BUTTON);//x = 1000
 	Credits->DefineButton("textures/Normal_But.png", "CREDITS", INTERACTABLE);
 	Credits->TAB = 4;
 	Credits->AddListener(this);
 
-	Load_But = (Button*)App->gui->AdUIElement(500, 600, BUTTON);
+	Load_But = (Button*)App->gui->AdUIElement(500, 800, BUTTON);//y = 600
 	Load_But->DefineButton("textures/Normal_But.png", "LOAD", INTERACTABLE);
 	Load_But->TAB = 3;
 	Load_But->AddListener(this);

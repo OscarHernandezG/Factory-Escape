@@ -55,6 +55,11 @@ bool Button::Update(float dt)
 		}
 	}
 
+	iPoint label_offset = label->original_pos;
+	label_offset.x += (rect.w - label->text_info.rect.w) / 2;
+	label_offset.y += (rect.h - label->text_info.rect.h) / 2;
+
+	label->position = label_offset;
 	//App->render->Blit(image->image.start->data, position.x, position.y/*,CurrAnim->GetCurrentFrame()*/);
 	//CurrAnim = Idle;
 
