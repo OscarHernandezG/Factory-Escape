@@ -62,10 +62,14 @@ private:
 	Button* Credits = nullptr;
 	Button* Load_But = nullptr;
 
+	Button* Name = nullptr;
+
 	bool quit_bool = false;
 	bool settings_bool = false;
 	bool credits_bool = false;
 	bool load_But_bool = false;
+
+	bool quit = false;
 
 public:
 	uint tab_button = 0;

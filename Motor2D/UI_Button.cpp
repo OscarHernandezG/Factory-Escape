@@ -55,22 +55,6 @@ bool Button::Update(float dt)
 		}
 	}
 
-
-	if (label->hovering) {
-		iPoint label_offset = label->original_pos;
-		label_offset.x += (rect.w - label->text_info.end->data.rect.w) / 2;
-		label_offset.y += (rect.h - label->text_info.end->data.rect.h) / 2;
-
-		label->position = label_offset;
-	}
-	else
-	{
-		iPoint label_offset = label->original_pos;
-		label_offset.x += (rect.w - label->text_info.start->data.rect.w) / 2;
-		label_offset.y += (rect.h - label->text_info.start->data.rect.h) / 2;
-
-		label->position = label_offset;
-	}
 	//App->render->Blit(image->image.start->data, position.x, position.y/*,CurrAnim->GetCurrentFrame()*/);
 	//CurrAnim = Idle;
 
@@ -126,11 +110,17 @@ void Button::DefineButton(char* path, char* text, BUTTON_TYPE type)
 	rect.w = image->rect.w;
 	rect.h = image->rect.h;
 
-	iPoint label_offset{ 0,0 };
+	
 	//label_offset.x = (rect.w - label->text_info.start->data.rect.w) / 2;
 	//label_offset.y = (rect.h - label->text_info.start->data.rect.h) / 2;
 
 	//label->position += label_offset;
+
+	iPoint label_offset = label->original_pos;
+	label_offset.x += (rect.w - label->text_info.rect.w) / 2;
+	label_offset.y += (rect.h - label->text_info.rect.h) / 2;
+
+	label->position = label_offset;
 
 	this->Button_type = type;
 }

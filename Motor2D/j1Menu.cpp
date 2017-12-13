@@ -54,7 +54,9 @@ bool j1Menu::Start()
 	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
 	Bg_ui_image->LoadImageA("textures/Background_UI2.png");
 
+
 	CreateMenu();
+
 	return true;
 }
 
