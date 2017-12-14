@@ -52,7 +52,7 @@ bool j1FadeToBlack::Update(float dt)
 		{
 
 			off->CleanUp();
-	//		on->Start();
+			on->Start();
 
 			total_time += total_time;
 			start_time = SDL_GetTicks();

@@ -263,7 +263,7 @@ bool j1Scene::PostUpdate()
 		App->menu->active = true;
 		App->menu->SetUpMenu();
 
-		Pause = return_menu = App->menu->Started = App->scene->active = App->map->active = App->map->active = false;
+		Pause = return_menu = App->menu->Started = App->scene->active = App->map->active = false;
 		currmap = 1;
 	}
 	return ret;
@@ -391,12 +391,12 @@ void j1Scene::CreatePauseMenu() {
 	window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
 	window->Define("textures/Window.png", "");
 
-	Return = (Button*)App->gui->AdUIElement(400, 260, BUTTON); //y = 600
+	Return = (Button*)App->gui->AdUIElement(425, 300, BUTTON);
 	Return->Define("textures/Normal_But.png", "RETURN");
 	Return->TAB = -1;
 	Return->AddListener(this);
 
-	Cancel = (Button*)App->gui->AdUIElement(400, 360, BUTTON); //y = 600
+	Cancel = (Button*)App->gui->AdUIElement(425, 400, BUTTON);
 	Cancel->Define("textures/Normal_But.png", "CANCEL");
 	Cancel->TAB = -1;
 	Cancel->AddListener(this);

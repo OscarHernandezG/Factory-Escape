@@ -176,7 +176,7 @@ bool j1Menu::CleanUp()
 
 	if (active) {
 		active = false;
-		App->scene->Start();
+	//	App->scene->Start();
 		App->map->Start();
 		App->entities->Start();
 		App->scene->active = true;
