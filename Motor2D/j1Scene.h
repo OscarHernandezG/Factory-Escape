@@ -56,8 +56,10 @@ public:
 	void FindEntities();
 	
 	void CreatePauseMenu();
+	void DeletePauseMenu();
 
 	void GUICallback(UI_Element* element);
+	void OpenIngameMenu();
 
 public:
 
@@ -82,7 +84,9 @@ private:
 
 	Window* window = nullptr;
 	Button* Return = nullptr;
+	Button* Cancel = nullptr;
 	bool return_menu = false;
+	bool in_game_menu = false;
 
 
 public:

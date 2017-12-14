@@ -214,8 +214,7 @@ bool j1Scene::PostUpdate()
 		ret = false;
 
 	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
-		CreatePauseMenu();
-		Pause = true;
+		OpenIngameMenu();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && Photo_mode) {
@@ -397,9 +396,23 @@ void j1Scene::CreatePauseMenu() {
 	Return->TAB = -1;
 	Return->AddListener(this);
 
+	Cancel = (Button*)App->gui->AdUIElement(400, 360, BUTTON); //y = 600
+	Cancel->Define("textures/Normal_But.png", "CANCEL");
+	Cancel->TAB = -1;
+	Cancel->AddListener(this);
+
 	window->AddButton(Return);
 
 
+}
+
+void j1Scene::DeletePauseMenu() {
+
+	for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
+		iterator->data->CleanUp();
+	}
+	App->gui->ui_elements.clear();
+	
 }
 
 
@@ -408,4 +421,18 @@ void j1Scene::GUICallback(UI_Element* element) {
 	if (Return == element)
 		return_menu = true;
 
+	else if (Cancel == element)
+		OpenIngameMenu();
+
+}
+
+void j1Scene::OpenIngameMenu() {
+	if (!in_game_menu) {
+		CreatePauseMenu();
+		in_game_menu = Pause = true;
+	}
+	else {
+		DeletePauseMenu();
+		in_game_menu = Pause = false;
+	}
 }
