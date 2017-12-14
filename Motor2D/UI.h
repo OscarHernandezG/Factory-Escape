@@ -11,7 +11,8 @@ enum GUI_TYPE {
 	IMAGE,
 	BUTTON,
 	LABEL,
-	WINDOW
+	WINDOW,
+	SLIDER
 };
 
 class UI_Element

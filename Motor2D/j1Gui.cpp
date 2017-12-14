@@ -10,6 +10,7 @@
 #include "UI_Label.h"
 #include "UI_Button.h"
 #include "UI_Window.h"
+#include "UI_Slider.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -60,6 +61,7 @@ bool j1Gui::Update(float dt)
 			iterator->data->Update(dt);
 	}
 
+
 	return true;
 }
 
@@ -105,6 +107,9 @@ UI_Element* j1Gui::AdUIElement(int x,int y, GUI_TYPE type)
 		break;
 	case WINDOW:
 		ret = new Window(x, y);
+		break;
+	case SLIDER:
+		ret = new Slider(x, y);
 	default:
 		break;
 	}

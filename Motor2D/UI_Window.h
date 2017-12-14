@@ -1,4 +1,3 @@
-#pragma once
 
 #include "UI.h"
 #include "p2SString.h"

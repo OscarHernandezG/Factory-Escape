@@ -231,7 +231,7 @@ void j1Menu::CreateMenu() {
 	App->gui_animation->MoveToOrigin(Login);
 
 	Quit = (Button*)App->gui->AdUIElement(1000, 800, BUTTON); // y = 600
-	Quit->Define("textures/Normal_But.png", "QUIT");
+	Quit->Define("textures/Normal_But.png", "EXIT");
 	Quit->TAB = 5;
 	Quit->AddListener(this);
 	App->gui_animation->MoveToOrigin(Quit);

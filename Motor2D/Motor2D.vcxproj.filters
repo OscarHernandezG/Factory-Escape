@@ -88,6 +88,9 @@
     <ClCompile Include="UI_Window.cpp">
       <Filter>Desenvolupament  ========\UI</Filter>
     </ClCompile>
+    <ClCompile Include="UI_Slider.cpp">
+      <Filter>Desenvolupament  ========\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -196,6 +199,9 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="UI_Window.h">
+      <Filter>Desenvolupament  ========\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Slider.h">
       <Filter>Desenvolupament  ========\UI</Filter>
     </ClInclude>
   </ItemGroup>

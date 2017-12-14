@@ -1,0 +1,34 @@
+#include "UI_Slider.h"
+#include "UI.h"
+#include "j1Gui.h"
+#include "j1Fonts.h"
+#include "j1App.h"
+#include "j1Textures.h"
+#include "j1Render.h"
+#include "j1Input.h"
+#include "UI_Button.h"
+
+Slider::Slider(int x, int y) : UI_Element(x, y) {
+
+	type = SLIDER;
+	original_pos = position;
+
+	image_bg = (Image*)App->gui->AdUIElement(x, y, IMAGE);
+	image_butt = (Image*)App->gui->AdUIElement(x, y, LABEL);
+
+}
+
+Slider::~Slider() {
+}
+
+
+bool Slider::Update(float dt) {
+
+
+
+	return true;
+}
+bool Slider::CleanUp() {
+
+	return true;
+}
