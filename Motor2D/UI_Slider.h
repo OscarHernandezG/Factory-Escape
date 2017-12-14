@@ -19,6 +19,8 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 
+	bool AddImage(Image* newImage);
+
 
 public:
 
@@ -27,5 +29,8 @@ public:
 	Image* image_bg = nullptr;
 	Image* image_butt = nullptr;
 
+	p2List<Image*> Images;
+
+	int x, y;
 };
 

@@ -11,6 +11,7 @@ class Image;
 class Label;
 class Button;
 class Window;
+class Slider;
 
 class j1Menu : public j1Module
 {
@@ -59,8 +60,16 @@ private:
 	Label* text = nullptr;
 	Image* Title_ui = nullptr;
 
-	Image* Slider_Volum = nullptr;
-	Image* Slider_Frames = nullptr;
+	Label* text_volum = nullptr;
+	Label* text_frames = nullptr;
+
+	Slider* Slider_Volum = nullptr;
+	Slider* Slider_Frames = nullptr;
+
+	Image* Slider_Image_Volum = nullptr;
+	Image* Slider_Image_Frames = nullptr;
+	Image* Button_Image_Volum = nullptr;
+	Image* Button_Image_Frames = nullptr;
 
 	Button* Login = nullptr;
 	Button* Quit = nullptr;

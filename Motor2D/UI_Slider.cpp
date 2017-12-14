@@ -24,11 +24,20 @@ Slider::~Slider() {
 
 bool Slider::Update(float dt) {
 
-
+	App->input->GetMouseMotion(x, y);
 
 	return true;
 }
 bool Slider::CleanUp() {
 
 	return true;
+}
+
+
+bool Slider::AddImage(Image* newImage) {
+	if (newImage != nullptr) {
+		Images.add(newImage);
+		return true;
+	}
+	else return false;
 }

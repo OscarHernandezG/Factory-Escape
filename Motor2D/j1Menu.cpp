@@ -19,6 +19,7 @@
 #include "j1Menu.h"
 #include "j1GuiAnimation.h"
 #include "UI_Window.h"
+#include "UI_Slider.h"
 
 
 #include <time.h>
@@ -257,23 +258,49 @@ void j1Menu::CreateMenu() {
 }
 void j1Menu::CreateSettings() {
 
-	Slider_Volum = (Image*)App->gui->AdUIElement(400, 300, IMAGE);
-	Slider_Volum->LoadImageA("textures/slider.png");
+	text_volum = (Label*)App->gui->AdUIElement(500, 250, LABEL);
+	text_volum->text_info.text = ("MUSIC");
+
+	text_frames = (Label*)App->gui->AdUIElement(500, 450, LABEL);
+	text_frames->text_info.text = ("FRAMES");
+
+	Slider_Volum = (Slider*)App->gui->AdUIElement(400, 300, IMAGE);
+	//Slider_Volum->LoadImageA("textures/slider.png");
 	App->gui_animation->MoveToOrigin(Slider_Volum);
 
-	Slider_Frames = (Image*)App->gui->AdUIElement(400, 500, IMAGE);
-	Slider_Frames->LoadImageA("textures/slider.png");
+	Slider_Frames = (Slider*)App->gui->AdUIElement(400, 500, IMAGE);
+	//Slider_Frames->LoadImageA("textures/Ball_slider.png");
 	App->gui_animation->MoveToOrigin(Slider_Frames);
 
-	window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
-	window->Define("textures/Window.png", "");
+	Slider_Image_Volum = (Image*)App->gui->AdUIElement(400, 300, IMAGE);
+	Slider_Image_Volum->LoadImageA("textures/slider.png");
 
-	Return = (Button*)App->gui->AdUIElement(400, 260, BUTTON); //y = 600
+	Button_Image_Volum = (Image*)App->gui->AdUIElement(400, 300, IMAGE);
+	Button_Image_Volum->LoadImageA("textures/Ball_slider.png");
+
+	Slider_Image_Frames = (Image*)App->gui->AdUIElement(400, 500, IMAGE);
+	Slider_Image_Frames->LoadImageA("textures/slider.png");
+
+	Button_Image_Frames = (Image*)App->gui->AdUIElement(400, 500, IMAGE);
+	Button_Image_Frames->LoadImageA("textures/Ball_slider.png");
+
+
+	Slider_Volum->AddImage(Slider_Image_Volum);
+	Slider_Volum->AddImage(Button_Image_Volum);
+
+	Slider_Frames->AddImage(Slider_Image_Frames);
+	Slider_Frames->AddImage(Button_Image_Frames);
+
+
+	/*window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
+	window->Define("textures/Window.png", "");*/
+
+	Return = (Button*)App->gui->AdUIElement(900, 600, BUTTON); 
 	Return->Define("textures/Normal_But.png", "RETURN");
 	Return->TAB = -1;
 	Return->AddListener(this);
 
-	window->AddButton(Return);
+	//window->AddButton(Return);
 
 }
 
