@@ -77,7 +77,7 @@ private:
 
 	bool can_quit = true;
 
-	int GUI_Speed = 150;
+	int GUI_Speed = 200;
 public:
 	uint tab_button = 0;
 	bool StartGame = false;
