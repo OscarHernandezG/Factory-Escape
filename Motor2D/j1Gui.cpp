@@ -9,6 +9,7 @@
 #include "UI_Image.h"
 #include "UI_Label.h"
 #include "UI_Button.h"
+#include "UI_Window.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -102,6 +103,8 @@ UI_Element* j1Gui::AdUIElement(int x,int y, GUI_TYPE type)
 	case BUTTON:
 		ret = new Button(x, y);
 		break;
+	case WINDOW:
+		ret = new Window(x, y);
 	default:
 		break;
 	}

@@ -5,10 +5,14 @@
 #include "p2List.h"
 
 struct SDL_Texture;
-/*class GuiImage;
+
+class GuiImage;
 class GuiText;
 class Image;
-class Label;*/
+class Label;
+class Button;
+class Window;
+
 
 
 class j1Scene : public j1Module
@@ -39,6 +43,7 @@ public:
 	bool CleanUp();
 
 	bool LoadScene(int map = -1, bool is_load = false);
+	void FreeScene();
 
 	// Load
 	bool Load(pugi::xml_node&  savegame);
@@ -50,11 +55,16 @@ public:
 
 	void FindEntities();
 	
+	void CreatePauseMenu();
+
+	void GUICallback(UI_Element* element);
+
 public:
 
 	int currmap = 1;
 
 	bool Photo_mode = false;
+	bool Pause = false;
 	bool next_map = false;
 	bool reload_map = false;
 
@@ -70,7 +80,9 @@ private:
 	p2List<p2SString>  MapsList_String;
 	p2List_item<p2SString>* CurrentMap = nullptr;
 
-
+	Window* window = nullptr;
+	Button* Return = nullptr;
+	bool return_menu = false;
 
 
 public:

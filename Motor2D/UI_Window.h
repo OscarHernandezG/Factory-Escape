@@ -27,6 +27,8 @@ public:
 	void SetTextCords(iPoint pos);
 	void SetTextCords(fPoint pos);
 
+	bool AddButton(Button* newButton);
+	
 public:
 
 	bool hovering = false;

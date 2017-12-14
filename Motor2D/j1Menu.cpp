@@ -18,7 +18,7 @@
 #include "j1FadeToBlack.h"
 #include "j1Menu.h"
 #include "j1GuiAnimation.h"
-
+#include "UI_Window.h"
 
 
 #include <time.h>
@@ -51,11 +51,7 @@ bool j1Menu::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Menu::Start()
 {
-
-	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
-	Bg_ui_image->LoadImageA("textures/Background_UI.png");
-
-	CreateMenu();
+	SetUpMenu();
 
 	return true;
 }
@@ -157,6 +153,14 @@ bool j1Menu::PostUpdate()
 		CleanMenu();
 		CreateCredits();
 	}
+
+	if (return_menu) {
+		return_menu = false;
+		CleanMenu();
+		CreateMenu();
+		can_quit = true;
+	}
+
 	return ret;
 }
 
@@ -200,6 +204,17 @@ void j1Menu::GUICallback(UI_Element* element) {
 	else if (Credits == element)
 		credits_bool = true;
 
+	else if (Return == element)
+		return_menu = true;
+
+}
+
+void j1Menu::SetUpMenu() {
+
+	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
+	Bg_ui_image->LoadImageA("textures/Background_UI.png");
+
+	CreateMenu();
 }
 
 
@@ -210,37 +225,38 @@ void j1Menu::CreateMenu() {
 	App->gui_animation->MoveToOrigin(Title_ui);
 
 	Login = (Button*)App->gui->AdUIElement(500, 700, BUTTON);//y = 400
-	Login->DefineButton("textures/Normal_But.png", "PLAY", INTERACTABLE);
+	Login->Define("textures/Normal_But.png", "PLAY");
 	Login->AddListener(this);
 	Login->TAB = 1;
 	App->gui_animation->MoveToOrigin(Login);
 
 	Quit = (Button*)App->gui->AdUIElement(1000, 800, BUTTON); // y = 600
-	Quit->DefineButton("textures/Normal_But.png", "QUIT", INTERACTABLE);
+	Quit->Define("textures/Normal_But.png", "QUIT");
 	Quit->TAB = 5;
 	Quit->AddListener(this);
 	App->gui_animation->MoveToOrigin(Quit);
 
 	Settings = (Button*)App->gui->AdUIElement(50, 800, BUTTON); //y = 600
-	Settings->DefineButton("textures/Normal_But.png", "SETTINGS", INTERACTABLE);
+	Settings->Define("textures/Normal_But.png", "SETTINGS");
 	Settings->TAB = 2;
 	Settings->AddListener(this);
 	App->gui_animation->MoveToOrigin(Settings);
 
 	Credits = (Button*)App->gui->AdUIElement(1200, 10, BUTTON);//x = 1000
-	Credits->DefineButton("textures/Normal_But.png", "CREDITS", INTERACTABLE);
+	Credits->Define("textures/Normal_But.png", "CREDITS");
 	Credits->TAB = 4;
 	Credits->AddListener(this);
 	App->gui_animation->MoveToOrigin(Credits);
 
 	Load_But = (Button*)App->gui->AdUIElement(500, 800, BUTTON);//y = 600
-	Load_But->DefineButton("textures/Normal_But.png", "LOAD", INTERACTABLE);
+	Load_But->Define("textures/Normal_But.png", "LOAD");
 	Load_But->TAB = 3;
 	Load_But->AddListener(this);
 	App->gui_animation->MoveToOrigin(Load_But);
 
 }
 void j1Menu::CreateSettings() {
+
 	Slider_Volum = (Image*)App->gui->AdUIElement(400, 300, IMAGE);
 	Slider_Volum->LoadImageA("textures/slider.png");
 	App->gui_animation->MoveToOrigin(Slider_Volum);
@@ -248,7 +264,20 @@ void j1Menu::CreateSettings() {
 	Slider_Frames = (Image*)App->gui->AdUIElement(400, 500, IMAGE);
 	Slider_Frames->LoadImageA("textures/slider.png");
 	App->gui_animation->MoveToOrigin(Slider_Frames);
+
+	window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
+	window->Define("textures/Window.png", "");
+
+	Return = (Button*)App->gui->AdUIElement(400, 260, BUTTON); //y = 600
+	Return->Define("textures/Normal_But.png", "RETURN");
+	Return->TAB = -1;
+	Return->AddListener(this);
+
+	window->AddButton(Return);
+
 }
+
+
 void j1Menu::CreateCredits() {
 
 }

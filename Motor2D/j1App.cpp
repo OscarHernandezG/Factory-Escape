@@ -183,7 +183,7 @@ void j1App::PrepareUpdate()
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
 	dt = dttimer.ReadMs() / 1000;
-	if (App->scene->Photo_mode) {
+	if (App->scene->Pause) {
 		zoom_dt = dt;
 		dt = 0;
 	}

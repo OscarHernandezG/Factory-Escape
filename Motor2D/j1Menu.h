@@ -10,6 +10,7 @@ class GuiText;
 class Image;
 class Label;
 class Button;
+class Window;
 
 class j1Menu : public j1Module
 {
@@ -42,10 +43,12 @@ public:
 	void CreateSettings();
 	void CreateCredits();
 	void CleanMenu();
+	void SetUpMenu();
 
 	void GUICallback(UI_Element* element);
 
 	int currmap = 1;
+	bool Started = false;
 
 private:
 
@@ -65,13 +68,16 @@ private:
 	Button* Credits = nullptr;
 	Button* Load_But = nullptr;
 
-	
+	Button* Return = nullptr;
+
+	Window* window = nullptr;
 
 	Button* Name = nullptr;
 
 	bool quit_bool = false;
 	bool settings_bool = false;
 	bool credits_bool = false;
+	bool return_menu = false;
 	bool load_But_bool = false;
 	bool clean_menu = false;
 
@@ -81,7 +87,7 @@ private:
 public:
 	uint tab_button = 0;
 	bool StartGame = false;
-	bool Started = false;
+
 };
 
 #endif // __j1SCENE_H__

@@ -1,5 +1,7 @@
 #include "p2Defs.h"
 #include "p2Log.h"
+
+
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Textures.h"
@@ -10,14 +12,16 @@
 #include "j1Scene.h"
 #include "j1Entities.h"
 #include "j1Pathfinding.h"
+#include "j1FadeToBlack.h"
+#include "j1Menu.h"
 #include "j1Gui.h"
+
+
 #include "UI.h"
 #include "UI_Image.h"
 #include "UI_Button.h"
 #include "UI_Label.h"
-#include "j1FadeToBlack.h"
-#include "j1Menu.h"
-
+#include "UI_Window.h"
 
 
 #include <time.h>
@@ -162,6 +166,8 @@ bool j1Scene::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
 			Photo_mode = !Photo_mode;
+			Pause =  Photo_mode;
+			App->gui->active = !Pause;
 			App->render->camera.y = 0;
 			App->win->scale = 1;
 		}
@@ -207,6 +213,11 @@ bool j1Scene::PostUpdate()
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || Quit)
 		ret = false;
 
+	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+		CreatePauseMenu();
+		Pause = true;
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && Photo_mode) {
 
 		SDL_RenderReadPixels(App->render->renderer, NULL, SDL_PIXELFORMAT_ARGB8888, App->win->screen_surface->pixels, App->win->screen_surface->pitch);
@@ -246,6 +257,16 @@ bool j1Scene::PostUpdate()
 		
 	}
 
+	if (return_menu) {
+
+		FreeScene();
+
+		App->menu->active = true;
+		App->menu->SetUpMenu();
+
+		Pause = return_menu = App->menu->Started = App->scene->active = App->map->active = App->map->active = false;
+		currmap = 1;
+	}
 	return ret;
 }
 
@@ -257,14 +278,21 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
-bool j1Scene::LoadScene(int map, bool is_load) {
+void j1Scene::FreeScene() {
 
-	bool ret = false;
 	App->map->CleanUp();
 	App->audio->FreeMusic();
 	App->tex->FreeTextures();
+	App->entities->FreeEnemies();
+}
+
+bool j1Scene::LoadScene(int map, bool is_load) {
+
+	bool ret = false;
+
+	FreeScene();
+
 	App->entities->LoadEntityText();
-	ret = App->entities->FreeEnemies();
 
 	if (map == -1) {
 
@@ -312,7 +340,7 @@ bool j1Scene::Load(pugi::xml_node&  savegame) {
 	currmap = savegame.child("Map").attribute("CurrentMap").as_int();
 
 	LoadScene(currmap, true);
-	////
+
 	return true;
 }
 
@@ -357,4 +385,27 @@ void j1Scene::FindEntities()
 			}
 		}
 	}
+}
+
+void j1Scene::CreatePauseMenu() {
+
+	window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
+	window->Define("textures/Window.png", "");
+
+	Return = (Button*)App->gui->AdUIElement(400, 260, BUTTON); //y = 600
+	Return->Define("textures/Normal_But.png", "RETURN");
+	Return->TAB = -1;
+	Return->AddListener(this);
+
+	window->AddButton(Return);
+
+
+}
+
+
+void j1Scene::GUICallback(UI_Element* element) {
+	
+	if (Return == element)
+		return_menu = true;
+
 }

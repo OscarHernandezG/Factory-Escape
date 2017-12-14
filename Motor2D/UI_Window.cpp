@@ -62,3 +62,11 @@ void Window::SetTextCords(fPoint pos) {
 
 	label->position = pos;
 }
+
+bool Window::AddButton(Button* newButton) {
+	if (newButton != nullptr) {
+		Buttons.add(newButton);
+		return true;
+	}
+	else return false;
+}
