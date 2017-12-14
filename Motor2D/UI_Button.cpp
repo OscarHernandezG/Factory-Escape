@@ -24,36 +24,36 @@ Button::Button(int x, int y) : UI_Element(x, y) {
 }
 
 
-bool Button::Update(float dt) 
+bool Button::Update(float dt)
 {
 
 	image->position = label->original_pos = MouseClick->position = MouseHovering->position = this->position;
 	bool ret = true;
 	MouseHovering->draw = MouseClick->draw = false;
-	if (Button_type == INTERACTABLE) {
-		if (MouseOnRect()) {
-			if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
-				MouseClick->draw = true;
-			else if (App->input->GetMouseButtonDown(1) == KEY_UP) {			
-				for (p2List_item<j1Module*>* iterator = listeners.start; iterator != nullptr; iterator = iterator->next) 
-					iterator->data->GUICallback(this);
-			}
-			else
-				MouseHovering->draw = true;			
-		}
 
-		if (TAB == App->menu->tab_button) {
-
-			if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) 
-				MouseClick->draw = true;
-			else if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP) {
-				for (p2List_item<j1Module*>* iterator = listeners.start; iterator != nullptr; iterator = iterator->next)
-					iterator->data->GUICallback(this);
-			}
-			else
-				MouseHovering->draw = true;
+	if (MouseOnRect()) {
+		if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
+			MouseClick->draw = true;
+		else if (App->input->GetMouseButtonDown(1) == KEY_UP) {
+			for (p2List_item<j1Module*>* iterator = listeners.start; iterator != nullptr; iterator = iterator->next)
+				iterator->data->GUICallback(this);
 		}
+		else
+			MouseHovering->draw = true;
 	}
+
+	if (TAB == App->menu->tab_button) {
+
+		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT)
+			MouseClick->draw = true;
+		else if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP) {
+			for (p2List_item<j1Module*>* iterator = listeners.start; iterator != nullptr; iterator = iterator->next)
+				iterator->data->GUICallback(this);
+		}
+		else
+			MouseHovering->draw = true;
+	}
+
 
 	fPoint label_offset = label->original_pos;
 	label_offset.x += (rect.w - label->text_info.rect.w) / 2;
@@ -103,31 +103,28 @@ bool Button::CleanUp() {
 }
 
 
-void Button::DefineButton(char* path, char* text, BUTTON_TYPE type)
+bool Button::Define(char* path, char* text)
 {
-	
-	MouseHovering->LoadImageA("textures/Hover_But.png",1);
-	MouseClick->LoadImageA("textures/Click_But.png",1);
+	bool ret1 = false, ret2 = false, ret3 = false, ret4 = false;
 
-	image->LoadImageA(path, 1);
+	ret1 = MouseHovering->LoadImageA("textures/Hover_But.png", 1);
+	ret2 = MouseClick->LoadImageA("textures/Click_But.png", 1);
 
-	label->SetText(text);
-	rect.w = image->rect.w;
-	rect.h = image->rect.h;
+	ret3 = image->LoadImageA(path, 1);
 
-	
-	//label_offset.x = (rect.w - label->text_info.start->data.rect.w) / 2;
-	//label_offset.y = (rect.h - label->text_info.start->data.rect.h) / 2;
+	ret4 = label->SetText(text);
 
-	//label->position += label_offset;
+	if (ret4) {
+		rect.w = image->rect.w;
+		rect.h = image->rect.h;
 
-	fPoint label_offset = label->original_pos;
-	label_offset.x += (rect.w - label->text_info.rect.w) / 2;
-	label_offset.y += (rect.h - label->text_info.rect.h) / 2;
+		fPoint label_offset = label->original_pos;
+		label_offset.x += (rect.w - label->text_info.rect.w) / 2;
+		label_offset.y += (rect.h - label->text_info.rect.h) / 2;
 
-	label->position = label_offset;
-
-	this->Button_type = type;
+		label->position = label_offset;
+	}
+	return ret1 && ret2 && ret3 && ret4;
 }
 
 void Button::AddListener(j1Module* listener) {

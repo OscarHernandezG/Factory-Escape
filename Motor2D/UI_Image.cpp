@@ -42,7 +42,7 @@ bool Image::LoadImageA(char* path, float scale) {
 
 	this->scale = scale;
 
-	return true;
+	return image != nullptr;
 }
 
 bool Image::MouseOnRect() {

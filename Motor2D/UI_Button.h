@@ -7,13 +7,6 @@
 
 struct SDL_Texture;
 
-enum BUTTON_TYPE {
-	NONE_TYPE_BUT,
-	
-	INTERACTABLE,
-	INPUT_BOX
-};
-
 
 class Button : public UI_Element
 {
@@ -32,7 +25,7 @@ public:
 
 	bool CleanUp();
 
-	void DefineButton(char* path, char* text, BUTTON_TYPE type = NONE_TYPE_BUT);
+	bool Define(char* path, char* text);
 
 	void AddListener(j1Module* listener);
 	void AddListener(p2List<j1Module*> listener);
@@ -42,7 +35,6 @@ public:
 
 	Label* label = nullptr;
 	Image* image = nullptr;
-	BUTTON_TYPE Button_type = NONE_TYPE_BUT;
 	bool clicked = false;
 	SDL_Rect rect;
 	uint TAB = 0u;

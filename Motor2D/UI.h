@@ -7,9 +7,11 @@ struct SDL_Texture;
 
 enum GUI_TYPE {
 	NO_TYPE_GUI,
+
 	IMAGE,
 	BUTTON,
-	LABEL
+	LABEL,
+	WINDOW
 };
 
 class UI_Element
@@ -45,6 +47,8 @@ public:
 	virtual bool MouseOnRect();
 
 	virtual bool SetText();
+
+	virtual bool Define(char* path, char* text) { return true; };
 
 };
 
