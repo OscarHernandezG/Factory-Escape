@@ -209,6 +209,25 @@ void j1Menu::GUICallback(UI_Element* element) {
 
 	else if (Return == element)
 		return_menu = true;
+	
+	else if (Slider_Frames == element) {
+		float frames = Slider_Frames->GetRelativePosition();
+		frames = (frames * 210) + 30;
+		static char frames_text[20];
+
+		sprintf_s(frames_text, 20, "%.0f", frames);
+		curr_frames->SetText(frames_text);
+		LOG("%f", frames);
+	}
+	else if (Slider_Volume == element) {
+		float volume = Slider_Volume->GetRelativePosition();
+		volume = volume * 100;
+		static char vol_text[20];
+
+		sprintf_s(vol_text, 20, "%.0f", volume);
+		curr_vol->SetText(vol_text);
+		LOG("%f", volume);
+	}
 
 }
 
@@ -260,49 +279,48 @@ void j1Menu::CreateMenu() {
 }
 void j1Menu::CreateSettings() {
 
-	text_volum = (Label*)App->gui->AdUIElement(525, 275, LABEL);
-	text_volum->SetText("MUSIC");
+	text_volum = (Label*)App->gui->AdUIElement(500, 250, LABEL);
+	text_volum->SetText("VOLUME");
 
-	text_frames = (Label*)App->gui->AdUIElement(525, 475, LABEL);
-	text_frames->SetText("FRAMES");
+	min_vol = (Label*)App->gui->AdUIElement(350, 300, LABEL);
+	min_vol->SetText("0");
 
-	Slider_Volum = (Slider*)App->gui->AdUIElement(400, 300, IMAGE);
+	max_vol = (Label*)App->gui->AdUIElement(750, 300, LABEL);
+	max_vol->SetText("100");
+
+	curr_vol = (Label*)App->gui->AdUIElement(625, 250, LABEL);
+	curr_vol->SetText("0");
+
+
+
+	text_frames = (Label*)App->gui->AdUIElement(500, 450, LABEL);
+	text_frames->SetText("FPS");
+
+	min_frames = (Label*)App->gui->AdUIElement(350, 500, LABEL);
+	min_frames->SetText("30");
+
+	max_frames = (Label*)App->gui->AdUIElement(750, 500, LABEL);
+	max_frames->SetText("240");
+
+	curr_frames = (Label*)App->gui->AdUIElement(625, 450, LABEL);
+	curr_frames->SetText("30");
+
+	Slider_Volume = (Slider*)App->gui->AdUIElement(400, 300, SLIDER);
 	//Slider_Volum->LoadImageA("textures/slider.png");
-	App->gui_animation->MoveToOrigin(Slider_Volum);
+	App->gui_animation->MoveToOrigin(Slider_Volume);
+	Slider_Volume->AddListener(this);
 
-	Slider_Frames = (Slider*)App->gui->AdUIElement(400, 500, IMAGE);
+	Slider_Frames = (Slider*)App->gui->AdUIElement(400, 500, SLIDER);
 	//Slider_Frames->LoadImageA("textures/Ball_slider.png");
 	App->gui_animation->MoveToOrigin(Slider_Frames);
-
-	Slider_Image_Volum = (Image*)App->gui->AdUIElement(400, 300, IMAGE);
-	Slider_Image_Volum->LoadImageA("textures/slider.png");
-
-	Button_Image_Volum = (Image*)App->gui->AdUIElement(400, 300, IMAGE);
-	Button_Image_Volum->LoadImageA("textures/Ball_slider.png");
-
-	Slider_Image_Frames = (Image*)App->gui->AdUIElement(400, 500, IMAGE);
-	Slider_Image_Frames->LoadImageA("textures/slider.png");
-
-	Button_Image_Frames = (Image*)App->gui->AdUIElement(400, 500, IMAGE);
-	Button_Image_Frames->LoadImageA("textures/Ball_slider.png");
+	Slider_Frames->AddListener(this);
 
 
-	Slider_Volum->AddImage(Slider_Image_Volum);
-	Slider_Volum->AddImage(Button_Image_Volum);
-
-	Slider_Frames->AddImage(Slider_Image_Frames);
-	Slider_Frames->AddImage(Button_Image_Frames);
-
-
-	/*window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
-	window->Define("textures/Window.png", "");*/
 
 	Return = (Button*)App->gui->AdUIElement(900, 600, BUTTON); 
 	Return->Define("textures/Normal_But.png", "RETURN");
 	Return->TAB = -1;
 	Return->AddListener(this);
-
-	//window->AddButton(Return);
 
 }
 

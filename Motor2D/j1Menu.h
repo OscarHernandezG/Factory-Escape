@@ -61,9 +61,16 @@ private:
 	Image* Title_ui = nullptr;
 
 	Label* text_volum = nullptr;
-	Label* text_frames = nullptr;
+	Label* min_vol = nullptr;
+	Label* max_vol = nullptr;
+	Label* curr_vol = nullptr;
 
-	Slider* Slider_Volum = nullptr;
+	Label* text_frames = nullptr;
+	Label* min_frames = nullptr;
+	Label* max_frames = nullptr;
+	Label* curr_frames = nullptr;
+
+	Slider* Slider_Volume = nullptr;
 	Slider* Slider_Frames = nullptr;
 
 	Image* Slider_Image_Volum = nullptr;
