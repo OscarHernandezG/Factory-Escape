@@ -32,11 +32,18 @@ bool Label::CleanUp() {
 	//text_info.clear();
 	return true;
 }
-bool Label::SetText(char* text) {
+bool Label::SetText(char* text, int font) {
 	bool ret = false;
 	p2SString aux_text;
 	aux_text.create(text);
-	SDL_Texture* tex = App->font->Print(aux_text.GetString(), { 255, 255, 255, 255 }, App->font->fonts.start->data);
+
+	if (text_info.tex != nullptr)
+	App->tex->UnLoad(text_info.tex);
+	SDL_Texture* tex;
+	if (font == 0)
+		 tex = App->font->Print(aux_text.GetString(), { 255, 255, 255, 255 }, App->font->fonts.start->data);
+	else 
+		 tex = App->font->Print(aux_text.GetString(), { 255, 255, 255, 255 }, App->font->fonts.end->data);
 	if (tex != nullptr) {
 		uint w = 0, h = 0;
 		App->tex->GetSize(tex, w, h);

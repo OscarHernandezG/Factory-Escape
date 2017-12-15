@@ -98,3 +98,11 @@ void Slider::AddListener(j1Module* listener) {
 	listeners.add(listener);
 }
 
+void Slider::SetRelativePos(float x) {
+
+	float new_x = x + (image_bg->position.x / (image_bg->rect.w - image_butt->rect.w));
+	new_x *= (image_bg->rect.w - image_butt->rect.w);
+
+	image_butt->position.x = new_x;
+
+}

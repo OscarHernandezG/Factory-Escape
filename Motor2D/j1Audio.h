@@ -64,6 +64,8 @@ private:
 	_Mix_Music*			music;
 	p2List<Mix_Chunk*>	fx;
 
+public:
+
 	float volume;
 	mutable	int vol;
 };

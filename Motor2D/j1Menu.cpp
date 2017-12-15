@@ -20,7 +20,7 @@
 #include "j1GuiAnimation.h"
 #include "UI_Window.h"
 #include "UI_Slider.h"
-
+#include "j1Fonts.h"
 
 #include <time.h>
 #include <chrono>
@@ -214,9 +214,9 @@ void j1Menu::GUICallback(UI_Element* element) {
 		float frames = Slider_Frames->GetRelativePosition();
 		frames = (frames * 210) + 30;
 		App->framerate_cap = App->current_framerate_cap = frames;
-		static char frames_text[4];
+		static char frames_text[5];
 
-		sprintf_s(frames_text, 4, "%.0f", frames);
+		sprintf_s(frames_text, 5, "%.0f", frames);
 		curr_frames->SetText(frames_text);
 		LOG("%f", frames);
 	}
@@ -279,6 +279,7 @@ void j1Menu::CreateMenu() {
 }
 void j1Menu::CreateSettings() {
 
+
 	text_volum = (Label*)App->gui->AdUIElement(500, 250, LABEL);
 	text_volum->SetText("VOLUME");
 
@@ -289,7 +290,10 @@ void j1Menu::CreateSettings() {
 	max_vol->SetText("100");
 
 	curr_vol = (Label*)App->gui->AdUIElement(625, 250, LABEL);
-	curr_vol->SetText("0");
+	static char vol_text[5];
+	sprintf_s(vol_text, 5, "%.0f", App->audio->volume * 100);
+	curr_vol->SetText(vol_text);
+	
 
 
 
@@ -303,17 +307,22 @@ void j1Menu::CreateSettings() {
 	max_frames->SetText("240");
 
 	curr_frames = (Label*)App->gui->AdUIElement(625, 450, LABEL);
-	curr_frames->SetText("30");
+	static char fps_text[5];
+	sprintf_s(fps_text, 5, "%i", App->current_framerate_cap);
+	curr_frames->SetText(fps_text);
 
 	Slider_Volume = (Slider*)App->gui->AdUIElement(400, 300, SLIDER);
 	//Slider_Volum->LoadImageA("textures/slider.png");
 	App->gui_animation->MoveToOrigin(Slider_Volume);
 	Slider_Volume->AddListener(this);
+	Slider_Volume->SetRelativePos(App->audio->volume);
 
 	Slider_Frames = (Slider*)App->gui->AdUIElement(400, 500, SLIDER);
 	//Slider_Frames->LoadImageA("textures/Ball_slider.png");
 	App->gui_animation->MoveToOrigin(Slider_Frames);
 	Slider_Frames->AddListener(this);
+	float frames = App->current_framerate_cap - 30;
+	Slider_Frames->SetRelativePos((float)frames/210);
 
 
 

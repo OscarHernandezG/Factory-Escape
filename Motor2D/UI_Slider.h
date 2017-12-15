@@ -30,6 +30,8 @@ public:
 
 	float GetRelativePosition();
 
+	void SetRelativePos(float x);
+
 public:
 
 	bool hovering = false;

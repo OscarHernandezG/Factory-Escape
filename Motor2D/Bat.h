@@ -26,8 +26,6 @@ public:
 	p2DynArray<iPoint>* path;
 	int speed = 150;
 
-
-	j1Timer pf;
 	void Move(float dt);
 	void Draw(SDL_Texture* texture);
 };

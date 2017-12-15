@@ -22,7 +22,7 @@ bool Image::Update(float dt) {
 	return true;
 }
 bool Image::CleanUp() {
-
+	if (image !=nullptr)
 	App->tex->UnLoad(image);	
 	
 	return true;

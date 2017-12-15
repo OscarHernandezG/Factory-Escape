@@ -37,8 +37,6 @@ void Bat::Move(float dt)
 
 		App->pathfinding->ClearLastPath();
 
-
-		pf.Start();
 	}
 	if (PosToGo.x > 0 && PosToGo.y > 0) {
 		iPoint next_pos = App->map->MapToWorld(PosToGo.x, PosToGo.y);
@@ -47,7 +45,7 @@ void Bat::Move(float dt)
 
 
 
-		if (abs(player_pos.x - enemy_pos.x) < 4) {
+		if (abs(player_pos.x - enemy_pos.x) < 6) {
 
 			if (position.x > next_pos.x) {
 				if (position.x - next_pos.x <= speed*dt)

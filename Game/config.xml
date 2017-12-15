@@ -34,7 +34,7 @@
   </scene>
 
   <audio>
-    <volume music = "0.01"></volume>
+    <volume music = "0.5"></volume>
   </audio>
 
 </config>

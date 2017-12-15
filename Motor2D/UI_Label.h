@@ -24,7 +24,9 @@ public:
 
 	bool Update(float dt);
 	bool CleanUp();
-	bool SetText(char* text);
+
+	bool SetText(char* text, int font = 0);
+
 
 public:
 
