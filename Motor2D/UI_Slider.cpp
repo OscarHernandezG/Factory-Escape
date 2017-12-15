@@ -41,3 +41,8 @@ bool Slider::AddImage(Image* newImage) {
 	}
 	else return false;
 }
+
+/*bool Slider::Define() {
+
+
+}*/

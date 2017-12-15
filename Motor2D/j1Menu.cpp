@@ -260,11 +260,11 @@ void j1Menu::CreateMenu() {
 }
 void j1Menu::CreateSettings() {
 
-	text_volum = (Label*)App->gui->AdUIElement(500, 250, LABEL);
-	text_volum->text_info.text = ("MUSIC");
+	text_volum = (Label*)App->gui->AdUIElement(525, 275, LABEL);
+	text_volum->SetText("MUSIC");
 
-	text_frames = (Label*)App->gui->AdUIElement(500, 450, LABEL);
-	text_frames->text_info.text = ("FRAMES");
+	text_frames = (Label*)App->gui->AdUIElement(525, 475, LABEL);
+	text_frames->SetText("FRAMES");
 
 	Slider_Volum = (Slider*)App->gui->AdUIElement(400, 300, IMAGE);
 	//Slider_Volum->LoadImageA("textures/slider.png");

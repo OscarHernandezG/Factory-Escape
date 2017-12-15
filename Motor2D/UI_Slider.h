@@ -20,6 +20,7 @@ public:
 	bool CleanUp();
 
 	bool AddImage(Image* newImage);
+	//bool Define();
 
 
 public:
@@ -28,6 +29,8 @@ public:
 
 	Image* image_bg = nullptr;
 	Image* image_butt = nullptr;
+
+	Label* label = nullptr;
 
 	p2List<Image*> Images;
 
