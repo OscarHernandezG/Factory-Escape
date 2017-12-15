@@ -11,6 +11,7 @@
 #include "UI_Button.h"
 #include "UI_Window.h"
 #include "UI_Slider.h"
+#include "UI_Score.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -48,7 +49,7 @@ bool j1Gui::PreUpdate()
 
 bool j1Gui::Update(float dt)
 {
-	for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
+	/*for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
 	if(iterator->data->type == IMAGE)
 		iterator->data->Update(dt);
 	}
@@ -59,9 +60,9 @@ bool j1Gui::Update(float dt)
 	for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
 		if (iterator->data->type == LABEL)
 			iterator->data->Update(dt);
-	}
+	}*/
 	for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
-		if (iterator->data->type == SLIDER)
+		//if (iterator->data->type == SLIDER)
 			iterator->data->Update(dt);
 	}
 
@@ -115,6 +116,10 @@ UI_Element* j1Gui::AdUIElement(int x,int y, GUI_TYPE type)
 		break;
 	case SLIDER:
 		ret = new Slider(x, y);
+		break;
+	case SCORE:
+		ret = new Score(x, y);
+		break;
 	default:
 		break;
 	}

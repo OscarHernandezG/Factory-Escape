@@ -12,7 +12,8 @@ enum GUI_TYPE {
 	BUTTON,
 	LABEL,
 	WINDOW,
-	SLIDER
+	SLIDER,
+	SCORE,
 };
 
 class UI_Element
