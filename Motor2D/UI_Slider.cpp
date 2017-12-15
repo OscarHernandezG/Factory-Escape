@@ -34,8 +34,11 @@ bool Slider::Update(float dt) {
 
 	else if (moving_mouse) {
 		App->input->GetMouseMotion(x, y);
-		if (image_butt->position.x + x >= image_bg->position.x && image_butt->position.x + x <= image_bg->position.x + image_bg->rect.w)
+		if (image_butt->position.x + x >= image_bg->position.x && image_butt->position.x + x <= image_bg->position.x + image_bg->rect.w) {
 			image_butt->position.x += x;
+			for (p2List_item<j1Module*>* iterator = listeners.start; iterator != nullptr; iterator = iterator->next)
+				iterator->data->GUICallback(this);
+		}
 		if (App->input->GetMouseButtonDown(1) == KEY_UP) {
 			moving_mouse = false;
 		}
@@ -80,4 +83,18 @@ bool Slider::Clicked() {
 		}
 	}
 	return ret;
+}
+
+float Slider::GetRelativePosition() {
+	float ret = 0;
+
+	int relative_x = image_butt->position.x - image_bg->position.x;
+
+	ret = (float)relative_x / image_bg->rect.w;
+
+	return ret;
+}
+
+void Slider::AddListener(j1Module* listener) {
+	listeners.add(listener);
 }

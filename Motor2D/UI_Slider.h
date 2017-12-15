@@ -22,8 +22,12 @@ public:
 
 	bool AddImage(Image* newImage);
 
+	void AddListener(j1Module* listener);
+
 	bool MouseOnRect();
 	bool Clicked();
+
+	float GetRelativePosition();
 
 public:
 
@@ -33,6 +37,7 @@ public:
 	Image* image_butt = nullptr;
 
 	p2List<Image*> Images;
+	p2List<j1Module*> listeners;
 
 };
 

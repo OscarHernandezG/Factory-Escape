@@ -209,6 +209,15 @@ void j1Menu::GUICallback(UI_Element* element) {
 
 	else if (Return == element)
 		return_menu = true;
+	
+	else if (Slider_Frames == element) {
+		float frames = Slider_Frames->GetRelativePosition();
+		LOG("%f", frames);
+	}
+	else if (Slider_Volume == element) {
+		float volume = Slider_Volume->GetRelativePosition();
+		LOG("%f", volume);
+	}
 
 }
 
@@ -266,13 +275,15 @@ void j1Menu::CreateSettings() {
 	text_frames = (Label*)App->gui->AdUIElement(500, 450, LABEL);
 	text_frames->text_info.text = ("FRAMES");
 
-	Slider_Volum = (Slider*)App->gui->AdUIElement(400, 300, SLIDER);
+	Slider_Volume = (Slider*)App->gui->AdUIElement(400, 300, SLIDER);
 	//Slider_Volum->LoadImageA("textures/slider.png");
-	App->gui_animation->MoveToOrigin(Slider_Volum);
+	App->gui_animation->MoveToOrigin(Slider_Volume);
+	Slider_Volume->AddListener(this);
 
 	Slider_Frames = (Slider*)App->gui->AdUIElement(400, 500, SLIDER);
 	//Slider_Frames->LoadImageA("textures/Ball_slider.png");
 	App->gui_animation->MoveToOrigin(Slider_Frames);
+	Slider_Frames->AddListener(this);
 
 	///*Slider_Image_Volum = (Image*)App->gui->AdUIElement(400, 300, IMAGE);
 	//Slider_Image_Volum->LoadImageA("textures/slider.png");*/
@@ -287,8 +298,8 @@ void j1Menu::CreateSettings() {
 	//Button_Image_Frames->LoadImageA("textures/Ball_slider.png");
 
 
-	Slider_Volum->AddImage(Slider_Image_Volum);
-	Slider_Volum->AddImage(Button_Image_Volum);
+	Slider_Volume->AddImage(Slider_Image_Volum);
+	Slider_Volume->AddImage(Button_Image_Volum);
 
 	Slider_Frames->AddImage(Slider_Image_Frames);
 	Slider_Frames->AddImage(Button_Image_Frames);

@@ -63,7 +63,7 @@ private:
 	Label* text_volum = nullptr;
 	Label* text_frames = nullptr;
 
-	Slider* Slider_Volum = nullptr;
+	Slider* Slider_Volume = nullptr;
 	Slider* Slider_Frames = nullptr;
 
 	Image* Slider_Image_Volum = nullptr;
