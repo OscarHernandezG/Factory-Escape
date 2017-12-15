@@ -12,6 +12,7 @@ class Image;
 class Label;
 class Button;
 class Window;
+class Score;
 
 
 
@@ -88,6 +89,7 @@ private:
 	bool return_menu = false;
 	bool in_game_menu = false;
 
+	Score* score = nullptr;
 
 public:
 	bool Quit = false;

@@ -39,7 +39,7 @@ bool Window::Define(char* path, char* text) {
 	bool ret1 = false, ret2 = false;
 
 
-	ret1 = image->LoadImageA(path, 1);
+	ret1 = image->LoadUI_Image(path, 1);
 
 	ret2 = label->SetText(text);
 

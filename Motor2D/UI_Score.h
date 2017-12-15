@@ -24,11 +24,7 @@ public:
 
 	bool CleanUp();
 
-	bool LoadImageA(char* path, float scale = 1);
-
-	bool MouseOnRect();
-
-	bool MouseClick();
+	bool Define(char* path, char* text);
 
 public:
 

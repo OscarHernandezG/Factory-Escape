@@ -33,17 +33,19 @@ bool Label::CleanUp() {
 	return true;
 }
 bool Label::SetText(char* text) {
-	
+	bool ret = false;
 	p2SString aux_text;
 	aux_text.create(text);
 	SDL_Texture* tex = App->font->Print(aux_text.GetString(), { 255, 255, 255, 255 }, App->font->fonts.start->data);
-	uint w = 0, h = 0;
-	App->tex->GetSize(tex, w, h);
-	int rect_w = w;
-	int rect_h = h;
-	SDL_Rect rect = { 0,0,rect_w,rect_h };
+	if (tex != nullptr) {
+		uint w = 0, h = 0;
+		App->tex->GetSize(tex, w, h);
+		int rect_w = w;
+		int rect_h = h;
+		SDL_Rect rect = { 0,0,rect_w,rect_h };
 
-	text_info = { tex, rect, aux_text };
-
-	return true;
+		text_info = { tex, rect, aux_text };
+		ret = true;
+	}
+	return ret;
 }

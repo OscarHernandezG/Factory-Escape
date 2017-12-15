@@ -27,7 +27,7 @@ bool Image::CleanUp() {
 	
 	return true;
 }
-bool Image::LoadImageA(char* path, float scale) {
+bool Image::LoadUI_Image(char* path, float scale) {
 
 	image=App->tex->Load(path);
 

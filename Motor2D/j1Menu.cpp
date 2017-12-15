@@ -234,7 +234,7 @@ void j1Menu::GUICallback(UI_Element* element) {
 void j1Menu::SetUpMenu() {
 	need_setup = false;
 	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
-	Bg_ui_image->LoadImageA("textures/Background_UI.png");
+	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");
 
 	CreateMenu();
 }
@@ -243,7 +243,7 @@ void j1Menu::SetUpMenu() {
 void j1Menu::CreateMenu() {
 
 	Title_ui = (Image*)App->gui->AdUIElement(-200, 0, IMAGE);
-	Title_ui->LoadImageA("textures/Title.png", 0.33f);
+	Title_ui->LoadUI_Image("textures/Title.png", 0.33f);
 	App->gui_animation->MoveToOrigin(Title_ui);
 
 	Login = (Button*)App->gui->AdUIElement(500, 700, BUTTON);//y = 400

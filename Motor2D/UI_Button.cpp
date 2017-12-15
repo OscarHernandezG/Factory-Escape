@@ -68,14 +68,6 @@ bool Button::Update(float dt)
 	return true;
 }
 
-bool Button::Clicked() {
-	/*
-	CurrAnim = Clicked;
-	*/
-	//clicked = true;
-	return true;
-}
-
 bool Button::MouseOnRect() {
 	bool ret = false;
 
@@ -107,10 +99,10 @@ bool Button::Define(char* path, char* text)
 {
 	bool ret1 = false, ret2 = false, ret3 = false, ret4 = false;
 
-	ret1 = MouseHovering->LoadImageA("textures/Hover_But.png", 1);
-	ret2 = MouseClick->LoadImageA("textures/Click_But.png", 1);
+	ret1 = MouseHovering->LoadUI_Image("textures/Hover_But.png", 1);
+	ret2 = MouseClick->LoadUI_Image("textures/Click_But.png", 1);
 
-	ret3 = image->LoadImageA(path, 1);
+	ret3 = image->LoadUI_Image(path, 1);
 
 	ret4 = label->SetText(text);
 

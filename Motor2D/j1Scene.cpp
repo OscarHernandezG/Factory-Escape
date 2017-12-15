@@ -22,6 +22,7 @@
 #include "UI_Button.h"
 #include "UI_Label.h"
 #include "UI_Window.h"
+#include "UI_Score.h"
 
 
 #include <time.h>
@@ -75,6 +76,9 @@ bool j1Scene::Start()
 		width_map = size_map.x;
 
 		FindEntities();
+
+		score = (Score*)App->gui->AdUIElement(1100, 650, SCORE);
+		score->Define("textures/UI_nut.png", "001");
 		
 	}
 

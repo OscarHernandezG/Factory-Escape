@@ -19,8 +19,6 @@ public:
 
 	bool Update(float dt);
 
-	bool Clicked();
-
 	bool MouseOnRect();
 
 	bool CleanUp();

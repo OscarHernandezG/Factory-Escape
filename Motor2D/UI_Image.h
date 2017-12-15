@@ -21,7 +21,7 @@ public:
 
 	bool CleanUp();
 
-	bool LoadImageA(char* path, float scale = 1);
+	bool LoadUI_Image(char* path, float scale = 1);
 
 
 public:

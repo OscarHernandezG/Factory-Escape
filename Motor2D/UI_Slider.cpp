@@ -17,8 +17,8 @@ Slider::Slider(int x, int y) : UI_Element(x, y) {
 	image_bg = (Image*)App->gui->AdUIElement(x, y, IMAGE);
 	image_butt = (Image*)App->gui->AdUIElement(x, y, LABEL);
 	
-	image_bg->LoadImageA("textures/slider.png");
-	image_butt->LoadImageA("textures/Ball_slider.png");
+	image_bg->LoadUI_Image("textures/slider.png");
+	image_butt->LoadUI_Image("textures/Ball_slider.png");
 
 }
 
