@@ -102,7 +102,7 @@ bool j1App::Awake()
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
 		save_game = load_game = app_config.child("save_game").child_value();
-		framerate_cap = app_config.attribute("framerate_cap").as_uint(0);
+		current_framerate_cap = framerate_cap = app_config.attribute("framerate_cap").as_uint(0);
 	}
 
 	if(ret == true)
@@ -224,7 +224,7 @@ void j1App::FinishUpdate()
 	App->win->SetTitle(title);
 
 
-	if (framerate_cap > 0) {
+	if (current_framerate_cap > 0) {
 		j1PerfTimer delay;
 		int delay_time = WaitToFrame(last_frame_ms);
 		delay.Start();
@@ -446,5 +446,5 @@ bool j1App::SavegameNow() const
 
 int j1App::WaitToFrame(uint32 last_frame_ms)
 {
-	return ((float)(1000 / framerate_cap) - last_frame_ms);
+	return ((float)(1000 / current_framerate_cap) - last_frame_ms);
 }

@@ -155,10 +155,10 @@ bool j1Scene::Update(float dt)
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
-			if (App->framerate_cap != 30)
-				App->framerate_cap = 30;
+			if (App->current_framerate_cap != App->framerate_cap)
+				App->current_framerate_cap = App->framerate_cap;
 			else
-				App->framerate_cap = 0;
+				App->current_framerate_cap = 0;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN) {}
 
@@ -166,8 +166,11 @@ bool j1Scene::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
 			Photo_mode = !Photo_mode;
-			Pause =  Photo_mode;
+			Pause = Photo_mode;
 			App->gui->active = !Pause;
+			if (in_game_menu && !Pause) 
+				Pause = true;
+
 			App->render->camera.y = 0;
 			App->win->scale = 1;
 		}

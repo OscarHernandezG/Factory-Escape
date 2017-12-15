@@ -107,6 +107,7 @@ public:
 	j1GuiAnimation*		gui_animation;
 
 	uint32				framerate_cap;
+	uint32				current_framerate_cap;
 
 	float				dt, zoom_dt;
 
