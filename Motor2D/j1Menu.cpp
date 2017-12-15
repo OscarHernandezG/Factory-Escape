@@ -69,6 +69,8 @@ bool j1Menu::Update(float dt)
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
 	if (!Started /*&& !clean_menu*/) {
+		if (need_setup)
+			SetUpMenu();
 
 		if (Quit->position.y > 600 || Settings->position.y > 600 || Load_But->position.y > 600) {
 			Quit->position.y -= dt * GUI_Speed;
@@ -211,7 +213,7 @@ void j1Menu::GUICallback(UI_Element* element) {
 }
 
 void j1Menu::SetUpMenu() {
-
+	need_setup = false;
 	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
 	Bg_ui_image->LoadImageA("textures/Background_UI.png");
 

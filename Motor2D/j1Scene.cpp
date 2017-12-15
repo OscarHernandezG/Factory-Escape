@@ -261,6 +261,7 @@ bool j1Scene::PostUpdate()
 		FreeScene();
 
 		App->menu->active = true;
+		App->menu->need_setup = true;
 		App->menu->SetUpMenu();
 
 		Pause = return_menu = App->menu->Started = App->scene->active = App->map->active = false;
@@ -279,6 +280,7 @@ bool j1Scene::CleanUp()
 
 void j1Scene::FreeScene() {
 
+	DeletePauseMenu();
 	App->map->CleanUp();
 	App->audio->FreeMusic();
 	App->tex->FreeTextures();

@@ -96,6 +96,7 @@ private:
 public:
 	uint tab_button = 0;
 	bool StartGame = false;
+	bool need_setup = true;
 
 };
 
