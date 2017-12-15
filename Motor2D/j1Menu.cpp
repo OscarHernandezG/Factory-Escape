@@ -212,10 +212,20 @@ void j1Menu::GUICallback(UI_Element* element) {
 	
 	else if (Slider_Frames == element) {
 		float frames = Slider_Frames->GetRelativePosition();
+		frames = (frames * 210) + 30;
+		static char frames_text[20];
+
+		sprintf_s(frames_text, 20, "%.0f", frames);
+		curr_frames->SetText(frames_text);
 		LOG("%f", frames);
 	}
 	else if (Slider_Volume == element) {
 		float volume = Slider_Volume->GetRelativePosition();
+		volume = volume * 100;
+		static char vol_text[20];
+
+		sprintf_s(vol_text, 20, "%.0f", volume);
+		curr_vol->SetText(vol_text);
 		LOG("%f", volume);
 	}
 
@@ -270,10 +280,31 @@ void j1Menu::CreateMenu() {
 void j1Menu::CreateSettings() {
 
 	text_volum = (Label*)App->gui->AdUIElement(500, 250, LABEL);
-	text_volum->text_info.text = ("MUSIC");
+	text_volum->SetText("VOLUME");
+
+	min_vol = (Label*)App->gui->AdUIElement(350, 300, LABEL);
+	min_vol->SetText("0");
+
+	max_vol = (Label*)App->gui->AdUIElement(750, 300, LABEL);
+	max_vol->SetText("100");
+
+	curr_vol = (Label*)App->gui->AdUIElement(625, 250, LABEL);
+	curr_vol->SetText("0");
+
+
 
 	text_frames = (Label*)App->gui->AdUIElement(500, 450, LABEL);
-	text_frames->text_info.text = ("FRAMES");
+	text_frames->SetText("FPS");
+
+	min_frames = (Label*)App->gui->AdUIElement(350, 500, LABEL);
+	min_frames->SetText("30");
+
+	max_frames = (Label*)App->gui->AdUIElement(750, 500, LABEL);
+	max_frames->SetText("240");
+
+	curr_frames = (Label*)App->gui->AdUIElement(625, 450, LABEL);
+	curr_frames->SetText("30");
+
 
 	Slider_Volume = (Slider*)App->gui->AdUIElement(400, 300, SLIDER);
 	//Slider_Volum->LoadImageA("textures/slider.png");
