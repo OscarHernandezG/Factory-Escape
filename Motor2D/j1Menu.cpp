@@ -213,6 +213,7 @@ void j1Menu::GUICallback(UI_Element* element) {
 	else if (Slider_Frames == element) {
 		float frames = Slider_Frames->GetRelativePosition();
 		frames = (frames * 210) + 30;
+		App->framerate_cap = App->current_framerate_cap = frames;
 		static char frames_text[20];
 
 		sprintf_s(frames_text, 20, "%.0f", frames);
