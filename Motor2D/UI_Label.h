@@ -26,12 +26,9 @@ public:
 	bool CleanUp();
 	bool SetText(char* text);
 
-	bool MouseOnRect();
 public:
 
 	TextInfo text_info;
-
-	bool hovering = false;
 
 };
 

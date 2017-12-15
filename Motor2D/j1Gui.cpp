@@ -49,24 +49,10 @@ bool j1Gui::PreUpdate()
 
 bool j1Gui::Update(float dt)
 {
-	/*for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
-	if(iterator->data->type == IMAGE)
-		iterator->data->Update(dt);
-	}
+///
 	for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
-		if (iterator->data->type == BUTTON)
 			iterator->data->Update(dt);
 	}
-	for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
-		if (iterator->data->type == LABEL)
-			iterator->data->Update(dt);
-	}*/
-	for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
-		//if (iterator->data->type == SLIDER)
-			iterator->data->Update(dt);
-	}
-
-
 
 	return true;
 }

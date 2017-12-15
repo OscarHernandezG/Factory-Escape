@@ -4,9 +4,14 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "p2Log.h"
+#include "j1Gui.h"
 
 Score::Score(int x, int y) : UI_Element(x, y) {
-	type = IMAGE;
+	type = SCORE;
+
+	image = (Image*)App->gui->AdUIElement(x, y, IMAGE);
+	label = (Label*)App->gui->AdUIElement(x, y, LABEL);
+
 }
 
 
@@ -16,20 +21,19 @@ Score::~Score() {
 
 bool Score::Update(float dt) {
 
-	if (draw)
-		App->render->Blit(image, position.x, position.y, &rect, 0);
+		
 
 	return true;
 }
 bool Score::CleanUp() {
 
-	App->tex->UnLoad(image);
+//	App->tex->UnLoad(image);
 
 	return true;
 }
 bool Score::LoadImageA(char* path, float scale) {
 
-	image = App->tex->Load(path);
+	/*image = App->tex->Load(path);
 
 	position.x /= scale;
 	position.y /= scale;
@@ -42,7 +46,8 @@ bool Score::LoadImageA(char* path, float scale) {
 
 	this->scale = scale;
 
-	return image != nullptr;
+	return image != nullptr;*/
+	return true;
 }
 
 bool Score::MouseOnRect() {

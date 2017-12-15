@@ -23,9 +23,6 @@ public:
 
 	bool LoadImageA(char* path, float scale = 1);
 
-	bool MouseOnRect();
-
-	bool MouseClick();
 
 public:
 

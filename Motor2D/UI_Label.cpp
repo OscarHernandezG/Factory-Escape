@@ -47,18 +47,3 @@ bool Label::SetText(char* text) {
 
 	return true;
 }
-
-bool Label::MouseOnRect() {
-	bool ret = false;
-
-	iPoint mouse{ 0,0 };
-	App->input->GetMousePosition(mouse.x, mouse.y);
-
-	if (mouse.x > position.x && mouse.x < position.x + text_info.rect.w) {
-		if (mouse.y > position.y && mouse.y < position.y + text_info.rect.h) {
-			ret = true;
-		}
-	}
-
-	return ret;
-}

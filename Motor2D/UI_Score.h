@@ -3,8 +3,11 @@
 #include "j1Textures.h"
 #include "SDL/include/SDL.h"
 #include "p2SString.h"
+#include "UI_Label.h"
+#include "UI_Image.h"
 
 struct SDL_Texture;
+
 
 
 class Score : public UI_Element
@@ -29,7 +32,8 @@ public:
 
 public:
 
-	SDL_Texture* image = nullptr;
+	Image* image = nullptr;
+	Label* label = nullptr;
 
 	SDL_Rect rect{ 0,0,0,0 };
 

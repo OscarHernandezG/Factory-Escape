@@ -44,30 +44,3 @@ bool Image::LoadImageA(char* path, float scale) {
 
 	return image != nullptr;
 }
-
-bool Image::MouseOnRect() {
-	bool ret = false;
-
-	iPoint mouse{ 0,0 };
-	App->input->GetMousePosition(mouse.x, mouse.y);
-
-	if (mouse.x > position.x && mouse.x < position.x + rect.w) {
-		if (mouse.y > position.y && mouse.y < position.y + rect.h) {
-			ret = true;
-		}
-	}
-
-	return ret;
-}
-
-bool Image::MouseClick() {
-	bool ret = false;
-
-	if (MouseOnRect()) {
-		if (App->input->GetMouseButtonDown(1) == KEY_DOWN) {
-
-		}
-	}
-
-	return ret;
-}
