@@ -214,17 +214,17 @@ void j1Menu::GUICallback(UI_Element* element) {
 		float frames = Slider_Frames->GetRelativePosition();
 		frames = (frames * 210) + 30;
 		App->framerate_cap = App->current_framerate_cap = frames;
-		static char frames_text[20];
+		static char frames_text[4];
 
-		sprintf_s(frames_text, 20, "%.0f", frames);
+		sprintf_s(frames_text, 4, "%.0f", frames);
 		curr_frames->SetText(frames_text);
 		LOG("%f", frames);
 	}
 	else if (Slider_Volume == element) {
 		float volume = Slider_Volume->GetRelativePosition();
 		App->audio->SetVolume(volume);
-		static char vol_text[20];
-		sprintf_s(vol_text, 20, "%.0f", volume*100);
+		static char vol_text[4];
+		sprintf_s(vol_text, 4, "%.0f", volume*100);
 		curr_vol->SetText(vol_text);
 		LOG("%f", volume);
 	}
