@@ -266,25 +266,25 @@ void j1Menu::CreateSettings() {
 	text_frames = (Label*)App->gui->AdUIElement(500, 450, LABEL);
 	text_frames->text_info.text = ("FRAMES");
 
-	Slider_Volum = (Slider*)App->gui->AdUIElement(400, 300, IMAGE);
+	Slider_Volum = (Slider*)App->gui->AdUIElement(400, 300, SLIDER);
 	//Slider_Volum->LoadImageA("textures/slider.png");
 	App->gui_animation->MoveToOrigin(Slider_Volum);
 
-	Slider_Frames = (Slider*)App->gui->AdUIElement(400, 500, IMAGE);
+	Slider_Frames = (Slider*)App->gui->AdUIElement(400, 500, SLIDER);
 	//Slider_Frames->LoadImageA("textures/Ball_slider.png");
 	App->gui_animation->MoveToOrigin(Slider_Frames);
 
-	Slider_Image_Volum = (Image*)App->gui->AdUIElement(400, 300, IMAGE);
-	Slider_Image_Volum->LoadImageA("textures/slider.png");
+	///*Slider_Image_Volum = (Image*)App->gui->AdUIElement(400, 300, IMAGE);
+	//Slider_Image_Volum->LoadImageA("textures/slider.png");*/
 
-	Button_Image_Volum = (Image*)App->gui->AdUIElement(400, 300, IMAGE);
-	Button_Image_Volum->LoadImageA("textures/Ball_slider.png");
+	//Button_Image_Volum = (Image*)App->gui->AdUIElement(400, 300, IMAGE);
+	//Button_Image_Volum->LoadImageA("textures/Ball_slider.png");
 
-	Slider_Image_Frames = (Image*)App->gui->AdUIElement(400, 500, IMAGE);
-	Slider_Image_Frames->LoadImageA("textures/slider.png");
+	//Slider_Image_Frames = (Image*)App->gui->AdUIElement(400, 500, IMAGE);
+	//Slider_Image_Frames->LoadImageA("textures/slider.png");
 
-	Button_Image_Frames = (Image*)App->gui->AdUIElement(400, 500, IMAGE);
-	Button_Image_Frames->LoadImageA("textures/Ball_slider.png");
+	//Button_Image_Frames = (Image*)App->gui->AdUIElement(400, 500, IMAGE);
+	//Button_Image_Frames->LoadImageA("textures/Ball_slider.png");
 
 
 	Slider_Volum->AddImage(Slider_Image_Volum);

@@ -6,6 +6,7 @@
 #include "UI_Button.h"
 #include "SDL\include\SDL.h"
 
+#include "p2Log.h"
 
 class Slider : public UI_Element
 {
@@ -21,16 +22,17 @@ public:
 
 	bool AddImage(Image* newImage);
 
+	bool MouseOnRect();
+	bool Clicked();
 
 public:
 
 	bool hovering = false;
-
+	bool moving_mouse = false;
 	Image* image_bg = nullptr;
 	Image* image_butt = nullptr;
 
 	p2List<Image*> Images;
 
-	int x, y;
 };
 

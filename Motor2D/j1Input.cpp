@@ -82,7 +82,7 @@ bool j1Input::PreUpdate()
 	}
 
 	scroll = 0;
-	
+	mouse_motion_x = mouse_motion_y = 0;
 	while(SDL_PollEvent(&event) != 0)
 	{
 		switch(event.type)
