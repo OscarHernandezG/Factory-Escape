@@ -56,6 +56,8 @@ public:
 
 	void VolumeDown();
 
+	void SetVolume(float volume);
+
 
 private:
 

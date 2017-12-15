@@ -26,7 +26,7 @@ public:
 	p2DynArray<iPoint>* path;
 	int speed = 150;
 
-//	void OnCollision(Collider* c1, Collider* c2);
+
 	j1Timer pf;
 	void Move(float dt);
 	void Draw(SDL_Texture* texture);

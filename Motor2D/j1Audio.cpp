@@ -218,3 +218,10 @@ void j1Audio::VolumeDown() {
 		volume /= 128;
 	}
 }
+
+void j1Audio::SetVolume(float volume) {
+	if (active) {
+		Mix_VolumeMusic(volume * 128);
+		this->volume = volume;
+	}
+}

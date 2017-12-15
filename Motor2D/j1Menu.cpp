@@ -221,10 +221,9 @@ void j1Menu::GUICallback(UI_Element* element) {
 	}
 	else if (Slider_Volume == element) {
 		float volume = Slider_Volume->GetRelativePosition();
-		volume = volume * 100;
+		App->audio->SetVolume(volume);
 		static char vol_text[20];
-
-		sprintf_s(vol_text, 20, "%.0f", volume);
+		sprintf_s(vol_text, 20, "%.0f", volume*100);
 		curr_vol->SetText(vol_text);
 		LOG("%f", volume);
 	}
