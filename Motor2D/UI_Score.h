@@ -24,7 +24,11 @@ public:
 
 	bool CleanUp();
 
+
 	bool Define(SDL_Rect rect, char* text);
+
+	bool ChangeLabel(char* text);
+
 
 public:
 

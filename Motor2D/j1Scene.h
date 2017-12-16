@@ -90,6 +90,7 @@ private:
 	bool in_game_menu = false;
 
 	Score* score = nullptr;
+	uint score_nums = 0u;
 
 public:
 	bool Quit = false;

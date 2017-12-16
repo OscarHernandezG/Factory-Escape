@@ -53,3 +53,11 @@ bool Score::Define(SDL_Rect rect, char* text)
 	return ret1 && ret2;
 }
 
+bool Score::ChangeLabel(char* text) {
+	bool ret = false;
+
+	ret = label->SetText(text);
+
+	return ret;
+}
+
