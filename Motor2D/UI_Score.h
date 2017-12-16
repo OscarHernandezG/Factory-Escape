@@ -25,6 +25,7 @@ public:
 	bool CleanUp();
 
 	bool Define(char* path, char* text);
+	bool ChangeLabel(char* text);
 
 public:
 

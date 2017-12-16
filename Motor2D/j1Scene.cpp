@@ -78,7 +78,9 @@ bool j1Scene::Start()
 		FindEntities();
 
 		score = (Score*)App->gui->AdUIElement(1100, 650, SCORE);
-		score->Define("textures/UI_nut.png", "001");
+		static char score_text[3];
+		sprintf_s(score_text, 3, "%02i", score_nums);
+		score->Define("textures/UI_nut.png", score_text);
 		
 	}
 
@@ -96,6 +98,12 @@ bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
+	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+		score_nums++;
+		static char score_text[3];
+		sprintf_s(score_text, 3, "%02i", score_nums);
+		score->ChangeLabel(score_text);
+	}
 	if (App->menu->Started && !App->fade->IsFading()) {
 		if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
 			App->audio->VolumeUp();
