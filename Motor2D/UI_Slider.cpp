@@ -97,16 +97,17 @@ void Slider::AddListener(j1Module* listener) {
 
 void Slider::SetRelativePos(float x) {
 
-	float new_x = x + (image_bg->position.x / (image_bg->image.w - image_butt->image.w));
-	new_x *= (image_bg->image.w - image_butt->image.w);
+	//float new_x = x + (image_bg->position.x / (image_bg->image.w - image_butt->image.w));
+	//new_x *= (image_bg->image.w - image_butt->image.w);
 
-	image_butt->position.x = new_x;
+	//image_butt->position.x = new_x;
 
 }
 
 bool Slider::Define(SDL_Rect bg, SDL_Rect butt) {
-	bool ret1 = false, ret2 = false;
+	bool ret1 = true, ret2 = true;
 
+	
 	ret1 = image_bg->LoadUI_Image(bg);
 	ret2 = image_butt->LoadUI_Image(butt);
 

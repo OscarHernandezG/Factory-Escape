@@ -325,6 +325,8 @@ void j1Menu::CreateSettings() {
 	Slider_Volume->AddListener(this);
 	Slider_Volume->SetRelativePos(App->audio->volume);
 	Slider_Volume->Define({ 31,275,321,20 }, { 260,198,25,25 });
+//	Slider_Volume->image_butt->draw = true;
+//	Slider_Volume->image_butt->image = { 260,198,25,25 };
 
 
 	Slider_Frames = (Slider*)App->gui->AdUIElement(400, 500, SLIDER);
