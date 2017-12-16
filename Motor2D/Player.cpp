@@ -329,9 +329,17 @@ void Player::CheckPlayerState(float dt)
 			App->scene->reload_map = true;
 		}
 	}
-	if (!death && !god_mode)
-		death = CheckPlayerDeath();
+	if (!death) {
+		checkColl = CheckPlayerCollision();
 
+		if (checkColl == ENEMY_COLLISION && !god_mode)
+			death = true;
+		else if (checkColl == ITEM_COLLISION) {
+			App->scene->score_nums++;
+			App->scene->change_score = true;
+
+		}
+	}
 	down_force = 1250;
 }
 
@@ -422,35 +430,41 @@ void Player::SpawnPlayer() {
 void Player::KillEnemies() {
 
 	for (p2List_item<Entity*>* iterator = App->entities->entities.start; iterator != nullptr; iterator = iterator->next) {
-
-		if (flip == SDL_FLIP_NONE) {
-			if (position.x < iterator->data->position.x && position.x + 128 > iterator->data->position.x) {
-				if (position.y < iterator->data->position.y && position.y + 120 > iterator->data->position.y) {
-					App->entities->entities.del(iterator);
+		if (iterator->data->type != MECHANICAL_NUT) {
+			if (flip == SDL_FLIP_NONE) {
+				if (position.x < iterator->data->position.x && position.x + 128 > iterator->data->position.x) {
+					if (position.y < iterator->data->position.y && position.y + 120 > iterator->data->position.y) {
+						App->entities->entities.del(iterator);
+					}
 				}
 			}
-		}
 
-		else {
-			if (position.x - 128 < iterator->data->position.x && position.x > iterator->data->position.x)
-				if (position.y < iterator->data->position.y && position.y + 120 > iterator->data->position.y) {
-					App->entities->entities.del(iterator);
-				}
-		}
+			else {
+				if (position.x - 128 < iterator->data->position.x && position.x > iterator->data->position.x)
+					if (position.y < iterator->data->position.y && position.y + 120 > iterator->data->position.y) {
+						App->entities->entities.del(iterator);
+					}
+			}
 
+		}
 	}
 }
 
-bool Player::CheckPlayerDeath() {
+Player_collision Player::CheckPlayerCollision() {
 
-	bool ret = false;
+	Player_collision ret = NON_COLLISION;
 	for (p2List_item<Entity*>* iterator = App->entities->entities.start; iterator != nullptr; iterator = iterator->next) {
 		if (iterator->data->type != PLAYER) {
 			if (position.x < iterator->data->position.x && position.x + 48 > iterator->data->position.x) {
 				if (position.y < iterator->data->position.y && position.y + 120 >iterator->data->position.y) {
-
-					ret = true;
-					break;
+					if (iterator->data->type == MECHANICAL_NUT) {
+						App->entities->entities.del(iterator);
+						ret = ITEM_COLLISION;
+					}
+					else {
+						ret = ENEMY_COLLISION;
+						break;
+					}
 				}
 
 			}

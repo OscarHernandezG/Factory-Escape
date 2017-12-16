@@ -100,8 +100,9 @@ bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
-	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
-		score_nums++;
+	if (change_score) {
+		change_score = false;
+		//score_nums++;
 		static char score_text[3];
 		sprintf_s(score_text, 3, "%02i", score_nums);
 		score->ChangeLabel(score_text);
@@ -448,6 +449,11 @@ void j1Scene::FindEntities()
 			{
 				iPoint spawn = App->map->TileToWorld(i);
 				App->entities->AddEntity(ENTITY_TYPES::PLAYER, spawn.x, spawn.y);
+			}
+			if (layer->data->data[i] == Tile_Type::MECHANICAL_NUT_SPAWN)
+			{
+				iPoint spawn = App->map->TileToWorld(i);
+				App->entities->AddEntity(ENTITY_TYPES::MECHANICAL_NUT, spawn.x, spawn.y);
 			}
 		}
 	}

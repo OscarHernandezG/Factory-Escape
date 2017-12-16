@@ -116,6 +116,7 @@ enum Tile_Type
 	PATHFINDING_BAT,
 	BLOP_SPAWN,
 	PATHFINDING_BLOP,
+	MECHANICAL_NUT_SPAWN
 };
 // ----------------------------------------------------
 struct MapData

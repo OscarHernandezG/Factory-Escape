@@ -11,6 +11,12 @@
 struct SDL_Texture;
 struct SDL_Rect;
 
+enum Player_collision {
+	NON_COLLISION,
+	ENEMY_COLLISION,
+	ITEM_COLLISION
+};
+
 
 enum State {
 	IDLE = 0,
@@ -45,11 +51,6 @@ public:
 	// Destructor
 	virtual ~Player();
 
-	// Called before render is available
-	bool Awake();
-
-	//void LoadTexture();
-
 	void CheckPlayerState(float dt);
 
 	void LoadAnimations();
@@ -60,7 +61,7 @@ public:
 
 	void KillEnemies();
 
-	bool CheckPlayerDeath();
+	Player_collision CheckPlayerCollision();
 
 
 public:
@@ -82,6 +83,8 @@ private:
 	bool ground = false;
 	bool death = false;
 	bool melee = false;
+
+	Player_collision checkColl;
 
 	State PlayerState = IDLE;
 

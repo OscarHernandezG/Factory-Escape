@@ -133,9 +133,11 @@ private:
 	bool need_clean = false;
 
 	Score* score = nullptr;
-	uint score_nums = 0u;
+	
 
 public:
+	uint score_nums = 0u;
+	bool change_score = false;
 	bool Quit = false;
 	bool can_quit = true;
 };
