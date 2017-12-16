@@ -12,6 +12,7 @@
 #include "Bat.h"
 #include "Blop.h"
 #include "Player.h"
+#include "Mechanical_Nut.h"
 #include "j1Menu.h"
 
 
@@ -211,6 +212,10 @@ void j1Entities::SpawnEnemy(const EntityInfo& info)
 	case ENTITY_TYPES::PLAYER:
 		new_entity = new Player(info.x, info.y, info.type);
 		player = (Player*)new_entity;
+		break;
+
+	case ENTITY_TYPES::MECHANICAL_NUT:
+		new_entity = new Mechanical_Nut(info.x, info.y, info.type);
 		break;
 	}
 

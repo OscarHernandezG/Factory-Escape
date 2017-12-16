@@ -17,6 +17,7 @@ enum ENTITY_TYPES
 	BAT,
 	BLOP,
 	PLAYER,
+	MECHANICAL_NUT
 };
 
 class Entity;
