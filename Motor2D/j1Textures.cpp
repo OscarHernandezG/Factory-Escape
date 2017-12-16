@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "j1Gui.h"
 
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
@@ -63,7 +64,8 @@ void j1Textures::FreeTextures()
 	p2List_item<SDL_Texture*>* item;
 	for (item = textures.start; item != NULL; item = item->next)
 	{
-		SDL_DestroyTexture(item->data);
+		if (item->data != App->gui->GetAtlas())
+			SDL_DestroyTexture(item->data);
 	}
 }
 

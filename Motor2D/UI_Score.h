@@ -37,8 +37,6 @@ public:
 
 	SDL_Rect rect{ 0,0,0,0 };
 
-	p2SString imagen;
-
 	float scale = 1;
 
 	bool draw = true;

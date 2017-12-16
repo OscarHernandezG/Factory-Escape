@@ -26,7 +26,8 @@ bool Label::Update(float dt) {
 }
 bool Label::CleanUp() {
 
-	//App->tex->UnLoad(text_info.tex);
+	App->tex->UnLoad(text_info.tex);
+	text_info.text.~p2SString();
 
 	return true;
 }

@@ -31,6 +31,7 @@ bool Window::Update(float dt) {
 }
 bool Window::CleanUp() {
 
+
 	return true;
 }
 

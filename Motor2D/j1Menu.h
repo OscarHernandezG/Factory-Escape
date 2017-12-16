@@ -43,7 +43,7 @@ public:
 	void CreateMenu();
 	void CreateSettings();
 	void CreateCredits();
-	void CleanMenu();
+	void CleanUI();
 	void SetUpMenu();
 
 	void GUICallback(UI_Element* element);

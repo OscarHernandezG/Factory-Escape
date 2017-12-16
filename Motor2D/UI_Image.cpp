@@ -25,7 +25,8 @@ bool Image::Update(float dt) {
 	return true;
 }
 bool Image::CleanUp() {
-	
+	if (!using_atlas)
+		App->tex->UnLoad(texture);
 	return true;
 }
 

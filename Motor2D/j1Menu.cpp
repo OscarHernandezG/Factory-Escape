@@ -134,7 +134,7 @@ bool j1Menu::PostUpdate()
 		ret = false;
 
 	else if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !can_quit) {
-		CleanMenu();
+		CleanUI();
 		CreateMenu();
 		can_quit = true;
 	}
@@ -149,20 +149,20 @@ bool j1Menu::PostUpdate()
 		can_quit = false;
 		settings_bool = false;
 //		clean_menu = true;
-		CleanMenu();
+		CleanUI();
 		CreateSettings();
 	}
 
 	else if (credits_bool) {
 		can_quit = false;
 		credits_bool = false;
-		CleanMenu();
+		CleanUI();
 		CreateCredits();
 	}
 
 	else if (return_menu) {
 		return_menu = false;
-		CleanMenu();
+		CleanUI();
 		CreateMenu();
 		can_quit = true;
 	}
@@ -236,8 +236,8 @@ void j1Menu::GUICallback(UI_Element* element) {
 
 void j1Menu::SetUpMenu() {
 	need_setup = false;
-	/*Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
-	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");*/
+	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
+	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");
 
 	CreateMenu();
 }
@@ -245,8 +245,8 @@ void j1Menu::SetUpMenu() {
 
 void j1Menu::CreateMenu() {
 
-	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
-	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");
+//	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
+//	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");
 
 
 	Title_ui = (Image*)App->gui->AdUIElement(-200, 0, IMAGE);
@@ -284,10 +284,11 @@ void j1Menu::CreateMenu() {
 	App->gui_animation->MoveToOrigin(Load_But);
 
 }
+
 void j1Menu::CreateSettings() {
 
-	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
-	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");
+//	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
+//	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");
 
 	text_volum = (Label*)App->gui->AdUIElement(500, 250, LABEL);
 	text_volum->SetText("VOLUME");
@@ -304,8 +305,6 @@ void j1Menu::CreateSettings() {
 	curr_vol->SetText(vol_text);
 	
 
-
-
 	text_frames = (Label*)App->gui->AdUIElement(500, 450, LABEL);
 	text_frames->SetText("FPS");
 
@@ -321,23 +320,20 @@ void j1Menu::CreateSettings() {
 	curr_frames->SetText(fps_text);
 
 	Slider_Volume = (Slider*)App->gui->AdUIElement(400, 300, SLIDER);
-	
+
+	Slider_Volume->Define({ 31,275,321,20 }, { 260,198,25,25 });
 	Slider_Volume->AddListener(this);
 	Slider_Volume->SetRelativePos(App->audio->volume);
-	Slider_Volume->Define({ 31,275,321,20 }, { 260,198,25,25 });
-//	Slider_Volume->image_butt->draw = true;
-//	Slider_Volume->image_butt->image = { 260,198,25,25 };
 
 
 	Slider_Frames = (Slider*)App->gui->AdUIElement(400, 500, SLIDER);
-	
+
+	Slider_Frames->Define({ 31,275,321,20 }, { 260,198,25,25 });
 	Slider_Frames->AddListener(this);
 	float frames = App->current_framerate_cap - 30;
 	Slider_Frames->SetRelativePos((float)frames/210);
-	Slider_Frames->Define({ 31,275,321,20 }, { 260,198,25,25 });
 
-
-
+	
 	Return = (Button*)App->gui->AdUIElement(900, 600, BUTTON); 
 	Return->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "RETURN");
 	Return->TAB = -1;
@@ -349,12 +345,17 @@ void j1Menu::CreateSettings() {
 void j1Menu::CreateCredits() {
 
 }
-void j1Menu::CleanMenu() {
+
+void j1Menu::CleanUI() {
 
 	for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
-		if (iterator->data != Bg_ui_image) {
-			delete iterator->data;
-		}
+	//	if (iterator->data != Bg_ui_image) {
+			iterator->data->CleanUp();
+//			App->gui->ui_elements.del(iterator);
+	//	}
 	}
 	App->gui->ui_elements.clear();
+
+	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
+	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");
 }

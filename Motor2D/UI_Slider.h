@@ -42,7 +42,6 @@ public:
 
 	Label* label = nullptr;
 
-	p2List<Image*> Images;
 	p2List<j1Module*> listeners;
 
 };
