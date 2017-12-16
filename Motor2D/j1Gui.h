@@ -4,13 +4,13 @@
 #include "j1Module.h"
 #include "UI.h"
 #include "p2List.h"
+#include "SDL/include/SDL.h"
 
 #define CURSOR_WIDTH 2
 
 #define MAX_UI_ELEMENTS 20
 
-// TODO 1: Create your structure of classes
-
+struct SDL_Rect;
 
 // ---------------------------------------------------
 class j1Gui : public j1Module
@@ -45,7 +45,7 @@ public:
 	
 	UI_Element* AdUIElement(int x, int y, GUI_TYPE type);
 
-	const SDL_Texture* GetAtlas() const;
+	SDL_Texture* GetAtlas() const;
 
 private:
 
@@ -54,6 +54,9 @@ private:
 public:
 	p2List<UI_Element*> ui_elements;
 
+	SDL_Rect button_idle;
+	SDL_Rect button_hovering;
+	SDL_Rect button_onclick;
 };
 
 #endif // __j1GUI_H__

@@ -15,7 +15,7 @@ Slider::Slider(int x, int y) : UI_Element(x, y) {
 	original_pos = position;
 
 	image_bg = (Image*)App->gui->AdUIElement(x, y, IMAGE);
-	image_butt = (Image*)App->gui->AdUIElement(x, y, LABEL);
+	image_butt = (Image*)App->gui->AdUIElement(x, y, IMAGE);
 
 }
 
@@ -106,6 +106,7 @@ void Slider::SetRelativePos(float x) {
 
 bool Slider::Define(SDL_Rect bg, SDL_Rect butt) {
 	bool ret1 = false, ret2 = false;
+
 	ret1 = image_bg->LoadUI_Image(bg);
 	ret2 = image_butt->LoadUI_Image(butt);
 

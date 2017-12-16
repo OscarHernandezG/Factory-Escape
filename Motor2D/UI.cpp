@@ -1,12 +1,12 @@
 #include "UI.h"
 #include "j1Gui.h"
 #include "j1App.h"
-#include "j1Gui.h"
 
 
 
 UI_Element::UI_Element(int x, int y) : position(x,y) 
 {
+	atlas = App->gui->GetAtlas();
 }
 
 // Called each loop iteration

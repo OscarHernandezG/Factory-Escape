@@ -80,7 +80,8 @@ bool j1Scene::Start()
 		score = (Score*)App->gui->AdUIElement(1100, 650, SCORE);
 		static char score_text[3];
 		sprintf_s(score_text, 3, "%02i", score_nums);
-		score->Define("textures/UI_nut.png", score_text);
+
+		score->Define({156,178,43,44}, score_text);
 		
 	}
 
@@ -406,15 +407,15 @@ void j1Scene::FindEntities()
 void j1Scene::CreatePauseMenu() {
 
 	window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
-	window->Define("textures/Window.png", "");
+	window->Define({ 382,124,487,461 }, "");
 
 	Return = (Button*)App->gui->AdUIElement(425, 300, BUTTON);
-	Return->Define("textures/Normal_But.png", "RETURN");
+	Return->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "RETURN");
 	Return->TAB = -1;
 	Return->AddListener(this);
 
 	Cancel = (Button*)App->gui->AdUIElement(425, 400, BUTTON);
-	Cancel->Define("textures/Normal_But.png", "CANCEL");
+	Cancel->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "CANCEL");
 	Cancel->TAB = -1;
 	Cancel->AddListener(this);
 

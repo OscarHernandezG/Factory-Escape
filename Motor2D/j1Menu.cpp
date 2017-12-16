@@ -1,5 +1,6 @@
 #include "p2Defs.h"
 #include "p2Log.h"
+
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Textures.h"
@@ -11,6 +12,8 @@
 #include "j1Entities.h"
 #include "j1Pathfinding.h"
 #include "j1Gui.h"
+#include "j1Fonts.h"
+
 #include "UI.h"
 #include "UI_Image.h"
 #include "UI_Button.h"
@@ -20,7 +23,6 @@
 #include "j1GuiAnimation.h"
 #include "UI_Window.h"
 #include "UI_Slider.h"
-#include "j1Fonts.h"
 
 #include <time.h>
 #include <chrono>
@@ -44,6 +46,7 @@ bool j1Menu::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Menu");
 	bool ret = true;
+
 
 
 	return ret;
@@ -70,7 +73,7 @@ bool j1Menu::Update(float dt)
 
 	if (need_setup)
 		SetUpMenu();
-
+	
 	if (!need_setup && !quit_bool && !settings_bool && !credits_bool && !load_But_bool && !clean_menu) {
 		if (Quit->position.y > 600 || Settings->position.y > 600 || Load_But->position.y > 600) {
 			Quit->position.y -= dt * GUI_Speed;
@@ -251,31 +254,31 @@ void j1Menu::CreateMenu() {
 	App->gui_animation->MoveToOrigin(Title_ui);
 
 	Login = (Button*)App->gui->AdUIElement(500, 700, BUTTON);//y = 400
-	Login->Define("textures/Normal_But.png", "PLAY");
+	Login->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "PLAY");
 	Login->AddListener(this);
 	Login->TAB = 1;
 	App->gui_animation->MoveToOrigin(Login);
 
 	Quit = (Button*)App->gui->AdUIElement(1000, 800, BUTTON); // y = 600
-	Quit->Define("textures/Normal_But.png", "EXIT");
+	Quit->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "EXIT");
 	Quit->TAB = 5;
 	Quit->AddListener(this);
 	App->gui_animation->MoveToOrigin(Quit);
 
 	Settings = (Button*)App->gui->AdUIElement(50, 800, BUTTON); //y = 600
-	Settings->Define("textures/Normal_But.png", "SETTINGS");
+	Settings->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SETTINGS");
 	Settings->TAB = 2;
 	Settings->AddListener(this);
 	App->gui_animation->MoveToOrigin(Settings);
 
 	Credits = (Button*)App->gui->AdUIElement(1200, 10, BUTTON);//x = 1000
-	Credits->Define("textures/Normal_But.png", "CREDITS");
+	Credits->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "CREDITS");
 	Credits->TAB = 4;
 	Credits->AddListener(this);
 	App->gui_animation->MoveToOrigin(Credits);
 
 	Load_But = (Button*)App->gui->AdUIElement(500, 800, BUTTON);//y = 600
-	Load_But->Define("textures/Normal_But.png", "LOAD");
+	Load_But->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "LOAD");
 	Load_But->TAB = 3;
 	Load_But->AddListener(this);
 	App->gui_animation->MoveToOrigin(Load_But);
@@ -318,22 +321,23 @@ void j1Menu::CreateSettings() {
 	curr_frames->SetText(fps_text);
 
 	Slider_Volume = (Slider*)App->gui->AdUIElement(400, 300, SLIDER);
-	//Slider_Volum->LoadImageA("textures/slider.png");
-	App->gui_animation->MoveToOrigin(Slider_Volume);
+	
 	Slider_Volume->AddListener(this);
 	Slider_Volume->SetRelativePos(App->audio->volume);
+	Slider_Volume->Define({ 31,275,321,20 }, { 260,198,25,25 });
+
 
 	Slider_Frames = (Slider*)App->gui->AdUIElement(400, 500, SLIDER);
-	//Slider_Frames->LoadImageA("textures/Ball_slider.png");
-	App->gui_animation->MoveToOrigin(Slider_Frames);
+	
 	Slider_Frames->AddListener(this);
 	float frames = App->current_framerate_cap - 30;
 	Slider_Frames->SetRelativePos((float)frames/210);
+	Slider_Frames->Define({ 31,275,321,20 }, { 260,198,25,25 });
 
 
 
 	Return = (Button*)App->gui->AdUIElement(900, 600, BUTTON); 
-	Return->Define("textures/Normal_But.png", "RETURN");
+	Return->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "RETURN");
 	Return->TAB = -1;
 	Return->AddListener(this);
 
@@ -347,7 +351,7 @@ void j1Menu::CleanMenu() {
 
 	for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
 		if (iterator->data != Bg_ui_image) {
-			iterator->data->CleanUp();
+			delete iterator->data;
 		}
 	}
 	App->gui->ui_elements.clear();

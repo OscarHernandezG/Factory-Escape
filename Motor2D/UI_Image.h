@@ -23,16 +23,21 @@ public:
 
 	bool LoadUI_Image(SDL_Rect image_rect, float scale = 1);
 
+	bool LoadUI_Image(char* path, float scale = 1);
+
 
 public:
 
 	SDL_Rect image{ 0,0,0,0 };	
+
+	SDL_Texture* texture = nullptr;
 
 //	p2SString imagen;
 
 	float scale = 1;
 
 	bool draw = true;
+	bool using_atlas = true;
 };
 
 

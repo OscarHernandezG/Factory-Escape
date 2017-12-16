@@ -30,6 +30,10 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 
 	atlas_file_name = conf.child("atlas").attribute("file").as_string("");
 
+	button_idle = { 0,0,0,0 };
+	button_hovering = { 0,0,0,0 };
+	button_onclick = { 0,0,0,0 };
+
 	return ret;
 }
 
@@ -37,6 +41,13 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
+
+	button_idle = { 41, 33, 244, 77 };
+	button_hovering = { 318, 33, 244, 77 };
+	button_onclick = { 609, 33, 244, 77 };
+	
+	
+	
 
 	return true;
 }
@@ -50,9 +61,15 @@ bool j1Gui::PreUpdate()
 bool j1Gui::Update(float dt)
 {
 ///
+	if (atlas == nullptr)
+		App->tex->Load(atlas_file_name.GetString());
+
+
 	for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
 			iterator->data->Update(dt);
 	}
+
+
 
 	return true;
 }
@@ -75,7 +92,7 @@ bool j1Gui::CleanUp()
 }
 
 // const getter for atlas
-const SDL_Texture* j1Gui::GetAtlas() const
+SDL_Texture* j1Gui::GetAtlas() const
 {
 	return atlas;
 }

@@ -34,7 +34,11 @@
   </scene>
 
   <audio>
-    <volume music = "0.5"></volume>
+    <volume music = "0.05"></volume>
   </audio>
 
+  <gui>
+    <atlas file="textures/UI_atlas.png"></atlas>
+  </gui>
+  
 </config>
