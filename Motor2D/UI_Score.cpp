@@ -32,17 +32,17 @@ bool Score::CleanUp() {
 	return true;
 }
 
-bool Score::Define(char* path, char* text)
+bool Score::Define(SDL_Rect rect, char* text)
 {
 	bool ret1 = false, ret2 = false;
 
-	ret1 = image->LoadUI_Image(path, 1);
+	image->image = rect;
 
 	ret2= label->SetText(text);
 
 	if (ret2) {
-		rect.w = image->rect.w;
-		rect.h = image->rect.h;
+		this->rect.w = rect.w;
+		this->rect.h = rect.h;
 
 		fPoint label_offset = label->original_pos;
 		label_offset.x += (rect.w + label->text_info.rect.w / 2);

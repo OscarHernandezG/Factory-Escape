@@ -21,16 +21,14 @@ public:
 
 	bool CleanUp();
 
-	bool LoadUI_Image(char* path, float scale = 1);
+	bool LoadUI_Image(SDL_Rect image_rect, float scale = 1);
 
 
 public:
 
-	SDL_Texture* image = nullptr;
-	
-	SDL_Rect rect{ 0,0,0,0 };
+	SDL_Rect image{ 0,0,0,0 };	
 
-	p2SString imagen;
+//	p2SString imagen;
 
 	float scale = 1;
 

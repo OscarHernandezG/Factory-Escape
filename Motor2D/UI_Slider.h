@@ -21,7 +21,8 @@ public:
 	bool CleanUp();
 
 	bool AddImage(Image* newImage);
-	//bool Define();
+	
+	bool Define(SDL_Rect bg, SDL_Rect butt);
 
 	void AddListener(j1Module* listener);
 

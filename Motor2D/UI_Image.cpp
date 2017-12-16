@@ -17,30 +17,24 @@ Image::~Image() {
 bool Image::Update(float dt) {
 
 	if (draw)
-		App->render->Blit(image, position.x, position.y, &rect, 0);
+		App->render->Blit(atlas, position.x, position.y, &image, 0);
 
 	return true;
 }
 bool Image::CleanUp() {
-	if (image !=nullptr)
-	App->tex->UnLoad(image);	
 	
 	return true;
 }
-bool Image::LoadUI_Image(char* path, float scale) {
+bool Image::LoadUI_Image(SDL_Rect image_rect, float scale) {
 
-	image=App->tex->Load(path);
+	image = image_rect;
 
 	position.x /= scale;
 	position.y /= scale;
-	imagen.create(path);
-	uint w = 0, h = 0;
-	App->tex->GetSize(image, w, h);
-	int rect_w = w;
-	int rect_h = h;
-	rect = { 0,0,rect_w,rect_h };
+
+	
 
 	this->scale = scale;
 
-	return image != nullptr;
+	return true;
 }

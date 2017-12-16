@@ -25,14 +25,13 @@ bool Label::Update(float dt) {
 	return true;
 }
 bool Label::CleanUp() {
-//	this->text.Clear();
-	//for (p2List_item<TextInfo>* iterator = text_info.start; iterator != nullptr; iterator = iterator->next) {
-	//	delete iterator;
-	//}
-	//text_info.clear();
+
+	//App->tex->UnLoad(text_info.tex);
+
 	return true;
 }
 bool Label::SetText(char* text, int font) {
+
 	bool ret = false;
 	p2SString aux_text;
 	aux_text.create(text);

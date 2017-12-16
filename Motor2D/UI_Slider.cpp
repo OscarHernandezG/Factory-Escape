@@ -16,9 +16,6 @@ Slider::Slider(int x, int y) : UI_Element(x, y) {
 
 	image_bg = (Image*)App->gui->AdUIElement(x, y, IMAGE);
 	image_butt = (Image*)App->gui->AdUIElement(x, y, LABEL);
-	
-	image_bg->LoadUI_Image("textures/slider.png");
-	image_butt->LoadUI_Image("textures/Ball_slider.png");
 
 }
 
@@ -34,7 +31,7 @@ bool Slider::Update(float dt) {
 
 	else if (moving_mouse) {
 		App->input->GetMouseMotion(x, y);
-		if (image_butt->position.x + x >= image_bg->position.x && image_butt->position.x + x + image_butt->rect.w <= image_bg->position.x + image_bg->rect.w) {
+		if (image_butt->position.x + x >= image_bg->position.x && image_butt->position.x + x + image_butt->image.w <= image_bg->position.x + image_bg->image.w) {
 			image_butt->position.x += x;
 			for (p2List_item<j1Module*>* iterator = listeners.start; iterator != nullptr; iterator = iterator->next)
 				iterator->data->GUICallback(this);
@@ -65,8 +62,8 @@ bool Slider::MouseOnRect() {
 	iPoint mouse{ 0,0 };
 	App->input->GetMousePosition(mouse.x, mouse.y);
 
-	if (mouse.x > image_butt->position.x && mouse.x < image_butt->position.x + image_butt->rect.w) {
-		if (mouse.y > image_butt->position.y && mouse.y < image_butt->position.y + image_butt->rect.h) {
+	if (mouse.x > image_butt->position.x && mouse.x < image_butt->position.x + image_butt->image.w) {
+		if (mouse.y > image_butt->position.y && mouse.y < image_butt->position.y + image_butt->image.h) {
 			ret = true;
 		}
 	}
@@ -89,7 +86,7 @@ float Slider::GetRelativePosition() {
 
 	int relative_x = image_butt->position.x - image_bg->position.x;
 
-	ret = (float)relative_x / (image_bg->rect.w - image_butt->rect.w);
+	ret = (float)relative_x / (image_bg->image.w - image_butt->image.w);
 
 	return ret;
 }
@@ -100,9 +97,17 @@ void Slider::AddListener(j1Module* listener) {
 
 void Slider::SetRelativePos(float x) {
 
-	float new_x = x + (image_bg->position.x / (image_bg->rect.w - image_butt->rect.w));
-	new_x *= (image_bg->rect.w - image_butt->rect.w);
+	float new_x = x + (image_bg->position.x / (image_bg->image.w - image_butt->image.w));
+	new_x *= (image_bg->image.w - image_butt->image.w);
 
 	image_butt->position.x = new_x;
 
+}
+
+bool Slider::Define(SDL_Rect bg, SDL_Rect butt) {
+	bool ret1 = false, ret2 = false;
+	ret1 = image_bg->LoadUI_Image(bg);
+	ret2 = image_butt->LoadUI_Image(butt);
+
+	return ret1 && ret2;
 }

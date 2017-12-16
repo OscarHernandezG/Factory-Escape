@@ -25,6 +25,9 @@ public:
 	GUI_TYPE type = NO_TYPE_GUI;
 	fPoint position;
 	fPoint original_pos;
+
+	SDL_Texture* atlas = nullptr;
+
 public:
 
 	//Constructor
@@ -50,7 +53,6 @@ public:
 
 	virtual bool SetText();
 
-	virtual bool Define(char* path, char* text) { return true; };
 
 };
 

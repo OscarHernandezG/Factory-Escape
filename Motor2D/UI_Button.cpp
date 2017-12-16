@@ -14,10 +14,11 @@ Button::Button(int x, int y) : UI_Element(x, y) {
 
 
 	image = (Image*)App->gui->AdUIElement(x, y, IMAGE);
-	label = (Label*)App->gui->AdUIElement(x, y, LABEL);
-	
+		
 	MouseClick = (Image*)App->gui->AdUIElement(x, y, IMAGE);
 	MouseHovering = (Image*)App->gui->AdUIElement(x, y, IMAGE);
+
+	label = (Label*)App->gui->AdUIElement(x, y, LABEL);
 	
 	MouseHovering->draw = MouseClick->draw = false;
 	type = BUTTON;
@@ -85,30 +86,31 @@ bool Button::MouseOnRect() {
 
 bool Button::CleanUp() {
 
-	MouseClick->CleanUp();
-	label->CleanUp();
-	image->CleanUp();
-	MouseHovering->CleanUp();
+//	MouseClick->CleanUp();
+//	label->CleanUp();
+//	image->CleanUp();
+//	MouseHovering->CleanUp();
+
 	listeners.clear();
 
 	return true;
 }
 
 
-bool Button::Define(char* path, char* text)
+bool Button::Define(SDL_Rect idle, SDL_Rect hovering, SDL_Rect oncick, char* text)
 {
 	bool ret1 = false, ret2 = false, ret3 = false, ret4 = false;
 
-	ret1 = MouseHovering->LoadUI_Image("textures/Hover_But.png", 1);
-	ret2 = MouseClick->LoadUI_Image("textures/Click_But.png", 1);
+	ret1 = MouseHovering->LoadUI_Image(hovering, 1);
+	ret2 = MouseClick->LoadUI_Image(oncick, 1);
 
-	ret3 = image->LoadUI_Image(path, 1);
+	ret3 = image->LoadUI_Image(idle, 1);
 
 	ret4 = label->SetText(text);
 
 	if (ret4) {
-		rect.w = image->rect.w;
-		rect.h = image->rect.h;
+		rect.w = image->image.w;
+		rect.h = image->image.h;
 
 		fPoint label_offset = label->original_pos;
 		label_offset.x += (rect.w - label->text_info.rect.w) / 2;

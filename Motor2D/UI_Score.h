@@ -24,8 +24,11 @@ public:
 
 	bool CleanUp();
 
-	bool Define(char* path, char* text);
+
+	bool Define(SDL_Rect rect, char* text);
+
 	bool ChangeLabel(char* text);
+
 
 public:
 
