@@ -42,7 +42,7 @@ j1Menu::~j1Menu()
 // Called before render is available
 bool j1Menu::Awake(pugi::xml_node& config)
 {
-	LOG("Loading Scene");
+	LOG("Loading Menu");
 	bool ret = true;
 
 
@@ -68,10 +68,10 @@ bool j1Menu::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
-	if (!Started /*&& !clean_menu*/) {
-		if (need_setup)
-			SetUpMenu();
+	if (need_setup)
+		SetUpMenu();
 
+	if (!need_setup && !quit_bool && !settings_bool && !credits_bool && !load_But_bool && !clean_menu) {
 		if (Quit->position.y > 600 || Settings->position.y > 600 || Load_But->position.y > 600) {
 			Quit->position.y -= dt * GUI_Speed;
 			Settings->position.y -= dt * GUI_Speed;
@@ -85,7 +85,7 @@ bool j1Menu::Update(float dt)
 
 		if (Title_ui->position.x < 0)
 			Title_ui->position.x += 2 * dt * GUI_Speed;
-		
+
 		if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
 			App->audio->VolumeUp();
 
@@ -114,7 +114,7 @@ bool j1Menu::Update(float dt)
 		if (Title_ui->position.x > -4000)
 			Title_ui->position.x -= dt * 400;
 		//CleanMenu();
-    
+
 	}
 	*/
 
@@ -141,8 +141,8 @@ bool j1Menu::PostUpdate()
 		StartGame = false;
 		Started = true;
 	}
-
-	if (settings_bool) {
+	
+	else if (settings_bool) {
 		can_quit = false;
 		settings_bool = false;
 //		clean_menu = true;
@@ -150,14 +150,14 @@ bool j1Menu::PostUpdate()
 		CreateSettings();
 	}
 
-	if (credits_bool) {
+	else if (credits_bool) {
 		can_quit = false;
 		credits_bool = false;
 		CleanMenu();
 		CreateCredits();
 	}
 
-	if (return_menu) {
+	else if (return_menu) {
 		return_menu = false;
 		CleanMenu();
 		CreateMenu();
@@ -233,14 +233,18 @@ void j1Menu::GUICallback(UI_Element* element) {
 
 void j1Menu::SetUpMenu() {
 	need_setup = false;
-	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
-	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");
+	/*Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
+	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");*/
 
 	CreateMenu();
 }
 
 
 void j1Menu::CreateMenu() {
+
+	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
+	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");
+
 
 	Title_ui = (Image*)App->gui->AdUIElement(-200, 0, IMAGE);
 	Title_ui->LoadUI_Image("textures/Title.png", 0.33f);
@@ -279,6 +283,8 @@ void j1Menu::CreateMenu() {
 }
 void j1Menu::CreateSettings() {
 
+	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
+	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");
 
 	text_volum = (Label*)App->gui->AdUIElement(500, 250, LABEL);
 	text_volum->SetText("VOLUME");
@@ -342,7 +348,7 @@ void j1Menu::CleanMenu() {
 	for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
 		if (iterator->data != Bg_ui_image) {
 			iterator->data->CleanUp();
-			App->gui->ui_elements.del(iterator);
 		}
 	}
+	App->gui->ui_elements.clear();
 }

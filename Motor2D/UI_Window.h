@@ -20,7 +20,7 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 
-	bool Define(char* path, char* text);
+	bool Define(SDL_Rect rect, char* text);
 
 	void SetTextCords(int x, int y);
 	void SetTextCords(iPoint pos);

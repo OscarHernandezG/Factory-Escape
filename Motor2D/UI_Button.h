@@ -23,7 +23,7 @@ public:
 
 	bool CleanUp();
 
-	bool Define(char* path, char* text);
+	bool Define(SDL_Rect idle, SDL_Rect hovering, SDL_Rect oncick, char* text);
 
 	void AddListener(j1Module* listener);
 	void AddListener(p2List<j1Module*> listener);
