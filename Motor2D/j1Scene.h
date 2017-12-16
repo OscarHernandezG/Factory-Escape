@@ -13,7 +13,7 @@ class Label;
 class Button;
 class Window;
 class Score;
-
+class Slider;
 
 
 class j1Scene : public j1Module
@@ -99,6 +99,7 @@ private:
 	Button* Settings = nullptr;
 	Button* Close = nullptr;
 
+
 	Button* SaveLoad = nullptr;
 	Button* Config = nullptr;
 	Button* Back = nullptr;
@@ -108,8 +109,19 @@ private:
 	Button* Save2 = nullptr;
 	Button* Save3 = nullptr;
 
-	Label* volume = nullptr;
-	Label* frames = nullptr;
+
+	Label* text_volum = nullptr;
+	Label* min_vol = nullptr;
+	Label* max_vol = nullptr;
+	Label* curr_vol = nullptr;
+
+	Label* text_frames = nullptr;
+	Label* min_frames = nullptr;
+	Label* max_frames = nullptr;
+	Label* curr_frames = nullptr;
+
+	Slider* volume = nullptr;
+	Slider* frames = nullptr;
 	
 
 

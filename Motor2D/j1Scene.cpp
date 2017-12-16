@@ -23,6 +23,7 @@
 #include "UI_Label.h"
 #include "UI_Window.h"
 #include "UI_Score.h"
+#include "UI_Slider.h"
 
 
 #include <time.h>
@@ -310,6 +311,7 @@ bool j1Scene::PostUpdate()
 		if (in_game_menu) {
 			can_quit = true;
 			in_game_menu = false;
+			Pause = false;
 			DeleteMenu();
 		}
 
@@ -523,16 +525,46 @@ void j1Scene::CreateOptionsMenu() {
 	window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
 	window->Define({ 382,124,487,461 }, "");
 
-	volume = (Label*)App->gui->AdUIElement(425, 290, LABEL);
-	//volume->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SAVE GAME 1");
-	//volume->TAB = -1;
-	//volume->AddListener(this);
+	text_volum = (Label*)App->gui->AdUIElement(450, 300, LABEL);
+	text_volum->SetText("VOLUME");
 
-	frames = (Label*)App->gui->AdUIElement(425, 370, LABEL);
-	//frames->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SAVE GAME 2");
-	//frames->TAB = -1;
-	//frames->AddListener(this);
+	min_vol = (Label*)App->gui->AdUIElement(350, 350, LABEL);
+	min_vol->SetText("0");
 
+	max_vol = (Label*)App->gui->AdUIElement(700, 350, LABEL);
+	max_vol->SetText("100");
+
+	curr_vol = (Label*)App->gui->AdUIElement(575, 300, LABEL);
+	static char vol_text[5];
+	sprintf_s(vol_text, 5, "%.0f", App->audio->volume * 100);
+	curr_vol->SetText(vol_text);
+
+
+	text_frames = (Label*)App->gui->AdUIElement(450, 450, LABEL);
+	text_frames->SetText("FPS");
+
+	min_frames = (Label*)App->gui->AdUIElement(350, 500, LABEL);
+	min_frames->SetText("30");
+
+	max_frames = (Label*)App->gui->AdUIElement(700, 500, LABEL);
+	max_frames->SetText("240");
+
+	curr_frames = (Label*)App->gui->AdUIElement(575, 450, LABEL);
+	static char fps_text[5];
+	sprintf_s(fps_text, 5, "%i", App->current_framerate_cap);
+	curr_frames->SetText(fps_text);
+
+
+	volume = (Slider*)App->gui->AdUIElement(375, 350, SLIDER);
+	volume->Define({ 31,275,321,20 }, { 260,198,25,25 });
+	volume->AddListener(this);
+	volume->SetRelativePos(App->audio->volume);
+
+	frames = (Slider*)App->gui->AdUIElement(375, 500, SLIDER);
+	frames->Define({ 31,275,321,20 }, { 260,198,25,25 });
+	frames->AddListener(this);
+	float fps = App->current_framerate_cap - 30;
+	frames->SetRelativePos((float)fps / 210);
 
 
 }
@@ -587,19 +619,35 @@ void j1Scene::GUICallback(UI_Element* element) {
 	else if (in_game_save) {
 
 		if (Save1 == element) {
-			//		OpenIngameMenu();
+			///		
 		}
 
 		else if (Save2 == element) {
-			//		OpenIngameMenu();
+			///		
 		}
 		else if (Save3 == element) {
-			//		OpenIngameMenu();
+			///		
 		}
+	}
+	else if (in_game_options) {
 
-		else if (in_game_options) {
+		if (frames == element) {
 
+			float fps = frames->GetRelativePosition();
+			fps = (fps * 210) + 30;
+			App->framerate_cap = App->current_framerate_cap = fps;
+			static char frames_text[5];
 
+			sprintf_s(frames_text, 5, "%.0f", fps);
+			curr_frames->SetText(frames_text);
+		}
+		else if (volume == element) {
+
+			float vol = volume->GetRelativePosition();
+			App->audio->SetVolume(vol);
+			static char vol_text[4];
+			sprintf_s(vol_text, 4, "%.0f", vol * 100);
+			curr_vol->SetText(vol_text);
 		}
 	}
 }
@@ -607,7 +655,7 @@ void j1Scene::GUICallback(UI_Element* element) {
 void j1Scene::OpenInGameMenu() {
 
 	DeleteMenu();
-
+	Pause = true;
 	in_game_settings = in_game_save = in_game_options = false;
 	in_game_menu = true;
 	
