@@ -102,7 +102,6 @@ bool j1Scene::Update(float dt)
 
 	if (change_score) {
 		change_score = false;
-		//score_nums++;
 		static char score_text[3];
 		sprintf_s(score_text, 3, "%02i", score_nums);
 		score->ChangeLabel(score_text);
