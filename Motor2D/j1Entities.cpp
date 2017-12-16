@@ -226,6 +226,7 @@ bool j1Entities::Load(pugi::xml_node&  data)
 		delete iterator->data;
 
 		entities.clear();
+
 		pugi::xml_node entity;
 		for (entity = data.child("position"); entity; entity = entity.next_sibling("position")) {
 

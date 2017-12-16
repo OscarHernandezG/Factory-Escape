@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<audio>
+		<volume music="0.100000001" />
+	</audio>
+	<pathfinding />
+	<scene>
+		<Map CurrentMap="1" />
+	</scene>
+	<map />
+	<entities>
+		<position x="287" y="322.978638" type="1" />
+		<position x="384" y="256" type="2" />
+		<position x="960" y="256" type="2" />
+		<position x="1344" y="256" type="1" />
+		<position x="327.272675" y="430.994293" type="3" />
+	</entities>
+	<gui />
+	<:anonymous />
+	<fonts />
+	<menu />
+	<:anonymous />
+	<renderer>
+		<camera x="0" y="0" />
+	</renderer>
+</game_state>

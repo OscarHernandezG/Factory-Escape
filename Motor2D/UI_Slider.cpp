@@ -50,15 +50,6 @@ bool Slider::CleanUp() {
 }
 
 
-//bool Slider::AddImage(Image* newImage) {
-//	if (newImage != nullptr) {
-//		Images.add(newImage);
-//		return true;
-//	}
-//	else return false;
-//}
-
-
 bool Slider::MouseOnRect() {
 	bool ret = false;
 

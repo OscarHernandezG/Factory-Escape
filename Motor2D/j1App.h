@@ -82,8 +82,8 @@ private:
 	bool PostUpdate();
 
 	// Load / Save
-	bool LoadGameNow();
-	bool SavegameNow() const;
+	bool LoadGameNow(int file = 0);
+	bool SavegameNow(int file = 0) const;
 
 	int WaitToFrame(uint32 last_frame_ms);
 
@@ -124,8 +124,8 @@ private:
 
 	mutable bool		want_to_save;
 	bool				want_to_load;
-	p2SString			load_game;
-	mutable p2SString	save_game;
+	p2List<p2SString>	load_game;
+	p2List<p2SString>	save_game;
 
 	j1PerfTimer			ptimer;
 	j1PerfTimer			dttimer;

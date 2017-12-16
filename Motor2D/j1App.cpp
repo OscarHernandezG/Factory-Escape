@@ -101,7 +101,13 @@ bool j1App::Awake()
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
-		save_game = load_game = app_config.child("save_game").child_value();
+
+		
+		for (pugi::xml_node entity = app_config.child("save_game"); entity; entity = entity.next_sibling("save_game")) {
+			const char* file = entity.attribute("file").as_string();
+			save_game.add(file);
+			load_game.add(file);
+		}
 		current_framerate_cap = framerate_cap = app_config.attribute("framerate_cap").as_uint(0);
 	}
 
@@ -374,18 +380,18 @@ void j1App::GetSaveGames(p2List<p2SString>& list_to_fill) const
 	// need to add functionality to file_system module for this to work
 }
 
-bool j1App::LoadGameNow()
+bool j1App::LoadGameNow(int file)
 {
 	bool ret = false;
 
 	pugi::xml_document data;
 	pugi::xml_node root;
 
-	pugi::xml_parse_result result = data.load_file(load_game.GetString());
+	pugi::xml_parse_result result = data.load_file(load_game[file].GetString());
 
 	if(result != NULL)
 	{
-		LOG("Loading new Game State from %s...", load_game.GetString());
+		LOG("Loading new Game State from %s...", load_game[file].GetString());
 
 		root = data.child("game_state");
 
@@ -405,17 +411,17 @@ bool j1App::LoadGameNow()
 			LOG("...loading process interrupted with error on module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
 	}
 	else
-		LOG("Could not parse game state xml file %s. pugi error: %s", load_game.GetString(), result.description());
+		LOG("Could not parse game state xml file %s. pugi error: %s", load_game[file].GetString(), result.description());
 
 	want_to_load = false;
 	return ret;
 }
 
-bool j1App::SavegameNow() const
+bool j1App::SavegameNow(int file) const
 {
 	bool ret = true;
 
-	LOG("Saving Game State to %s...", save_game.GetString());
+	LOG("Saving Game State to %s...", save_game[file].GetString());
 
 	// xml object were we will store all data
 	pugi::xml_document data;
@@ -433,7 +439,7 @@ bool j1App::SavegameNow() const
 
 	if(ret == true)
 	{
-		data.save_file(save_game.GetString());
+		data.save_file(save_game[file].GetString());
 		LOG("... finished saving", );
 	}
 	else

@@ -57,10 +57,20 @@ public:
 	void FindEntities();
 	
 	void CreatePauseMenu();
-	void DeletePauseMenu();
+
+	void DeleteMenu();
+
+	void CreateSettingsMenu();
+
+	void CreateSaveMenu();
+
+	void CreateOptionsMenu();
 
 	void GUICallback(UI_Element* element);
-	void OpenIngameMenu();
+	void OpenInGameMenu();
+	void OpenInGameSettings();
+	void OpenInGameSave();
+	void OpenInGameConfig();
 
 public:
 
@@ -84,10 +94,31 @@ private:
 	p2List_item<p2SString>* CurrentMap = nullptr;
 
 	Window* window = nullptr;
-	Button* Return = nullptr;
-	Button* Cancel = nullptr;
+
+	Button* Exit = nullptr;
+	Button* Settings = nullptr;
+	Button* Close = nullptr;
+
+	Button* SaveLoad = nullptr;
+	Button* Config = nullptr;
+	Button* Back = nullptr;
+
+
+	Button* Save1 = nullptr;
+	Button* Save2 = nullptr;
+	Button* Save3 = nullptr;
+
+	Label* volume = nullptr;
+	Label* frames = nullptr;
+	
+
+
 	bool return_menu = false;
 	bool in_game_menu = false;
+	bool in_game_settings = false;
+	bool in_game_save = false;
+	bool in_game_options = false;
+	bool need_clean = false;
 
 	Score* score = nullptr;
 	uint score_nums = 0u;

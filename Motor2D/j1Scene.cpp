@@ -283,6 +283,28 @@ bool j1Scene::PostUpdate()
 		Pause = return_menu = App->menu->Started = App->scene->active = App->map->active = false;
 		currmap = 1;
 	}
+
+	if (in_game_menu && need_clean) {
+
+	}
+
+	else if (in_game_settings && need_clean) {
+
+	}
+
+	else if (in_game_save && need_clean) {
+
+	}
+
+	else if (in_game_options && need_clean) {
+
+	}
+
+	else if (need_clean && need_clean) {
+
+	}
+
+
 	return ret;
 }
 
@@ -296,7 +318,7 @@ bool j1Scene::CleanUp()
 
 void j1Scene::FreeScene() {
 
-	DeletePauseMenu();
+	DeleteMenu();
 	App->map->CleanUp();
 	App->audio->FreeMusic();
 	App->tex->FreeTextures();
@@ -409,48 +431,191 @@ void j1Scene::CreatePauseMenu() {
 	window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
 	window->Define({ 382,124,487,461 }, "");
 
-	Return = (Button*)App->gui->AdUIElement(425, 300, BUTTON);
-	Return->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "RETURN");
-	Return->TAB = -1;
-	Return->AddListener(this);
+	Exit = (Button*)App->gui->AdUIElement(425, 290, BUTTON);
+	Exit->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "RETURN");
+	Exit->TAB = -1;
+	Exit->AddListener(this);
 
-	Cancel = (Button*)App->gui->AdUIElement(425, 400, BUTTON);
-	Cancel->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "CANCEL");
-	Cancel->TAB = -1;
-	Cancel->AddListener(this);
+	Settings = (Button*)App->gui->AdUIElement(425, 370, BUTTON);
+	Settings->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SETTINGS");
+	Settings->TAB = -1;
+	Settings->AddListener(this);
 
-	window->AddButton(Return);
+	Close = (Button*)App->gui->AdUIElement(425, 450, BUTTON);
+	Close->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "CLOSE");
+	Close->TAB = -1;
+	Close->AddListener(this);
+
+}
+
+void j1Scene::CreateSettingsMenu() {
+
+	window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
+	window->Define({ 382,124,487,461 }, "");
+
+	SaveLoad = (Button*)App->gui->AdUIElement(425, 290, BUTTON);
+	SaveLoad->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SAVE / LOAD");
+	SaveLoad->TAB = -1;
+	SaveLoad->AddListener(this);
+
+	Config = (Button*)App->gui->AdUIElement(425, 370, BUTTON);
+	Config->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "CONFIG");
+	Config->TAB = -1;
+	Config->AddListener(this);
+
+	Back = (Button*)App->gui->AdUIElement(425, 450, BUTTON);
+	Back->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "BACK");
+	Back->TAB = -1;
+	Back->AddListener(this);
+
+}
+
+void j1Scene::CreateSaveMenu() {
+
+	window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
+	window->Define({ 382,124,487,461 }, "");
+
+	Save1 = (Button*)App->gui->AdUIElement(425, 290, BUTTON);
+	Save1->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SAVE GAME 1");
+	Save1->TAB = -1;
+	Save1->AddListener(this);
+
+	Save2 = (Button*)App->gui->AdUIElement(425, 370, BUTTON);
+	Save2->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SAVE GAME 2");
+	Save2->TAB = -1;
+	Save2->AddListener(this);
+
+	Save3 = (Button*)App->gui->AdUIElement(425, 450, BUTTON);
+	Save3->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SAVE GAME 3");
+	Save3->TAB = -1;
+	Save3->AddListener(this);
 
 
 }
 
-void j1Scene::DeletePauseMenu() {
+void j1Scene::CreateOptionsMenu() {
+
+	window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
+	window->Define({ 382,124,487,461 }, "");
+
+	volume = (Label*)App->gui->AdUIElement(425, 290, LABEL);
+	//volume->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SAVE GAME 1");
+	//volume->TAB = -1;
+	//volume->AddListener(this);
+
+	frames = (Label*)App->gui->AdUIElement(425, 370, LABEL);
+	//frames->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SAVE GAME 2");
+	//frames->TAB = -1;
+	//frames->AddListener(this);
+
+
+
+}
+
+void j1Scene::DeleteMenu() {
 
 	for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
 		iterator->data->CleanUp();
 	}
 	App->gui->ui_elements.clear();
-	
-}
 
+}
 
 void j1Scene::GUICallback(UI_Element* element) {
+
+	if (in_game_menu) {
+
+		if (Exit == element)
+			return_menu = true;
+
+		else if (Settings == element) {
+			need_clean = true;
+			OpenInGameSettings();
+		}
+
+		else if (Close == element) {
+			Pause = false;
+			in_game_menu = false;
+			DeleteMenu();
+		}
+	}
+
+
+	else if (in_game_settings) {
+
+		if (SaveLoad == element) {
+			need_clean = true;
+			OpenInGameSave();
+		}
+
+		else if (Config == element) {
+			need_clean = true;
+			OpenInGameConfig();
+		}
+		else if (Back == element) {
+			DeleteMenu();
+			need_clean = true;
+		}
+	}
+
+	else if (in_game_save) {
+
+		if (Save1 == element) {
+			//		OpenIngameMenu();
+		}
+
+		else if (Save2 == element) {
+			//		OpenIngameMenu();
+		}
+		else if (Save3 == element) {
+			//		OpenIngameMenu();
+		}
+
+	else if (in_game_options) {
+
+		
+	}
 	
-	if (Return == element)
-		return_menu = true;
-
-	else if (Cancel == element)
-		OpenIngameMenu();
-
 }
 
-void j1Scene::OpenIngameMenu() {
+void j1Scene::OpenInGameMenu() {
 	if (!in_game_menu) {
 		CreatePauseMenu();
 		in_game_menu = Pause = true;
 	}
 	else {
-		DeletePauseMenu();
+		DeleteMenu();
 		in_game_menu = Pause = false;
 	}
+}
+
+void j1Scene::OpenInGameSettings() {
+
+	DeleteMenu();
+
+	in_game_menu = in_game_save = in_game_options = false;
+	in_game_settings = true;
+
+	CreateSettingsMenu();
+
+}
+
+void j1Scene::OpenInGameSave() {
+
+	DeleteMenu();
+	in_game_menu = in_game_settings = in_game_options = false;
+	in_game_save = true;
+
+	CreateSaveMenu();
+
+}
+
+void j1Scene::OpenInGameConfig() {
+
+	DeleteMenu();
+	in_game_menu = in_game_save = in_game_settings = false;
+	in_game_options == true;
+
+	CreateOptionsMenu();
+
 }

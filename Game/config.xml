@@ -4,7 +4,9 @@
   <app framerate_cap ="60">
     <title>Factory Escape</title>
     <organization>UPC</organization>
-    <save_game>save_game.xml</save_game>
+    <save_game file ="savegame/save_game1.xml"></save_game>
+    <save_game file ="savegame/save_game2.xml"></save_game>
+    <save_game file ="savegame/save_game3.xml"></save_game>
   </app>
 	
   <renderer>
@@ -34,7 +36,7 @@
   </scene>
 
   <audio>
-    <volume music = "0.05"></volume>
+    <volume music = "0.1"></volume>
   </audio>
 
   <gui>
