@@ -125,6 +125,7 @@ private:
 
 public:
 	bool Quit = false;
+	bool can_quit = true;
 };
 
 #endif // __j1SCENE_H__

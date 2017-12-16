@@ -226,11 +226,12 @@ bool j1Scene::PostUpdate()
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || Quit)
+	if((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || Quit) && can_quit)
 		ret = false;
 
 	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
-		OpenIngameMenu();
+		OpenInGameMenu();
+		can_quit = !can_quit;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && Photo_mode) {
@@ -285,23 +286,47 @@ bool j1Scene::PostUpdate()
 	}
 
 	if (in_game_menu && need_clean) {
-
+		need_clean = can_quit = false;
+		OpenInGameMenu();
 	}
 
 	else if (in_game_settings && need_clean) {
-
+		need_clean = can_quit = false;
+		OpenInGameSettings();
 	}
 
 	else if (in_game_save && need_clean) {
-
+		need_clean = can_quit = false;
+		OpenInGameSave();
 	}
 
 	else if (in_game_options && need_clean) {
-
+		need_clean = can_quit = false;
+		OpenInGameConfig();
 	}
 
-	else if (need_clean && need_clean) {
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !can_quit) {
 
+		if (in_game_menu) {
+			can_quit = true;
+			in_game_menu = false;
+			DeleteMenu();
+		}
+
+		else if (in_game_settings) {
+			in_game_settings = false;
+			OpenInGameMenu();
+		}
+
+		else if (in_game_save) {
+			in_game_save = false;
+			OpenInGameSettings();
+		}
+
+		else if (in_game_options) {
+			in_game_options = false;
+			OpenInGameSettings();
+		}
 	}
 
 
@@ -529,12 +554,13 @@ void j1Scene::GUICallback(UI_Element* element) {
 			return_menu = true;
 
 		else if (Settings == element) {
-			need_clean = true;
-			OpenInGameSettings();
+			in_game_settings = need_clean = true;
+			in_game_menu = false;
 		}
 
 		else if (Close == element) {
 			Pause = false;
+			can_quit = true;
 			in_game_menu = false;
 			DeleteMenu();
 		}
@@ -544,17 +570,17 @@ void j1Scene::GUICallback(UI_Element* element) {
 	else if (in_game_settings) {
 
 		if (SaveLoad == element) {
-			need_clean = true;
-			OpenInGameSave();
+			in_game_save = need_clean = true;
+			in_game_settings = false;
 		}
 
 		else if (Config == element) {
-			need_clean = true;
-			OpenInGameConfig();
+			in_game_options = need_clean = true;
+			in_game_settings = false;
 		}
 		else if (Back == element) {
-			DeleteMenu();
-			need_clean = true;
+			in_game_menu = need_clean = true;
+			in_game_settings = false;
 		}
 	}
 
@@ -571,22 +597,21 @@ void j1Scene::GUICallback(UI_Element* element) {
 			//		OpenIngameMenu();
 		}
 
-	else if (in_game_options) {
+		else if (in_game_options) {
 
-		
+
+		}
 	}
-	
 }
 
 void j1Scene::OpenInGameMenu() {
-	if (!in_game_menu) {
-		CreatePauseMenu();
-		in_game_menu = Pause = true;
-	}
-	else {
-		DeleteMenu();
-		in_game_menu = Pause = false;
-	}
+
+	DeleteMenu();
+
+	in_game_settings = in_game_save = in_game_options = false;
+	in_game_menu = true;
+	
+	CreatePauseMenu();
 }
 
 void j1Scene::OpenInGameSettings() {
@@ -603,6 +628,7 @@ void j1Scene::OpenInGameSettings() {
 void j1Scene::OpenInGameSave() {
 
 	DeleteMenu();
+
 	in_game_menu = in_game_settings = in_game_options = false;
 	in_game_save = true;
 
