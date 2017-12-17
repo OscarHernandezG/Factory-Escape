@@ -532,17 +532,17 @@ void j1Scene::CreatePauseMenu() {
 	window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
 	window->Define({ 382,124,487,461 }, "");
 
-	Exit = (Button*)App->gui->AdUIElement(425, 290, BUTTON);
+	Exit = (Button*)App->gui->AdUIElement(420, 260, BUTTON);
 	Exit->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "RETURN");
 	Exit->TAB = -1;
 	Exit->AddListener(this);
 
-	Settings = (Button*)App->gui->AdUIElement(425, 370, BUTTON);
+	Settings = (Button*)App->gui->AdUIElement(420, 350, BUTTON);
 	Settings->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SETTINGS");
 	Settings->TAB = -1;
 	Settings->AddListener(this);
 
-	Close = (Button*)App->gui->AdUIElement(425, 450, BUTTON);
+	Close = (Button*)App->gui->AdUIElement(420, 440, BUTTON);
 	Close->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "CLOSE");
 	Close->TAB = -1;
 	Close->AddListener(this);
@@ -554,17 +554,17 @@ void j1Scene::CreateSettingsMenu() {
 	window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
 	window->Define({ 382,124,487,461 }, "");
 
-	SaveLoad = (Button*)App->gui->AdUIElement(425, 290, BUTTON);
+	SaveLoad = (Button*)App->gui->AdUIElement(420, 260, BUTTON);
 	SaveLoad->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SAVE");
 	SaveLoad->TAB = -1;
 	SaveLoad->AddListener(this);
 
-	Config = (Button*)App->gui->AdUIElement(425, 370, BUTTON);
+	Config = (Button*)App->gui->AdUIElement(420, 350, BUTTON);
 	Config->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "CONFIG");
 	Config->TAB = -1;
 	Config->AddListener(this);
 
-	Back = (Button*)App->gui->AdUIElement(425, 450, BUTTON);
+	Back = (Button*)App->gui->AdUIElement(420, 440, BUTTON);
 	Back->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "BACK");
 	Back->TAB = -1;
 	Back->AddListener(this);
@@ -576,17 +576,17 @@ void j1Scene::CreateSaveMenu() {
 	window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
 	window->Define({ 382,124,487,461 }, "");
 
-	Save1 = (Button*)App->gui->AdUIElement(425, 290, BUTTON);
+	Save1 = (Button*)App->gui->AdUIElement(420, 260, BUTTON);
 	Save1->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SAVE GAME 1");
 	Save1->TAB = -1;
 	Save1->AddListener(this);
 
-	Save2 = (Button*)App->gui->AdUIElement(425, 370, BUTTON);
+	Save2 = (Button*)App->gui->AdUIElement(420, 350, BUTTON);
 	Save2->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SAVE GAME 2");
 	Save2->TAB = -1;
 	Save2->AddListener(this);
 
-	Save3 = (Button*)App->gui->AdUIElement(425, 450, BUTTON);
+	Save3 = (Button*)App->gui->AdUIElement(420, 440, BUTTON);
 	Save3->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SAVE GAME 3");
 	Save3->TAB = -1;
 	Save3->AddListener(this);
