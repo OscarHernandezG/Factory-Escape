@@ -201,15 +201,7 @@ bool j1Scene::Update(float dt)
 			App->win->scale = 1;
 		}
 
-		if (reload_map) {
-			App->fade->FadeToBlack(this, this, false, 1.0f, currmap);
-			reload_map = false;
-		}
 
-		if (next_map) {
-			App->fade->FadeToBlack(this, this, false, 1.0f);
-			next_map = false;
-		}
 
 		if ((App->entities->player->position.x - (-App->render->camera.x + (1 * App->render->camera.w / 3)) >= 0) && !Photo_mode) {
 			if (App->render->camera.x - App->render->camera.w > -(App->map->data.width*App->map->data.tile_width))
@@ -231,6 +223,16 @@ bool j1Scene::PostUpdate()
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 	bool ret = true;
+
+	if (reload_map) {
+		App->fade->FadeToBlack(this, this, false, 1.0f, currmap);
+		reload_map = false;
+	}
+
+	if (next_map) {
+		App->fade->FadeToBlack(this, this, false, 1.0f);
+		next_map = false;
+	}
 
 	if((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || Quit) && can_quit)
 		ret = false;

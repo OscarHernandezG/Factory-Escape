@@ -14,6 +14,7 @@
 #include "Animation.h"
 #include "Entity.h"
 #include "j1Timer.h"
+#include "j1FadeToBlack.h"
 
 
 
@@ -25,11 +26,10 @@ Player::Player(int x, int y, ENTITY_TYPES etype) : Entity(x, y, etype)
 	fpos.x = position.x;
 	fpos.y = position.y;
 
-//	if (FindSpawn());
-//	SpawnPlayer();
-
 	speed.x = 0;
 	speed.y = 0;
+
+	Die.Reset();
 }
 
 void Player::Move(float dt) {
@@ -96,11 +96,9 @@ void Player::Move(float dt) {
 		break;
 	case PLAYER_WIN:
 		App->scene->next_map = true;
-//		SpawnPlayer();
 		break;
 	case DEAD:
 		CurrentAnim = &Die;
-
 		death = true;
 		break;
 	default:
@@ -321,7 +319,6 @@ void Player::CheckPlayerState(float dt)
 			melee = false;
 			App->entities->FreeEnemies();
 			App->scene->FindEntities();
-			Die.Reset();
 			death = false;
 			App->render->camera.x = 0;
 			PlayerState = IDLE;
