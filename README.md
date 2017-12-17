@@ -15,8 +15,7 @@ Gameplay of the game
 ## Controls
 
 ### In Game:
-
- 	- A: Move left
+	- A: Move left	
 	- D: Move right
 	- SPACE: Jump
 	- LSHIFT: Slide
