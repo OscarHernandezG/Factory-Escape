@@ -39,6 +39,8 @@ Gameplay of the game
 	
 ### Menu:
 	- Use the mouse to navigate throught the menu, using the left clik to press the buttons or move the sliders
+
+
 ### Debug:
 	
 	- F1: Start from the very first level
