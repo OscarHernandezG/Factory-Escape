@@ -460,6 +460,7 @@ Player_collision Player::CheckPlayerCollision() {
 					if (iterator->data->type == MECHANICAL_NUT) {
 						App->entities->entities.del(iterator);
 						ret = ITEM_COLLISION;
+						break;
 					}
 					else {
 						ret = ENEMY_COLLISION;

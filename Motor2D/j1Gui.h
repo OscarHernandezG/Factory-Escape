@@ -44,6 +44,7 @@ public:
 	// Gui creation functions
 	
 	UI_Element* AdUIElement(int x, int y, GUI_TYPE type);
+	UI_Element* AdHUDElement(int x, int y, GUI_TYPE type);
 
 	SDL_Texture* GetAtlas() const;
 
@@ -53,6 +54,7 @@ private:
 	p2SString atlas_file_name;
 public:
 	p2List<UI_Element*> ui_elements;
+	p2List<UI_Element*> hud_elements;
 
 	SDL_Rect button_idle;
 	SDL_Rect button_hovering;

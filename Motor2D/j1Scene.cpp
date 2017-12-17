@@ -78,7 +78,7 @@ bool j1Scene::Start()
 
 		FindEntities();
 
-		score = (Score*)App->gui->AdUIElement(1100, 650, SCORE);
+		score = (Score*)App->gui->AdHUDElement(1100, 650, SCORE);
 		static char score_text[3];
 		sprintf_s(score_text, 3, "%02i", score_nums);
 		score->Define({ 156,178,43,44 }, score_text,{61,178,44,44});
@@ -665,6 +665,7 @@ void j1Scene::GUICallback(UI_Element* element) {
 void j1Scene::OpenInGameMenu() {
 
 	DeleteMenu();
+
 	Pause = true;
 	in_game_settings = in_game_save = in_game_options = false;
 	in_game_menu = true;

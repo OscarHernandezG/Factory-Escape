@@ -65,10 +65,13 @@ bool j1Gui::Update(float dt)
 		App->tex->Load(atlas_file_name.GetString());
 
 
-	for (p2List_item<UI_Element*>* iterator = App->gui->ui_elements.start; iterator != nullptr; iterator = iterator->next) {
+	for (p2List_item<UI_Element*>* iterator = ui_elements.start; iterator != nullptr; iterator = iterator->next) {
 			iterator->data->Update(dt);
 	}
 
+	for (p2List_item<UI_Element*>* iterator = hud_elements.start; iterator != nullptr; iterator = iterator->next) {
+		iterator->data->Update(dt);
+	}
 
 
 	return true;
@@ -128,6 +131,43 @@ UI_Element* j1Gui::AdUIElement(int x,int y, GUI_TYPE type)
 	}
 
 	ui_elements.add(ret);
+
+
+	return ret;
+}
+
+
+UI_Element* j1Gui::AdHUDElement(int x, int y, GUI_TYPE type)
+{
+	UI_Element* ret = nullptr;
+
+	switch (type)
+	{
+	case NO_TYPE_GUI:
+		break;
+	case IMAGE:
+		ret = new Image(x, y);
+		break;
+	case LABEL:
+		ret = new Label(x, y);
+		break;
+	case BUTTON:
+		ret = new Button(x, y);
+		break;
+	case WINDOW:
+		ret = new Window(x, y);
+		break;
+	case SLIDER:
+		ret = new Slider(x, y);
+		break;
+	case SCORE:
+		ret = new Score(x, y);
+		break;
+	default:
+		break;
+	}
+
+	hud_elements.add(ret);
 
 
 	return ret;

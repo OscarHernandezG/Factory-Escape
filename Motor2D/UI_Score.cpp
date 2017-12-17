@@ -9,9 +9,9 @@
 Score::Score(int x, int y) : UI_Element(x, y) {
 	type = SCORE;
 
-	image = (Image*)App->gui->AdUIElement(x, y, IMAGE);
-	image2nd = (Image*)App->gui->AdUIElement(x, y, IMAGE);
-	label = (Label*)App->gui->AdUIElement(x, y, LABEL);
+	image = (Image*)App->gui->AdHUDElement(x, y, IMAGE);
+	image2nd = (Image*)App->gui->AdHUDElement(x, y, IMAGE);
+	label = (Label*)App->gui->AdHUDElement(x, y, LABEL);
 	image2nd->draw = false;
 }
 
