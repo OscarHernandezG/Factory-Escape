@@ -24,7 +24,6 @@ class j1Gui;
 class j1Fonts;
 class j1FadeToBlack;
 class j1Menu;
-class j1GuiAnimation;
 
 class j1App
 {
@@ -104,7 +103,6 @@ public:
 	j1Fonts*			font = nullptr;
 	j1FadeToBlack*		fade = nullptr;
 	j1Menu*				menu = nullptr;
-	j1GuiAnimation*		gui_animation = nullptr;
 
 	//
 	uint32				framerate_cap = 0;

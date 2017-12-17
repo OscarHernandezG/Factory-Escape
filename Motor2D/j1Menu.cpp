@@ -20,7 +20,6 @@
 #include "UI_Label.h"
 #include "j1FadeToBlack.h"
 #include "j1Menu.h"
-#include "j1GuiAnimation.h"
 #include "UI_Window.h"
 #include "UI_Slider.h"
 
@@ -251,37 +250,32 @@ void j1Menu::CreateMenu() {
 
 	Title_ui = (Image*)App->gui->AdUIElement(-200, 0, IMAGE);
 	Title_ui->LoadUI_Image("textures/Title.png", 1);
-	App->gui_animation->MoveToOrigin(Title_ui);
+
 
 	Login = (Button*)App->gui->AdUIElement(500, 700, BUTTON);//y = 400
 	Login->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "PLAY");
 	Login->AddListener(this);
 	Login->TAB = 1;
-	App->gui_animation->MoveToOrigin(Login);
 
 	Quit = (Button*)App->gui->AdUIElement(1000, 800, BUTTON); // y = 600
 	Quit->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "EXIT");
 	Quit->TAB = 5;
 	Quit->AddListener(this);
-	App->gui_animation->MoveToOrigin(Quit);
 
 	Settings = (Button*)App->gui->AdUIElement(50, 800, BUTTON); //y = 600
 	Settings->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SETTINGS");
 	Settings->TAB = 2;
 	Settings->AddListener(this);
-	App->gui_animation->MoveToOrigin(Settings);
 
 	Credits = (Button*)App->gui->AdUIElement(1200, 10, BUTTON);//x = 1000
 	Credits->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "CREDITS");
 	Credits->TAB = 4;
 	Credits->AddListener(this);
-	App->gui_animation->MoveToOrigin(Credits);
 
 	Load_But = (Button*)App->gui->AdUIElement(500, 800, BUTTON);//y = 600
 	Load_But->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "LOAD");
 	Load_But->TAB = 3;
 	Load_But->AddListener(this);
-	App->gui_animation->MoveToOrigin(Load_But);
 
 }
 
