@@ -1,4 +1,4 @@
-Factoy Escape
+### Factoy Escape
 
 In this game you are a robot that should escape from the factory he's been recluded,
 but beware of acid waste and other dangers.
@@ -7,7 +7,7 @@ but beware of acid waste and other dangers.
 Good luck and have fun!
 
 
-Controls:
+# Controls:
 
  	- A: Move left
 	- D: Move right
@@ -29,7 +29,7 @@ Controls:
 	- Escape: Exit the game
 	
 	
-Debug Controls:
+# Debug Controls:
 	
 	- F1: Start from the very first level
 	- F2: Start from the beginnin of the current level
@@ -47,11 +47,11 @@ https://github.com/OscarHernandezG/GameDevelopment/
   - Authors
  
 	- Aleix: https://github.com/aleixgab
-	- ”scar: https://github.com/OscarHernandezG
+	- √ìscar: https://github.com/OscarHernandezG
 
 MIT License
 
-Copyright (c) 2017 ”scar Hern·ndez and Aleix GabarrÛ
+Copyright (c) 2017 √ìscar Hern√°ndez and Aleix Gabarr√≥
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
