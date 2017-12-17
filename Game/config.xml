@@ -36,7 +36,7 @@
   </scene>
 
   <audio>
-    <volume music = "0.1"></volume>
+    <volume music = "0.01"></volume>
   </audio>
 
   <gui>

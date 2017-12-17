@@ -210,7 +210,7 @@ void j1App::FinishUpdate()
 		SavegameNow(save_game_num);
 
 	if(want_to_load == true)
-		LoadGameNow();
+		LoadGameNow(load_game_num);
 
 	if (last_sec_frame_time.Read() > 1000)
 	{
@@ -358,10 +358,11 @@ const char* j1App::GetOrganization() const
 }
 
 // Load / Save
-void j1App::LoadGame()
+void j1App::LoadGame(int game_to_load)
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list
+	load_game_num = game_to_load;
 	want_to_load = true;
 }
 

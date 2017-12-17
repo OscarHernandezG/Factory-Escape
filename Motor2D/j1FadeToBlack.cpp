@@ -55,8 +55,10 @@ bool j1FadeToBlack::Update(float dt)
 				off->CleanUp();
 				on->Start();
 			}
-			else
+			else {
 				App->scene->LoadScene(map_num);
+				App->render->camera.x = 0;
+			}
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;

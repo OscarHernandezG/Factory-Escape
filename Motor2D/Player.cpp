@@ -30,6 +30,11 @@ Player::Player(int x, int y, ENTITY_TYPES etype) : Entity(x, y, etype)
 	speed.y = 0;
 
 	Die.Reset();
+	Idle.Reset();
+	Jump.Reset();
+	Run.Reset();
+	Slide.Reset();
+	Melee.Reset();
 }
 
 void Player::Move(float dt) {
@@ -99,6 +104,7 @@ void Player::Move(float dt) {
 		break;
 	case DEAD:
 		CurrentAnim = &Die;
+		App->scene->score_nums = 0;
 		death = true;
 		break;
 	default:
@@ -303,8 +309,6 @@ void Player::CheckPlayerState(float dt)
 				melee = false;
 				Melee.Reset();
 				Melee.ResetLoops();
-				MeleeJump.Reset();
-				MeleeJump.ResetLoops();
 			}
 		}
 	}
@@ -315,15 +319,7 @@ void Player::CheckPlayerState(float dt)
 		PlayerState = DEAD;
 		fpos.y += (down_force * dt) / 10;
 		if (currentTime > dieTime + 1000) {
-			/*CurrentAnim = &Idle;
-			melee = false;
-			App->entities->FreeEnemies();
-			App->scene->FindEntities();
-			death = false;
-			App->render->camera.x = 0;
-			PlayerState = IDLE;
-
-			SpawnPlayer();*/
+			
 			App->scene->reload_map = true;
 		}
 	}
@@ -390,16 +386,6 @@ void Player::LoadAnimations()
 	}
 	Melee.loop = false;
 	Melee.speed = 2;
-
-	//Shoot Animation
-
-	for (int i = 58; i < 68; i++) {
-		Shoot.PushBack({ App->entities->animation_x[i],App->entities->animation_y[i],App->entities->animation_w[i],App->entities->animation_h[i] });
-	}
-	Shoot.loop = false;
-	Shoot.speed = 2;
-
-	MeleeJump = Melee;
 
 }
 

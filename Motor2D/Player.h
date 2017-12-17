@@ -98,8 +98,6 @@ private:
 	Animation Slide;
 	Animation Die;
 	Animation Melee;
-	Animation MeleeJump;
-	Animation Shoot;
 	Animation* CurrentAnim = nullptr;
 	uint pos = 0, lastTime = 0, currentTime = 0, dieTime = 0;
 

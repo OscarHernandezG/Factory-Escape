@@ -93,10 +93,11 @@ bool j1Scene::Start()
 
 		Timer = (Label*)App->gui->AdHUDElement(20, 20, LABEL);
 		static char score_timer[6];
-		sprintf_s(score_timer, 6, "%02i:%02i", score_nums,score_nums);
+		sprintf_s(score_timer, 6, "%02i:%02i",0,0);
 		Timer->SetText(score_timer,1);
 
-		
+		Timer_play.Start();
+		ClosePause = StartPause = 0u;
 	}
 
 	return true;
@@ -110,6 +111,20 @@ bool j1Scene::PreUpdate()
 		LoadScene(currmap, true);
 		need_load_scene = false;
 	}
+
+	if (App->menu->need_load) {
+		App->menu->need_load = false;
+		App->LoadGame(App->menu->load_map);
+	}
+	if (saved && need_save) {
+		saved = need_save = false;
+		App->gui->active = true;
+	}
+	if (need_save) {
+		App->SaveGame(save_game);
+		saved = true;
+	}
+
 	return true;
 }
 
@@ -321,29 +336,30 @@ bool j1Scene::PostUpdate()
 		App->menu->SetUpMenu();
 
 		Pause = return_menu = App->menu->Started = App->scene->active = App->map->active = false;
+		StartPause = ClosePause = 0u;
 		currmap = 1;
 	}
+	if (need_clean) {
+		if (in_game_menu) {
+			need_clean = can_quit = false;
+			OpenInGameMenu();
+		}
 
-	if (in_game_menu && need_clean) {
-		need_clean = can_quit = false;
-		OpenInGameMenu();
+		else if (in_game_settings) {
+			need_clean = can_quit = false;
+			OpenInGameSettings();
+		}
+
+		else if (in_game_save) {
+			need_clean = can_quit = false;
+			OpenInGameSave();
+		}
+
+		else if (in_game_options) {
+			need_clean = can_quit = false;
+			OpenInGameConfig();
+		}
 	}
-
-	else if (in_game_settings && need_clean) {
-		need_clean = can_quit = false;
-		OpenInGameSettings();
-	}
-
-	else if (in_game_save && need_clean) {
-		need_clean = can_quit = false;
-		OpenInGameSave();
-	}
-
-	else if (in_game_options && need_clean) {
-		need_clean = can_quit = false;
-		OpenInGameConfig();
-	}
-
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !can_quit) {
 
 		if (in_game_menu) {
@@ -398,6 +414,7 @@ void j1Scene::FreeScene(bool is_load) {
 bool j1Scene::LoadScene(int map, bool is_load) {
 
 	Timer_play.Start();
+	ClosePause = StartPause = 0u;
 	bool ret = false;
 
 	FreeScene(is_load);
@@ -679,16 +696,19 @@ void j1Scene::GUICallback(UI_Element* element) {
 	else if (in_game_save) {
 
 		if (Save1 == element) {
-			App->SaveGame(0);
+			need_save = true;
+			save_game = 0;
 			App->gui->active = false;
 		}
 
 		else if (Save2 == element) {
-			App->SaveGame(1);
+			need_save = true;
+			save_game = 1;
 			App->gui->active = false;
 		}
 		else if (Save3 == element) {
-			App->SaveGame(2);
+			need_save = true;
+			save_game = 2;
 			App->gui->active = false;
 		}
 	}

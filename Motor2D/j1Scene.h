@@ -136,6 +136,10 @@ private:
 	bool in_game_options = false;
 	bool need_clean = false;
 
+	bool need_save = false;
+	bool saved = false;
+	int save_game = 0;
+
 	Score* score = nullptr;
 
 	Button* pause_butt = nullptr;
