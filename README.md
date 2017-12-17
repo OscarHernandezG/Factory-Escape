@@ -1,4 +1,4 @@
-﻿### Factoy Escape
+﻿# Factoy Escape
 
 In this game you are a robot that should escape from the factory he's been recluded,
 but beware of acid waste and other dangers.
@@ -7,12 +7,14 @@ but beware of acid waste and other dangers.
 Good luck and have fun!
 
 
-# Video
+## Video
 Gameplay of the game
 [![Video HERE](https://img.youtube.com/vi/vSe9DGbsOJQ/0.jpg)](https://www.youtube.com/watch?v=vSe9DGbsOJQ)
 
 
-# Controls:
+## Controls
+
+### In Game:
 
  	- A: Move left
 	- D: Move right
@@ -23,26 +25,31 @@ Gameplay of the game
 	- KP -: Volume down
 	- KP +: Volume up
 	
-	- O: Enter photo mode
+	- O: Enter / exit photo mode
 		- Arrow Up: Move the camera up
 		- Arrow Down: Move the camera down
 		- Arrow Right: Move the camera to the right
 		- Arrow Left: Move the camera to the left
 		- P: Take a screenshot, will be saved in the screenshot folder with the date it was taken 
 		- O: Exit the photo mode
-
+		- Mouse Wheel: Zoom in/out before taking a screenshot
+	- J: Open in game menu:
+		- Use mouse to navigate in the in game menu
+		- Esc: Go to the previous menu
 	- Escape: Exit the game
 	
-	
-# Debug Controls:
+### Menu:
+	- Use the mouse to navigate throught the menu, using the left clik to press the buttons or move the sliders
+### Debug:
 	
 	- F1: Start from the very first level
 	- F2: Start from the beginnin of the current level
 	- F5: Save the current state
 	- F6: Load previous state
 	- F9: Show/Hide logic layer
+	- F8: Debug UI
 	- F10: Activade/Deactivate player God Mode
-	- F11: Enable/Disable framerate cap to 30
+	- F11: Enable/Disable framerate cap
 
 
 GitHub:
