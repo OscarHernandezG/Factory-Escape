@@ -341,7 +341,7 @@ bool j1Scene::PostUpdate()
 	}
 	if (need_clean) {
 		if (in_game_menu) {
-			need_clean = can_quit = false;
+			in_game_menu = need_clean = can_quit = false;
 			OpenInGameMenu();
 		}
 
