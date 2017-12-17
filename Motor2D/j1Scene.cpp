@@ -91,6 +91,11 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+	if (need_load_scene) {
+
+		LoadScene(currmap, true);
+		need_load_scene = false;
+	}
 	return true;
 }
 
@@ -103,11 +108,13 @@ bool j1Scene::Update(float dt)
 		score->ChangeImage();
 
 	if (change_score) {
+		score_anim = true;
 		change_score = false;
 		static char score_text[3];
 		sprintf_s(score_text, 3, "%02i", score_nums);
 		score->ChangeLabel(score_text);
 	}
+
 	if (App->menu->Started && !App->fade->IsFading()) {
 		if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
 			App->audio->VolumeUp();
@@ -283,6 +290,14 @@ bool j1Scene::PostUpdate()
 
 		FreeScene();
 
+
+		for (p2List_item<UI_Element*>* iterator = App->gui->hud_elements.start; iterator != nullptr; iterator = iterator->next) {
+
+			iterator->data->CleanUp();
+		}
+
+		App->gui->hud_elements.clear();
+
 		App->menu->active = true;
 		App->menu->need_setup = true;
 		App->menu->SetUpMenu();
@@ -343,27 +358,28 @@ bool j1Scene::PostUpdate()
 // Called before quitting
 bool j1Scene::CleanUp()
 {
+
 	LOG("Freeing scene");
 
 	return true;
 }
 
-void j1Scene::FreeScene() {
+void j1Scene::FreeScene(bool is_load) {
 
 	DeleteMenu();
 	App->map->CleanUp();
 	App->audio->FreeMusic();
 	App->tex->FreeTextures();
+	if(!is_load)
 	App->entities->FreeEnemies();
+
 }
 
 bool j1Scene::LoadScene(int map, bool is_load) {
 
 	bool ret = false;
 
-	FreeScene();
-
-	App->entities->LoadEntityText();
+	FreeScene(is_load);
 
 	if (map == -1) {
 
@@ -392,6 +408,10 @@ bool j1Scene::LoadScene(int map, bool is_load) {
 	ret = App->map->Load(CurrentMap->data.GetString());
 
 	if (ret) {
+		static char score_text[3];
+		sprintf_s(score_text, 3, "%02i", score_nums);
+		score->Define({ 156,178,43,44 }, score_text, { 61,178,44,44 });
+
 		LoadWalkabilityMap();
 
 		if (!is_load) {
@@ -409,8 +429,11 @@ bool j1Scene::LoadScene(int map, bool is_load) {
 // Load
 bool j1Scene::Load(pugi::xml_node&  savegame) {
 	currmap = savegame.child("Map").attribute("CurrentMap").as_int();
+	score_nums = savegame.child("score").attribute("score").as_uint();
 
-	LoadScene(currmap, true);
+	App->entities->FreeEnemies();
+
+	need_load_scene = true;
 
 	return true;
 }
@@ -419,8 +442,11 @@ bool j1Scene::Load(pugi::xml_node&  savegame) {
 bool j1Scene::Save(pugi::xml_node& data) const {
 
 	pugi::xml_node map = data.append_child("Map");
+	pugi::xml_node score = data.append_child("score");
 
 	map.append_attribute("CurrentMap") = currmap;
+	score.append_attribute("score") = score_nums;
+
 	return true;
 }
 
