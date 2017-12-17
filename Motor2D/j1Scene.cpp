@@ -555,7 +555,7 @@ void j1Scene::CreateSettingsMenu() {
 	window->Define({ 382,124,487,461 }, "");
 
 	SaveLoad = (Button*)App->gui->AdUIElement(425, 290, BUTTON);
-	SaveLoad->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SAVE / LOAD");
+	SaveLoad->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SAVE");
 	SaveLoad->TAB = -1;
 	SaveLoad->AddListener(this);
 
