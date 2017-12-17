@@ -192,6 +192,8 @@ bool j1Scene::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
 			Photo_mode = !Photo_mode;
+			draw_ui = !draw_ui;
+
 			Pause = Photo_mode;
 			App->gui->active = !Pause;
 			if (in_game_menu && !Pause) 
@@ -221,6 +223,7 @@ bool j1Scene::Update(float dt)
 // Called each loop iteration
 bool j1Scene::PostUpdate()
 {
+	//App->gui->active = true;
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 	bool ret = true;
 
@@ -332,6 +335,7 @@ bool j1Scene::PostUpdate()
 
 		else if (in_game_settings) {
 			in_game_settings = false;
+			
 			OpenInGameMenu();
 		}
 
@@ -651,14 +655,17 @@ void j1Scene::GUICallback(UI_Element* element) {
 	else if (in_game_save) {
 
 		if (Save1 == element) {
-			///		
+			App->SaveGame(0);
+			App->gui->active = false;
 		}
 
 		else if (Save2 == element) {
-			///		
+			App->SaveGame(1);
+			App->gui->active = false;
 		}
 		else if (Save3 == element) {
-			///		
+			App->SaveGame(2);
+			App->gui->active = false;
 		}
 	}
 	else if (in_game_options) {

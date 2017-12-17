@@ -78,6 +78,7 @@ public:
 	int currmap = 1;
 
 	bool Photo_mode = false;
+	bool draw_ui = true;
 	bool Pause = false;
 	bool next_map = false;
 	bool reload_map = false;
@@ -125,7 +126,6 @@ private:
 
 	Slider* volume = nullptr;
 	Slider* frames = nullptr;
-	
 
 
 	bool return_menu = false;

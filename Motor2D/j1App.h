@@ -58,7 +58,7 @@ public:
 	const char* GetOrganization() const;
 
 	void LoadGame();
-	void SaveGame() const;
+	void SaveGame(int save_to_game = 1) const;
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
 private:
@@ -90,37 +90,41 @@ private:
 public:
 
 	// Modules
-	j1Window*			win;
-	j1Input*			input;
-	j1Render*			render;
-	j1Textures*			tex;
-	j1Audio*			audio;
-	j1Scene*			scene;
-	j1Map*				map;
-	j1Player*			player;
-	j1Entities*			entities;
-	j1PathFinding*		pathfinding;
-	j1Gui*				gui;
-	j1Fonts*			font;
-	j1FadeToBlack*		fade;
-	j1Menu*				menu;
-	j1GuiAnimation*		gui_animation;
+	j1Window*			win = nullptr;
+	j1Input*			input = nullptr;
+	j1Render*			render = nullptr;
+	j1Textures*			tex = nullptr;
+	j1Audio*			audio = nullptr;
+	j1Scene*			scene = nullptr;
+	j1Map*				map = nullptr;
+	j1Player*			player = nullptr;
+	j1Entities*			entities = nullptr;
+	j1PathFinding*		pathfinding = nullptr;
+	j1Gui*				gui = nullptr;
+	j1Fonts*			font = nullptr;
+	j1FadeToBlack*		fade = nullptr;
+	j1Menu*				menu = nullptr;
+	j1GuiAnimation*		gui_animation = nullptr;
 
-	uint32				framerate_cap;
-	uint32				current_framerate_cap;
+	//
+	uint32				framerate_cap = 0;
+	uint32				current_framerate_cap = 0;
 
-	float				dt, zoom_dt;
+	float				dt = 0, zoom_dt = 0;
+	
 
 private:
 
 	p2List<j1Module*>	modules;
-	uint				frames;
+	uint				frames = 0;
 	
 	int					argc;
 	char**				args;
 
 	p2SString			title;
 	p2SString			organization;
+
+	mutable int					save_game_num = -1;
 
 	mutable bool		want_to_save;
 	bool				want_to_load;

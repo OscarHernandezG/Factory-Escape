@@ -207,7 +207,7 @@ void j1App::FinishUpdate()
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
 	if(want_to_save == true)
-		SavegameNow();
+		SavegameNow(save_game_num);
 
 	if(want_to_load == true)
 		LoadGameNow();
@@ -366,11 +366,12 @@ void j1App::LoadGame()
 }
 
 // ---------------------------------------
-void j1App::SaveGame() const
+void j1App::SaveGame(int game_to_save) const
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list ... should we overwrite ?
 
+	save_game_num = game_to_save;
 	want_to_save = true;
 }
 
@@ -426,20 +427,31 @@ bool j1App::SavegameNow(int file) const
 	// xml object were we will store all data
 	pugi::xml_document data;
 	pugi::xml_node root;
-	
+
 	root = data.append_child("game_state");
 
 	p2List_item<j1Module*>* item = modules.start;
 
-	while(item != NULL && ret == true)
+	while (item != NULL && ret == true)
 	{
 		ret = item->data->Save(root.append_child(item->data->name.GetString()));
 		item = item->next;
 	}
 
-	if(ret == true)
+	if (ret == true)
 	{
 		data.save_file(save_game[file].GetString());
+		SDL_RenderReadPixels(App->render->renderer, NULL, SDL_PIXELFORMAT_ARGB8888, App->win->screen_surface->pixels, App->win->screen_surface->pitch);
+
+		static char photo_name[50];
+
+		sprintf_s(photo_name, 50, "savegame/savegame%i-screenshot.png",file);
+
+		///
+		LOG("Saving photo %s", photo_name);
+
+		SDL_SaveBMP(App->win->screen_surface, photo_name);
+
 		LOG("... finished saving", );
 	}
 	else
