@@ -1,72 +1,51 @@
-### Factoy Escape
+﻿# Metal-Pinball
+Pinball Game extracted from [https://www.classicgame.com/game/Metal+Pinball](https://www.classicgame.com/game/Metal+Pinball) for practicing Box2D physics engine.
 
-In this game you are a robot that should escape from the factory he's been recluded,
-but beware of acid waste and other dangers.
-
-
-Good luck and have fun!
+## Get our latest release [HERE](https://github.com/Jony635/Metal-Pinball/files/1438521/METAL_PINBALL_v1.1.zip)
 
 
-# Controls:
+## LICENSE
+This is free and unencumbered software released into the public domain.
 
- 	- A: Move left
-	- D: Move right
-	- SPACE: Jump
-	- LSHIFT: Slide
-	- E: Melee
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
 
-	- KP -: Volume down
-	- KP +: Volume up
-	
-	- O: Enter photo mode
-		- Arrow Up: Move the camera up
-		- Arrow Down: Move the camera down
-		- Arrow Right: Move the camera to the right
-		- Arrow Left: Move the camera to the left
-		- P: Take a screenshot, will be saved in the screenshot folder with the date it was taken 
-		- O: Exit the photo mode
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
 
-	- Escape: Exit the game
-	
-	
-# Debug Controls:
-	
-	- F1: Start from the very first level
-	- F2: Start from the beginnin of the current level
-	- F5: Save the current state
-	- F6: Load previous state
-	- F9: Show/Hide logic layer
-	- F10: Activade/Deactivate player God Mode
-	- F11: Enable/Disable framerate cap to 30
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <http://unlicense.org/>
+
+## Authors
+Oscar Hernández and Jonathan Molina-Prados, members of Flan Studio's programming department, are the authors of this remake.
+
+## Controls
+- *Mouse_Left_Button*: Choose between different options in the main menu.
+- *Left_Arrow*: Move Left Flippers.
+- *Right_Arrow*: Move Right Flippers.
+- *Space_Bar*: Shoot the Ball.
+- *Executable_Commands*: Use the command "godmode" to disable losing lives.
+
+## Instructions
+Get a lot of points before losing all the balls
+
+That's all!
+
+## Repository [Link](https://github.com/Jony635/Metal-Pinball)
+## Web [Link](https://jony635.github.io/Metal-Pinball/)
 
 
-GitHub:
-
-https://github.com/OscarHernandezG/GameDevelopment/
-
-  - Authors
- 
-	- Aleix: https://github.com/aleixgab
-	- Óscar: https://github.com/OscarHernandezG
-
-MIT License
-
-Copyright (c) 2017 Óscar Hernández and Aleix Gabarró
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
