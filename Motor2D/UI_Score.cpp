@@ -22,7 +22,14 @@ Score::~Score() {
 
 bool Score::Update(float dt) {
 
-		
+	if (use_image1) {
+		image->draw = true;
+		image2nd->draw = false;
+	}
+	else {
+		image->draw = false;
+		image2nd->draw = true;
+	}
 
 	return true;
 }

@@ -43,6 +43,7 @@ public:
 	float scale = 1;
 
 	bool draw = true;
+	bool use_image1 = true;
 };
 
 

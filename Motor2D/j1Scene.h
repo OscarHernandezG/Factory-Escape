@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "p2List.h"
+#include "j1Timer.h"
 
 struct SDL_Texture;
 
@@ -44,7 +45,7 @@ public:
 	bool CleanUp();
 
 	bool LoadScene(int map = -1, bool is_load = false);
-	void FreeScene();
+	void FreeScene(bool is_load = false);
 
 	// Load
 	bool Load(pugi::xml_node&  savegame);
@@ -80,6 +81,8 @@ public:
 	bool Pause = false;
 	bool next_map = false;
 	bool reload_map = false;
+
+	bool need_load_scene = false;
 
 private:
 
@@ -138,8 +141,12 @@ private:
 public:
 	uint score_nums = 0u;
 	bool change_score = false;
+	bool score_anim = false;
 	bool Quit = false;
 	bool can_quit = true;
+
+//	j1Timer score_anim_timer;
+//	j1Timer aux_timer;
 };
 
 #endif // __j1SCENE_H__

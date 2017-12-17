@@ -100,6 +100,7 @@ void Player::Move(float dt) {
 		break;
 	case DEAD:
 		CurrentAnim = &Die;
+
 		death = true;
 		break;
 	default:
