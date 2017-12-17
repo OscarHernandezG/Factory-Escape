@@ -12,7 +12,7 @@ public:
 
 	bool Start();
 	bool Update(float dt);
-	bool FadeToBlack(j1Module* module_off, j1Module* module_on, float time = 2.0f);
+	bool FadeToBlack(j1Module* module_off, j1Module* module_on, bool functions = true, float time = 2.0f, int LoadMap = -1);
 
 	bool IsFading() const;
 
@@ -36,6 +36,9 @@ private:
 	Uint32 total_time = 0;
 	uint w, h = 0;
 	SDL_Rect screen;
+
+	bool function = false;
+	int map_num;
 
 };
 

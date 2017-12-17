@@ -155,11 +155,11 @@ bool j1Scene::Update(float dt)
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
-			LoadScene(1);
+			App->fade->FadeToBlack(this, this, false, 1.0f, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
-			LoadScene();
+			App->fade->FadeToBlack(this, this, false, 1.0f);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
@@ -202,12 +202,12 @@ bool j1Scene::Update(float dt)
 		}
 
 		if (reload_map) {
-			LoadScene(currmap);
+			App->fade->FadeToBlack(this, this, false, 1.0f, currmap);
 			reload_map = false;
 		}
 
 		if (next_map) {
-			LoadScene();
+			App->fade->FadeToBlack(this, this, false, 1.0f);
 			next_map = false;
 		}
 
@@ -220,13 +220,6 @@ bool j1Scene::Update(float dt)
 			if (App->render->camera.x < 0)
 				App->render->camera.x += 4;
 		}
-		/*	if ((App->player->y - (-App->render->camera.y + (1 * App->render->camera.h/3)) >= 0) && App->win->scale != 1) {
-					App->render->camera.y -= 2;
-			}
-
-			if ((App->player->y - (App->render->camera.y + (1 * App->render->camera.h / 2)) <= 0) && App->win->scale != 1) {
-					App->render->camera.y += 2;
-			}*/
 
 	}
 	App->map->Draw();
@@ -376,6 +369,7 @@ void j1Scene::FreeScene(bool is_load) {
 }
 
 bool j1Scene::LoadScene(int map, bool is_load) {
+
 
 	bool ret = false;
 

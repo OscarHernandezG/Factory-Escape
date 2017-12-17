@@ -7,6 +7,7 @@
 #include "j1Audio.h"
 #include "j1Window.h"
 #include "j1Menu.h"
+#include "j1Scene.h"
 
 #include "p2Defs.h"
 #include "p2Log.h"
@@ -50,10 +51,12 @@ bool j1FadeToBlack::Update(float dt)
 
 		if (now >= total_time)
 		{
-
-			off->CleanUp();
-			on->Start();
-
+			if (function) {
+				off->CleanUp();
+				on->Start();
+			}
+			else
+				App->scene->LoadScene(map_num);
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;
@@ -82,7 +85,7 @@ bool j1FadeToBlack::Update(float dt)
 }
 
 // Fade to black. At mid point deactivate one module, then activate the other
-bool j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float time)
+bool j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, bool functions, float time, int LoadMap)
 {
 	bool ret = false;
 
@@ -96,6 +99,10 @@ bool j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float
 		on = module_on;
 
 		ret = true;
+
+		function = functions;
+		map_num = LoadMap;
+
 	}
 
 	return ret;

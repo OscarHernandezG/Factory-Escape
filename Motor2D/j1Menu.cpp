@@ -106,25 +106,6 @@ bool j1Menu::Update(float dt)
 				tab_button = 1;
 		}
 	}
-	/*if (clean_menu) {
-		if (Quit->position.y < 800 || Settings->position.y < 800 || Load_But->position.y < 800) {
-			Quit->position.y += dt * 200;
-			Settings->position.y += dt * 200;
-			Load_But->position.y += dt * 200;
-		}
-		if (Login->position.y < 800)
-			Login->position.y += dt * 200;
-
-		if (Credits->position.x < 1300)
-			Credits->position.x += dt * 200;
-
-		if (Title_ui->position.x > -4000)
-			Title_ui->position.x -= dt * 400;
-		//CleanMenu();
-
-	}
-	*/
-
 	return true;
 }
 
@@ -144,7 +125,7 @@ bool j1Menu::PostUpdate()
 	}
 
 	if (StartGame) {
-		App->fade->FadeToBlack(this, App->scene, 1.0f);
+		App->fade->FadeToBlack(this, App->scene);
 		StartGame = false;
 		Started = true;
 	}
@@ -152,7 +133,6 @@ bool j1Menu::PostUpdate()
 	else if (settings_bool) {
 		can_quit = false;
 		settings_bool = false;
-//		clean_menu = true;
 		CleanUI();
 		CreateSettings();
 	}
@@ -186,7 +166,6 @@ bool j1Menu::CleanUp()
 
 	if (active) {
 		active = false;
-	//	App->scene->Start();
 		App->map->Start();
 		App->entities->Start();
 		App->scene->active = true;
@@ -249,9 +228,6 @@ void j1Menu::SetUpMenu() {
 
 void j1Menu::CreateMenu() {
 
-//	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
-//	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");
-
 
 	Title_ui = (Image*)App->gui->AdUIElement(-200, 0, IMAGE);
 	Title_ui->LoadUI_Image("textures/Title.png", 0.33f);
@@ -290,9 +266,6 @@ void j1Menu::CreateMenu() {
 }
 
 void j1Menu::CreateSettings() {
-
-//	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
-//	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");
 
 	text_volum = (Label*)App->gui->AdUIElement(500, 250, LABEL);
 	text_volum->SetText("VOLUME");
