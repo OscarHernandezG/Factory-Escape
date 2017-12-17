@@ -20,7 +20,6 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 
-	bool AddImage(Image* newImage);
 	
 	bool Define(SDL_Rect bg, SDL_Rect butt);
 

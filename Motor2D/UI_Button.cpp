@@ -139,7 +139,3 @@ void Button::AddListener(p2List<j1Module*> listener) {
 		listeners.add(iterator->data);
 	}
 }
-
-void Button::DrebugDraw() {
-
-}

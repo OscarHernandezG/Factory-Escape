@@ -28,7 +28,6 @@ public:
 	void AddListener(j1Module* listener);
 	void AddListener(p2List<j1Module*> listener);
 
-	void DrebugDraw();
 
 public:
 	Image* MouseClick = nullptr;
