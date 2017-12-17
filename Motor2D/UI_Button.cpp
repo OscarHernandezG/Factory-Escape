@@ -115,9 +115,10 @@ bool Button::Define(SDL_Rect idle, SDL_Rect hovering, SDL_Rect oncick, char* tex
 
 	ret4 = label->SetText(text);
 
-	//if (ret4) {
-		rect.w = debug_UI.w = image->image.w;
-		rect.h = debug_UI.h = image->image.h;
+	rect.w = debug_UI.w = image->image.w;
+	rect.h = debug_UI.h = image->image.h;
+
+	if (ret4) {
 
 		fPoint label_offset = label->original_pos;
 		label_offset.x += (rect.w - label->text_info.rect.w) / 2;
@@ -125,7 +126,7 @@ bool Button::Define(SDL_Rect idle, SDL_Rect hovering, SDL_Rect oncick, char* tex
 
 		label->position = label_offset;
 		
-	//}
+	}
 	return ret1 && ret2 && ret3 && ret4;
 }
 
