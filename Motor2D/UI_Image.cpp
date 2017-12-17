@@ -20,9 +20,9 @@ bool Image::Update(float dt) {
 
 	if (draw) {
 		if (using_atlas)
-			App->render->Blit(atlas, position.x, position.y, &image, 0);
+			App->render->Blit(atlas, position.x, position.y, &image, 0, SDL_FLIP_NONE, 0, scale);
 		else
-			App->render->Blit(texture, position.x, position.y, &image, 0);
+			App->render->Blit(texture, position.x, position.y, &image, 0, SDL_FLIP_NONE, 0, scale);
 	}
 	if (App->menu->debug) {
 		debug_UI.x = original_pos.x;

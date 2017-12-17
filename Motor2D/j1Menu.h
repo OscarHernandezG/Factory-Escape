@@ -45,6 +45,7 @@ public:
 	void CreateCredits();
 	void CleanUI();
 	void SetUpMenu();
+	void CreateLoading();
 
 	void GUICallback(UI_Element* element);
 
@@ -85,6 +86,14 @@ private:
 	Button* Load_But = nullptr;
 
 	Button* Return = nullptr;
+
+	Button* Load1 = nullptr;
+	Button* Load2 = nullptr;
+	Button* Load3 = nullptr;
+
+	Image* Game1 = nullptr;
+	Image* Game2 = nullptr;
+	Image* Game3 = nullptr;
 
 	Window* window = nullptr;
 

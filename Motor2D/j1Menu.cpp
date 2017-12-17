@@ -151,6 +151,13 @@ bool j1Menu::PostUpdate()
 		can_quit = true;
 	}
 
+	else if (load_But_bool) {
+		load_But_bool = false;
+		CleanUI();
+		CreateLoading();
+		can_quit = false;
+	}
+
 	return ret;
 }
 
@@ -230,7 +237,7 @@ void j1Menu::CreateMenu() {
 
 
 	Title_ui = (Image*)App->gui->AdUIElement(-200, 0, IMAGE);
-	Title_ui->LoadUI_Image("textures/Title.png", 0.33f);
+	Title_ui->LoadUI_Image("textures/Title.png", 1);
 	App->gui_animation->MoveToOrigin(Title_ui);
 
 	Login = (Button*)App->gui->AdUIElement(500, 700, BUTTON);//y = 400
@@ -312,6 +319,44 @@ void j1Menu::CreateSettings() {
 
 	
 	Return = (Button*)App->gui->AdUIElement(900, 600, BUTTON); 
+	Return->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "RETURN");
+	Return->TAB = -1;
+	Return->AddListener(this);
+
+}
+
+void j1Menu::CreateLoading() {
+
+
+	Load1 = (Button*)App->gui->AdUIElement(650, 150, BUTTON);
+	Load1->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "LOAD GAME 1");
+	Load1->TAB = -1;
+	Load1->AddListener(this);
+
+	Game1 = (Image*)App->gui->AdUIElement(300, 115, IMAGE);
+	Game1->LoadUI_Image("savegame/savegame0-screenshot.png", 0.2f);
+	
+
+
+	Load2 = (Button*)App->gui->AdUIElement(650, 300, BUTTON);
+	Load2->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "LOAD GAME 2");
+	Load2->TAB = -1;
+	Load2->AddListener(this);
+
+	Game2 = (Image*)App->gui->AdUIElement(300, 265, IMAGE);
+	Game2->LoadUI_Image("savegame/savegame1-screenshot.png", 0.2f);
+
+
+	Load3 = (Button*)App->gui->AdUIElement(650, 450, BUTTON);
+	Load3->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "LOAD GAME 3");
+	Load3->TAB = -1;
+	Load3->AddListener(this);
+
+	Game3 = (Image*)App->gui->AdUIElement(300, 415, IMAGE);
+	Game3->LoadUI_Image("savegame/savegame2-screenshot.png", 0.2f);
+	
+
+	Return = (Button*)App->gui->AdUIElement(900, 600, BUTTON);
 	Return->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "RETURN");
 	Return->TAB = -1;
 	Return->AddListener(this);
