@@ -74,6 +74,10 @@ bool j1Menu::Update(float dt)
 	if (need_setup)
 		SetUpMenu();
 	
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
+		debug = !debug;
+	}
+
 	if (!need_setup && !quit_bool && !settings_bool && !credits_bool && !load_But_bool && !clean_menu) {
 		if (Quit->position.y > 600 || Settings->position.y > 600 || Load_But->position.y > 600) {
 			Quit->position.y -= dt * GUI_Speed;

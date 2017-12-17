@@ -105,6 +105,7 @@ public:
 	bool StartGame = false;
 	bool need_setup = true;
 
+	bool debug = false;
 };
 
 #endif // __j1SCENE_H__

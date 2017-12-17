@@ -37,6 +37,8 @@ public:
 
 	bool hovering = false;
 	bool moving_mouse = false;
+
+	SDL_Rect debug_but;
 	Image* image_bg = nullptr;
 	Image* image_butt = nullptr;
 

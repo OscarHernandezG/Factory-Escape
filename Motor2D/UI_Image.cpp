@@ -4,6 +4,8 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "p2Log.h"
+#include "j1Render.h"
+#include "j1Menu.h"
 
 Image::Image(int x, int y) : UI_Element(x, y) {
 	type = IMAGE;
@@ -21,6 +23,11 @@ bool Image::Update(float dt) {
 			App->render->Blit(atlas, position.x, position.y, &image, 0);
 		else
 			App->render->Blit(texture, position.x, position.y, &image, 0);
+	}
+	if (App->menu->debug) {
+		debug_UI.x = original_pos.x;
+		debug_UI.y = original_pos.y;
+		App->render->DrawQuad(debug_UI, 255, 0, 0, 255, false);
 	}
 	return true;
 }
@@ -58,7 +65,8 @@ bool Image::LoadUI_Image(char* path, float scale) {
 		App->tex->GetSize(texture, w, h);
 		int rect_w = w;
 		int rect_h = h;
-		image = { 0,0,rect_w,rect_h };
+		image = debug_UI = { 0,0,rect_w,rect_h };
+
 
 		this->scale = scale;
 	}

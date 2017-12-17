@@ -162,6 +162,9 @@ bool j1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 			App->LoadGame();
 		}
+		if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
+			App->menu->debug = !App->menu->debug;
+		}
 		if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 			App->map->debug_draw = !App->map->debug_draw;
 		}

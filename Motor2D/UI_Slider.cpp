@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "UI_Button.h"
+#include "j1Menu.h"
 
 
 Slider::Slider(int x, int y) : UI_Element(x, y) {
@@ -39,6 +40,14 @@ bool Slider::Update(float dt) {
 		if (App->input->GetMouseButtonDown(1) == KEY_UP) {
 			moving_mouse = false;
 		}
+	}
+
+	if (App->menu->debug) {
+		debug_UI.x = original_pos.x;
+		debug_UI.y = debug_but.y = original_pos.y;
+		debug_but.x = image_butt->position.x;
+		App->render->DrawQuad(debug_UI, 255, 0, 0, 255, false);
+		App->render->DrawQuad(debug_but, 255, 0, 0, 255, false);
 	}
 	return true;
 }
@@ -94,8 +103,7 @@ void Slider::SetRelativePos(float x) {
 	float new_x = x + (image_bg->position.x / (image_bg->image.w - image_butt->image.w));
 	new_x *= (image_bg->image.w - image_butt->image.w);
 
-	image_butt->position.x = new_x;
-
+	image_butt->position.x = new_x; 
 }
 
 bool Slider::Define(SDL_Rect bg, SDL_Rect butt) {
@@ -104,6 +112,9 @@ bool Slider::Define(SDL_Rect bg, SDL_Rect butt) {
 	
 	ret1 = image_bg->LoadUI_Image(bg);
 	ret2 = image_butt->LoadUI_Image(butt);
+
+	debug_UI = bg;
+	debug_but = butt;
 
 	return ret1 && ret2;
 }

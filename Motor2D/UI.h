@@ -2,6 +2,7 @@
 #define __UI_H__
 
 #include "p2Point.h"
+#include "SDL/include/SDL.h"
 
 struct SDL_Texture;
 
@@ -27,6 +28,7 @@ public:
 	fPoint original_pos;
 
 	SDL_Texture* atlas = nullptr;
+	SDL_Rect debug_UI;
 
 public:
 

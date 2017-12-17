@@ -8,6 +8,7 @@
 #include "j1FadeToBlack.h"
 #include "j1Scene.h"
 #include "j1Gui.h"
+#include "j1Menu.h"
 
 
 Button::Button(int x, int y) : UI_Element(x, y) {
@@ -27,11 +28,15 @@ Button::Button(int x, int y) : UI_Element(x, y) {
 
 bool Button::Update(float dt)
 {
-
 	image->position = label->original_pos = MouseClick->position = MouseHovering->position = this->position;
 	bool ret = true;
 	MouseHovering->draw = MouseClick->draw = false;
 
+	if (App->menu->debug) {
+		debug_UI.x = position.x;
+		debug_UI.y = position.y;
+		App->render->DrawQuad(debug_UI, 255, 0, 0, 255, false);
+	}
 	if (MouseOnRect()) {
 		if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
 			MouseClick->draw = true;
@@ -109,14 +114,15 @@ bool Button::Define(SDL_Rect idle, SDL_Rect hovering, SDL_Rect oncick, char* tex
 	ret4 = label->SetText(text);
 
 	if (ret4) {
-		rect.w = image->image.w;
-		rect.h = image->image.h;
+		rect.w = debug_UI.w = image->image.w;
+		rect.h = debug_UI.h = image->image.h;
 
 		fPoint label_offset = label->original_pos;
 		label_offset.x += (rect.w - label->text_info.rect.w) / 2;
 		label_offset.y += (rect.h - label->text_info.rect.h) / 2;
 
 		label->position = label_offset;
+		
 	}
 	return ret1 && ret2 && ret3 && ret4;
 }
@@ -129,4 +135,8 @@ void Button::AddListener(p2List<j1Module*> listener) {
 	for (p2List_item<j1Module*>* iterator = listener.start; iterator != nullptr; iterator = iterator->next) {
 		listeners.add(iterator->data);
 	}
+}
+
+void Button::DrebugDraw() {
+
 }

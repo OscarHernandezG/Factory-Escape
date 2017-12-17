@@ -5,11 +5,13 @@
 #include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Input.h"
+#include "j1Menu.h"
 
 Label::Label(int x, int y) : UI_Element( x,  y) {
 
 	type = LABEL;
 	original_pos = position;
+
 
 }
 
@@ -21,6 +23,12 @@ Label::~Label() {
 bool Label::Update(float dt) {
 
 	App->render->Blit(text_info.tex, position.x, position.y, &text_info.rect, 0);
+
+	if (App->menu->debug) {
+		debug_UI.x = position.x;
+		debug_UI.y = position.y;
+		App->render->DrawQuad(debug_UI, 255, 0, 0, 255, false);
+	}
 
 	return true;
 }
@@ -49,7 +57,7 @@ bool Label::SetText(char* text, int font) {
 		App->tex->GetSize(tex, w, h);
 		int rect_w = w;
 		int rect_h = h;
-		SDL_Rect rect = { 0,0,rect_w,rect_h };
+		SDL_Rect rect = debug_UI = { 0,0,rect_w,rect_h };
 
 		text_info = { tex, rect, aux_text };
 		ret = true;

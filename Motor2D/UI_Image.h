@@ -30,7 +30,9 @@ public:
 
 	SDL_Rect image{ 0,0,0,0 };	
 
+
 	SDL_Texture* texture = nullptr;
+	SDL_Texture* text = nullptr;
 
 //	p2SString imagen;
 

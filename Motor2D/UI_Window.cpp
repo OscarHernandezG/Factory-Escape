@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "UI_Button.h"
+#include "j1Menu.h"
 
 Window::Window(int x, int y) : UI_Element(x, y) {
 
@@ -24,9 +25,11 @@ Window::~Window() {
 
 
 bool Window::Update(float dt) {
-
-
-
+	if (App->menu->debug) {
+		debug_UI.x = position.x;
+		debug_UI.y = position.y;
+		App->render->DrawQuad(debug_UI, 255, 0, 0, 255, false);
+	}
 	return true;
 }
 bool Window::CleanUp() {
@@ -44,6 +47,7 @@ bool Window::Define(SDL_Rect rect, char* text) {
 
 	ret2 = label->SetText(text);
 
+	debug_UI = rect;
 	
 	return ret1 && ret2;
 }
