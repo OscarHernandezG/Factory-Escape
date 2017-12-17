@@ -47,15 +47,15 @@ Gameplay of the game
 	- F2: Start from the beginnin of the current level
 	- F5: Save the current state
 	- F6: Load previous state
-	- F9: Show/Hide logic layer
 	- F8: Debug UI
+	- F9: Show/Hide logic layer
 	- F10: Activade/Deactivate player God Mode
 	- F11: Enable/Disable framerate cap
 
 
 GitHub:
 
-https://github.com/OscarHernandezG/GameDevelopment/
+https://github.com/OscarHernandezG/Factory-Escape
 
   - Authors
  
