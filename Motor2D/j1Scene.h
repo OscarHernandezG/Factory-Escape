@@ -83,6 +83,7 @@ public:
 	bool next_map = false;
 	bool reload_map = false;
 	bool click_PauseButt = false;
+	bool StartCont_Menu = false;
 
 	bool need_load_scene = false;
 
@@ -154,8 +155,8 @@ public:
 	bool Quit = false;
 	bool can_quit = true;
 
-	j1Timer Timer_play;
-	uint StartPause, ClosePause = 0u;
+	j1Timer Timer_play, Timer_Pause;
+	uint cont_timer_pause = 0u;
 
 };
 

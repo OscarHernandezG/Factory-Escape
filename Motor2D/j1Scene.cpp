@@ -85,7 +85,7 @@ bool j1Scene::Start()
 		score->Define({ 156,178,43,44 }, score_text,{61,178,44,44});
 
 		pause_butt = (Button*)App->gui->AdHUDElement(1200, 650, BUTTON);
-		pause_butt->Define({ 46,318,49,49 }, { 145,318,49,49 }, { 254,318,49,49 }, "");
+		pause_butt->Define({ 48,318,49,49 }, { 147,318,49,49 }, { 256,318,49,49 }, "");
 		pause_butt->AddListener(this);
 		pause_butt->TAB = -1;
 
@@ -97,7 +97,7 @@ bool j1Scene::Start()
 		Timer->SetText(score_timer,1);
 
 		Timer_play.Start();
-		ClosePause = StartPause = 0u;
+		cont_timer_pause = 0u;
 	}
 
 	return true;
@@ -134,11 +134,11 @@ bool j1Scene::Update(float dt)
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
 	if (!Pause) {
-		if ((ClosePause - StartPause) >= 0) {
+		//if ((ClosePause - StartPause) >= 0) {
 			static char score_timer[6];
-			sprintf_s(score_timer, 6, "%02i:%02i", ((uint)Timer_play.ReadSec() - (ClosePause - StartPause) / 1000) / 60, ((uint)Timer_play.ReadSec() - (ClosePause - StartPause) / 1000) % 60);
+			sprintf_s(score_timer, 6, "%02i:%02i", ((uint)Timer_play.ReadSec() - cont_timer_pause) / 60, ((uint)Timer_play.ReadSec() - cont_timer_pause) % 60);
 			Timer->SetText(score_timer, 1);
-		}
+		//}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
 		score->ChangeImage();
@@ -276,8 +276,10 @@ bool j1Scene::PostUpdate()
 	if((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || Quit) && can_quit)
 		ret = false;
 
-	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN || click_PauseButt) {
+	if ((App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN || click_PauseButt) && !StartCont_Menu) {
 		click_PauseButt = false;
+		StartCont_Menu = true;
+		Timer_Pause.Start();
 		OpenInGameMenu();
 		can_quit = !can_quit;
 	}
@@ -338,7 +340,7 @@ bool j1Scene::PostUpdate()
 		App->menu->SetUpMenu();
 
 		Pause = return_menu = App->menu->Started = App->scene->active = App->map->active = false;
-		StartPause = ClosePause = 0u;
+		cont_timer_pause = 0u;
 		currmap = 1;
 	}
 	if (need_clean) {
@@ -368,13 +370,13 @@ bool j1Scene::PostUpdate()
 			can_quit = true;
 			in_game_menu = false;
 			Pause = false;
-			ClosePause += SDL_GetTicks();
+			cont_timer_pause += Timer_Pause.ReadSec();
+			StartCont_Menu = false;
 			DeleteMenu();
 		}
 
 		else if (in_game_settings) {
 			in_game_settings = false;
-			ClosePause += SDL_GetTicks();			
 			OpenInGameMenu();
 		}
 
@@ -416,7 +418,7 @@ void j1Scene::FreeScene(bool is_load) {
 bool j1Scene::LoadScene(int map, bool is_load) {
 
 	Timer_play.Start();
-	ClosePause = StartPause = 0u;
+	cont_timer_pause = 0u;
 	bool ret = false;
 
 	FreeScene(is_load);
@@ -670,7 +672,8 @@ void j1Scene::GUICallback(UI_Element* element) {
 		}
 
 		else if (Close == element) {
-			ClosePause += SDL_GetTicks();
+			cont_timer_pause += Timer_Pause.ReadSec();
+			StartCont_Menu = false;
 			Pause = false;
 			can_quit = true;
 			in_game_menu = false;
@@ -742,7 +745,6 @@ void j1Scene::GUICallback(UI_Element* element) {
 void j1Scene::OpenInGameMenu() {
 
 	if (!in_game_menu) {
-		StartPause += SDL_GetTicks();
 		DeleteMenu();
 
 		Pause = true;
