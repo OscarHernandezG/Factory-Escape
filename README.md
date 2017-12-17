@@ -1,4 +1,4 @@
-### Factoy Escape
+﻿### Factoy Escape
 
 In this game you are a robot that should escape from the factory he's been recluded,
 but beware of acid waste and other dangers.
@@ -6,6 +6,10 @@ but beware of acid waste and other dangers.
 
 Good luck and have fun!
 
+
+# Video
+Gameplay of the game
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/v=vSe9DGbsOJQ/0.jpg)](https://www.youtube.com/watch?v=vSe9DGbsOJQ)
 
 # Controls:
 
