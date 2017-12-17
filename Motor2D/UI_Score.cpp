@@ -10,8 +10,9 @@ Score::Score(int x, int y) : UI_Element(x, y) {
 	type = SCORE;
 
 	image = (Image*)App->gui->AdUIElement(x, y, IMAGE);
+	image2nd = (Image*)App->gui->AdUIElement(x, y, IMAGE);
 	label = (Label*)App->gui->AdUIElement(x, y, LABEL);
-
+	image2nd->draw = false;
 }
 
 
@@ -32,11 +33,12 @@ bool Score::CleanUp() {
 	return true;
 }
 
-bool Score::Define(SDL_Rect rect, char* text)
+bool Score::Define(SDL_Rect rect, char* text,SDL_Rect rect2nd)
 {
 	bool ret1 = false, ret2 = false;
 
 	image->image = rect;
+	image2nd->image = rect2nd;
 
 	ret2= label->SetText(text);
 
@@ -59,5 +61,9 @@ bool Score::ChangeLabel(char* text) {
 	ret = label->SetText(text);
 
 	return ret;
+}
+
+void Score::ChangeImage() {
+	image2nd->draw = !image2nd->draw;
 }
 

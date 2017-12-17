@@ -25,7 +25,9 @@ public:
 	bool CleanUp();
 
 
-	bool Define(SDL_Rect rect, char* text);
+	bool Define(SDL_Rect rect, char* text,SDL_Rect rect2nd);
+
+	void ChangeImage();
 
 	bool ChangeLabel(char* text);
 
@@ -33,6 +35,7 @@ public:
 public:
 
 	Image* image = nullptr;
+	Image* image2nd = nullptr;
 	Label* label = nullptr;
 
 	SDL_Rect rect{ 0,0,0,0 };

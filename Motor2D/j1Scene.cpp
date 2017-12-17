@@ -81,8 +81,7 @@ bool j1Scene::Start()
 		score = (Score*)App->gui->AdUIElement(1100, 650, SCORE);
 		static char score_text[3];
 		sprintf_s(score_text, 3, "%02i", score_nums);
-
-		score->Define({156,178,43,44}, score_text);
+		score->Define({ 156,178,43,44 }, score_text,{61,178,44,44});
 		
 	}
 
@@ -99,6 +98,9 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
+
+	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
+		score->ChangeImage();
 
 	if (change_score) {
 		change_score = false;
