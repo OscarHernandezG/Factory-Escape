@@ -32,7 +32,7 @@ Gameplay of the game
 		- P: Take a screenshot, will be saved in the screenshot folder with the date it was taken 
 		- O: Exit the photo mode
 		- Mouse Wheel: Zoom in/out before taking a screenshot
-	- J: Open in game menu:
+	- J or Pause Icon: Open in game menu:
 		- Use mouse to navigate in the in game menu
 		- Esc: Go to the previous menu
 	- Escape: Exit the game
