@@ -9,7 +9,7 @@ Good luck and have fun!
 
 # Video
 Gameplay of the game
-[[Video HERE](https://img.youtube.com/vi/v=vSe9DGbsOJQ.jpg)](https://www.youtube.com/watch?v=vSe9DGbsOJQ)
+[[Video HERE](https://img.youtube.com/vi/vSe9DGbsOJQ.jpg)](https://www.youtube.com/watch?v=vSe9DGbsOJQ)
 
 # Controls:
 
