@@ -245,7 +245,8 @@ bool j1Scene::PostUpdate()
 	if((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || Quit) && can_quit)
 		ret = false;
 
-	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN || click_PauseButt) {
+		click_PauseButt = false;
 		OpenInGameMenu();
 		can_quit = !can_quit;
 	}
@@ -692,6 +693,10 @@ void j1Scene::GUICallback(UI_Element* element) {
 			sprintf_s(vol_text, 4, "%.0f", vol * 100);
 			curr_vol->SetText(vol_text);
 		}
+	}
+
+	if (element == pause_butt) {
+		click_PauseButt = true;
 	}
 }
 

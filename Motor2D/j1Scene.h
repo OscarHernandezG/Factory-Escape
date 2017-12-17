@@ -82,6 +82,7 @@ public:
 	bool Pause = false;
 	bool next_map = false;
 	bool reload_map = false;
+	bool click_PauseButt = false;
 
 	bool need_load_scene = false;
 
