@@ -15,6 +15,7 @@
 #include "j1FadeToBlack.h"
 #include "j1Menu.h"
 #include "j1Gui.h"
+#include "j1Fonts.h"
 
 
 #include "UI.h"
@@ -87,6 +88,14 @@ bool j1Scene::Start()
 		pause_butt->Define({ 46,318,49,49 }, { 145,318,49,49 }, { 254,318,49,49 }, "");
 		pause_butt->AddListener(this);
 		pause_butt->TAB = -1;
+
+		App->font->Load(DEFAULT_FONT,22);
+
+		Timer = (Label*)App->gui->AdHUDElement(20, 20, LABEL);
+		static char score_timer[6];
+		sprintf_s(score_timer, 6, "%02i:%02i", score_nums,score_nums);
+		Timer->SetText(score_timer,1);
+
 		
 	}
 
@@ -109,6 +118,11 @@ bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
+	if (!Pause) {
+		static char score_timer[6];
+		sprintf_s(score_timer, 6, "%02i:%02i", ((uint)Timer_play.ReadSec() - (ClosePause - StartPause)/1000) / 60, ((uint)Timer_play.ReadSec() - (ClosePause - StartPause)/1000) % 60);
+		Timer->SetText(score_timer,1);
+	}
 	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
 		score->ChangeImage();
 
@@ -336,12 +350,13 @@ bool j1Scene::PostUpdate()
 			can_quit = true;
 			in_game_menu = false;
 			Pause = false;
+			ClosePause += SDL_GetTicks();
 			DeleteMenu();
 		}
 
 		else if (in_game_settings) {
 			in_game_settings = false;
-			
+			ClosePause += SDL_GetTicks();			
 			OpenInGameMenu();
 		}
 
@@ -365,7 +380,6 @@ bool j1Scene::CleanUp()
 {
 
 	LOG("Freeing scene");
-
 	return true;
 }
 
@@ -377,12 +391,13 @@ void j1Scene::FreeScene(bool is_load) {
 	App->tex->FreeTextures();
 	if(!is_load)
 	App->entities->FreeEnemies();
+	in_game_menu = false;
 
 }
 
 bool j1Scene::LoadScene(int map, bool is_load) {
 
-
+	Timer_play.Start();
 	bool ret = false;
 
 	FreeScene(is_load);
@@ -622,7 +637,10 @@ void j1Scene::DeleteMenu() {
 
 void j1Scene::GUICallback(UI_Element* element) {
 
-	if (in_game_menu) {
+	if (element == pause_butt)
+		click_PauseButt = true;
+
+	else if (in_game_menu) {
 
 		if (Exit == element)
 			return_menu = true;
@@ -633,6 +651,7 @@ void j1Scene::GUICallback(UI_Element* element) {
 		}
 
 		else if (Close == element) {
+			ClosePause += SDL_GetTicks();
 			Pause = false;
 			can_quit = true;
 			in_game_menu = false;
@@ -695,20 +714,21 @@ void j1Scene::GUICallback(UI_Element* element) {
 		}
 	}
 
-	if (element == pause_butt) {
-		click_PauseButt = true;
-	}
+
 }
 
 void j1Scene::OpenInGameMenu() {
 
-	DeleteMenu();
+	if (!in_game_menu) {
+		StartPause += SDL_GetTicks();
+		DeleteMenu();
 
-	Pause = true;
-	in_game_settings = in_game_save = in_game_options = false;
-	in_game_menu = true;
-	
-	CreatePauseMenu();
+		Pause = true;
+		in_game_settings = in_game_save = in_game_options = false;
+		in_game_menu = true;
+
+		CreatePauseMenu();
+	}
 }
 
 void j1Scene::OpenInGameSettings() {

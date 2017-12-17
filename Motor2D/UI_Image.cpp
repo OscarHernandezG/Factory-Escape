@@ -25,9 +25,11 @@ bool Image::Update(float dt) {
 			App->render->Blit(texture, position.x, position.y, &image, 0, SDL_FLIP_NONE, 0, scale);
 	}
 	if (App->menu->debug) {
-		debug_UI.x = original_pos.x;
-		debug_UI.y = original_pos.y;
-		App->render->DrawQuad(debug_UI, 255, 0, 0, 255, false);
+		if (debug_UI.w > 0 && debug_UI.h > 0) {
+			debug_UI.x = original_pos.x;
+			debug_UI.y = original_pos.y;
+			App->render->DrawQuad(debug_UI, 255, 0, 0, 255, false);
+		}
 	}
 	return true;
 }

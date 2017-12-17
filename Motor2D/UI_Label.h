@@ -28,6 +28,7 @@ public:
 	bool SetText(char* text, int font = 0);
 
 
+
 public:
 
 	TextInfo text_info;

@@ -139,6 +139,8 @@ private:
 	Score* score = nullptr;
 
 	Button* pause_butt = nullptr;
+
+	Label* Timer = nullptr;
 	
 
 public:
@@ -148,8 +150,9 @@ public:
 	bool Quit = false;
 	bool can_quit = true;
 
-//	j1Timer score_anim_timer;
-//	j1Timer aux_timer;
+	j1Timer Timer_play;
+	uint StartPause, ClosePause = 0u;
+
 };
 
 #endif // __j1SCENE_H__
