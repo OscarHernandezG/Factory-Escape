@@ -101,6 +101,20 @@ bool j1Scene::PreUpdate()
 		LoadScene(currmap, true);
 		need_load_scene = false;
 	}
+
+	if (App->menu->need_load) {
+		App->menu->need_load = false;
+		App->LoadGame(App->menu->load_map);
+	}
+	if (saved && need_save) {
+		saved = need_save = false;
+		App->gui->active = true;
+	}
+	if (need_save) {
+		App->SaveGame(save_game);
+		saved = true;
+	}
+
 	return true;
 }
 
@@ -309,27 +323,27 @@ bool j1Scene::PostUpdate()
 		Pause = return_menu = App->menu->Started = App->scene->active = App->map->active = false;
 		currmap = 1;
 	}
+	if (need_clean) {
+		if (in_game_menu) {
+			need_clean = can_quit = false;
+			OpenInGameMenu();
+		}
 
-	if (in_game_menu && need_clean) {
-		need_clean = can_quit = false;
-		OpenInGameMenu();
+		else if (in_game_settings) {
+			need_clean = can_quit = false;
+			OpenInGameSettings();
+		}
+
+		else if (in_game_save) {
+			need_clean = can_quit = false;
+			OpenInGameSave();
+		}
+
+		else if (in_game_options) {
+			need_clean = can_quit = false;
+			OpenInGameConfig();
+		}
 	}
-
-	else if (in_game_settings && need_clean) {
-		need_clean = can_quit = false;
-		OpenInGameSettings();
-	}
-
-	else if (in_game_save && need_clean) {
-		need_clean = can_quit = false;
-		OpenInGameSave();
-	}
-
-	else if (in_game_options && need_clean) {
-		need_clean = can_quit = false;
-		OpenInGameConfig();
-	}
-
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !can_quit) {
 
 		if (in_game_menu) {
@@ -660,16 +674,19 @@ void j1Scene::GUICallback(UI_Element* element) {
 	else if (in_game_save) {
 
 		if (Save1 == element) {
-			App->SaveGame(0);
+			need_save = true;
+			save_game = 0;
 			App->gui->active = false;
 		}
 
 		else if (Save2 == element) {
-			App->SaveGame(1);
+			need_save = true;
+			save_game = 1;
 			App->gui->active = false;
 		}
 		else if (Save3 == element) {
-			App->SaveGame(2);
+			need_save = true;
+			save_game = 2;
 			App->gui->active = false;
 		}
 	}

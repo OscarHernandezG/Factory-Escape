@@ -4,7 +4,7 @@
 	<window />
 	<textures />
 	<audio>
-		<volume music="0.100000001" />
+		<volume music="0.00999999978" />
 	</audio>
 	<pathfinding />
 	<scene>
@@ -13,13 +13,13 @@
 	</scene>
 	<map />
 	<entities>
-		<position x="495.7341" y="284.142365" type="1" />
-		<position x="512.904175" y="513.279907" type="2" />
+		<position x="300.581451" y="413.515594" type="1" />
+		<position x="513.294189" y="480.162811" type="2" />
 		<position x="640" y="256" type="4" />
-		<position x="801.587463" y="575.522766" type="2" />
+		<position x="839.038452" y="256" type="2" />
 		<position x="1024" y="256" type="4" />
-		<position x="1235.78516" y="413.470032" type="1" />
-		<position x="1126.88269" y="458.662933" type="3" />
+		<position x="1344" y="256" type="1" />
+		<position x="798.463135" y="403.021851" type="3" />
 		<position x="1600" y="448" type="4" />
 		<position x="1280" y="512" type="4" />
 	</entities>
@@ -29,6 +29,6 @@
 	<menu />
 	<:anonymous />
 	<renderer>
-		<camera x="-672" y="0" />
+		<camera x="384" y="0" />
 	</renderer>
 </game_state>

@@ -99,6 +99,7 @@ void Player::Move(float dt) {
 		break;
 	case DEAD:
 		CurrentAnim = &Die;
+		App->scene->score_nums = 0;
 		death = true;
 		break;
 	default:
@@ -315,15 +316,7 @@ void Player::CheckPlayerState(float dt)
 		PlayerState = DEAD;
 		fpos.y += (down_force * dt) / 10;
 		if (currentTime > dieTime + 1000) {
-			/*CurrentAnim = &Idle;
-			melee = false;
-			App->entities->FreeEnemies();
-			App->scene->FindEntities();
-			death = false;
-			App->render->camera.x = 0;
-			PlayerState = IDLE;
-
-			SpawnPlayer();*/
+			
 			App->scene->reload_map = true;
 		}
 	}

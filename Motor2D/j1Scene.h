@@ -56,7 +56,7 @@ public:
 	void LoadWalkabilityMap();
 
 	void FindEntities();
-	
+
 	void CreatePauseMenu();
 
 	void DeleteMenu();
@@ -136,10 +136,14 @@ private:
 	bool in_game_options = false;
 	bool need_clean = false;
 
+	bool need_save = false;
+	bool saved = false;
+	int save_game = 0;
+
 	Score* score = nullptr;
 
 	Button* pause_butt = nullptr;
-	
+
 
 public:
 	uint score_nums = 0u;
@@ -148,8 +152,6 @@ public:
 	bool Quit = false;
 	bool can_quit = true;
 
-//	j1Timer score_anim_timer;
-//	j1Timer aux_timer;
 };
 
 #endif // __j1SCENE_H__

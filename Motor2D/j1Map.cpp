@@ -259,7 +259,7 @@ bool j1Map::Load(p2SString file_name)
 		LoadGidProperties(gid);
 	}
 
-	App->render->camera.x = 0;
+//	App->render->camera.x = 0;
 	map_loaded = ret;
 
 	return ret;

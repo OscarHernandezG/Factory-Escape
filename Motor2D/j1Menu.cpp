@@ -202,7 +202,7 @@ void j1Menu::GUICallback(UI_Element* element) {
 
 	else if (Return == element)
 		return_menu = true;
-	
+
 	else if (Slider_Frames == element) {
 		float frames = Slider_Frames->GetRelativePosition();
 		frames = (frames * 210) + 30;
@@ -217,9 +217,22 @@ void j1Menu::GUICallback(UI_Element* element) {
 		float volume = Slider_Volume->GetRelativePosition();
 		App->audio->SetVolume(volume);
 		static char vol_text[4];
-		sprintf_s(vol_text, 4, "%.0f", volume*100);
+		sprintf_s(vol_text, 4, "%.0f", volume * 100);
 		curr_vol->SetText(vol_text);
 		LOG("%f", volume);
+	}
+
+	else if (Load1 == element) {
+		need_load = true;
+		load_map = 0;
+	}
+	else if (Load2 == element) {
+		need_load = true;
+		load_map = 1;
+	}
+	else if (Load3 == element) {
+		need_load = true;
+		load_map = 2;
 	}
 
 }

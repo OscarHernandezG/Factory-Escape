@@ -49,8 +49,6 @@ public:
 
 	void GUICallback(UI_Element* element);
 
-	int currmap = 1;
-	bool Started = false;
 
 private:
 
@@ -106,13 +104,23 @@ private:
 	bool load_But_bool = false;
 	bool clean_menu = false;
 
+	bool save1 = false;
+	bool save2 = false;
+	bool save3 = false;
+
 	bool can_quit = true;
 
 	int GUI_Speed = 200;
 public:
 	uint tab_button = 0;
 	bool StartGame = false;
+
+	int currmap = 1;
+	bool Started = false;
 	bool need_setup = true;
+
+	bool need_load = false;
+	int load_map = 0;
 
 	bool debug = false;
 };

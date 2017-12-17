@@ -57,8 +57,8 @@ public:
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
 
-	void LoadGame();
-	void SaveGame(int save_to_game = 1) const;
+	void LoadGame(int game_to_load = 0);
+	void SaveGame(int save_to_game = 0) const;
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
 private:
@@ -124,8 +124,8 @@ private:
 	p2SString			title;
 	p2SString			organization;
 
-	mutable int					save_game_num = -1;
-
+	mutable int			save_game_num = 0;
+	int					load_game_num = 0;
 	mutable bool		want_to_save;
 	bool				want_to_load;
 	p2List<p2SString>	load_game;

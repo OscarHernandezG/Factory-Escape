@@ -34,8 +34,6 @@ public:
 	SDL_Texture* texture = nullptr;
 	SDL_Texture* text = nullptr;
 
-//	p2SString imagen;
-
 	float scale = 1;
 
 	bool draw = true;
