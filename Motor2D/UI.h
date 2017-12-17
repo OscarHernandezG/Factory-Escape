@@ -49,11 +49,7 @@ public:
 	// Called before quitting
 	virtual bool CleanUp();
 
-	//virtual bool Clicked();
-
 	virtual bool MouseOnRect();
-
-	virtual bool SetText();
 
 
 };

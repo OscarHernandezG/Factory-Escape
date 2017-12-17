@@ -134,9 +134,11 @@ bool j1Scene::Update(float dt)
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
 	if (!Pause) {
-		static char score_timer[6];
-		sprintf_s(score_timer, 6, "%02i:%02i", ((uint)Timer_play.ReadSec() - (ClosePause - StartPause)/1000) / 60, ((uint)Timer_play.ReadSec() - (ClosePause - StartPause)/1000) % 60);
-		Timer->SetText(score_timer,1);
+		if ((ClosePause - StartPause) >= 0) {
+			static char score_timer[6];
+			sprintf_s(score_timer, 6, "%02i:%02i", ((uint)Timer_play.ReadSec() - (ClosePause - StartPause) / 1000) / 60, ((uint)Timer_play.ReadSec() - (ClosePause - StartPause) / 1000) % 60);
+			Timer->SetText(score_timer, 1);
+		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
 		score->ChangeImage();

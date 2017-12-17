@@ -25,15 +25,9 @@ bool UI_Element::CleanUp() {
 	return true;
 }
 
-bool UI_Element::Clicked() {
-	return true;
-}
-
 bool UI_Element::MouseOnRect() {
 	return true;
 }
 
-bool UI_Element::SetText() {
-	return true;
-}
+
 
