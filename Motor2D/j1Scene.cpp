@@ -61,7 +61,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 
 	CurrentMap = MapsList_String.start;
 
-
+//	time_of_start = 0;
 	
 	return ret;
 }
@@ -136,11 +136,12 @@ bool j1Scene::Update(float dt)
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
 	if (!Pause) {
-		//if ((ClosePause - StartPause) >= 0) {
+
 			static char score_timer[6];
-			sprintf_s(score_timer, 6, "%02i:%02i", ((uint)Timer_play.ReadSec() - cont_timer_pause) / 60, ((uint)Timer_play.ReadSec() - cont_timer_pause) % 60);
+			in_game_time = time_of_start + ((uint)Timer_play.ReadSec() - cont_timer_pause);
+			sprintf_s(score_timer, 6, "%02i:%02i", in_game_time / 60, in_game_time % 60);
 			Timer->SetText(score_timer, 1);
-		//}
+
 	}
 	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
 		score->ChangeImage();
@@ -476,7 +477,8 @@ bool j1Scene::LoadScene(int map, bool is_load) {
 bool j1Scene::Load(pugi::xml_node&  savegame) {
 	currmap = savegame.child("Map").attribute("CurrentMap").as_int();
 	score_nums = savegame.child("score").attribute("score").as_uint();
-
+	time_of_start = savegame.child("timer").attribute("time").as_int();
+	LOG("%i", time_of_start);
 	App->entities->FreeEnemies();
 
 	need_load_scene = true;
@@ -489,9 +491,11 @@ bool j1Scene::Save(pugi::xml_node& data) const {
 
 	pugi::xml_node map = data.append_child("Map");
 	pugi::xml_node score = data.append_child("score");
+	pugi::xml_node timer = data.append_child("timer");
 
 	map.append_attribute("CurrentMap") = currmap;
 	score.append_attribute("score") = score_nums;
+	timer.append_attribute("time") = in_game_time;
 
 	return true;
 }

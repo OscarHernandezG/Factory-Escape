@@ -10,6 +10,7 @@
 	<scene>
 		<Map CurrentMap="1" />
 		<score score="0" />
+		<timer time="0" />
 	</scene>
 	<map />
 	<entities>
@@ -19,7 +20,7 @@
 		<position x="960" y="256" type="2" />
 		<position x="1024" y="256" type="4" />
 		<position x="1344" y="256" type="1" />
-		<position x="0" y="395.276337" type="3" />
+		<position x="0" y="394.225952" type="3" />
 		<position x="1600" y="448" type="4" />
 		<position x="576" y="512" type="4" />
 		<position x="1280" y="512" type="4" />
@@ -28,7 +29,6 @@
 	<:anonymous />
 	<fonts />
 	<menu />
-	<:anonymous />
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>

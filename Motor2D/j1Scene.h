@@ -87,6 +87,9 @@ public:
 
 	bool need_load_scene = false;
 
+	int time_of_start = 0;
+	uint in_game_time = 0;
+
 private:
 
 	uint width_map;
