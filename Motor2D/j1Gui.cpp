@@ -12,6 +12,7 @@
 #include "UI_Window.h"
 #include "UI_Slider.h"
 #include "UI_Score.h"
+#include "j1Audio.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -29,7 +30,7 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 	bool ret = true;
 
 	atlas_file_name = conf.child("atlas").attribute("file").as_string("");
-
+	
 	button_idle = { 0,0,0,0 };
 	button_hovering = { 0,0,0,0 };
 	button_onclick = { 0,0,0,0 };
@@ -41,6 +42,9 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
+
+	button_click_fx = App->audio->LoadFx("audio/fx/button_click.wav");
+
 
 	button_idle = { 41, 33, 244, 77 };
 	button_hovering = { 318, 33, 244, 77 };

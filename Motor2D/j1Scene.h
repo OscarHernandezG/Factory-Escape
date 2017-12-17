@@ -158,6 +158,8 @@ public:
 	j1Timer Timer_play, Timer_Pause;
 	uint cont_timer_pause = 0u;
 
+	uint camera_sound_fx;
+
 };
 
 #endif // __j1SCENE_H__

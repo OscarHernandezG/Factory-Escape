@@ -9,6 +9,7 @@
 #include "j1Scene.h"
 #include "j1Gui.h"
 #include "j1Menu.h"
+#include "j1Audio.h"
 
 
 Button::Button(int x, int y, bool HUD) : UI_Element(x, y) {
@@ -43,6 +44,9 @@ bool Button::Update(float dt)
 		App->render->DrawQuad(debug_UI, 255, 0, 0, 255, false);
 	}
 	if (MouseOnRect()) {
+		if (App->input->GetMouseButtonDown(1) == KEY_DOWN) {
+			App->audio->PlayFx(App->gui->button_click_fx);
+		}
 		if (App->input->GetMouseButtonDown(1) == KEY_REPEAT) {
 			MouseClick->draw = true;
 		}

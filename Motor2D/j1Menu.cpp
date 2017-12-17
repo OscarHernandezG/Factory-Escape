@@ -77,7 +77,7 @@ bool j1Menu::Update(float dt)
 		debug = !debug;
 	}
 
-	if (!need_setup && !quit_bool && !settings_bool && !credits_bool && !load_But_bool && !clean_menu) {
+	if (!need_setup && !quit_bool && !settings_bool && !load_But_bool && !clean_menu) {
 		if (Quit->position.y > 600 || Settings->position.y > 600 || Load_But->position.y > 600) {
 			Quit->position.y -= dt * GUI_Speed;
 			Settings->position.y -= dt * GUI_Speed;
@@ -85,9 +85,6 @@ bool j1Menu::Update(float dt)
 		}
 		if (Login->position.y > 400)
 			Login->position.y -= dt * GUI_Speed;
-
-		if (Credits->position.x > 1000)
-			Credits->position.x -= dt * GUI_Speed;
 
 		if (Title_ui->position.x < 0)
 			Title_ui->position.x += 2 * dt * GUI_Speed;
@@ -134,13 +131,6 @@ bool j1Menu::PostUpdate()
 		settings_bool = false;
 		CleanUI();
 		CreateSettings();
-	}
-
-	else if (credits_bool) {
-		can_quit = false;
-		credits_bool = false;
-		CleanUI();
-		CreateCredits();
 	}
 
 	else if (return_menu) {
@@ -195,9 +185,6 @@ void j1Menu::GUICallback(UI_Element* element) {
 
 	else if (Load_But == element)
 		load_But_bool = true;
-
-	else if (Credits == element)
-		credits_bool = true;
 
 	else if (Return == element)
 		return_menu = true;
@@ -266,11 +253,6 @@ void j1Menu::CreateMenu() {
 	Settings->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "SETTINGS");
 	Settings->TAB = 2;
 	Settings->AddListener(this);
-
-	Credits = (Button*)App->gui->AdUIElement(1200, 10, BUTTON);//x = 1000
-	Credits->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "CREDITS");
-	Credits->TAB = 4;
-	Credits->AddListener(this);
 
 	Load_But = (Button*)App->gui->AdUIElement(500, 800, BUTTON);//y = 600
 	Load_But->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "LOAD");
@@ -367,11 +349,6 @@ void j1Menu::CreateLoading() {
 	Return->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "RETURN");
 	Return->TAB = -1;
 	Return->AddListener(this);
-
-}
-
-
-void j1Menu::CreateCredits() {
 
 }
 

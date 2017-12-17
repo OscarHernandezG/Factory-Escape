@@ -57,6 +57,8 @@ bool j1Scene::Awake(pugi::xml_node& config)
 		MapsList_String.add(aux);
 	}
 
+	camera_sound_fx = App->audio->LoadFx("audio/fx/photo_camera_sound.wav");
+
 	CurrentMap = MapsList_String.start;
 
 
@@ -316,6 +318,8 @@ bool j1Scene::PostUpdate()
 		}
 
 		last_frame_sec = sec;
+
+		App->audio->PlayFx(camera_sound_fx);
 
 		LOG("Saving photo %s", photo_name);
 

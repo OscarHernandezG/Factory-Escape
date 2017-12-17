@@ -59,6 +59,9 @@ public:
 	SDL_Rect button_idle;
 	SDL_Rect button_hovering;
 	SDL_Rect button_onclick;
+
+	uint button_click_fx;
+	
 };
 
 #endif // __j1GUI_H__

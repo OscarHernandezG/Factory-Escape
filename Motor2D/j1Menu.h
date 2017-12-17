@@ -80,7 +80,6 @@ private:
 	Button* Login = nullptr;
 	Button* Quit = nullptr;
 	Button* Settings = nullptr;
-	Button* Credits = nullptr;
 	Button* Load_But = nullptr;
 
 	Button* Return = nullptr;
@@ -99,7 +98,6 @@ private:
 
 	bool quit_bool = false;
 	bool settings_bool = false;
-	bool credits_bool = false;
 	bool return_menu = false;
 	bool load_But_bool = false;
 	bool clean_menu = false;
