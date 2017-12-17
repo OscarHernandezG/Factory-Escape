@@ -82,6 +82,11 @@ bool j1Scene::Start()
 		static char score_text[3];
 		sprintf_s(score_text, 3, "%02i", score_nums);
 		score->Define({ 156,178,43,44 }, score_text,{61,178,44,44});
+
+		pause_butt = (Button*)App->gui->AdHUDElement(1200, 650, BUTTON);
+		pause_butt->Define({ 46,318,49,49 }, { 145,318,49,49 }, { 254,318,49,49 }, "");
+		pause_butt->AddListener(this);
+		pause_butt->TAB = -1;
 		
 	}
 
@@ -633,7 +638,6 @@ void j1Scene::GUICallback(UI_Element* element) {
 			DeleteMenu();
 		}
 	}
-
 
 	else if (in_game_settings) {
 

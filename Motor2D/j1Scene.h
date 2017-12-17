@@ -136,6 +136,8 @@ private:
 	bool need_clean = false;
 
 	Score* score = nullptr;
+
+	Button* pause_butt = nullptr;
 	
 
 public:

@@ -13,7 +13,7 @@ class Button : public UI_Element
 private:
 
 public:
-	Button(int x, int y);
+	Button(int x, int y, bool HUD);
 
 	~Button(){}
 

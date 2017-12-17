@@ -35,7 +35,7 @@ Player::Player(int x, int y, ENTITY_TYPES etype) : Entity(x, y, etype)
 void Player::Move(float dt) {
 
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
-//	if (dt > 0)
+
 	CheckPlayerState(dt);
 
 	switch (PlayerState)

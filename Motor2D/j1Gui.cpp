@@ -115,7 +115,7 @@ UI_Element* j1Gui::AdUIElement(int x,int y, GUI_TYPE type)
 		ret = new Label(x, y);
 		break;
 	case BUTTON:
-		ret = new Button(x, y);
+		ret = new Button(x, y,false);
 		break;
 	case WINDOW:
 		ret = new Window(x, y);
@@ -152,7 +152,7 @@ UI_Element* j1Gui::AdHUDElement(int x, int y, GUI_TYPE type)
 		ret = new Label(x, y);
 		break;
 	case BUTTON:
-		ret = new Button(x, y);
+		ret = new Button(x, y, true);
 		break;
 	case WINDOW:
 		ret = new Window(x, y);
