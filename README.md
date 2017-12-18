@@ -52,7 +52,9 @@ Gameplay of the game
 	- F10: Activade/Deactivate player God Mode
 	- F11: Enable/Disable framerate cap
 
+## Download
 
+You can download the last version of the game [here](https://github.com/OscarHernandezG/Factory-Escape/releases/tag/1.0)
 GitHub:
 
 https://github.com/OscarHernandezG/Factory-Escape
