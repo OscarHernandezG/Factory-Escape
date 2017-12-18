@@ -55,7 +55,9 @@ Gameplay of the game
 ## Download
 
 You can download the last version of the game [here](https://github.com/OscarHernandezG/Factory-Escape/releases/tag/1.0)
-GitHub:
+
+
+## GitHub:
 
 https://github.com/OscarHernandezG/Factory-Escape
 
