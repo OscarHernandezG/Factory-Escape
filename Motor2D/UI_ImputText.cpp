@@ -60,29 +60,3 @@ bool ImputText::CleanUp() {
 
 	return true;
 }
-bool ImputText::SetText(char* text, int font) {
-
-	bool ret = false;
-	p2SString aux_text;
-	aux_text.create(text);
-
-	if (text_info.tex != nullptr)
-		App->tex->UnLoad(text_info.tex);
-	SDL_Texture* tex;
-	if (font == 0)
-		tex = App->font->Print(aux_text.GetString(), { 255, 255, 255, 255 }, App->font->fonts.start->data);
-	else
-		tex = App->font->Print(aux_text.GetString(), { 255, 255, 255, 255 }, App->font->fonts.start->next->data);
-	if (tex != nullptr) {
-		uint w = 0, h = 0;
-		App->tex->GetSize(tex, w, h);
-		int rect_w = w;
-		int rect_h = h;
-		SDL_Rect rect = debug_UI = { 0,0,rect_w,rect_h };
-
-		text_info = { tex, rect, aux_text };
-		ret = true;
-	}
-
-	return ret;
-}
