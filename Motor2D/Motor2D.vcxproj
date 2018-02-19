@@ -103,6 +103,7 @@
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UI_Button.cpp" />
     <ClCompile Include="UI_Image.cpp" />
+    <ClCompile Include="UI_ImputText.cpp" />
     <ClCompile Include="UI_Label.cpp" />
     <ClCompile Include="UI_Score.cpp" />
     <ClCompile Include="UI_Slider.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="UI.h" />
     <ClInclude Include="UI_Button.h" />
     <ClInclude Include="UI_Image.h" />
+    <ClInclude Include="UI_ImputText.h" />
     <ClInclude Include="UI_Label.h" />
     <ClInclude Include="UI_Score.h" />
     <ClInclude Include="UI_Slider.h" />

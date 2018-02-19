@@ -11,6 +11,7 @@ class Image;
 class Label;
 class Button;
 class Window;
+class ImputText;
 class Slider;
 
 class j1Menu : public j1Module
@@ -52,9 +53,15 @@ public:
 
 private:
 
+
+	SDL_TextInputEvent TextInputEvent;
 	SDL_Texture* debug_tex;
 	GuiImage* banner;
 	//	GuiText* text;
+
+	ImputText* ImputTextMenu = nullptr;
+	Image* ImputTextImage = nullptr;
+	Label* ImputTextLabel = nullptr;
 	Image* Bg_ui_image = nullptr;
 	Label* text = nullptr;
 	Image* Title_ui = nullptr;

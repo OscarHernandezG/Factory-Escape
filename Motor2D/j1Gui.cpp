@@ -12,6 +12,7 @@
 #include "UI_Window.h"
 #include "UI_Slider.h"
 #include "UI_Score.h"
+#include "UI_ImputText.h"
 #include "j1Audio.h"
 
 j1Gui::j1Gui() : j1Module()
@@ -130,6 +131,9 @@ UI_Element* j1Gui::AdUIElement(int x,int y, GUI_TYPE type)
 	case SCORE:
 		ret = new Score(x, y);
 		break;
+	case IMPUT_TEXT:
+		ret = new ImputText(x, y);
+		break;
 	default:
 		break;
 	}
@@ -166,6 +170,9 @@ UI_Element* j1Gui::AdHUDElement(int x, int y, GUI_TYPE type)
 		break;
 	case SCORE:
 		ret = new Score(x, y);
+		break;
+	case IMPUT_TEXT:
+		ret = new ImputText(x, y);
 		break;
 	default:
 		break;

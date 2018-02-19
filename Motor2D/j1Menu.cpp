@@ -22,6 +22,7 @@
 #include "j1Menu.h"
 #include "UI_Window.h"
 #include "UI_Slider.h"
+#include "UI_ImputText.h"
 
 #include <time.h>
 #include <chrono>
@@ -68,6 +69,7 @@ bool j1Menu::PreUpdate()
 // Called each loop iteration
 bool j1Menu::Update(float dt)
 {
+
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
 	if (need_setup)
@@ -227,6 +229,9 @@ void j1Menu::SetUpMenu() {
 	need_setup = false;
 	Bg_ui_image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
 	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");
+
+	ImputTextMenu = (ImputText*)App->gui->AdUIElement(1000, 10, IMPUT_TEXT);
+	ImputTextMenu->Label_ImputText->SetText("Your Name");
 
 	CreateMenu();
 }

@@ -15,6 +15,7 @@ enum GUI_TYPE {
 	WINDOW,
 	SLIDER,
 	SCORE,
+	IMPUT_TEXT
 };
 
 class UI_Element

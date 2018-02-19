@@ -135,6 +135,7 @@ bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY(__FUNCTION__, Profiler::Color::Orchid);
 
+
 	if (!Pause) {
 
 			static char score_timer[6];
@@ -256,6 +257,7 @@ bool j1Scene::Update(float dt)
 
 	}
 	App->map->Draw();
+
 	return true;
 }
 
@@ -541,8 +543,11 @@ void j1Scene::FindEntities()
 
 void j1Scene::CreatePauseMenu() {
 
-	window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
+	
 	window->Define({ 382,124,487,461 }, "");
+	//window->image = (Image*)App->gui->AdUIElement(0, 0, IMAGE);
+	window->image->LoadUI_Image({ 30,30,275,100 });
+	window = (Window*)App->gui->AdUIElement(300, 160, WINDOW);
 
 	Exit = (Button*)App->gui->AdUIElement(420, 260, BUTTON);
 	Exit->Define(App->gui->button_idle, App->gui->button_hovering, App->gui->button_onclick, "RETURN");
