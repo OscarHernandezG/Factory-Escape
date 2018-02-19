@@ -52,7 +52,6 @@ bool ImputText::Update(float dt) {
 			SDL_StopTextInput();
 		}
 	}
-	//App->render->Blit(text_info.tex, position.x, position.y, &text_info.rect, 0);
 
 	return true;
 }

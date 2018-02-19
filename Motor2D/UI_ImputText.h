@@ -7,14 +7,6 @@
 #include "p2List.h"
 #include "SDL\include\SDL.h"
 
-/*struct TextInfoImput {
-
-	SDL_Texture* tex = nullptr;
-	SDL_Rect rect{ 0,0,0,0 };
-
-	p2SString text;
-};
-*/
 class ImputText : public UI_Element
 {
 private:
@@ -37,7 +29,6 @@ public:
 	char* newText = nullptr;
 	Label* Label_ImputText;
 	Image* Image_imputText;
-	//TextInfoImput text_info;
 
 };
 
