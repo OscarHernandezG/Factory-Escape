@@ -15,8 +15,8 @@ ImputText::ImputText(int x, int y) : UI_Element(x, y) {
 	type = IMPUT_TEXT;
 	original_pos = position;
 
-	Image_imputText = (Image*)App->gui->AdUIElement(x, y, IMAGE);
-	Label_ImputText = (Label*)App->gui->AdUIElement(x, y, LABEL);
+	imageInputText = (Image*)App->gui->AdUIElement(x, y, IMAGE);
+	labelInputText = (Label*)App->gui->AdUIElement(x, y, LABEL);
 
 
 }
@@ -28,34 +28,41 @@ ImputText::~ImputText() {
 
 bool ImputText::Update(float dt) {
 	
-	if (InputText_Actived) {
-		App->font->CalcSize("|", W, H);
-		App->render->DrawQuad({ 1000,10,W,H }, 255, 255, 255, 255);
-		SDL_Event event;
-		
-		e.windowID;
+	if (InputText_Actived) {	
+		App->render->DrawQuad({ 1000 + r.w,10,3,13 }, 255, 255, 255, 255);
+		if (App->input->isPresed) {
+			text += App->input->newLetter;
+			App->font->CalcSize(text.data(), r.w, r.h);
+			texture = App->font->Print(text.data());
+			App->input->isPresed = false;
+		}
 
-		//Uint32 qq = event.text.type;
-		//SDL_IsTextInputActive()
-		Label_ImputText->SetText(event.text.text);
+		if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN) {
+			text.pop_back();
+			App->font->CalcSize(text.data(), r.w, r.h);
+			texture = App->font->Print(text.data());
+		}
+		App->render->Blit(texture, 1000, 10, &r);
 	}
+
+
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
 		InputText_Actived = !InputText_Actived;
 		if (InputText_Actived) {
-			Label_ImputText->SetText("");
+			labelInputText->SetText("");
 			SDL_StartTextInput();
 
 		}
 		else if (!InputText_Actived) {
-			Label_ImputText->SetText("Your Name");
+			labelInputText->SetText("Your Name");
 			SDL_StopTextInput();
 		}
 	}
 
 	return true;
 }
-bool ImputText::CleanUp() {
+bool ImputText::Draw(SDL_Texture* sprites) {
 
 	return true;
 }

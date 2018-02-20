@@ -3,8 +3,7 @@
 #include "UI.h"
 #include "UI_Label.h"
 #include "UI_Image.h"
-#include "p2SString.h"
-#include "p2List.h"
+#include <string.h>
 #include "SDL\include\SDL.h"
 
 class ImputText : public UI_Element
@@ -17,18 +16,23 @@ public:
 	~ImputText();
 
 	bool Update(float dt);
-	bool CleanUp();
+	bool ImputText::Draw(SDL_Texture* sprites);
+
+
+
+
+public:
 
 	bool InputText_Actived = false;
 	int H, W;
 
-public:
+	std::string text;
 
-	SDL_TextInputEvent e;
+	SDL_Texture* texture = nullptr;
+	SDL_Rect r;
 
-	char* newText = nullptr;
-	Label* Label_ImputText;
-	Image* Image_imputText;
+	Label* labelInputText;
+	Image* imageInputText;
 
 };
 

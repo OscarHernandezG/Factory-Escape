@@ -68,6 +68,8 @@ public:
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
 	int GetScroll();
+	char* newLetter = nullptr;
+	bool isPresed = false;
 
 private:
 	bool		windowEvents[WE_COUNT];

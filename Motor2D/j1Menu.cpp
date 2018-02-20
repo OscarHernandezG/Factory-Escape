@@ -231,7 +231,7 @@ void j1Menu::SetUpMenu() {
 	Bg_ui_image->LoadUI_Image("textures/Background_UI.png");
 
 	ImputTextMenu = (ImputText*)App->gui->AdUIElement(1000, 10, IMPUT_TEXT);
-	ImputTextMenu->Label_ImputText->SetText("Your Name");
+	ImputTextMenu->labelInputText->SetText("Your Name");
 
 	CreateMenu();
 }
