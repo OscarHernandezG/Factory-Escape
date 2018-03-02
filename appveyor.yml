@@ -2,3 +2,13 @@ version: 1.0.{build}
 image: Visual Studio 2017
 build:
   verbosity: minimal
+  
+  after_build:
+- 7z a FactoryEscape.zip "%APPVEYOR_BUILD_FOLDER%\Debug\Motor 2D.exe"
+- 7z a FactoryEscape.zip "%APPVEYOR_BUILD_FOLDER%\Game\audio"
+- 7z a FactoryEscape.zip "%APPVEYOR_BUILD_FOLDER%\Game\fonts"
+- 7z a FactoryEscape.zip "%APPVEYOR_BUILD_FOLDER%\Game\savegame"
+- 7z a FactoryEscape.zip "%APPVEYOR_BUILD_FOLDER%\Game\screenshots"
+- 7z a FactoryEscape.zip "%APPVEYOR_BUILD_FOLDER%\Game\textures"
+- 7z a FactoryEscape.zip "%APPVEYOR_BUILD_FOLDER%\Game\*.dll"
+- 7z a FactoryEscape.zip "%APPVEYOR_BUILD_FOLDER%\README.md"
