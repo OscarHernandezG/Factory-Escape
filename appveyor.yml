@@ -3,7 +3,7 @@ image: Visual Studio 2017
 build:
   verbosity: minimal
   
-  after_build:
+after_build:
 - 7z a FactoryEscape.zip "%APPVEYOR_BUILD_FOLDER%\Debug\Motor 2D.exe"
 - 7z a FactoryEscape.zip "%APPVEYOR_BUILD_FOLDER%\Game\audio"
 - 7z a FactoryEscape.zip "%APPVEYOR_BUILD_FOLDER%\Game\fonts"
