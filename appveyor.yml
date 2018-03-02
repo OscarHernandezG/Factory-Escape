@@ -15,4 +15,4 @@ after_build:
 
 artifacts:
   - path: FactoryEscape.zip
-    name: Release
+  - name: Release
