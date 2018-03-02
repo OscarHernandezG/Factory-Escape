@@ -12,3 +12,7 @@ build:
 - 7z a FactoryEscape.zip "%APPVEYOR_BUILD_FOLDER%\Game\textures"
 - 7z a FactoryEscape.zip "%APPVEYOR_BUILD_FOLDER%\Game\*.dll"
 - 7z a FactoryEscape.zip "%APPVEYOR_BUILD_FOLDER%\README.md"
+
+artifacts:
+  - path: FactoryEscape.zip
+    name: Release
