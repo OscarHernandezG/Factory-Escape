@@ -15,3 +15,7 @@ after_build:
 
 artifacts:
   - path: FactoryEscape.zip
+  
+  deploy:
+  provider: FactoryEscape_Releases
+  name: GitHub Releases
