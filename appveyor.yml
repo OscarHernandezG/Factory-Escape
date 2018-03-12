@@ -16,7 +16,7 @@ after_build:
 artifacts:
   - path: FactoryEscape.zip
   
-  deploy:
+deploy:
   - provider: GitHub
     release: Factory Escape v$(appveyor_build_version)
     artifact: "FactoryEscape.zip"
