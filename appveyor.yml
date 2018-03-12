@@ -20,7 +20,9 @@ deploy:
   - provider: GitHub
     release: Factory Escape v$(appveyor_build_version)
     artifact: "FactoryEscape.zip"
-    draft: false
-    prerelease: false
+    auth_token:
+      secure: JcMPWRUJB+nle8Oj8XmkH2SckI3nFL6kMl1mpctsApIPoxscRoFyNtI5Gmoer62p
+    draft: true
+    prerelease: true
     on:
       appveyor_repo_tag: false
