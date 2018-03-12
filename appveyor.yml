@@ -14,8 +14,8 @@ after_build:
 - 7z a FactoryEscape.zip "%APPVEYOR_BUILD_FOLDER%\README.md"
 
 artifacts:
-  path: FactoryEscape.zip
-  
-  deploy:
+  - path: WarcraftII_The_Stolen_Artifacts.zip
+     
+deploy:
   provider: FactoryEscape_Releases
   name: GitHub Releases
